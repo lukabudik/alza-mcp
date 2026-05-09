@@ -6,11 +6,11 @@ import { log } from "./logger.js";
 
 const require = createRequire(import.meta.url);
 
-const PAGE_TIMEOUT_MS = 45_000;
-const MAX_PAGES = 4;
-const IDLE_PAGE_TTL_MS = 60 * 1000;
+const PAGE_TIMEOUT_MS = 30_000;
 const HEADER_USER_AGENT =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36";
+
+const DEFAULT_IDLE_BROWSER_TTL_MS = 3 * 60 * 1000;
 
 export interface BrowserOptions {
   baseUrl?: string;
@@ -18,122 +18,104 @@ export interface BrowserOptions {
   cdpUrl?: string;
   /** Set false to run a visible window (debugging only). Default true. */
   headless?: boolean;
-}
-
-interface PoolEntry {
-  page: Page;
-  inUse: boolean;
-  lastUsedAt: number;
+  /** Close the browser entirely after this many ms of inactivity. Default 3 min. */
+  idleTtlMs?: number;
 }
 
 /**
- * Singleton-ish browser facade. The first request triggers Chromium launch
- * (or CDP attach). Pages are pooled and reused — DOM-driven scrapes become
- * "navigate + wait + extract" without paying re-launch cost per call.
+ * Lazy, idle-shutdown browser facade.
  *
- * Resource discipline:
- *  - Images, media, fonts, ads, analytics are blocked at request time.
- *  - At most MAX_PAGES live pages; idle ones are recycled after IDLE_PAGE_TTL_MS.
+ * Design notes:
+ *  - The browser is launched on first use, NOT eagerly.
+ *  - Pages are NOT pooled. Each `withPage` call opens a fresh page and
+ *    closes it in a finally — pages accumulate DOM/JS heap across
+ *    navigations and pooling them caused 1.9 GB renderer leaks.
+ *  - When no calls have been made for `idleTtlMs`, the entire browser
+ *    process tree is shut down. Next call relaunches.
+ *  - Image/font/media/analytics traffic is blocked at the route level so
+ *    every page load is just HTML + JSON-LD.
  */
 export class AlzaBrowser {
   readonly locale: Locale;
   private readonly cdpUrl?: string;
   private readonly headless: boolean;
+  private readonly idleTtlMs: number;
 
   private launching?: Promise<Browser>;
   private browser?: Browser;
   private context?: BrowserContext;
-  private readonly pool: PoolEntry[] = [];
+  private idleTimer?: NodeJS.Timeout;
+  private inFlight = 0;
   private closed = false;
 
   constructor(opts: BrowserOptions = {}) {
     this.locale = resolveLocale(opts.baseUrl);
     this.cdpUrl = opts.cdpUrl ?? process.env.ALZA_CDP_URL;
     this.headless = opts.headless ?? process.env.ALZA_HEADLESS !== "false";
+    const envTtl = Number(process.env.ALZA_IDLE_TTL_MS);
+    this.idleTtlMs =
+      opts.idleTtlMs ?? (Number.isFinite(envTtl) && envTtl > 0 ? envTtl : DEFAULT_IDLE_BROWSER_TTL_MS);
   }
 
   /**
-   * Run an async function with a fresh-or-reused page. The page is returned
-   * to the pool when the callback resolves; on error it's destroyed.
+   * Run an async function with a fresh page. The page is opened just
+   * before the callback and closed unconditionally afterward.
    */
   async withPage<T>(fn: (page: Page) => Promise<T>): Promise<T> {
-    const entry = await this.acquirePage();
+    if (this.closed) throw new Error("browser closed");
+
+    this.cancelIdleTimer();
+    this.inFlight++;
+    let page: Page | undefined;
     try {
-      const result = await fn(entry.page);
-      entry.inUse = false;
-      entry.lastUsedAt = Date.now();
-      return result;
-    } catch (err) {
-      // Drop a faulty page rather than reusing it.
-      this.dropPage(entry);
-      throw err;
+      const ctx = await this.ensureContext();
+      page = await ctx.newPage();
+      page.setDefaultTimeout(PAGE_TIMEOUT_MS);
+      page.setDefaultNavigationTimeout(PAGE_TIMEOUT_MS);
+      return await fn(page);
+    } finally {
+      if (page) await page.close().catch(() => {});
+      this.inFlight--;
+      if (this.inFlight === 0) this.scheduleIdleShutdown();
     }
   }
 
   async close(): Promise<void> {
     this.closed = true;
-    for (const entry of this.pool) {
-      await entry.page.close().catch(() => {});
-    }
-    this.pool.length = 0;
-    await this.context?.close().catch(() => {});
+    this.cancelIdleTimer();
+    await this.shutdownBrowser();
+  }
+
+  private async shutdownBrowser(): Promise<void> {
+    const ctx = this.context;
+    const browser = this.browser;
+    this.context = undefined;
+    this.browser = undefined;
+
+    await ctx?.close().catch(() => {});
+
     if (this.cdpUrl) {
-      // Don't close a browser we attached to — it belongs to the user.
-      this.browser = undefined;
-    } else {
-      await this.browser?.close().catch(() => {});
-      this.browser = undefined;
+      // We attached to a user's Chrome — never close it.
+      return;
     }
+    await browser?.close().catch(() => {});
   }
 
-  private async acquirePage(): Promise<PoolEntry> {
-    if (this.closed) throw new Error("browser closed");
-
-    // Reap stale idle pages first.
-    const now = Date.now();
-    for (let i = this.pool.length - 1; i >= 0; i--) {
-      const e = this.pool[i];
-      if (!e || e.inUse) continue;
-      if (now - e.lastUsedAt > IDLE_PAGE_TTL_MS) {
-        await e.page.close().catch(() => {});
-        this.pool.splice(i, 1);
-      }
-    }
-
-    // Reuse any idle page.
-    const idle = this.pool.find((e) => !e.inUse);
-    if (idle) {
-      idle.inUse = true;
-      return idle;
-    }
-
-    // Create a new page if under cap.
-    if (this.pool.length < MAX_PAGES) {
-      const ctx = await this.ensureContext();
-      const page = await ctx.newPage();
-      page.setDefaultTimeout(PAGE_TIMEOUT_MS);
-      page.setDefaultNavigationTimeout(PAGE_TIMEOUT_MS);
-      const entry: PoolEntry = { page, inUse: true, lastUsedAt: Date.now() };
-      this.pool.push(entry);
-      return entry;
-    }
-
-    // Wait briefly for one to free up. Simple poll — pool size is small.
-    for (let i = 0; i < 50; i++) {
-      await sleep(100);
-      const e = this.pool.find((e) => !e.inUse);
-      if (e) {
-        e.inUse = true;
-        return e;
-      }
-    }
-    throw new Error("browser page pool exhausted");
+  private scheduleIdleShutdown(): void {
+    this.cancelIdleTimer();
+    this.idleTimer = setTimeout(() => {
+      log.info("alza-browser: closing idle browser", { idleMs: this.idleTtlMs });
+      void this.shutdownBrowser();
+    }, this.idleTtlMs);
+    // Don't keep the process alive solely for this timer (matters for stdio).
+    this.idleTimer.unref?.();
   }
 
-  private dropPage(entry: PoolEntry): void {
-    const i = this.pool.indexOf(entry);
-    if (i >= 0) this.pool.splice(i, 1);
-    entry.page.close().catch(() => {});
+  private cancelIdleTimer(): void {
+    if (this.idleTimer) {
+      clearTimeout(this.idleTimer);
+      this.idleTimer = undefined;
+    }
   }
 
   private async ensureContext(): Promise<BrowserContext> {
@@ -143,15 +125,12 @@ export class AlzaBrowser {
       locale: this.locale.acceptLanguage.split(",")[0] ?? "cs-CZ",
       userAgent: HEADER_USER_AGENT,
       viewport: { width: 1366, height: 900 },
-      // Defeat header signatures used by simple bot heuristics.
       extraHTTPHeaders: { "accept-language": this.locale.acceptLanguage },
     });
 
-    // Block heavy / tracking traffic before it leaves the browser.
     await context.route("**/*", (route) => {
       const t = route.request().resourceType();
       if (t === "image" || t === "media" || t === "font") return route.abort();
-
       const url = route.request().url();
       if (
         url.includes("googletagmanager.com") ||
@@ -182,6 +161,12 @@ export class AlzaBrowser {
       log.info("alza-browser: launching managed Chromium", { headless: this.headless });
       const browser = await this.launchChromiumWithFallback();
       this.browser = browser;
+      browser.on("disconnected", () => {
+        // External shutdown (crashed, killed by user) — clear refs so we can relaunch on next use.
+        log.info("alza-browser: chromium disconnected");
+        this.browser = undefined;
+        this.context = undefined;
+      });
       return browser;
     })().finally(() => {
       this.launching = undefined;
@@ -193,7 +178,14 @@ export class AlzaBrowser {
   private async launchChromiumWithFallback(): Promise<Browser> {
     const launchArgs = {
       headless: this.headless,
-      args: ["--disable-blink-features=AutomationControlled"],
+      args: [
+        "--disable-blink-features=AutomationControlled",
+        // Trim memory / process count.
+        "--disable-dev-shm-usage",
+        "--disable-extensions",
+        "--no-default-browser-check",
+        "--no-first-run",
+      ],
     };
     try {
       return await chromium.launch(launchArgs);
@@ -241,8 +233,4 @@ async function ensureChromiumInstalled(): Promise<void> {
         );
     });
   });
-}
-
-function sleep(ms: number): Promise<void> {
-  return new Promise((r) => setTimeout(r, ms));
 }
