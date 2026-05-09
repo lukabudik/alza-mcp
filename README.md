@@ -1,6 +1,6 @@
 # alza-mcp
 
-> An unofficial **Model Context Protocol** server for [Alza.cz](https://www.alza.cz) — gives AI agents a clean, read-only interface for browsing one of Central Europe's largest e-commerce catalogs.
+> Let your AI agent shop on **[Alza.cz](https://www.alza.cz)** — Central Europe's largest e-commerce store.
 
 [![npm version](https://img.shields.io/npm/v/alza-mcp.svg)](https://www.npmjs.com/package/alza-mcp)
 [![CI](https://github.com/lukabudik/alza-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/lukabudik/alza-mcp/actions/workflows/ci.yml)
@@ -9,38 +9,28 @@
 [![Playwright](https://img.shields.io/badge/-Playwright-2EAD33?logo=playwright&logoColor=white)](https://playwright.dev/)
 [![MCP](https://img.shields.io/badge/-Model%20Context%20Protocol-7C3AED)](https://modelcontextprotocol.io)
 
-Ask Claude (or any MCP-aware agent) "find me a quiet 14-inch laptop under 30 000 Kč with good reviews and the closest place I can pick it up" — and it actually can.
+`alza-mcp` is an unofficial **Model Context Protocol** server that gives Claude (or any MCP-aware agent) a read-only window into the Alza catalog: search products, pull full detail, read aggregated reviews, find a nearby pickup point. No credentials, no purchases — just research.
+
+Ask: *"Find me the best pro-grade wheel cleaner under 600 Kč and tell me where I can pick it up in Prague."* The agent calls `search_products` → `get_product` → `find_pickup_points` and gives you a real answer with real prices and a real address.
 
 > [!IMPORTANT]
-> This project is **unofficial** and not affiliated with, endorsed by, or sponsored by Alza.cz a.s. It is a community wrapper for personal and research use. Read the [disclaimer](#disclaimer) before deploying or sharing widely.
+> This project is **unofficial** — not affiliated with, endorsed by, or sponsored by Alza.cz a.s. It's a community wrapper for personal/research use. Read the [disclaimer](#disclaimer) before deploying or sharing widely.
 
 ---
 
-## What it does
+## Quick install
 
-Five focused tools, all read-only, no credentials required:
+### Claude Code
 
-| Tool | What it does |
-|---|---|
-| **`search_products`** | Keyword search across the catalog with filters (price range, sort, category) |
-| **`get_product`** | Full details for one product — price, availability, specs, brand, image, URL |
-| **`get_product_reviews`** | Aggregate rating + review count (individual review bodies — v0.2) |
-| **`find_pickup_points`** | Nearest brick-and-mortar AlzaShop showrooms by postal code (AlzaBox lockers — v0.2) |
-| **`list_categories`** | 20 top-level Alza categories with ids — feed `category_id` to `search_products` to narrow results |
+```bash
+claude mcp add alza --scope user -- npx -y alza-mcp
+```
 
-Plus:
-
-- 📦 **Resource** `alza://product/{code}` — same product data as a browseable URI.
-- 💬 **Prompt** `/find-product` — guided shopping helper that orchestrates the tools above.
-- 🌍 **Multi-locale** — works for `alza.cz`, `.sk`, `.hu`, `.at`, `.de`, `.co.uk` via one env var.
-
----
-
-## Install
+That's it. Restart Claude Code, type `/mcp` to confirm, and start asking. First call takes ~30 s while Playwright downloads its headless Chromium browser (~92 MB) — every call after that is a few seconds.
 
 ### Claude Desktop
 
-Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
+Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
 
 ```json
 {
@@ -53,62 +43,85 @@ Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) o
 }
 ```
 
-After install, run `npx playwright install chromium` once — the first tool call needs Chromium (~92 MB headless-shell). Restart Claude Desktop.
+Restart the app. Same first-call download.
 
-### Claude Code
+### Cursor / Continue / any MCP client
 
-```bash
-claude mcp add alza --scope user -- npx -y alza-mcp
-```
+Same shape — `command: "npx"`, `args: ["-y", "alza-mcp"]`. Stdio transport, standard MCP everywhere.
 
-### Cursor / Continue / other MCP clients
-
-Same shape — `command: "npx"`, `args: ["-y", "alza-mcp"]`. Any MCP client that supports stdio transport works.
-
-### Optional config (env vars)
-
-| Variable | Default | Purpose |
-|---|---|---|
-| `ALZA_BASE_URL` | `https://www.alza.cz` | Switch locale. One of `https://www.alza.cz`, `.sk`, `.hu`, `.at`, `.de`, `.co.uk`. |
-| `ALZA_CDP_URL` | _unset_ | Connect to your already-running Chrome via CDP instead of launching a managed Chromium. Inherits your session, faster cold starts, no Chromium download. Launch Chrome with `--remote-debugging-port=9222` and set `ALZA_CDP_URL=http://localhost:9222`. |
-| `ALZA_HEADLESS` | `true` | Set to `false` to run a visible browser (debugging only). |
-| `ALZA_DEBUG` | `false` | Verbose stderr logging. |
+> 📦 **Coming soon to npm.** Until v0.1 ships there, install from source: `git clone`, `npm install`, `npm run build`, then point the MCP at `node /path/to/alza-mcp/dist/index.js`.
 
 ---
 
-## Usage examples
+## What you can ask
 
-> **You:** I need a quiet mechanical keyboard under 3000 Kč.
->
-> **Agent:** *(calls `search_products` with query="quiet mechanical keyboard", max_price=3000, sort="rating")*
-> Three options at Alza:
-> 1. **Keychron K8 Pro** — 2 990 Kč, ★ 4.7 (218 reviews) — `[code QC453ax1]`
-> 2. **Logitech MX Mechanical Mini** — 2 890 Kč, ★ 4.6 — `[code LO321aQ8]`
-> 3. **Razer Pro Type Ultra** — 2 490 Kč, ★ 4.4 — `[code RZ889o12]`
->
-> Want me to pull full specs and reviews for one of these?
+A real session captured during testing:
 
-> **You:** Where can I pick up an order in Brno?
+> **You:** Find me the best pro-grade wheel cleaner on Alza, around 500 Kč. I want a detailer-tier brand.
 >
-> **Agent:** *(calls `find_pickup_points` with postal_code="60200")*
-> **AlzaShop Brno** (showroom) · 1.2 km · Vídeňská 100, 619 00 Brno
+> **Claude:** *(calls `search_products` "čistič disků kol" sort=rating, then `get_product` on the top picks)*
+>
+> Top three from the live catalog:
+>
+> | # | Product | Brand | Volume | Price | ★ |
+> |---|---|---|---:|---:|---:|
+> | 1 | Sonax Xtreme Full Effect | Sonax 🇩🇪 | 750 ml | 559 Kč | 4.8 |
+> | 2 | Kenotek Wheel Cleaner Ultra | Kenotek 🇧🇪 | 1 L | 455 Kč | 4.8 |
+> | 3 | Auto Finesse Reactive 1L | Auto Finesse 🇬🇧 | 1 L | 599 Kč | 4.4 |
+>
+> Pick: **Sonax Xtreme Full Effect 750 ml** — the de-facto detailer recommendation. It's iron-fallout reactive (turns purple on contact with brake-dust particles so you can watch it work), Sonax is a German workshop standard, and it's in stock.
+
+That's the agent calling four MCP tools across two parallel searches and synthesizing real Alza data. No hallucinated SKUs.
+
+---
+
+## What it does
+
+Five focused tools, all read-only:
+
+| Tool | Purpose |
+|---|---|
+| **`search_products`** | Keyword search with filters — price range, sort, category, in-stock |
+| **`get_product`** | Full detail for one product — price, availability, brand, image, URL |
+| **`get_product_reviews`** | Aggregate rating + review count |
+| **`find_pickup_points`** | Nearest brick-and-mortar AlzaShop showrooms by postal code |
+| **`list_categories`** | 20 top-level Alza categories with ids — feed `category_id` to `search_products` to narrow |
+
+Plus:
+
+- 📦 **Resource** — `alza://product/{code}` lets agents read a product as a URI.
+- 💬 **Prompt** — `/find-product` is a guided shopping helper.
+- 🌍 **Multi-locale** — works for `alza.cz`, `.sk`, `.hu`, `.at`, `.de`, `.co.uk` via one env var.
+
+---
+
+## Configuration
+
+All optional — `alza-mcp` works out of the box.
+
+| Env var | Default | Purpose |
+|---|---|---|
+| `ALZA_BASE_URL` | `https://www.alza.cz` | Switch locale: `https://www.alza.cz`, `.sk`, `.hu`, `.at`, `.de`, `.co.uk` |
+| `ALZA_CDP_URL` | _unset_ | Connect to your already-running Chrome via CDP instead of launching a managed Chromium. Skips the browser download, inherits your session. Launch Chrome with `--remote-debugging-port=9222` and set `ALZA_CDP_URL=http://localhost:9222`. |
+| `ALZA_HEADLESS` | `true` | Set `false` to run a visible browser (debugging only) |
+| `ALZA_DEBUG` | `false` | Verbose stderr logging |
 
 ---
 
 ## How it works
 
-There is **no public consumer API** for Alza. The mobile app's REST endpoints exist, but Alza runs Cloudflare Bot Management in challenge mode on top of them — plain HTTP clients get 403, even with the right mobile-app User-Agent. (Note: this is not the case for most other CEE retailers; e.g. [rohlik-mcp](https://github.com/tomaspavlin/rohlik-mcp) wraps Rohlik over plain HTTP because Rohlik runs CF in passive mode. Alza is one of the few that defends its catalog actively.)
+Alza has no public consumer API. The mobile app's REST endpoints exist, but Alza runs **Cloudflare Bot Management in challenge mode** — every plain HTTP call returns `403` with a JS challenge. (Most CEE retailers don't do this; e.g. [rohlik-mcp](https://github.com/tomaspavlin/rohlik-mcp) uses plain HTTP because Rohlik runs Cloudflare in passive mode. Alza is one of the few that actively defends its catalog.)
 
 Rather than fight Cloudflare, **`alza-mcp` drives a real browser**:
 
-1. **Playwright + headless Chromium** — Cloudflare lets a real browser through; we just *are* one. No fingerprint games, no proxy dependencies, no cat-and-mouse with bot-detection rules.
-2. **Catalog tools navigate `https://www.alza.cz/search.htm?exps=...`** and scrape the result cards (`.browsingitem` × 24, with stable `data-code` attributes).
-3. **Product details come from the page's JSON-LD `Product` schema** — the same SEO data Google uses for rich snippets. Stable, structured, no DOM-selector roulette.
-4. **Reviews use the JSON-LD `aggregateRating`** for average + count. (Individual review bodies are loaded dynamically on the reviews tab — v0.2.)
-5. **Pickup points** combine a curated branch dataset with geocoding via [Nominatim](https://nominatim.openstreetmap.org/). AlzaBox locker discovery is planned for v0.2 (DOM scrape of [`alza.cz/alzabox.htm`](https://www.alza.cz/alzabox.htm)).
-6. **Caching** — search 60 s, product 15 min, categories 24 h, code-to-URL 1 h. Per-process LRU.
+1. **Playwright + headless Chromium** — Cloudflare lets a real browser through; we just *are* one. No fingerprint games, no proxy dependencies, no cat-and-mouse.
+2. **Search** navigates `/search.htm?exps=...` and scrapes `.browsingitem` cards with stable `data-code` attributes.
+3. **Product detail** comes from the page's JSON-LD `Product` schema — the same SEO data Google uses for rich snippets. Stable and structured.
+4. **Reviews** use the JSON-LD `aggregateRating`.
+5. **Pickup points** combine a curated branch dataset with [Nominatim](https://nominatim.openstreetmap.org/) geocoding.
+6. **Caching** — search 60 s, product 15 min, categories 24 h. Per-process LRU.
 
-The browser launches lazily on the first tool call, pages are pooled, and image / font / analytics traffic is blocked at the route level — every search is one HTML payload, no media. Typical latencies: search ~2 s, product detail ~5 s warm, categories ~20 s cold.
+Image, font, and analytics requests are blocked at the route level — every search is one HTML payload, no media. Typical latencies: search ~2 s, product detail ~5 s warm.
 
 ```
 ┌────────────────────────────────────────────┐
@@ -126,11 +139,7 @@ The browser launches lazily on the first tool call, pages are pooled, and image 
 └────────────────────────────────────────────┘
 ```
 
-### Why a browser is the right answer
-
-Datacenter and casual-residential clients hit a Cloudflare JS challenge on every Alza request. Working around that requires one of: a residential-proxy network (paid), a TLS-impersonation library plus solver (fragile, often broken), an external CF-bypass service (Docker-heavy or paid), or a real browser. The first three lose against CF rule updates. A real browser doesn't lose because there's nothing to lose against — it really is a browser.
-
-The cost is install footprint (~92 MB Chromium on first run) and per-call latency (a few seconds, not milliseconds). For a shopping assistant this is the right trade — humans don't shop in milliseconds either.
+For deeper architecture notes — including why we don't ship the HTTP/okhttp recipe — see [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ---
 
@@ -139,19 +148,18 @@ The cost is install footprint (~92 MB Chromium on first run) and per-call latenc
 ```bash
 git clone https://github.com/lukabudik/alza-mcp.git
 cd alza-mcp
-npm install
-npx playwright install chromium
-npm test                # unit tests (no network)
+npm install                 # auto-installs Chromium via postinstall
+npm test                    # unit tests, no network
 npm run typecheck
-npm run build           # → dist/
-npm run validate:api    # hits real Alza — runs every tool end-to-end
-node dist/index.js      # run the server (waits for stdio MCP messages)
+npm run build               # → dist/
+npm run validate:api        # hits real Alza — runs every tool end-to-end
+node dist/index.js          # run the server (waits for stdio MCP messages)
 ```
 
 **Further reading:**
-- [ARCHITECTURE.md](ARCHITECTURE.md) — why the code looks the way it does (CF, Playwright, hydration strategy).
-- [ROADMAP.md](ROADMAP.md) — what's planned next.
-- [CONTRIBUTING.md](CONTRIBUTING.md) — repo layout and how to add a tool.
+- [ARCHITECTURE.md](ARCHITECTURE.md) — why the code looks the way it does (CF, Playwright, hydration strategy)
+- [ROADMAP.md](ROADMAP.md) — what's planned next
+- [CONTRIBUTING.md](CONTRIBUTING.md) — repo layout and how to add a tool
 
 ---
 
@@ -159,11 +167,11 @@ node dist/index.js      # run the server (waits for stdio MCP messages)
 
 The current release is intentionally small and read-only. Highlights of what's planned:
 
-- **AlzaBox locker discovery** — surface 24/7 parcel lockers, not just showrooms.
-- **Individual review bodies** — load the reviews tab and scrape per-review text, not just the aggregate.
-- **Streamable HTTP transport** + hosted endpoint on Vercel.
-- **Compare / recommend / deals** tools.
-- **PC builder** — socket / RAM / wattage / clearance compatibility engine over Alza's spec parameters.
+- **AlzaBox locker discovery** — surface 24/7 parcel lockers, not just showrooms
+- **Individual review bodies** — load the reviews tab and scrape per-review text, not just the aggregate
+- **Streamable HTTP transport** + hosted endpoint on Vercel
+- **Compare / recommend / deals** tools
+- **PC builder** — socket / RAM / wattage / clearance compatibility engine
 
 Full list and priorities live in [ROADMAP.md](ROADMAP.md).
 
@@ -173,11 +181,10 @@ Full list and priorities live in [ROADMAP.md](ROADMAP.md).
 
 ### Why the 92 MB Chromium download?
 
-Cloudflare's Bot Management checks more than just User-Agent — it runs a JavaScript challenge that only a real browser can solve. We tried mimicking the official Alza Android app with `okhttp` and the right cookies (the recipe used by [topmonks/hlidac-shopu](https://github.com/topmonks/hlidac-shopu/tree/main/actors/alza)) and it works — *if* you call from Apify's residential proxy network. From any laptop or datacenter you get 403s. Driving a real headless Chrome was the only approach that worked end-to-end without external dependencies. See [How it works](#how-it-works) for the full reasoning.
+Cloudflare's Bot Management runs a JavaScript challenge that only a real browser can solve. We tried mimicking the official Alza Android app with `okhttp` and the right cookies (the [topmonks/hlidac-shopu](https://github.com/topmonks/hlidac-shopu/tree/main/actors/alza) recipe) and it works — *if* you call from Apify's residential proxy network. From any laptop or datacenter you get 403s. Driving a real headless Chrome was the only approach that worked end-to-end without external dependencies. See [How it works](#how-it-works) for the full reasoning.
 
 ### Why no purchasing / cart / login?
 
-Three reasons:
 1. **Trust** — running an MCP server that holds your Alza credentials is a much higher bar than a read-only catalog browser.
 2. **Stability** — the cart/order flow is the most likely to break with frontend updates.
 3. **Scope** — agents that *help you research* are useful even without `place_order`. Click "Buy" yourself when you're ready.
@@ -226,7 +233,7 @@ MIT. See [LICENSE](LICENSE).
 
 ## Acknowledgements
 
-- [tomaspavlin/rohlik-mcp](https://github.com/tomaspavlin/rohlik-mcp) — direct inspiration; ditto layout patterns.
+- [tomaspavlin/rohlik-mcp](https://github.com/tomaspavlin/rohlik-mcp) — direct inspiration; layout patterns we mirror.
 - [topmonks/hlidac-shopu](https://github.com/topmonks/hlidac-shopu) — reference Alza scraper recipe (HTTP + proxies).
-- [microsoft/playwright-mcp](https://github.com/microsoft/playwright-mcp) — the official Playwright MCP server, proof that a browser-driven MCP is the right abstraction for a lot of websites.
+- [microsoft/playwright-mcp](https://github.com/microsoft/playwright-mcp) — official Playwright MCP, proof that browser-driven MCPs are the right abstraction for many websites.
 - [Model Context Protocol](https://modelcontextprotocol.io) and the [TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk).
