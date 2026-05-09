@@ -35,13 +35,18 @@ export function buildServer(opts: BuildOptions = {}): BuildResult {
   const deps = { catalog, reviews, pickup };
 
   const server = new McpServer(
-    { name: "alza-mcp", version: VERSION },
+    { name: "alza-mcp", title: "Alza (unofficial)", version: VERSION },
     {
       capabilities: {
         tools: {},
         resources: {},
         prompts: {},
       },
+      instructions:
+        "Read-only catalog browser for Alza.cz, the Czech/CEE e-commerce retailer. " +
+        "Unofficial — not affiliated with or endorsed by Alza.cz a.s. " +
+        "Use search_products to find items, get_product for full detail, " +
+        "get_product_reviews for ratings, find_pickup_points for nearby AlzaShop locations.",
     }
   );
 
