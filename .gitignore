@@ -9,3 +9,4 @@ dist/
 coverage/
 *.tsbuildinfo
 validation-results.json
+.postinstall.log
