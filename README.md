@@ -5,6 +5,9 @@
 [![npm version](https://img.shields.io/npm/v/alza-mcp.svg)](https://www.npmjs.com/package/alza-mcp)
 [![CI](https://github.com/lukabudik/alza-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/lukabudik/alza-mcp/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Playwright](https://img.shields.io/badge/-Playwright-2EAD33?logo=playwright&logoColor=white)](https://playwright.dev/)
+[![MCP](https://img.shields.io/badge/-Model%20Context%20Protocol-7C3AED)](https://modelcontextprotocol.io)
 
 Ask Claude (or any MCP-aware agent) "find me a quiet 14-inch laptop under 30 000 Kč with good reviews and the closest place I can pick it up" — and it actually can.
 
@@ -145,24 +148,24 @@ npm run validate:api    # hits real Alza — runs every tool end-to-end
 node dist/index.js      # run the server (waits for stdio MCP messages)
 ```
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the layout and how to add a tool.
+**Further reading:**
+- [ARCHITECTURE.md](ARCHITECTURE.md) — why the code looks the way it does (CF, Playwright, hydration strategy).
+- [ROADMAP.md](ROADMAP.md) — what's planned next.
+- [CONTRIBUTING.md](CONTRIBUTING.md) — repo layout and how to add a tool.
 
 ---
 
 ## Roadmap
 
-The current release is intentionally small and read-only. Things on the roadmap, in rough priority order:
+The current release is intentionally small and read-only. Highlights of what's planned:
 
-- [ ] **AlzaBox locker discovery** — DOM-scrape `alza.cz/alzabox.htm` to surface lockers in `find_pickup_points`.
-- [ ] **Individual review bodies** — load the reviews tab and scrape each entry, not just the aggregate.
-- [ ] **Streamable HTTP transport** + hosted endpoint on Vercel — runs the same code remotely so users don't need a local browser. Hosted instance would use Vercel + Browserbase or a residential-proxy lane to defeat CF from a datacenter IP.
-- [ ] **Daily `validate-api` cron** with Slack/Discord drift alerts.
-- [ ] **Compare / recommend / deals** tools — multi-product comparison, "find me alternatives to X", and curated daily deals.
-- [ ] **PC builder** — socket / RAM / wattage / clearance compatibility engine over Alza's spec parameters. (Alza is the dominant Czech PC-parts retailer; this is the obvious power-user feature.)
-- [ ] **Price watchlist** — durable subscriptions, daily cron, webhook on threshold.
-- [ ] **Spec-param extraction** — pull the per-product spec table into structured `params` array.
-- [ ] **Write actions** (cart / order) via MCP URL elicitation for BYO-credentials. **Conditional** — only if there's clear demand and we can do it safely. Read-only-forever is also a respectable end state.
-- [ ] **Registry submissions** — Smithery, mcp.so, PulseMCP, Glama, official `modelcontextprotocol/servers` README.
+- **AlzaBox locker discovery** — surface 24/7 parcel lockers, not just showrooms.
+- **Individual review bodies** — load the reviews tab and scrape per-review text, not just the aggregate.
+- **Streamable HTTP transport** + hosted endpoint on Vercel.
+- **Compare / recommend / deals** tools.
+- **PC builder** — socket / RAM / wattage / clearance compatibility engine over Alza's spec parameters.
+
+Full list and priorities live in [ROADMAP.md](ROADMAP.md).
 
 ---
 

@@ -1,4 +1,14 @@
 #!/usr/bin/env tsx
+/**
+ * Targeted DOM probe for the search-result card and the product detail page.
+ * Used when src/domain/catalog.ts needs updated selectors after an Alza redesign.
+ *
+ *   npx tsx scripts/probe-card.ts
+ *
+ * Prints: per-card field probes (name, URL, image, price, rating selectors),
+ * follows the first non-sponsored card's link, and dumps the product page's
+ * JSON-LD blocks + spec table.
+ */
 import { chromium } from "playwright";
 import { writeFile } from "node:fs/promises";
 

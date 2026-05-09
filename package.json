@@ -39,7 +39,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lukabudik/alza-mcp"
+    "url": "git+https://github.com/lukabudik/alza-mcp.git"
   },
   "homepage": "https://github.com/lukabudik/alza-mcp#readme",
   "bugs": {

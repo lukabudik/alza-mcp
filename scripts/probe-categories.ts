@@ -1,4 +1,15 @@
 #!/usr/bin/env tsx
+/**
+ * Probe the homepage navigation to find a stable selector for the
+ * top-level category list. Use this when `list_categories` returns an empty
+ * array — it usually means Alza renamed the navigation container class.
+ *
+ *   npx tsx scripts/probe-categories.ts
+ *
+ * Output groups anchor-link candidates by ancestor selector; pick the
+ * group with the best "looks like the category list" entries and copy
+ * its ancestor pattern into src/domain/catalog.ts.
+ */
 import { chromium } from "playwright";
 
 async function main() {

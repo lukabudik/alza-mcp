@@ -1,4 +1,14 @@
 #!/usr/bin/env tsx
+/**
+ * One-off DOM probe — open Alza pages with Playwright, dump the structure,
+ * and try common selectors. Use this when Alza redesigns the catalog and
+ * the scrapers in src/domain/catalog.ts need new selectors.
+ *
+ *   npx tsx scripts/probe-dom.ts
+ *
+ * Output: structured findings to stdout; full HTML saved to /tmp/alza-probe-*.html.
+ * Companion scripts: probe-card.ts (card structure) and probe-categories.ts.
+ */
 import { chromium } from "playwright";
 import { writeFile } from "node:fs/promises";
 
