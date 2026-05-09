@@ -1,0 +1,64 @@
+{
+  "name": "alza-mcp",
+  "version": "0.1.0",
+  "description": "Unofficial Model Context Protocol server for Alza.cz — gives AI agents a read-only interface to browse products, reviews, and pickup points.",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "alza-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc && chmod +x dist/index.js",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "validate:api": "tsx scripts/validate-api.ts",
+    "postinstall": "node scripts/postinstall.cjs",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "alza",
+    "alza.cz",
+    "ecommerce",
+    "shopping",
+    "claude",
+    "anthropic",
+    "ai",
+    "agent"
+  ],
+  "author": "alza-mcp contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lukabudik/alza-mcp"
+  },
+  "homepage": "https://github.com/lukabudik/alza-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/lukabudik/alza-mcp/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.26.0",
+    "cheerio": "^1.0.0",
+    "playwright": "^1.59.1",
+    "undici": "^7.0.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}
