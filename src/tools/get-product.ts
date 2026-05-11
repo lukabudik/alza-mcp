@@ -19,9 +19,9 @@ export function createGetProductTool(deps: ToolDeps): RegisterableTool {
       server.registerTool(
         name,
         {
-          title: "Get full product details",
+          title: "Get product details",
           description:
-            "Fetch complete details for a single product by its Alza code: price, current availability, full specs, brand, category, and image. Use this after `search_products` to dig into a specific result.",
+            "Fetch details for a single product by its Alza code: name, price, current availability, brand, category, primary image, and URL. Sourced from the product page's JSON-LD schema, so values are accurate and stable. NOTE: the structured `params` (spec table) field is often empty in v0.1 — full spec extraction is planned for v0.2. Use this after `search_products` to dig into a specific result.",
           inputSchema,
           annotations: { readOnlyHint: true, idempotentHint: true },
         },

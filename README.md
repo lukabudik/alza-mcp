@@ -49,8 +49,6 @@ Restart the app. Same first-call download.
 
 Same shape — `command: "npx"`, `args: ["-y", "alza-mcp"]`. Stdio transport, standard MCP everywhere.
 
-> 📦 **Coming soon to npm.** Until v0.1 ships there, install from source: `git clone`, `npm install`, `npm run build`, then point the MCP at `node /path/to/alza-mcp/dist/index.js`.
-
 ---
 
 ## What you can ask

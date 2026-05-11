@@ -3,34 +3,13 @@ import { BRANCHES, type BranchSeed } from "../data/branches.js";
 import { TtlCache } from "../infra/cache.js";
 import { UpstreamError } from "../infra/errors.js";
 import type { Locale } from "../infra/locale.js";
-import { log } from "../infra/logger.js";
 import type { PickupPoint } from "./types.js";
 
 /**
- * AlzaBox locker discovery is not currently available — the api.alzabox.cz
- * host noted in older docs is no longer resolvable, and AlzaBox locations
- * live on the alza.cz/alzabox.htm map page (DOM scrape needed). v0.1 ships
- * with branch-only results; AlzaBox lockers land in v0.2.
+ * AlzaBox locker discovery is planned for v0.2 (DOM-scrape of
+ * https://www.alza.cz/alzabox.htm). v0.1 returns AlzaShop showrooms
+ * from the curated branch dataset only.
  */
-const ALZABOX_API_DISABLED = true;
-
-interface AlzaboxApiBox {
-  id?: string | number;
-  name?: string;
-  street?: string;
-  city?: string;
-  postcode?: string;
-  postalCode?: string;
-  zipCode?: string;
-  gpsLatitude?: number;
-  gpsLongitude?: number;
-  latitude?: number;
-  longitude?: number;
-  openingHours?: string;
-  description?: string;
-  note?: string;
-}
-
 export interface FindPickupOptions {
   postalCode: string;
   radiusKm?: number;
@@ -40,8 +19,6 @@ export interface FindPickupOptions {
 }
 
 export class Pickup {
-  private readonly boxCache = new TtlCache<string, PickupPoint[]>(60 * 60 * 1000);
-
   constructor(private readonly locale: Locale) {}
 
   async findPickupPoints(opts: FindPickupOptions): Promise<PickupPoint[]> {
@@ -50,7 +27,6 @@ export class Pickup {
     const types = new Set(opts.types ?? ["alzabox", "branch"]);
 
     const center = await this.geocodePostalCode(opts.postalCode);
-
     const results: PickupPoint[] = [];
 
     if (types.has("branch")) {
@@ -59,11 +35,7 @@ export class Pickup {
         .map((b) => seedToPoint(b, distanceKm(center, { lat: b.latitude, lng: b.longitude })));
       results.push(...branches);
     }
-
-    if (types.has("alzabox") && !ALZABOX_API_DISABLED) {
-      const boxes = await this.alzaboxesNear(opts.postalCode, center, radius);
-      results.push(...boxes);
-    }
+    // AlzaBox lockers — v0.2.
 
     results.sort((a, b) => (a.distanceKm ?? Infinity) - (b.distanceKm ?? Infinity));
     return results.slice(0, limit);
@@ -73,68 +45,6 @@ export class Pickup {
     return BRANCHES.filter(
       (b) => distanceKm(center, { lat: b.latitude, lng: b.longitude }) <= radius
     );
-  }
-
-  private async alzaboxesNear(
-    postalCode: string,
-    center: { lat: number; lng: number },
-    radius: number
-  ): Promise<PickupPoint[]> {
-    const cached = this.boxCache.get(`all`);
-    let boxes = cached;
-    if (!boxes) {
-      try {
-        boxes = await this.fetchAllAlzaboxes();
-        this.boxCache.set(`all`, boxes);
-      } catch (err) {
-        log.warn("alzabox API unavailable, returning branches only", {
-          error: (err as Error).message,
-        });
-        boxes = [];
-      }
-    }
-    return boxes
-      .map((b) => ({
-        ...b,
-        distanceKm: distanceKm(center, { lat: b.latitude ?? 0, lng: b.longitude ?? 0 }),
-      }))
-      .filter((b) => (b.distanceKm ?? Infinity) <= radius)
-      .map((b) => {
-        // Prefer an exact postal-code match when distance is similar.
-        if (b.postalCode === postalCode) b.distanceKm = Math.min(b.distanceKm ?? 0, 0.1);
-        return b;
-      });
-  }
-
-  private async fetchAllAlzaboxes(): Promise<PickupPoint[]> {
-    // Disabled in v0.1 — guarded above. Kept in source so we can flip it on
-    // once we DOM-scrape alza.cz/alzabox.htm in v0.2.
-    const url = `https://disabled.example/api/v2/boxes`;
-    const res = await undiciFetch(url, {
-      headers: {
-        accept: "application/json",
-        "user-agent": "alza-mcp/0.1.0 (+https://github.com/lukabudik/alza-mcp)",
-      },
-    });
-    if (!res.ok) {
-      throw new UpstreamError(res.status, `AlzaBox API: ${res.statusText}`);
-    }
-    const body = (await res.json()) as { boxes?: AlzaboxApiBox[] } | AlzaboxApiBox[];
-    const list = Array.isArray(body) ? body : body.boxes ?? [];
-    return list
-      .filter((b) => isFinite(b.gpsLatitude ?? b.latitude ?? NaN))
-      .map<PickupPoint>((b) => ({
-        type: "alzabox",
-        id: String(b.id ?? `${b.gpsLatitude}-${b.gpsLongitude}`),
-        name: b.name ?? "AlzaBox",
-        address: b.street ?? "",
-        city: b.city ?? "",
-        postalCode: b.postcode ?? b.postalCode ?? b.zipCode,
-        latitude: b.gpsLatitude ?? b.latitude,
-        longitude: b.gpsLongitude ?? b.longitude,
-        openingHours: b.openingHours ?? "24/7",
-        note: b.description ?? b.note,
-      }));
   }
 
   /**
