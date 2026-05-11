@@ -1,5 +1,6 @@
 {
   "name": "alza-mcp",
+  "mcpName": "io.github.lukabudik/alza-mcp",
   "version": "0.1.2",
   "description": "Unofficial Model Context Protocol server for Alza.cz — gives AI agents a read-only interface to browse products, reviews, and pickup points.",
   "type": "module",

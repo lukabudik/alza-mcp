@@ -1,0 +1,22 @@
+# Smithery configuration. See https://smithery.ai/docs
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      alzaBaseUrl:
+        type: string
+        description: "Optional. Switch locale: https://www.alza.cz (default), .sk, .hu, .at, .de, .co.uk."
+      alzaIdleTtlMs:
+        type: number
+        description: "Optional. Milliseconds of inactivity before the headless Chromium is shut down. Default 180000 (3 min)."
+  commandFunction: |-
+    (config) => ({
+      command: 'npx',
+      args: ['-y', 'alza-mcp'],
+      env: {
+        ...(config.alzaBaseUrl ? { ALZA_BASE_URL: config.alzaBaseUrl } : {}),
+        ...(config.alzaIdleTtlMs ? { ALZA_IDLE_TTL_MS: String(config.alzaIdleTtlMs) } : {})
+      }
+    })
+  exampleConfig: {}

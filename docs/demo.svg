@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 620" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="14">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a2d35"/>
+      <stop offset="100%" stop-color="#1c1f25"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- window -->
+  <rect x="20" y="20" width="880" height="580" rx="10" fill="url(#g)" filter="url(#shadow)"/>
+
+  <!-- title bar -->
+  <rect x="20" y="20" width="880" height="32" rx="10" fill="#3a3e47"/>
+  <rect x="20" y="42" width="880" height="10" fill="#3a3e47"/>
+  <circle cx="40"  cy="36" r="6" fill="#ff5f57"/>
+  <circle cx="60"  cy="36" r="6" fill="#febc2e"/>
+  <circle cx="80"  cy="36" r="6" fill="#28c840"/>
+  <text x="460" y="40" text-anchor="middle" fill="#a0a4ab" font-size="12">claude code — alza-mcp</text>
+
+  <!-- content -->
+  <g fill="#e6e8ec">
+    <!-- user prompt -->
+    <text x="44" y="86"><tspan fill="#7aa2f7" font-weight="600">› </tspan>Find me the best pro-grade wheel cleaner on Alza, around 500 Kč.</text>
+    <text x="44" y="108">  I want a detailer-tier brand.</text>
+
+    <!-- tool call -->
+    <text x="44" y="146" fill="#bb9af7">⚙ search_products  query="čistič disků kol"  sort="rating"</text>
+    <text x="44" y="166" fill="#bb9af7">⚙ get_product       code="AUPR3791"</text>
+    <text x="44" y="186" fill="#bb9af7">⚙ get_product       code="Moto21697"</text>
+    <text x="44" y="206" fill="#bb9af7">⚙ get_product       code="AUPR87126"</text>
+
+    <!-- claude response -->
+    <text x="44" y="244"><tspan fill="#9ece6a" font-weight="600">claude </tspan>Top three from the live Alza catalog:</text>
+
+    <!-- table -->
+    <g fill="#c0c4cc">
+      <text x="60" y="282" fill="#a0a4ab">┌────────────────────────────┬──────────┬─────────┬────────┬─────┐</text>
+      <text x="60" y="302" fill="#a0a4ab">│ Product                    │ Brand    │ Volume  │ Price  │  ★  │</text>
+      <text x="60" y="322" fill="#a0a4ab">├────────────────────────────┼──────────┼─────────┼────────┼─────┤</text>
+      <text x="60" y="342">│ Sonax Xtreme Full Effect   │ Sonax    │  750 ml │ 559 Kč │ 4.8 │</text>
+      <text x="60" y="362">│ Kenotek Wheel Cleaner Ultra│ Kenotek  │   1 L   │ 455 Kč │ 4.8 │</text>
+      <text x="60" y="382">│ Auto Finesse Reactive 1L   │ Auto Fin.│   1 L   │ 599 Kč │ 4.4 │</text>
+      <text x="60" y="402" fill="#a0a4ab">└────────────────────────────┴──────────┴─────────┴────────┴─────┘</text>
+    </g>
+
+    <text x="44" y="440"><tspan fill="#e0af68" font-weight="600">Pick: </tspan>Sonax Xtreme Full Effect 750 ml — detailer's default.</text>
+    <text x="44" y="462">Iron-fallout reactive (turns purple on brake-dust contact), Sonax</text>
+    <text x="44" y="484">is a German workshop standard, in stock.</text>
+
+    <!-- prompt -->
+    <text x="44" y="528" fill="#7aa2f7" font-weight="600">›<tspan fill="#a0a4ab"> Where can I pick one up in Brno?</tspan></text>
+    <text x="44" y="556" fill="#bb9af7">⚙ find_pickup_points  postal_code="60200"</text>
+    <text x="44" y="582"><tspan fill="#9ece6a" font-weight="600">claude </tspan>AlzaShop Brno · 3.5 km · Vídeňská 100, 619 00.</text>
+  </g>
+</svg>
