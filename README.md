@@ -77,15 +77,16 @@ That's the agent calling four MCP tools across two parallel searches and synthes
 
 ## What it does
 
-Five focused tools, all read-only:
+Six focused tools, all read-only:
 
 | Tool | Purpose |
 |---|---|
-| **`search_products`** | Keyword search with filters — price range, sort, category, in-stock |
-| **`get_product`** | Full detail for one product — price, availability, brand, image, URL |
+| **`search_products`** | Keyword search with filters — price range, sort, category, in-stock, brand, attributes, screen size |
+| **`get_product`** | Full detail for one product — price, availability, brand, image, URL, spec table |
 | **`get_product_reviews`** | Aggregate rating + review count |
 | **`find_pickup_points`** | Nearest brick-and-mortar AlzaShop showrooms by postal code |
-| **`list_categories`** | 20 top-level Alza categories with ids — feed `category_id` to `search_products` to narrow |
+| **`list_categories`** | Browse the Alza category tree one level at a time — feed `category_id` to `search_products` to narrow |
+| **`list_category_filters`** | Brands and attribute filters for a category, with real ids for `search_products` |
 
 Plus:
 

@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.2.0] — 2026-10-03
+
+Catalog improvements ported from [#1](https://github.com/lukabudik/alza-mcp/pull/1) by [@samuelseidel](https://github.com/samuelseidel). Thank you!
+
+### Added
+- **`list_category_filters`** — a category's brands and attribute facets with real ids and product counts.
+- **Brand and attribute filtering** in `search_products` (`producer_ids`, `filters`, requires `category_id`). Uses Alza's own filtered category pages. Alza only honours URL filters for some facets; when it drops one, the tool now returns an error instead of unfiltered results.
+- `min_screen_inches` / `max_screen_inches` — name-based screen-size filter for displays.
+- `candidatesScanned` in search results.
+
+### Fixed
+- **Sorting.** Alza's search page ignores server-side sort, so `price-asc` / `price-desc` / `rating` now sweep up to 3 pages and sort client-side.
+- **Pagination.** `search.htm?pg=N` is ignored by Alza; pages now follow the rendered page links (or build `-pN` URLs for filtered category pages, whose own links drop the filter).
+- **`in_stock`** now actually filters, based on the card's purchase button.
+- **`get_product` specs.** Merges the JSON-LD `additionalProperty` list, so products whose page has no DOM spec table now return params.
+- **`list_categories(parent_id)`** returned the top-level list for every parent. It now returns the real subcategories.
+- Invalid tool arguments return a readable message.
+
 ## [0.1.2] — 2026-05-11
 
 ### Added
