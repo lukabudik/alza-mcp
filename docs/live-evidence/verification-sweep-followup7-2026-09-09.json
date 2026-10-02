@@ -1,0 +1,76 @@
+{
+ "date": "2026-09-09",
+ "transport": "Playwright in-page same-origin fetch; webapi.alza.cz page (JS challenge cleared); mobile headers + Bearer",
+ "steps": [
+  {
+   "name": "C13 visitors mainNavigation +country=CZ (webapi)",
+   "method": "GET",
+   "url": "https://webapi.alza.cz/api/visitors/00000000-0000-0000-0000-000000000000/mainNavigation?country=CZ",
+   "status": 200,
+   "body": "{\"self\":{\"href\":\"https://webapi.alza.cz/api/visitors/00000000-0000-0000-0000-000000000000/mainNavigation?country=CZ&eshopUrl=https%3a%2f%2fwww.alza.cz%2f\",\"appLink\":\"anonymousNavigation\",\"enabled\":true},\"eshopInfo\":{\"href\":\"https://webapi.alza.cz/api/eshopInfo?country=CZ&eshopUrl=https%3a%2f%2fwww.alza.cz%2f\",\"appLink\":\"eshopInfo\",\"enabled\":true},\"basket\":{\"webLink\":\"https://www.alza.cz/Order1.htm\",\"href\":\"https://www.alza.cz/services/restservice.svc/v7/gridOrder1\",\"appLink\":\"basket1\",\"enabled\":true,\"analytics\":{\"actions\":{\"onClick\":{\"data\":{\"custom_event_name\":\"header_account\",\"custom_event_p1\":\"cart\"},\"event\":\"custom_event\",\"reportAction\":null}}}},\"catalog\":{\"webLink\":\"https://www.alza.cz/catalog\",\"href\":\"https://webapi.alza.cz/api/v1/navigation/catalog/floors?pgrik=p__26752&ucik=u__401f1&country=CZ\",\"appLink\":\"catalogNavigation\",\"enabled\":true,\"analytics\":{\"actions\":{\"onClick\":{\"data\":{\"custom_event_name\":\"header_account\",\"custom_event_p1\":\"menu_catalog\"},\"event\":\"custom_event\",\"reportAction\":null}}}},\"login\":{\"webLink\":\"https://www.alza.cz/external/login?inherit=false&state=00000000-0000-0000-0000-000000000000\",\"href\":\"https://www.alza.cz/\",\"appLink\":\"userSignIn\",\"name\":\"Přihlásit se\",\"enabled\":true,\"analytics\":{\"actions\":{\"onClick\":{\"data\":{\"custom_event_name\":\"header_account\",\"custom_event_p1\":\"menu_login\"},\"event\":\"custom_event\",\"reportAction\":null}}}},\"silentLogin\":{\"webLink\":\"https://www.alza.cz/external/login?inherit=false&state=00000000-0000-0000-0000-000000000000&prompt=none\",\"href\":\"https://www.alza.cz/\",\"appLink\":\"silentLogin\",\"enabled\":true},\"register\":{\"webL"
+  },
+  {
+   "name": "C14 users mainNavigation +country=CZ (webapi, Bearer)",
+   "method": "GET",
+   "url": "https://webapi.alza.cz/api/users/100000001/mainNavigation?country=CZ&eshopUrl=www.alza.cz",
+   "status": 401,
+   "body": "{\"message\":\"Unauthorized\"}"
+  },
+  {
+   "name": "R1 flag 0/1 +country=CZ (webapi, Bearer)",
+   "method": "GET",
+   "url": "https://webapi.alza.cz/api/users/0/commodities/1/review?country=CZ",
+   "status": 401,
+   "body": "{\"message\":\"Unauthorized\"}"
+  },
+  {
+   "name": "R1 reviews list (webapi, public)",
+   "method": "GET",
+   "url": "https://webapi.alza.cz/api/catalog/commodities/5303618/reviews?country=CZ&limit=5",
+   "status": 200,
+   "body": "{\"paging\":{\"offset\":0,\"limit\":5,\"size\":19,\"first\":{\"meta\":{\"href\":\"https://webapi.alza.cz/api/catalog/commodities/5303618/reviews?limit=5\",\"rel\":[\"first\"]}},\"next\":{\"meta\":{\"href\":\"https://webapi.alza.cz/api/catalog/commodities/5303618/reviews?limit=5&offset=5\",\"rel\":[\"next\"]}},\"last\":{\"meta\":{\"href\":\"https://webapi.alza.cz/api/catalog/commodities/5303618/reviews?limit=5&offset=15\",\"rel\":[\"last\"]}}},\"items\":[{\"rating\":5.0,\"likeCount\":0,\"templatedReviewAction\":{\"href\":\"https://webapi.alza.cz/api/users/%7BuserId%7D/review/8692552/actions?country=cz\",\"appLink\":\"userReviewActions\",\"enabled\":true},\"likeButtonText\":\"Užitečné\",\"reportButtonText\":\"Nahlásit\",\"description\":\"kvalitní, neloupe se potisk\",\"positives\":[],\"negatives\":[],\"name\":\"Petr, Břeclav 4\",\"verifiedPurchase\":true,\"verifiedPurchaseTag\":{\"label\":\"Ověřený nákup\",\"tooltip\":{\"text\":\"Recenzovaný produkt byl zakoupen na našem eshopu. <action name=\\\"showExternal\\\" />.\",\"actions\":{\"showExternal\":{\"href\":\"https://www.alza.cz/article/3370.htm\",\"appLink\":\"webView\",\"name\":\"Více informací\",\"enabled\":true}}}},\"reviewDetail\":\"Hodnoceno 21.08.2026, varianta Značky aut\",\"isTranslated\":false,\"flagUrl\":\"https://cdn.alza.cz/images/flags/country/cz.svg\",\"avatarUrl\":\"https://image.alza.cz/Images/avatars/list/03.jpg\",\"images\":[]},{\"rating\":5.0,\"likeCount\":0,\"templatedReviewAction\":{\"href\":\"https://webapi.alza.cz/api/users/%7BuserId%7D/review/8641815/actions?country=cz\",\"appLink\":\"userReviewActions\",\"enabled\":true},\"likeButtonText\":\"Užitečné\",\"reportButtonText\":\"Nahlásit\",\"description\":\"\",\"positives\":[\"Darek\"],\"negatives\":[],\"name\":\"Alice, P"
+  },
+  {
+   "name": "R1 userReviewActions substituted (foreign review 8692552)",
+   "method": "GET",
+   "url": "https://webapi.alza.cz/api/users/100000001/review/8692552/actions?country=cz",
+   "status": 401,
+   "body": "{\"message\":\"Unauthorized\"}"
+  },
+  {
+   "name": "R1 reviewStats (webapi, public)",
+   "method": "GET",
+   "url": "https://webapi.alza.cz/api/catalog/v2/commodities/5303618/reviewStats?country=CZ&pgrik=p__26752&ucik=u__401f1",
+   "status": 200,
+   "body": "{\"self\":{\"href\":\"https://webapi.alza.cz/api/catalog/v2/commodities/5303618/reviewStats?country=CZ&pgrik=p__26752&ucik=u__401f1\",\"appLink\":\"reviewStats\",\"enabled\":true},\"name\":\"Značky aut\",\"image\":\"https://image.alza.cz/products/HRAif8315/HRAif8315.jpg\",\"detailAction\":{\"webLink\":\"https://www.alza.cz/znacky-aut-d5303618.htm\",\"href\":\"https://www.alza.cz/api/router/legacy/catalog/product/5303618?country=cz&pgrik=p__26752&ucik=u__401f1\",\"appLink\":\"catalogProductDetail\",\"enabled\":true},\"addToBasketAction\":{\"appLink\":\"addToBasketWithNavigationToCrossSell\",\"form\":{\"method\":\"POST\",\"value\":[{\"name\":\"items\",\"value\":[{\"method\":\"POST\",\"value\":[{\"name\":\"commodityId\",\"value\":5303618,\"itemType\":\"integer\",\"isHidden\":true,\"isEnabled\":true},{\"name\":\"count\",\"value\":1,\"itemType\":\"decimal\",\"isHidden\":true,\"isEnabled\":true},{\"name\":\"pricePerItem\",\"itemType\":\"decimal\",\"isHidden\":true,\"isEnabled\":true},{\"name\":\"services\",\"value\":[],\"itemType\":\"set\",\"isHidden\":true,\"isEnabled\":true},{\"name\":\"hooks\",\"value\":[],\"itemType\":\"set\",\"isHidden\":true,\"isEnabled\":true}],\"rel\":[\"form\"],\"href\":\"https://www.alza.cz/\"}],\"itemType\":\"objectArray\",\"isHidden\":true,\"isEnabled\":true}],\"rel\":[\"form\"],\"href\":\"https://www.alza.cz/api/basket/v1/items\"},\"enabled\":true},\"commodityReviewsAction\":{\"href\":\"https://webapi.alza.cz/api/catalog/v2/commodities/5303618/reviews?country=CZ&limit=10\",\"appLink\":\"userCommodityReviews\",\"enabled\":true},\"ratingAverage\":4.8,\"ratingCount\":74,\"reviewCount\":19,\"reviewCountTooltip\":\"Počet textových recenzí včetně přeložených recenzí ze zahraničí.\",\"purchaseCountFormatted\":\"2 000+\",\"showPurchaseCo"
+  },
+  {
+   "name": "OR5 quickOrder summary (webapi +country=CZ)",
+   "method": "GET",
+   "url": "https://webapi.alza.cz/api/users/100000001/v1/quickOrder/summary/commodities/5303618?country=CZ&pgrik=p__26752&ucik=u__401f1",
+   "status": 404,
+   "body": ""
+  },
+  {
+   "name": "OR5 quickOrder summary (restservice +country=CZ)",
+   "method": "GET",
+   "url": "/services/restservice.svc/v1/quickOrder/summary/commodities/5303618?country=CZ&pgrik=p__26752&ucik=u__401f1",
+   "status": 404,
+   "body": "The resource you are looking for has been removed, had its name changed, or is temporarily unavailable."
+  },
+  {
+   "name": "OR5 quickOrder summary (api/users +country=CZ)",
+   "method": "GET",
+   "url": "/api/users/100000001/v1/quickOrder/summary/commodities/5303618?country=CZ&pgrik=p__26752&ucik=u__401f1",
+   "status": 401,
+   "body": "{\"Message\":\"Authorization has been denied for this request.\"}"
+  },
+  {
+   "name": "A13 setIsic empty (+country=CZ query)",
+   "method": "POST",
+   "url": "/services/restservice.svc/v1/setIsic?country=CZ",
+   "status": 401,
+   "body": "{\"Message\":\"Authorization has been denied for this request.\"}"
+  }
+ ]
+}

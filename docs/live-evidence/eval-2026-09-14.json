@@ -1,0 +1,218 @@
+{
+  "generatedAt": "2026-09-14T19:10:06.107Z",
+  "package": "alza-mcp",
+  "serverVersion": "0.3.0",
+  "protocolVersion": "2025-11-25",
+  "transport": "in-memory",
+  "scenarioCount": 6,
+  "scenarios": [
+    {
+      "name": "registration-surface",
+      "live": false,
+      "status": "passed",
+      "durationMs": 0,
+      "checks": [
+        {
+          "check": "tool count is 41",
+          "ok": true,
+          "observed": "41"
+        },
+        {
+          "check": "registration order is deterministic",
+          "ok": true,
+          "observed": "[\"search_products\",\"get_product\",\"get_product_reviews\",\"find_pickup_points\",\"list_categories\",\"auth_discovery\",\"auth_start\",\"auth_exchange\",\"mobile_read\",\"prepare_mutation\",\"mutate_list\",\"account_status\",\"cart\",\"add_to_cart\",\"delivery_options\",\"select_pickup_point\",\"checkout_preview\",\"place_order\",\"web_pickup_places\",\"web_add_to_cart\",\"web_cart\",\"chat_navigation\",\"chat_send\",\"profile\",\"contacts\",\"register\",\"address_upsert\",\"address_delete\",\"address_search\",\"payment_methods\",\"after_order_payments\",\"pay_after_order\",\"web_pay_after_order\",\"order\",\"review_submit\",\"complaint_claims\",\"subscription_overview\",\"subscription_activate\",\"subscription_update_installment\",\"upload_attachment\",\"web_place_order\"]"
+        },
+        {
+          "check": "every tool has a ≥40-char description and a title",
+          "ok": true,
+          "observed": ""
+        },
+        {
+          "check": "every tool publishes an object outputSchema",
+          "ok": true,
+          "observed": ""
+        },
+        {
+          "check": "outputSchema map covers all 41 names",
+          "ok": true,
+          "observed": "41"
+        },
+        {
+          "check": "readOnlyHint true on exactly 23",
+          "ok": true,
+          "observed": "23"
+        },
+        {
+          "check": "destructiveHint true on exactly 8",
+          "ok": true,
+          "observed": "8"
+        },
+        {
+          "check": "readOnlyHint false (mutating) on exactly 18",
+          "ok": true,
+          "observed": "18"
+        }
+      ]
+    },
+    {
+      "name": "catalog-read",
+      "live": true,
+      "status": "passed",
+      "durationMs": 16654,
+      "checks": [
+        {
+          "check": "isError false",
+          "ok": true,
+          "observed": "undefined"
+        },
+        {
+          "check": "structuredContent present",
+          "ok": true,
+          "observed": "no structuredContent"
+        },
+        {
+          "check": "query echoed",
+          "ok": true,
+          "observed": "notebook"
+        },
+        {
+          "check": "pageSize respected (≤5)",
+          "ok": true,
+          "observed": "5"
+        },
+        {
+          "check": "≥1 product returned",
+          "ok": true,
+          "observed": "5"
+        },
+        {
+          "check": "product has code+name+currency",
+          "ok": true,
+          "observed": "NL275a2b MacBook Neo 13\" CZ 2026 Ruměný s Touch ID - s možností vyzkoušet na 60 dní zdarma CZK"
+        },
+        {
+          "check": "text channel is human-readable (≥80 chars, names the first product)",
+          "ok": true,
+          "observed": "1051 chars"
+        },
+        {
+          "check": "get_product isError false",
+          "ok": true,
+          "observed": "undefined"
+        },
+        {
+          "check": "get_product returns the requested code",
+          "ok": true,
+          "observed": "NL275a2b vs NL275a2b"
+        },
+        {
+          "check": "product has name+url",
+          "ok": true,
+          "observed": "MacBook Neo 13 CZ 2026 Ruměný s Touch ID https://www.alza.cz/macbook-neo-13-cz-2026-rumeny-s-touch-id-d13271307.htm?o=1"
+        },
+        {
+          "check": "get_product_reviews isError false",
+          "ok": true,
+          "observed": "undefined"
+        },
+        {
+          "check": "reviews is an array",
+          "ok": true,
+          "observed": "0"
+        },
+        {
+          "check": "code echoed",
+          "ok": true,
+          "observed": "NL275a2b vs NL275a2b"
+        }
+      ]
+    },
+    {
+      "name": "auth-discovery",
+      "live": true,
+      "status": "passed",
+      "durationMs": 96,
+      "checks": [
+        {
+          "check": "blocked upstream → graceful error result mentioning HTTP",
+          "ok": true,
+          "observed": "Error: OAuth discovery failed with HTTP 403"
+        }
+      ]
+    },
+    {
+      "name": "account-status",
+      "live": false,
+      "status": "passed",
+      "durationMs": 2,
+      "checks": [
+        {
+          "check": "isError false",
+          "ok": true,
+          "observed": "undefined"
+        },
+        {
+          "check": "authenticated is a boolean",
+          "ok": true,
+          "observed": "true"
+        },
+        {
+          "check": "visitorId is a string",
+          "ok": true,
+          "observed": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "check": "apiBaseUrl is an alza URL",
+          "ok": true,
+          "observed": "https://www.alza.cz"
+        }
+      ]
+    },
+    {
+      "name": "account-read",
+      "live": true,
+      "status": "passed",
+      "durationMs": 4443,
+      "checks": [
+        {
+          "check": "authenticated user_data isError false",
+          "ok": true,
+          "observed": "undefined"
+        },
+        {
+          "check": "authenticated user_data err 0 or object",
+          "ok": true,
+          "observed": "{\"isQualifiedForCryptoWallet\":false,\"mailingSegments\":[{\"name\":\"Alza\",\"id\":13985"
+        }
+      ]
+    },
+    {
+      "name": "input-validation-error-quality",
+      "live": false,
+      "status": "passed",
+      "durationMs": 2,
+      "checks": [
+        {
+          "check": "empty code rejected",
+          "ok": true,
+          "observed": "true"
+        },
+        {
+          "check": "error mentions the offending parameter",
+          "ok": true,
+          "observed": "MCP error -32602: Input validation error: Invalid arguments for tool get_product: [\n  {\n    \"code\": \"too_small\",\n    \"mi"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total": 6,
+    "passed": 6,
+    "failed": 0
+  },
+  "notes": [
+    "Non-mutating harness: catalog reads, auth_discovery, account_status, mobile_read; no cart/order mutations.",
+    "Live scenarios hit alza.cz/identity.alza.cz; offline scenarios are deterministic.",
+    "Per-check details in scenarios[].checks; observed values recorded for auditability."
+  ]
+}

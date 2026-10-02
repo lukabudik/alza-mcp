@@ -1,0 +1,558 @@
+{
+  "capture": "pi-integration-2026-09-10.json",
+  "registration": {
+    "server": {
+      "command": "node",
+      "args": [
+        "/home/dev/Development/alza-mcp/dist/index.js"
+      ]
+    },
+    "startedAt": "2026-09-10T10:24:11.278Z",
+    "initialize": {
+      "result": {
+        "protocolVersion": "2025-06-18",
+        "capabilities": {
+          "tools": {
+            "listChanged": true
+          },
+          "resources": {
+            "listChanged": true
+          },
+          "prompts": {
+            "listChanged": true
+          }
+        },
+        "serverInfo": {
+          "name": "alza-mcp",
+          "title": "Alza (unofficial)",
+          "version": "0.3.0"
+        },
+        "instructions": "Alza.cz catalog and user-controlled shopping assistant. Unofficial — not affiliated with or endorsed by Alza.cz a.s. Use search_products to find items, get_product for full detail, get_product_reviews for ratings, find_pickup_points for nearby AlzaShop locations. Account, checkout, profile, and payment tools use the Alza mobile REST API with OAuth PKCE; credentials are never collected by the MCP. Order submission requires a checkout preview token and explicit user confirmation. High-impact mutations (payment, registration, address, review, subscription, attachment) require a one-time token from alza_prepare_mutation."
+      }
+    },
+    "toolNames": [
+      "search_products",
+      "get_product",
+      "get_product_reviews",
+      "find_pickup_points",
+      "list_categories",
+      "alza_auth_discovery",
+      "alza_auth_start",
+      "alza_auth_exchange",
+      "alza_mobile_read",
+      "alza_prepare_mutation",
+      "alza_mutate_list",
+      "alza_account_status",
+      "alza_cart",
+      "alza_add_to_cart",
+      "alza_delivery_options",
+      "alza_select_pickup_point",
+      "alza_checkout_preview",
+      "alza_place_order",
+      "alza_web_pickup_places",
+      "alza_web_add_to_cart",
+      "alza_web_cart",
+      "alza_chat_navigation",
+      "alza_chat_send",
+      "alza_profile",
+      "alza_contacts",
+      "alza_register",
+      "alza_address_upsert",
+      "alza_address_delete",
+      "alza_address_search",
+      "alza_payment_methods",
+      "alza_after_order_payments",
+      "alza_pay_after_order",
+      "alza_web_pay_after_order",
+      "alza_order",
+      "alza_review_submit",
+      "alza_complaint_claims",
+      "alza_subscription_overview",
+      "alza_subscription_activate",
+      "alza_subscription_update_installment",
+      "alza_upload_attachment",
+      "alza_web_place_order"
+    ],
+    "toolCount": 41,
+    "toolSummaries": [
+      {
+        "name": "search_products",
+        "description": "Search the Alza.cz catalog by keyword. Use this for product discovery — finding what's available, comparing options, or starting research. Returns a list with p"
+      },
+      {
+        "name": "get_product",
+        "description": "Fetch details for a single product by its Alza code: name, price, current availability, brand, category, primary image, and URL. Sourced from the product page's"
+      },
+      {
+        "name": "get_product_reviews",
+        "description": "Fetch the aggregate rating and total review count for a product (e.g. ★ 4.8 across 1284 reviews). NOTE: v0.1 returns aggregate values only — individual review b"
+      },
+      {
+        "name": "find_pickup_points",
+        "description": "Find Alza brick-and-mortar showrooms (AlzaShop) near a postal code. Use this when a user wants to know where they can collect a delivery, browse products in per"
+      },
+      {
+        "name": "list_categories",
+        "description": "Browse the Alza category tree one level at a time. Useful for narrowing a product search — find the right category id, then pass it to `search_products` as `cat"
+      },
+      {
+        "name": "alza_auth_discovery",
+        "description": "Read the live OpenID Connect discovery document used by the mobile app. This is read-only and never submits credentials."
+      },
+      {
+        "name": "alza_auth_start",
+        "description": "Create an OAuth 2.0 PKCE authorization URL for the Alza mobile API. Open the returned URL outside this MCP, complete Alza authentication, then call alza_auth_ex"
+      },
+      {
+        "name": "alza_auth_exchange",
+        "description": "Exchange the authorization code returned to alza://identity for mobile API tokens. Pass only the code and state; never pass a password or refresh token here."
+      },
+      {
+        "name": "alza_mobile_read",
+        "description": "Read a fixed, APK-confirmed mobile API capability. This tool does not accept arbitrary URLs or credentials."
+      },
+      {
+        "name": "alza_prepare_mutation",
+        "description": "Create a one-time confirmation token for a fixed, source-confirmed mutation. No request is sent. Low-risk actions (create/rename/delete/add/remove/move/set_coun"
+      },
+      {
+        "name": "alza_mutate_list",
+        "description": "Execute one APK-confirmed low-risk mutation (shopping lists, country/ISIC, gift, order service, watchdog, feedback, discussion, coupons, basket update/unlock) u"
+      },
+      {
+        "name": "alza_account_status",
+        "description": "Report whether an access token is loaded in this MCP process."
+      },
+      {
+        "name": "alza_cart",
+        "description": "Read basketInfo and gridOrder1 through the Alza mobile REST API."
+      },
+      {
+        "name": "alza_add_to_cart",
+        "description": "POST a BuyByCode-compatible payload to the mobile basket endpoint."
+      },
+      {
+        "name": "alza_delivery_options",
+        "description": "Call the APK-confirmed getDeliveryPaymentGroups endpoint. Pass selected_delivery_option_id when the API requires a selected delivery method."
+      },
+      {
+        "name": "alza_select_pickup_point",
+        "description": "POST the APK's DeliveryPaymentAssociation payload to getDeliveryAssociations. The payload must be taken from the current mobile API delivery response; this tool"
+      },
+      {
+        "name": "alza_checkout_preview",
+        "description": "Run the APK-confirmed sendOrder1 and delivery-payment-group reads. This never submits an order and returns a one-time confirmation token."
+      },
+      {
+        "name": "alza_place_order",
+        "description": "Execute the APK-confirmed multi-step order sequence only with a checkout preview token and explicit JSON payloads for SelectedDeliveryPayment, SendOrderUserInfo"
+      },
+      {
+        "name": "alza_web_pickup_places",
+        "description": "Read the live m.alza.cz pickup family (personalPickup/v1): type-availability form (AlzaBox/branches/24-7/showroom counts), the paginated place list, and an opti"
+      },
+      {
+        "name": "alza_web_add_to_cart",
+        "description": "POST {items:[{commodityId,count}]} to the live www.alza.cz basket/v1/items endpoint (the m.alza.cz React checkout family, W5). The basket is visitor-keyed (Bala"
+      },
+      {
+        "name": "alza_web_cart",
+        "description": "Read the live m.alza.cz checkout cart (W3/W4): the HATEOAS cart state (maxStep, itemsAction, emptyCartAction) and the item list (productId, count, basketItemId,"
+      },
+      {
+        "name": "alza_chat_navigation",
+        "description": "Read the live chatbotapi.alza.cz navigation for the current visitor (row W18): chatbotInitializeChatAction / chatbotReinitializeChatAction / chatbotMetadataActi"
+      },
+      {
+        "name": "alza_chat_send",
+        "description": "POST the live chatbotapi.alza.cz /v1/chat (row W18): returns {configuration {configId, teamName, welcomeText, messages, allowTextInput…}, showChat}. Session-sco"
+      },
+      {
+        "name": "alza_profile",
+        "description": "Read the authenticated user data (APK getUserData endpoint): personal data, address book with per-address actions, and account sections. Read-only. Requires OAu"
+      },
+      {
+        "name": "alza_contacts",
+        "description": "Read the authenticated user's contact list (APK-confirmed v4/contacts endpoint). Read-only."
+      },
+      {
+        "name": "alza_register",
+        "description": "Submit the APK-confirmed CreateUser registration (Register DTO: email, phone, pwd, optional verification code). Credential-bearing and high-impact: requires a o"
+      },
+      {
+        "name": "alza_address_upsert",
+        "description": "Execute the server-provided address form action (from alza_profile: createAddressAction for create, per-address editAction for edit) with typed address fields. "
+      },
+      {
+        "name": "alza_address_delete",
+        "description": "Execute the per-address delete action from the alza_profile response. Mutating: requires a one-time token from alza_prepare_mutation (action=address_delete)."
+      },
+      {
+        "name": "alza_address_search",
+        "description": "Follow the server-provided address search action (addressSearchAction from alza_profile) with a zip/city query. Read-only, no token required."
+      },
+      {
+        "name": "alza_payment_methods",
+        "description": "Read the payment-method groups from the APK-confirmed getDeliveryPaymentGroups endpoint (payment projection). Requires a cart with products. Read-only."
+      },
+      {
+        "name": "alza_after_order_payments",
+        "description": "Read the available after-order payment methods/options for an order part (APK-confirmed getafterorderpayments endpoint). Read-only. Use the returned payment id "
+      },
+      {
+        "name": "alza_pay_after_order",
+        "description": "Submit the APK-confirmed afterOrderPayment (AfterOrderRequestBody: order id, invoice number, payment id from alza_after_order_payments, optional stored-card id "
+      },
+      {
+        "name": "alza_web_pay_after_order",
+        "description": "Initiate the after-order payment for an unpaid order through the live-verified EShopService.svc CreateAfterPayment chain (the recorded real-payment path: e.g. M"
+      },
+      {
+        "name": "alza_order",
+        "description": "Read an authenticated user order (APK-confirmed user order endpoint; includes parts, milestones/tracking, and invoice document references) plus an optional part"
+      },
+      {
+        "name": "alza_review_submit",
+        "description": "Submit the server-provided review form action (writeReviewAction/onSubmitReview or rating form from the product detail) with a 1-5 rating and optional text. Mut"
+      },
+      {
+        "name": "alza_complaint_claims",
+        "description": "Follow the server-provided warranty-claims action (activeWarrantyClaimsAction / showActiveWarrantyClaimsAction from authenticated navigation or order detail) to"
+      },
+      {
+        "name": "alza_subscription_overview",
+        "description": "Follow the server-provided subscription action (subscriptionAction / AlzaSubscriptionOverview action from account menu or authenticated navigation) to read subs"
+      },
+      {
+        "name": "alza_subscription_activate",
+        "description": "Execute the server-provided subscription activation action (activateAction form). High-impact: starts a paid subscription; requires a one-time token from alza_p"
+      },
+      {
+        "name": "alza_subscription_update_installment",
+        "description": "Execute the server-provided installment-update action (updateInstallmentAction form). High-impact: changes the payment schedule; requires a one-time token from "
+      },
+      {
+        "name": "alza_upload_attachment",
+        "description": "Upload image attachments through the server-provided multipart action (uploadImageAction / complaint attachment actions). Accepts 1-5 base64 data-URL files with"
+      },
+      {
+        "name": "alza_web_place_order",
+        "description": "Execute the live-verified EShopService.svc chain (SaveOrder2 → SaveOrder3 → SaveAndConfirmOrder2, with the documented AlzaPlus 113-gate retry → CheckOrder4 → Se"
+      }
+    ],
+    "calls": [
+      {
+        "name": "alza_account_status",
+        "arguments": {},
+        "isError": false,
+        "contentText": "{\n  \"authenticated\": true,\n  \"visitorId\": \"00000000-0000-0000-0000-000000000000\",\n  \"apiBaseUrl\": \"https://www.alza.cz\"\n}",
+        "structuredContent": {
+          "authenticated": true,
+          "visitorId": "00000000-0000-0000-0000-000000000000",
+          "apiBaseUrl": "https://www.alza.cz"
+        }
+      }
+    ],
+    "stderrTail": "{\"ts\":\"2026-09-10T10:24:11.539Z\",\"level\":\"info\",\"msg\":\"alza-mcp ready\",\"baseUrl\":\"https://www.alza.cz\",\"cdp\":false}\n",
+    "finishedAt": "2026-09-10T10:24:11.681Z"
+  },
+  "gateway": {
+    "capturedAt": "2026-09-10T12:51:20.708Z",
+    "configPath": "/home/dev/.pi/agent/mcp.json",
+    "serverEntry": {
+      "command": "node",
+      "args": [
+        "/home/dev/Development/alza-mcp/dist/index.js"
+      ]
+    },
+    "statusBeforeReload": "0/1 servers (websearch only) — alza not visible in-session before /reload",
+    "statusAfterReload": "0/2 servers, alza listed (not connected) then connected lazily via gateway connect",
+    "connectedVia": "mcp gateway connect action (in-session, after user ran /reload)",
+    "toolCount": 41,
+    "toolNames": [
+      "alza_search_products",
+      "alza_get_product",
+      "alza_get_product_reviews",
+      "alza_find_pickup_points",
+      "alza_list_categories",
+      "alza_alza_auth_discovery",
+      "alza_alza_auth_start",
+      "alza_alza_auth_exchange",
+      "alza_alza_mobile_read",
+      "alza_alza_prepare_mutation",
+      "alza_alza_mutate_list",
+      "alza_alza_account_status",
+      "alza_alza_cart",
+      "alza_alza_add_to_cart",
+      "alza_alza_delivery_options",
+      "alza_alza_select_pickup_point",
+      "alza_alza_checkout_preview",
+      "alza_alza_place_order",
+      "alza_alza_web_pickup_places",
+      "alza_alza_web_add_to_cart",
+      "alza_alza_web_cart",
+      "alza_alza_chat_navigation",
+      "alza_alza_chat_send",
+      "alza_alza_profile",
+      "alza_alza_contacts",
+      "alza_alza_register",
+      "alza_alza_address_upsert",
+      "alza_alza_address_delete",
+      "alza_alza_address_search",
+      "alza_alza_payment_methods",
+      "alza_alza_after_order_payments",
+      "alza_alza_pay_after_order",
+      "alza_alza_web_pay_after_order",
+      "alza_alza_order",
+      "alza_alza_review_submit",
+      "alza_alza_complaint_claims",
+      "alza_alza_subscription_overview",
+      "alza_alza_subscription_activate",
+      "alza_alza_subscription_update_installment",
+      "alza_alza_upload_attachment",
+      "alza_alza_web_place_order"
+    ],
+    "namespacing": "gateway prefixes server tools with the server name; e.g. server tool alza_mobile_read is exposed as alza_alza_mobile_read",
+    "instructionsHead": "Alza.cz catalog and user-controlled shopping assistant. Unofficial — not affiliated with or endorsed by Alza.cz a.s. Use search_products to find items, get_product for full detail, ..."
+  },
+  "discovery": {
+    "capturedAt": "2026-09-10T12:57:29.583Z",
+    "transport": "pi MCP gateway (mcpScript batched tool calls, server alza connected in-session)",
+    "searchA": {
+      "tool": "alza_search_products",
+      "args": {
+        "query": "wheel cleaner",
+        "sort": "rating",
+        "max_price": 600
+      },
+      "ok": true,
+      "total": 19,
+      "sample": [
+        {
+          "code": "AUPR229325",
+          "name": "Meguiar's Ultimate All Wheel Cleaner - čistič na kola s přebarvováním do ruda, 709 ml",
+          "price": 449,
+          "currency": "CZK",
+          "rating": 4.8
+        },
+        {
+          "code": "Moto21697",
+          "name": "KENOTEK WHEEL CLEANER ULTRA, 1l",
+          "price": 455,
+          "currency": "CZK",
+          "rating": 4.8
+        },
+        {
+          "code": "AUPR4436",
+          "name": "Meguiar's Hot Rims All Wheel & Tire Cleaner",
+          "price": 449,
+          "currency": "CZK",
+          "rating": 4.1
+        }
+      ]
+    },
+    "searchB": {
+      "tool": "alza_search_products",
+      "args": {
+        "query": "wheel cleaner",
+        "sort": "price-asc",
+        "min_price": 50,
+        "max_price": 300,
+        "in_stock": true
+      },
+      "ok": true,
+      "total": 10,
+      "note": "filter narrowing worked: same keyword, 19 -> 10 results, all priced 50-300 CZK, ascending",
+      "sample": [
+        {
+          "code": "AUPR281678",
+          "name": "Lotus Wheel Cleaner 600ml",
+          "price": 289,
+          "currency": "CZK",
+          "rating": 5
+        },
+        {
+          "code": "SPTbiwo005",
+          "name": "BikeWorkx Cleaner & Degreaser 750 ml",
+          "price": 229,
+          "currency": "CZK",
+          "rating": 5
+        },
+        {
+          "code": "SPTbiwo004",
+          "name": "BikeWorkx Clean Star 200 ml",
+          "price": 169,
+          "currency": "CZK",
+          "rating": 3.5
+        }
+      ]
+    },
+    "listCategories": {
+      "tool": "alza_list_categories",
+      "args": {},
+      "ok": true,
+      "count": 21,
+      "sample": [
+        {
+          "id": 18856699,
+          "name": "Auto-moto"
+        },
+        {
+          "id": 18890188,
+          "name": "Počítače a notebooky"
+        },
+        {
+          "id": 18855692,
+          "name": "Sport a outdoor"
+        }
+      ]
+    },
+    "getProduct": {
+      "tool": "alza_get_product",
+      "args": {
+        "code": "SPTbiwo004"
+      },
+      "ok": true,
+      "product": {
+        "code": "SPTbiwo004",
+        "name": "BikeWorkx Clean Star 200 ml",
+        "price": 169,
+        "currency": "CZK",
+        "availability": "InStock",
+        "rating": 3.5,
+        "brand": "BikeWorkx",
+        "category": "Čističe",
+        "url": "https://www.alza.cz/sport/bikeworkx-clean-star-200-ml-d12582308.htm"
+      }
+    },
+    "conclusion": "search with sort/price/in-stock filters, category listing, and per-product detail all returned live Alza data through real MCP tool calls in the pi session."
+  },
+  "transportFallback": {
+    "capturedAt": "2026-09-10T15:43-15:55 local",
+    "what": "The account stack (MobileApi) was plain Node fetch and received the www/webapi bot-challenge HTML (403 + var getData) for every /services/restservice.svc route; the catalog stack was already browser-backed (AlzaBrowser) and worked. Verified with curl: both https://www.alza.cz and https://webapi.alza.cz serve the challenge page to plain clients.",
+    "change": "src/infra/mobile-api.ts gained a typed structural browser dependency (BrowserPageHost, satisfied by AlzaBrowser) and fetchViaBrowser(): same-origin bot-challenge 403s are retried via an in-page fetch with credentials:include; a cold page navigates to the base origin first (about:blank cannot fetch cross-origin); one challenge-retry after a second navigation. src/server.ts wires the existing browser into MobileApi. Cross-host routes and JSON 403s are untouched; without a browser the plain-transport 403 is preserved.",
+    "tests": "test/account.test.ts +4 (browser retry success path with goto/evaluate trace, still-challenged error surfacing, cross-host + non-challenge 403 no-browser engagement, no-browser preservation). Suite 70/70, typecheck + build clean.",
+    "gatewayRespawn": "mcp connect alza respawns the registered stdio process, so the rebuilt dist took effect without /reload (verified: the first probe after rebuild surfaced the new page.evaluate path)."
+  },
+  "cartChain": {
+    "run1_expiredToken": {
+      "note": "First full chain run: tokens from 2026-09-10T06:30Z (expires_in 5400s) were already expired mid-afternoon; the API answered 200 with anonymous envelopes (user_id -1) instead of 401, which surfaced via alza_profile.",
+      "cartBefore": {
+        "err": 0,
+        "basket_cnt": 0,
+        "user_id": -1,
+        "msg": "Jsem tak prázdný..."
+      },
+      "addToCart": {
+        "tool": "alza_add_to_cart",
+        "args": {
+          "code": "SPTbiwo004",
+          "quantity": 1
+        },
+        "err": 0,
+        "basket_cnt": 1,
+        "user_id": -1,
+        "code": "SPTbiwo004",
+        "name": "Čistič na kolo BikeWorkx Clean Star 200 ml",
+        "count": 1,
+        "orderItemId": 1024716113,
+        "priceToPay": "169 Kč",
+        "discountHeader": "Zlevněno -5 %"
+      },
+      "couponPrepare": {
+        "action": "coupon_add",
+        "confirmationToken": "e03b90575913…"
+      },
+      "couponMutate": {
+        "err": 1,
+        "msg": "Zadaný slevový / dárkový poukaz není platný.",
+        "basket_cnt": 1,
+        "user_id": -1
+      },
+      "profile": {
+        "err": 0,
+        "user_id": -1,
+        "email": null
+      },
+      "resolution": "node scripts/alza-auth-refresh.mjs -> fresh tokens (obtained_at 2026-09-10T13:55:08Z, refresh_token rotated); gateway reconnect respawned the server with the new tokens."
+    },
+    "run2_authenticated": {
+      "capturedAt": "2026-09-10T13:55-13:59Z",
+      "addToCart": {
+        "tool": "alza_add_to_cart",
+        "args": {
+          "code": "SPTbiwo004",
+          "quantity": 1
+        },
+        "err": 0,
+        "basket_cnt": 3,
+        "user_id": 100000001,
+        "code": "SPTbiwo004",
+        "name": "Čistič na kolo BikeWorkx Clean Star 200 ml",
+        "count": 1,
+        "orderItemId": 1024721313,
+        "priceToPay": "358 Kč",
+        "discountHeader": "Zlevněno -5 %"
+      },
+      "couponPrepare": {
+        "action": "coupon_add",
+        "confirmationToken": "a1ebc88b3585ab4e…"
+      },
+      "couponMutate": {
+        "tool": "alza_mutate_list",
+        "payload": {
+          "coupon": "PI-INTEGRATION-PROBE-2026-09-10"
+        },
+        "err": 1,
+        "msg": "Zadaný slevový / dárkový poukaz není platný.",
+        "basket_cnt": 3,
+        "user_id": 100000001,
+        "interpretation": "HTTP 200 server-side validation envelope for a bogus discount code; no discount applied; basket unchanged."
+      },
+      "cartAfter": {
+        "source": "full result spill captured by the pi output guard (/tmp/pi-mcp-output-UFYgRk/mcp-result-1cfdf199.txt)",
+        "info": {
+          "err": 0,
+          "basket_cnt": 3,
+          "user_id": 100000001,
+          "email": "e2e-user@example.invalid",
+          "pricePay": "496 Kč",
+          "priceVat": "496 Kč",
+          "orderId": 1656647862,
+          "vzt": 5681187870867470
+        },
+        "lines": [
+          {
+            "code": "SPTbiwo004",
+            "name": "Čistič na kolo BikeWorkx Clean Star 200 ml",
+            "count": 1,
+            "orderItemId": 1024721313,
+            "priceVat": "169 Kč",
+            "price": "140 Kč",
+            "note": "this run's probe add"
+          },
+          {
+            "code": "HRAif8315",
+            "name": "Pexeso Značky aut",
+            "count": 1,
+            "orderItemId": 1023794550,
+            "priceVat": "119 Kč",
+            "price": "98 Kč",
+            "note": "pre-existing (earlier sweep-verification leftovers on the test account)"
+          },
+          {
+            "code": "FKP0383232",
+            "name": "Kniha Srdečný pozdrav plus pexeso: Ukrajinsko-české Česko-ukrajinské",
+            "count": 2,
+            "orderItemId": 1022932430,
+            "priceVat": "70 Kč",
+            "price": "70 Kč",
+            "note": "pre-existing (earlier sweep-verification leftovers on the test account)"
+          }
+        ]
+      },
+      "accountBinding": "basketInfo binds the cart to user_id 100000001 with the test account email; add + coupon envelopes both carry user_id 100000001."
+    },
+    "leftover": "The probe item (1× SPTbiwo004, 169 Kč) remains in the test account cart along with the pre-existing sweep leftovers — the MCP exposes no basket-item-remove operation (row B4 is the delayed-payment flag update only), so removal is out of scope by the goal constraints."
+  }
+}

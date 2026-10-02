@@ -1,0 +1,83 @@
+{
+  "startedAt": "2026-09-22T16:26:35.662Z",
+  "passwordDialog": {
+    "status": 200,
+    "json": {
+      "self": {
+        "href": "https://www.alza.cz/api/users/100000001/v2/account/password/dialog",
+        "appLink": "userAccountChangePasswordDialog",
+        "enabled": true
+      },
+      "changePasswordAction": {
+        "href": "https://www.alza.cz/api/users/100000001/v2/account/password",
+        "appLink": "userAccountChangePassword",
+        "form": {
+          "method": "POST",
+          "value": [
+            {
+              "name": "oldPassword",
+              "label": "Zadejte aktuální heslo",
+              "itemType": "string",
+              "semanticItemType": "password",
+              "isEnabled": true
+            },
+            {
+              "name": "password1",
+              "label": "Zadejte nové heslo",
+              "itemType": "string",
+              "semanticItemType": "password",
+              "isEnabled": true
+            },
+            {
+              "name": "password2",
+              "label": "Zadejte nové heslo znovu",
+              "itemType": "string",
+              "semanticItemType": "password",
+              "isEnabled": true
+            },
+            {
+              "name": "submit",
+              "label": "Změnit heslo",
+              "itemType": "submitButton",
+              "isEnabled": true
+            }
+          ],
+          "title": "Změna hesla",
+          "rel": [
+            "form"
+          ],
+          "href": "https://www.alza.cz/api/users/100000001/v2/account/password"
+        },
+        "enabled": true,
+        "analytics": {
+          "actions": {
+            "onClick": {
+              "data": {
+                "custom_event_p1": null,
+                "custom_event_p2": "password_change"
+              },
+              "event": "click_confirm_password_change",
+              "reportAction": null
+            }
+          }
+        }
+      },
+      "description": "Po změně hesla vás odhlásíme ze všech zařízení."
+    }
+  },
+  "userAccountSection": {
+    "status": 200,
+    "topKeys": [
+      "self",
+      "form",
+      "contactActions",
+      "fillCompanyInfoAction",
+      "confirmationDialog",
+      "changeAction",
+      "showStudentProgram"
+    ],
+    "basicInfo": null,
+    "contactInfo": null,
+    "actions": null
+  }
+}

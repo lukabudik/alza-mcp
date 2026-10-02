@@ -1,0 +1,67 @@
+{
+ "date": "2026-09-09",
+ "steps": [
+  {
+   "name": "GetZipCodes {} (baseline)",
+   "status": 200,
+   "body": "{\"d\":{\"Value\":\"Nenašli jsme žádné místo, zkuste to prosím znovu.\",\"LeasingPartnerUrl\":null,\"DevErrorMessage\":null,\"Message\":null,\"ErrorNeoPurchaseFailed\":false,\"ErrorLevel\":14,\"RedirectUrlOrderDetail\":null,\"PaymentAction\":null,\"CanShowFastCheckoutButton\":false,\"IsAlzaPlusActionPayment\":false}}"
+  },
+  {
+   "name": "GetZipCodes {input:\"Hradec Králové\"}",
+   "status": 200,
+   "body": "{\"d\":{\"Value\":\"Nenašli jsme žádné místo, zkuste to prosím znovu.\",\"LeasingPartnerUrl\":null,\"DevErrorMessage\":null,\"Message\":null,\"ErrorNeoPurchaseFailed\":false,\"ErrorLevel\":14,\"RedirectUrlOrderDetail\":null,\"PaymentAction\":null,\"CanShowFastCheckoutButton\":false,\"IsAlzaPlusActionPayment\":false}}"
+  },
+  {
+   "name": "GetZipCodes {input:\"50004\"}",
+   "status": 200,
+   "body": "{\"d\":{\"Value\":\"Nenašli jsme žádné místo, zkuste to prosím znovu.\",\"LeasingPartnerUrl\":null,\"DevErrorMessage\":null,\"Message\":null,\"ErrorNeoPurchaseFailed\":false,\"ErrorLevel\":14,\"RedirectUrlOrderDetail\":null,\"PaymentAction\":null,\"CanShowFastCheckoutButton\":false,\"IsAlzaPlusActionPayment\":false}}"
+  },
+  {
+   "name": "GetZipCodes {input:\"50004\", deliveryId:2680}",
+   "status": 200,
+   "body": "{\"d\":{\"Value\":\"Nenašli jsme žádné místo, zkuste to prosím znovu.\",\"LeasingPartnerUrl\":null,\"DevErrorMessage\":null,\"Message\":null,\"ErrorNeoPurchaseFailed\":false,\"ErrorLevel\":14,\"RedirectUrlOrderDetail\":null,\"PaymentAction\":null,\"CanShowFastCheckoutButton\":false,\"IsAlzaPlusActionPayment\":false}}"
+  },
+  {
+   "name": "D1 v13 full",
+   "status": 200,
+   "body": "{\"deliveryGroups\":[],\"payments\":null,\"deliveryError\":null,\"deliveryTip\":null,\"paymentTip\":\"\",\"warnings\":[],\"err\":1,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":\"Neplatná objednávka\",\"user_name\":\"\",\"user_id\":-1,\"vzt\":7534057637813339,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\""
+  },
+  {
+   "name": "D1 action scan",
+   "deliveriesTotal": 0,
+   "deliveriesWithActions": [],
+   "paymentsWithActions": [],
+   "firstDeliveryFields": []
+  },
+  {
+   "name": "chatbot navigation",
+   "status": 400,
+   "body": "{\"type\":\"https://tools.ietf.org/html/rfc9110#section-15.5.1\",\"title\":\"One or more validation errors occurred.\",\"status\":400,\"errors\":{\"Country\":[\"The Country field is required.\"]},\"traceId\":\"00-b40e65ebc4b050c51324d648358072fb-1c4434db167a2387-01\"}"
+  },
+  {
+   "name": "chatbot nav keys",
+   "keys": [
+    "type",
+    "title",
+    "status",
+    "errors",
+    "traceId"
+   ]
+  },
+  {
+   "name": "chatbot chat POST (pageType 1 product context)",
+   "status": 400,
+   "body": "{\"type\":\"https://tools.ietf.org/html/rfc9110#section-15.5.1\",\"title\":\"One or more validation errors occurred.\",\"status\":400,\"errors\":{\"ListCategoryId\":[\"The ListCategoryId field is required.\"]},\"traceId\":\"00-652e25129ae48951ad91f1700e8fe434-59a16269c293ad34-01\"}"
+  },
+  {
+   "name": "chat POST shape",
+   "keys": [
+    "type",
+    "title",
+    "status",
+    "errors",
+    "traceId"
+   ]
+  }
+ ]
+}

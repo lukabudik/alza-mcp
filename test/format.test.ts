@@ -40,14 +40,29 @@ describe("format", () => {
   it("formats search results with multiple products", () => {
     const result: SearchResult = {
       query: "iphone",
-      total: 142,
+      total: 1,
       page: 1,
       pageSize: 20,
+      candidatesScanned: 142,
       products: [sampleProduct],
     };
     const out = formatSearchResult(result);
-    expect(out).toContain("142 results");
+    expect(out).toContain("Top 1 result(s)");
+    expect(out).toContain("scanned 142 candidates");
     expect(out).toContain("iPhone 15 Pro");
+  });
+
+  it("formats an empty search result with the scan context", () => {
+    const out = formatSearchResult({
+      query: "xyzzy123",
+      total: 0,
+      page: 1,
+      pageSize: 20,
+      candidatesScanned: 24,
+      products: [],
+    });
+    expect(out).toContain("No products found");
+    expect(out).toContain("scanned 24 candidates");
   });
 
   it("formats reviews", () => {

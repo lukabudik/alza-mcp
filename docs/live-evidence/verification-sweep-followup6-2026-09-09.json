@@ -1,0 +1,94 @@
+{
+ "date": "2026-09-09",
+ "transport": "Playwright in-page same-origin fetch on www.alza.cz and webapi.alza.cz (JS challenge cleared by navigation); mobile headers + Bearer",
+ "steps": [
+  {
+   "name": "A5 getUserData v2 (full body)",
+   "method": "GET",
+   "url": "/services/restservice.svc/v2/getUserData",
+   "status": 200,
+   "body": "{\"isQualifiedForCryptoWallet\":false,\"mailingSegments\":[{\"name\":\"Alza\",\"id\":139851,\"parentId\":null,\"subscribed\":false},{\"name\":\"Media\",\"id\":139852,\"parentId\":null,\"subscribed\":false},{\"name\":\"Hračky\",\"id\":139853,\"parentId\":null,\"subscribed\":false},{\"name\":\"Beauty\",\"id\":139854,\"parentId\":null,\"subscribed\":false},{\"name\":\"MAXI drogerie\",\"id\":139862,\"parentId\":null,\"subscribed\":false},{\"name\":\"Sport\",\"id\":139863,\"parentId\":null,\"subscribed\":false},{\"name\":\"E-knihy\",\"id\":139856,\"parentId\":139852,\"subscribed\":false},{\"name\":\"Audioknihy\",\"id\":139857,\"parentId\":139852,\"subscribed\":false},{\"name\":\"Filmy\",\"id\":139858,\"parentId\":139852,\"subscribed\":false},{\"name\":\"Hudba\",\"id\":139859,\"parentId\":139852,\"subscribed\":false},{\"name\":\"Časopisy\",\"id\":139860,\"parentId\":139852,\"subscribed\":false},{\"name\":\"Software\",\"id\":139861,\"parentId\":139852,\"subscribed\":false},{\"name\":\"Hobby\",\"id\":321613,\"parentId\":null,\"subscribed\":false},{\"name\":\"Pro miminka\",\"id\":321632,\"parentId\":139862,\"subscribed\":false},{\"name\":\"Osvětlení\",\"id\":340441,\"parentId\":139851,\"subscribed\":false},{\"name\":\"Gaming\",\"id\":356739,\"parentId\":139851,\"subscribed\":false},{\"name\":\"Alza Premium\",\"id\":180057,\"parentId\":null,\"subscribed\":false},{\"name\":\"Televize\",\"id\":556674,\"parentId\":139851,\"subscribed\":false},{\"name\":\"Foto\",\"id\":556675,\"parentId\":139851,\"subscribed\":false},{\"name\":\"Audio-Video\",\"id\":556676,\"parentId\":139851,\"subscribed\":false},{\"name\":\"Komponenty\",\"id\":556673,\"parentId\":139851,\"subscribed\":false},{\"name\":\"Alza Auto\",\"id\":1452550,\"parentId\":null,\"subscribed\":false},{\"name\":\"Alza Pet\",\"id\":1586731,\"parentId\":null,\"subscribed\":false},{\"name\":\"Chytrá domácnost\",\"id\":1586732,\"parentId\":139851,\"subscribed\":false}],\"userProfileImgUrl\":null,\"twoFactorAuth\":false,\"vip\":false,\"B2b\":false,\"canChangeBillingAddress\":false,\"vatParameters\":[{\"kind\":1,\"code\":\"IDENTIFICATIONNUMBER\",\"name\":\"IČO\",\"enabled\":false,\"value\":\"\",\"type\":1},{\"kind\":1,\"code\":\"VATIDENTIFICATIONNUMBER\",\"name\":\"DIČ\",\"enabled\":false,\"value\":\"\",\"type\":3}],\"unviewedNotificationCount\":0,\"lastChange\":null,\"phoneValidationSettings\":{\"countries\":[{\"countryCode\":\"CZ\",\"phonePrefix\":\"+420\",\"validationRegex\":\"^(?:(?:\\\\+|00)420)((2[0-9]{8})|((31|32|35|37|38|39|41|47|46|48|49|51|53|54|55|56|57|58|59|70|72|73|77)[0-9]{7})|((60[1-8]|790|791|792|793|794|795|796|797|798|799|910|950|972|973|974)[0-9]{6})|((9555|9567)[0-9]{5})){1}$\",\"flagImageUrl\":\"https://image.alza.cz/Images/flags/country/cz.svg\",\"isDefault\":true},{\"countryCode\":\"SK\",\"phonePrefix\":\"+421\",\"validationRegex\":\"^(?:(?:\\\\+|00)421)((2[0-9]{8})|(([3-5][1-8])[0-9]{7})|((90[1-9]|9[1-5][0-9])[0-9]{6}))$\",\"flagImageUrl\":\"https://image.alza.cz/Images/flags/country/sk.svg\",\"isDefault\":false},{\"countryCode\":\"DE\",\"phonePrefix\":\"+49\",\"validationRegex\":\"^(?:(?:\\\\+|00)49)(0)?(((30|40|69|89)[0-9]{3,8})|(2[0-9]{6,10})|(3[3-9][0-9]{5,9})|(4[1-9][0-9]{5,9})|(5[0-9]{6,10})|(6[0-8][0-9]{5,9})|(7[0-9]{6,10})|(8[0-8][0-9]{5,9})|(9[0-9]{6,10})|((16|17)[0-9]{8})|(15[0-9]{9})|(1609[0-9]{7})|(176[0-9]{8}))$\",\"flagImageUrl\":\"https://image.alza.cz/Images/flags/country/de.svg\",\"isDefault\":false},{\"countryCode\":\"HU\",\"phonePrefix\":\"+36\",\"validationRegex\":\"^(?:(?:\\\\+|00)36)(06)?((?:1|2[01]|3[01]|50|70)\\\\d{7}|(?:2[2-9]|3[2-7]|4[024-9]|5[234679]|6[23689]|7[2-9]|8[02-5789]|9[2-69])\\\\d{6})$\",\"flagImageUrl\":\"https://image.alza.cz/Images/flags/country/hu.svg\",\"isDefault\":false},{\"countryCode\":\"AT\",\"phonePrefix\":\"+43\",\"validationRegex\":\"^(?:(?:\\\\+|00)43)(0)?((1[0-9]{3,12})|(2[0-9]{6,12})|(316[0-9]{3,10})|(3[0-9]{6,12})|(463[0-9]{3,10})|(4[0-9]{6,12})|(512[0-9]{3,10})|(517[0-9]{2,10})|(509[0-9]{2,10})|(508[0-9]{2,10})|(507[0-9]{2,10})|(506[0-9]{2,10})|(505[0-9]{2,10})|(504[0-9]{2,10})|(503[0-9]{2,10})|(502[0-9]{2,10})|(501[0-9]{2,10})|(57[0-9]{3,11})|(59[0-9]{3,11})|(5[0-9]{6,12})|(662[0-9]{3,10})|(6[0-9]{6,12})|(732[0-9]{3,10})|(711[0-9]{6,10})|(718[0-9]{6,10})|(720[0-9]{6,10})|(780[0-9]{6,10})|(7((?!11|18|20|32|80)[0-9]{6,12}))){1}$\",\"flagImageUrl\":\"https://image.alza.cz/Images/flags/country/at.svg\",\"isDefault\":false}]},\"userVatSpecificationTypeValue\":null,\"subscriptionType\":0,\"id\":0,\"firmcodetext\":null,\"loginemail\":null,\"firm\":null,\"street\":null,\"city\":null,\"zip\":null,\"phone\":null,\"canChangePhone\":false,\"email\":null,\"IC\":null,\"DIC\":null,\"specificsymbol\":null,\"icDph\":null,\"cIcDph\":null,\"deliveryaddress_cnt\":0,\"deliveryadresses\":null,\"baskets_cnt\":0,\"baskets\":null,\"bankaccount\":null,\"nonews\":false,\"bankcode\":null,\"internalNumber\":null,\"info\":null,\"kindleEmail\":null,\"isKindleEmailAutoSend\":false,\"hasIsic\":false,\"isic\":null,\"hasPaymentCard\":false,\"cBic\":null,\"cIban\":null,\"bankAccountOwnerName\":null,\"err\":0,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":null,\"user_name\":\"\",\"user_id\":-1,\"vzt\":2191284512098899,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789028258}"
+  },
+  {
+   "name": "OR5 quickOrder summary (api/users, 401 stability retest)",
+   "method": "GET",
+   "url": "/api/users/100000001/v1/quickOrder/summary/commodities/5303618?pgrik=p__26752&ucik=u__401f1",
+   "status": 401,
+   "body": "{\"Message\":\"Authorization has been denied for this request.\"}"
+  },
+  {
+   "name": "A13 setIsic empty (401 stability retest)",
+   "method": "POST",
+   "url": "/services/restservice.svc/v1/setIsic",
+   "status": 401,
+   "body": "{\"Message\":\"Authorization has been denied for this request.\"}"
+  },
+  {
+   "name": "R1 flag 0/1 (www SPA-404 retest)",
+   "method": "GET",
+   "url": "/api/users/0/commodities/1/review",
+   "status": 404,
+   "body": "\r\n\r\n<!DOCTYPE html>\r\n<html id=\"rootHtml\" xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"cs-CZ\">\r\n<head><!--alza-component-version version=\"4.227.0\"--><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /><meta id=\"contentLanguage\" http-equiv=\"Content-Language\" content=\"cs-CZ\" /><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" /><title>\r\n\tChyba | Alza.cz\r\n</title><meta name=\"author\" content=\"Alza a.s.\" /><meta id=\"metaDescription\" name=\"description\" content=\"...největší obchod s počítači a elektronikou!\" /><meta id=\"keywords\" name=\"keywords\" content=\"online internetový obchod prodej levné počítače elektronika Alza.cz Praha\" /><link rel=\"shortcut icon\" href=\"/favicon-alza.ico\" type=\"image/x-icon\" />\r\n<link rel=\"icon\" href=\"/Images/appIcons/favicon-512x512.png\" />\r\n<link rel=\"canonical\" href=\"https://www.alza.cz/api/users/0/commodities/1/review\" />\r\n<meta name=\"msapplication-TileColor\" content=\"#FFFFFF\" /><meta name=\"SKYPE_TOOLBAR\" content=\"SKYPE_TOOLBAR_PARSER_COMPATIBLE\" /><meta id=\"ogHeight\" property=\"og:image:width\" content=\"400\" /><meta id=\"ogWidth\" property=\"og:image:height\" content=\"300\" /><meta property=\"fb:app_id\" content=\"181388238617107\" /><meta name=\"application-name\" content=\"Alza.cz\"/><meta name=\"msapplication-TileImage\" content=\"/Images/alza-win8.png\"/> <meta name=\"apple-itunes-app\" content=\"app-id=582287621\"><link rel=\"manifest\" href=\"/manifest.json\" /><link rel=\"publisher\" href=\"https://plus.google.com/113255604026017568411/\" /><link rel=\"apple-touch-icon\" href=\"../../../../../Images/appIcons/ios/apple-touch-icon.png\" /><link rel=\"preconnect\" href=\"https://fonts.gstatic.com/\" crossorigin=\"\" /><link rel=\"preconnect\" href=\"https://pay.google.com/\" crossorigin=\"\" /><link rel=\"preconnect\" href=\"https://cdn.alza.cz/\" crossorigin=\"\" /><link rel=\"preconnect\" href=\"https://image.alza.cz/\" crossorigin=\"\" /><link rel=\"dns-prefetch\" href=\"https://i18n.alza.cz/\" crossorigin=\"\" /><link href=\"https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700\" rel=\"preload\" as=\"font\" onload=\"this.rel = 'stylesheet'\" crossorigin><script type=\"text/javascript\" src=\"https://cdn.alza.cz/dist/b/loadCSSScript.ae4d30b3de.js\" ></script>\r\n\r\n<script>webPlatform = 2;webDomain = 1;</script><script type=\"text/javascript\" src=\"https://cdn.alza.cz/dist/b/web-vitals.f84c0cfb44.js\" ></script>\r\n\r\n\r\n<script>webVitals.onINP(sendInpData, { reportAllChanges: true });</script><script>LUX=function(){function n(){return Date.now?Date.now():+new Date}var r,e=n(),t=window.performance||{},a=t.timing||{navigationStart:(null===(r=window.LUX)||void 0===r?void 0:r.ns)||e};function o(){return t.now?t.now():n()-a.navigationStart}LUX={ac:[],addData:function(n,r){return LUX.cmd([\"addData\",n,r])},cmd:function(n){return LUX.ac.push(n)},init:function(){return LUX.cmd([\"init\"])},mark:function(){for(var n=[],r=0;r<arguments.length;r++)n[r]=arguments[r];if(t.mark)return t.mark.apply(t,n);var e=n[0],a=n[1]||{};void 0===a.startTime&&(a.startTime=o());LUX.cmd([\"mark\",e,a])},markLoadTime:function(){return LUX.cmd([\"markLoadTime\",o()])},measure:function(){for(var n=[],r=0;r<arguments.length;r++)n[r]=arguments[r];if(t.measure)return t.measure.apply(t,n);var e,a=n[0],i=n[1],u=n[2];e=\"object\"==typeof i?n[1]:{start:i,end:u};e.duration||e.end||(e.end=o());LUX.cmd([\"measure\",a,e])},send:function(){return LUX.cmd([\"send\"])},ns:e};var i=LUX;if(window.LUX_ae=[],window.addEventListener(\"error\",(function(n){window.LUX_ae.push(n)})),window.LUX_al=[],\"function\"==typeof PerformanceObserver&&\"function\"==typeof PerformanceLongTaskTiming){var u=new PerformanceObserver((function(n){for(var r=n.getEntries(),e=0;e<r.length;e++)window.LUX_al.push(r[e])}));try{u.observe({type:\"longtask\"})}catch(n){}}return i}();</script><script>LUX = window.LUX || {};LUX.minMeasureTime = 60000;LUX.samplerate = 2;</script>\r\n\t\r\n\r\n<link rel=\"stylesheet\" href=\"https://cdn.alza.cz/dist/a/critical-full.e61ae1183e.css\" type=\"text/css\" />\r\n\r\n<link rel=\"stylesheet\" href=\"https://cdn.alza.cz/dist/a/errorPages-full.04902c023a.css\" type=\"text/css\" />\r\n\r\n<link rel=\"stylesheet\" href=\"https://cdn.alza.cz/dist/a/global-full.7d5a44bb85.css\" type=\"text/css\" />\r\n\r\n<link rel=\"preload\" href=\"https://cdn.alza.cz/dist/a/lowPriorityStyles-full.3f73c29dad.css\" as=\"style\" onload=\"this.rel='stylesheet'\" type=\"text/css\" />\r\n\r\n\n<link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdn.alza.cz/Styles/print.css\" media=\"print\">\r\n\r\n\t<noscript>\t\t\r\n\t\t<link rel=\"stylesheet\" href=\"https://cdn.alza.cz/dist/a/lowPriorityStyles-full.3f73c29dad.css\" type=\"text/css\" />\r\n\r\n\n<link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdn.alza.cz/Styles/print.css\" media=\"print\">\r\n\r\n\t</noscript>\r\n\t<script type=\"text/javascript\" src=\"https://cdn.alza.cz/dist/b/critical.39f366e59b.js\" ></script>\r\n\r\n\r\n\r\n\r\n    \r\n<script src=\"https://www.googleoptimize.com/optimize.js?id=GTM-KJRPCKV\"></script>\r\n\t\r\n\t<style>[style*=\"--aspect-ratio\"]{position:relative;padding-bottom:calc(100%/(var(--aspect-ratio)));}[style*=\"--aspect-ratio\"]>:first-child{position:absolute;top:0;left:0;height:100%;}</style>\r\n\t<script>_CLIENT_CONFIG={\"ajaxTimeout\":60000,\"useCache\":true,\"logger\":{\"type\":\"ApiLogger\",\"apiUrl\":\"https://logapi.alza.cz/api/log/v2/logs\",\"debugLogs\":false},\"apiBase\":\"https://webapi.alza.cz\",\"cdnUrl\":\"https://cdn.alza.cz\",\"addProductionClassPrefix\":true,\"emotionSpeedy\":true,\"translationsUrl\":\"https://i18n.alza.cz/Icu/Eshop\"}</script><link rel=\"stylesheet\" href=\"https://1161575864.rsc.cdn77.org/4.227.0-/alzaMap.ad8vb.css\" /><link rel=\"stylesheet\" href=\"https://1161575864.rsc.cdn77.org/4.227.0-/global.css\" /><script src=\"https://1161575864.rsc.cdn77.org/4.227.0-/6cbd3a85a9d561b0.js\" defer></script><script src=\"https://1161575864.rsc.cdn77.org/4.227.0-/2f156ef8c9c7441c.js\" defer></script><script src=\"https://1161575864.rsc.cdn77.org/4.227.0-/744f4fe649657671.js\" defer></script><script src=\"https://1161575864.rsc.cdn77.org/4.227.0-/1e03328637c46c21.js\" defer></script><script src=\"https://1161575864.rsc.cdn77.org/4.227.0-/a30b8a1e850"
+  },
+  {
+   "name": "C6 review href scan",
+   "status": 200,
+   "reviewHrefs": [
+    "https://webapi.alza.cz/api/catalog/v2/commodities/5303618/reviewStats?country=CZ&pgrik=p__26752&ucik=u__401f1",
+    "https://webapi.alza.cz/api/catalog/commodities/5303618/reviews?country=CZ"
+   ],
+   "body": "{\"data\":{\"self\":{\"href\":\"https://www.alza.cz/api/router/legacy/catalog/product/5303618?pgrik=p__26752&ucik=u__401f1&country=CZ&electronicContentOnly=False\",\"appLink\":\"catalogProductDetail\",\"enabled\":true},\"isDailySlasher\":false,\"action_info\":null,\"actions\":null,\"actions_cnt\":0,\"artist\":null,\"availabilityDesc\":null,\"commodityLife\":null,\"links\":[],\"links_cnt\":\"0\",\"extendedWarranty\":null,\"gaCategory\":\"Společenské a deskové hry\",\"gaPrice\":119.00,\"genre\":null,\"imgs\":[{\"big_url\":\"https://image.alza.cz/Foto/f3/HR/HRAif8315.jpg\",\"id\":\"HRAif8315\",\"order\":1,\"origUrl\":\"https://image.alza.cz/Foto/f4/HR/HR"
+  },
+  {
+   "name": "C14 mainNavigation (webapi same-origin, eshopUrl)",
+   "method": "GET",
+   "url": "https://webapi.alza.cz/api/users/100000001/mainNavigation?eshopUrl=www.alza.cz",
+   "status": 401,
+   "body": "{\"message\":\"Unauthorized\"}",
+   "isAlzaChallenge": false
+  },
+  {
+   "name": "C13 visitors mainNavigation (webapi same-origin)",
+   "method": "GET",
+   "url": "https://webapi.alza.cz/api/visitors/00000000-0000-0000-0000-000000000000/mainNavigation",
+   "status": 400,
+   "body": "{\"message\":\"The Country field is required.\"}",
+   "isAlzaChallenge": false
+  },
+  {
+   "name": "R1 flag 0/1 (webapi same-origin)",
+   "method": "GET",
+   "url": "https://webapi.alza.cz/api/users/0/commodities/1/review",
+   "status": 401,
+   "body": "{\"message\":\"Unauthorized\"}",
+   "isAlzaChallenge": false
+  },
+  {
+   "name": "R1 flag 1/1 (webapi same-origin)",
+   "method": "GET",
+   "url": "https://webapi.alza.cz/api/users/1/commodities/1/review",
+   "status": 401,
+   "body": "{\"message\":\"Unauthorized\"}",
+   "isAlzaChallenge": false
+  },
+  {
+   "name": "OR5 quickOrder summary (webapi same-origin)",
+   "method": "GET",
+   "url": "https://webapi.alza.cz/api/users/100000001/v1/quickOrder/summary/commodities/5303618?pgrik=p__26752&ucik=u__401f1",
+   "status": 404,
+   "body": "",
+   "isAlzaChallenge": false
+  },
+  {
+   "name": "R1 review href (webapi): https://webapi.alza.cz/api/catalog/v2/commodities/5303618/reviewStats?country=CZ",
+   "status": 200,
+   "body": "{\"self\":{\"href\":\"https://webapi.alza.cz/api/catalog/v2/commodities/5303618/reviewStats?country=CZ&pgrik=p__26752&ucik=u__401f1\",\"appLink\":\"reviewStats\",\"enabled\":true},\"name\":\"Značky aut\",\"image\":\"https://image.alza.cz/products/HRAif8315/HRAif8315.jpg\",\"detailAction\":{\"webLink\":\"https://www.alza.cz/znacky-aut-d5303618.htm\",\"href\":\"https://www.alza.cz/api/router/legacy/catalog/product/5303618?country=cz&pgrik=p__26752&ucik=u__401f1\",\"appLink\":\"catalogProductDetail\",\"enabled\":true},\"addToBasketAction\":{\"appLink\":\"addToBasketWithNavigationToCrossSell\",\"form\":{\"method\":\"POST\",\"value\":[{\"name\":\"items\",\"value\":[{\"method\":\"POST\",\"value\":[{\"name\":\"commodityId\",\"value\":5303618,\"itemType\":\"integer\",\"isHidden\":true,\"isEnabled\":true},{\"name\":\"count\",\"value\":1,\"itemType\":\"decimal\",\"isHidden\":true,\"isEnabled\":true},{\"name\":\"pricePerItem\",\"itemType\":\"decimal\",\"isHidden\":true,\"isEnabled\":true},{\"name\":\"services\",\"value\":[],\"itemType\":\"set\",\"isHidden\":true,\"isEnabled\":true},{\"name\":\"hooks\",\"value\":[],\"itemType\":\"set\",\"isHidden\":true,\"isEnabled\":true}],\"rel\":[\"form\"],\"href\":\"https://www.alza.cz/\"}],\"itemType\":\"objectArray\",\"isHidden\":true,\"isEnabled\":true}],\"rel\":[\"form\"],\"href\":\"https://www.alza.cz"
+  },
+  {
+   "name": "R1 review href (webapi): https://webapi.alza.cz/api/catalog/commodities/5303618/reviews?country=CZ",
+   "status": 200,
+   "body": "{\"paging\":{\"offset\":0,\"limit\":20,\"size\":19,\"first\":{\"meta\":{\"href\":\"https://webapi.alza.cz/api/catalog/commodities/5303618/reviews?limit=20\",\"rel\":[\"first\"]}}},\"items\":[{\"rating\":5.0,\"likeCount\":0,\"templatedReviewAction\":{\"href\":\"https://webapi.alza.cz/api/users/%7BuserId%7D/review/8692552/actions?country=cz\",\"appLink\":\"userReviewActions\",\"enabled\":true},\"likeButtonText\":\"Užitečné\",\"reportButtonText\":\"Nahlásit\",\"description\":\"kvalitní, neloupe se potisk\",\"positives\":[],\"negatives\":[],\"name\":\"Petr, Břeclav 4\",\"verifiedPurchase\":true,\"verifiedPurchaseTag\":{\"label\":\"Ověřený nákup\",\"tooltip\":{\"text\":\"Recenzovaný produkt byl zakoupen na našem eshopu. <action name=\\\"showExternal\\\" />.\",\"actions\":{\"showExternal\":{\"href\":\"https://www.alza.cz/article/3370.htm\",\"appLink\":\"webView\",\"name\":\"Více informací\",\"enabled\":true}}}},\"reviewDetail\":\"Hodnoceno 21.08.2026, varianta Značky aut\",\"isTranslated\":false,\"flagUrl\":\"https://cdn.alza.cz/images/flags/country/cz.svg\",\"avatarUrl\":\"https://image.alza.cz/Images/avatars/list/03.jpg\",\"images\":[]},{\"rating\":5.0,\"likeCount\":0,\"templatedReviewAction\":{\"href\":\"https://webapi.alza.cz/api/users/%7BuserId%7D/review/8641815/actions?country=cz\",\"appLink\":\"userRe"
+  }
+ ],
+ "webapiNav": "ok"
+}

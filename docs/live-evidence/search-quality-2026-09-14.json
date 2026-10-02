@@ -1,0 +1,49 @@
+{
+  "captured_at": "2026-09-14T13:20:00Z",
+  "purpose": "Fix all search-quality issues surfaced by the headless pi verification and the sort work: page-scoped sort, silently-ignored in_stock, cold-start false 'No products found', and broken result pagination.",
+  "findings": {
+    "sort_page_scoped": {
+      "discovered": "2026-09-12",
+      "detail": "Alza /search.htm ignores the o= sort param (o=0/2/3 identical; sort control is client-side JS #sort_N). First fix (5ec2527/ddb9e58): client-side sort of ONE page (~24 items)."
+    },
+    "in_stock_ignored": {
+      "discovered": "2026-09-12",
+      "detail": "in_stock was passed to the domain but never filtered — search cards carry no stock attribute. Stock signal = card purchase CTA (verified 2026-09-12: 'Do košíku'/'Vybrat variantu' = purchasable now; standalone 'Hlídat' button = not; the 'Hlídat dostupnost nebo cenu' watch link appears on every card and must not count; CTA text uses non-breaking spaces)."
+    },
+    "cold_start_false_empty": {
+      "discovered": "2026-09-12",
+      "detail": "First navigation after browser launch can finish 'load' with the grid unrendered; the 15 s selector wait expired with 0 cards → 'No products found' for a query with results (observed on the first call of a probe session; same call succeeded on retry). Fix: bounded extract-retry (3 attempts)."
+    },
+    "pagination_broken": {
+      "discovered": "2026-09-14",
+      "detail": "search.htm?exps=…&pg=N IGNORES pg — pg=2/3 repeat page 1 exactly (20/20 code overlap, with or without o=; 3 pages → 20 unique). Alza's rendered page-number anchors point at category-style pages (e.g. /notebooky/18842920-p2.htm); those DO serve different products (page 1 ∩ cat-p2 = 0 overlap). Fix: follow the rendered pagination links (PAGE_URLS_EXTRACTOR); an explicit page beyond the rendered set now returns no results instead of silently repeating page 1.",
+      "off_by_one": "loop used maxPages as an index bound (n <= maxPages) so explicit page=2 visited zero pages (pages:0); fixed to n < page + maxPages."
+    }
+  },
+  "changes": {
+    "src/domain/catalog.ts": [
+      "sweep: for price/rating sorts gather candidates from up to sortSweepPages(limit) real pages (limit 50 → 3 pages → 68 candidates for 'notebook'), dedup by code, client-side sort (compareForSort)",
+      "in_stock: RawCard.inStock from CTA text (nbsp-normalized); normalizeCard → availability 'in stock'/'not purchasable now'; passesInStock filter (undetermined stock excluded when the flag is set)",
+      "fetchSearchPage: bounded render-retry + per-attempt debug log; returns {cards, pageUrls}",
+      "PAGE_URLS_EXTRACTOR: resolves rendered page-number anchors (-pN.htm pattern → page 1..N URLs)",
+      "candidatesScanned always set (how many candidates were scanned before filtering/sorting)"
+    ],
+    "src/tools/search-products.ts": "honest descriptions (sort sweep + newest best-effort; in_stock CTA-derived; page follows rendered pagination); candidatesScanned in structuredContent",
+    "src/tools/format.ts": "header 'Top N result(s) … (scanned X candidates)' — no more 'Found N (showing N)'",
+    "src/tools/output-schemas.ts": "SEARCH_PRODUCTS_OUTPUT.candidatesScanned (added in 52394d1)",
+    "test/catalog-sort.test.ts": "compareForSort / sortSweepPages / passesInStock (9 tests)",
+    "test/format.test.ts": "honest header + empty-result scan context"
+  },
+  "live_matrix_2026_09_14": {
+    "capture": "docs/live-evidence/search-quality-matrix-2026-09-14.json (probe section 'matrix')",
+    "headless_rerun": {"log": "/tmp/pi-headless3.log (2026-09-14)", "exit_code": 0, "result": "PASS — cheapest product correct (Force Strong 139 CZK / SPTfor0202), sorted, runner-up reported"},
+    "cases": [
+      {"args": {"query": "čistič na kolo", "sort": "price-asc", "in_stock": true, "max_price": 300, "limit": 5}, "result": "Top 5, scanned 24 candidates, 139→189 CZK ascending, all 'in stock' (cold-start first call)"},
+      {"args": {"query": "notebook", "sort": "price-asc", "limit": 50}, "result": "Top 50, scanned 68 candidates (3 real pages), cheapest first 8 888 CZK"},
+      {"args": {"query": "notebook", "page": 2, "limit": 5}, "result": "Top 5 from the real page 2 (ThinkBook 16 G8 first — distinct from page 1), scanned 24"},
+      {"args": {"query": "PS4 hra", "in_stock": true, "limit": 10}, "result": "Top 10, all 'in stock'; non-purchasable CTA cards (e.g. EA Sports FC 27) excluded vs. unfiltered run"},
+      {"args": {"query": "xyzzy123qwerty", "limit": 5}, "result": "either 'No products found (scanned 0 candidates)' or Alza fuzzy matches — both honest"}
+    ]
+  },
+  "gate": {"tests": "102/102 (12 files)", "typecheck": "clean", "build": "clean", "diff_check": "clean"}
+}

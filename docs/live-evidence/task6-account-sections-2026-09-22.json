@@ -1,0 +1,88 @@
+{
+  "startedAt": "2026-09-22T15:26:45.558Z",
+  "passwordNavigation": {
+    "self": {
+      "href": "https://webapi.alza.cz/api/users/100000001/v1/userAccount/password/navigation?country=cz",
+      "appLink": "userAccountPasswordNavigation",
+      "enabled": true
+    },
+    "passwordAction": {
+      "href": "https://webapi.alza.cz/api/users/100000001/v1/userAccount/password?country=cz",
+      "appLink": "userAccountPasswordInfo",
+      "enabled": true
+    },
+    "twoFactorAction": {
+      "href": "https://webapi.alza.cz/api/users/100000001/v1/userAccount/password/2fa?country=cz",
+      "appLink": "userAccount2FaInfo",
+      "enabled": true
+    }
+  },
+  "userAccountNavigation": {
+    "topKeys": [
+      "self",
+      "userInfo",
+      "companySectionAction",
+      "sections",
+      "personBanner",
+      "basicInfo",
+      "contactInfo",
+      "studentProgramAction",
+      "printFullReceiptAction",
+      "personalDetailsAction"
+    ],
+    "userInfo": {
+      "href": "https://webapi.alza.cz/api/users/100000001/v2/userInfo?country=CZ",
+      "appLink": "userInfo",
+      "enabled": true
+    },
+    "sections": [
+      {
+        "onActionClick": {
+          "href": "https://webapi.alza.cz/api/users/100000001/v1/userAccount?sectionType=Regular&country=CZ&isLocked=True",
+          "appLink": "userAccountSection",
+          "name": "Běžný zákazník",
+          "enabled": true
+        },
+        "isSelected": true,
+        "order": 0
+      },
+      {
+        "onActionClick": {
+          "href": "https://webapi.alza.cz/api/users/100000001/v1/userAccount?sectionType=Company&country=CZ&isLocked=True",
+          "appLink": "userAccountSection",
+          "name": "Firma",
+          "enabled": true
+        },
+        "isSelected": false,
+        "order": 1
+      },
+      {
+        "onActionClick": {
+          "href": "https://webapi.alza.cz/api/users/100000001/v1/userAccount?sectionType=Student&country=CZ&isLocked=True",
+          "appLink": "userAccountSection",
+          "name": "Student",
+          "enabled": true
+        },
+        "isSelected": false,
+        "order": 2
+      }
+    ],
+    "basicInfo": null,
+    "contactInfo": null,
+    "personalDetailsAction": {
+      "href": "https://webapi.alza.cz/api/users/100000001/v1/userAccount/personalDetails?country=CZ",
+      "appLink": "userAccountPersonalDetails",
+      "enabled": true
+    }
+  },
+  "profile": {
+    "self": {
+      "href": "https://www.alza.cz/api/users/100000001/v1/account?country=CZ",
+      "appLink": "userAccount",
+      "enabled": true
+    },
+    "phone": "+420601234567",
+    "email": "e2e-user@example.invalid",
+    "2faEnabled": false
+  }
+}

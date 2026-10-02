@@ -1,0 +1,125 @@
+{
+  "startedAt": "2026-09-22T15:06:44.214Z",
+  "A14_passwordNav": {
+    "status": 200,
+    "topKeys": [
+      "self",
+      "passwordAction",
+      "twoFactorAction"
+    ],
+    "actions": []
+  },
+  "A_userAccountNav": {
+    "status": 200,
+    "topKeys": [
+      "self",
+      "userInfo",
+      "companySectionAction",
+      "sections",
+      "personBanner",
+      "basicInfo",
+      "contactInfo",
+      "studentProgramAction",
+      "printFullReceiptAction",
+      "personalDetailsAction"
+    ],
+    "actions": []
+  },
+  "OR_ordersRoot": {
+    "status": 200,
+    "topKeys": [
+      "self",
+      "activeOrders",
+      "archiveOrders",
+      "checkoutOverview",
+      "orderSearch",
+      "invoiceLookup",
+      "alzaPremiumPromoBanner"
+    ],
+    "actions": [
+      {
+        "path": "OR_ordersRoot.activeOrders",
+        "name": "Aktivní objednávky",
+        "method": null,
+        "href": "https://www.alza.cz/api/users/100000001/v1/orders/active",
+        "rel": null,
+        "formValues": null
+      },
+      {
+        "path": "OR_ordersRoot.activeOrders.form",
+        "name": null,
+        "method": "GET",
+        "href": "https://www.alza.cz/api/users/100000001/v1/orders/active",
+        "rel": [
+          "form"
+        ],
+        "formValues": [
+          "productFilterType"
+        ]
+      },
+      {
+        "path": "OR_ordersRoot.archiveOrders",
+        "name": "Archivní objednávky",
+        "method": null,
+        "href": "https://www.alza.cz/api/users/100000001/v1/orders/archive",
+        "rel": null,
+        "formValues": null
+      },
+      {
+        "path": "OR_ordersRoot.archiveOrders.form",
+        "name": null,
+        "method": "GET",
+        "href": "https://www.alza.cz/api/users/100000001/v1/orders/archive",
+        "rel": [
+          "form"
+        ],
+        "formValues": [
+          "hideCancelledOrders",
+          "productFilterType"
+        ]
+      },
+      {
+        "path": "OR_ordersRoot.orderSearch",
+        "name": null,
+        "method": null,
+        "href": "https://www.alza.cz/api/router/users/100000001/orders/search/form",
+        "rel": null,
+        "formValues": null
+      },
+      {
+        "path": "OR_ordersRoot.orderSearch.form",
+        "name": null,
+        "method": "GET",
+        "href": "https://www.alza.cz/api/router/users/100000001/orders/search/form",
+        "rel": [
+          "form"
+        ],
+        "formValues": [
+          "productFilterType"
+        ]
+      },
+      {
+        "path": "OR_ordersRoot.invoiceLookup.form",
+        "name": null,
+        "method": "GET",
+        "href": "https://www.alza.cz/api/users/100000001/v1/orders",
+        "rel": [
+          "query-form"
+        ],
+        "formValues": [
+          "invoiceNumber"
+        ]
+      }
+    ]
+  },
+  "A_profile": {
+    "status": 200,
+    "topKeys": [
+      "self",
+      "phone",
+      "email",
+      "2faEnabled"
+    ],
+    "actions": []
+  }
+}

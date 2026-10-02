@@ -1,0 +1,103 @@
+{
+ "date": "2026-09-09",
+ "steps": [
+  {
+   "name": "GetZipCodes {\"Search\":\"Hradec Králové\"}",
+   "status": 200,
+   "body": "{\"d\":{\"Value\":\"<div class=\\\"zip-item\\\" id=\\\"zc3022826\\\" aria-label=\\\"test\\\" data-id=\\\"3022826\\\" data-city=\\\"Hradec Králové\\\" data-text=\\\"500 00\\\" data-description=\\\"500 00, Hradec Králové\\\">\\n<span class=\\\"description\\\">500 00, Hradec Králové</span>\\n</div>\\n<"
+  },
+  {
+   "name": "GetZipCodes {\"Input\":\"Hradec Králové\"}",
+   "status": 200,
+   "body": "{\"d\":{\"Value\":\"Nenašli jsme žádné místo, zkuste to prosím znovu.\",\"LeasingPartnerUrl\":null,\"DevErrorMessage\":null,\"Message\":null,\"ErrorNeoPurchaseFailed\":false,\"ErrorLevel\":14,\"RedirectUrlOrderDetail\":null,\"PaymentAction\":null,\"CanShowFastCheckoutButton\":false"
+  },
+  {
+   "name": "GetZipCodes {\"ZipCode\":\"50004\"}",
+   "status": 200,
+   "body": "{\"d\":{\"Value\":\"Nenašli jsme žádné místo, zkuste to prosím znovu.\",\"LeasingPartnerUrl\":null,\"DevErrorMessage\":null,\"Message\":null,\"ErrorNeoPurchaseFailed\":false,\"ErrorLevel\":14,\"RedirectUrlOrderDetail\":null,\"PaymentAction\":null,\"CanShowFastCheckoutButton\":false"
+  },
+  {
+   "name": "GetZipCodes {\"Value\":\"50004\"}",
+   "status": 200,
+   "body": "{\"d\":{\"Value\":\"Nenašli jsme žádné místo, zkuste to prosím znovu.\",\"LeasingPartnerUrl\":null,\"DevErrorMessage\":null,\"Message\":null,\"ErrorNeoPurchaseFailed\":false,\"ErrorLevel\":14,\"RedirectUrlOrderDetail\":null,\"PaymentAction\":null,\"CanShowFastCheckoutButton\":false"
+  },
+  {
+   "name": "GetZipCodes {\"Text\":\"Hradec Králové\"}",
+   "status": 200,
+   "body": "{\"d\":{\"Value\":\"Nenašli jsme žádné místo, zkuste to prosím znovu.\",\"LeasingPartnerUrl\":null,\"DevErrorMessage\":null,\"Message\":null,\"ErrorNeoPurchaseFailed\":false,\"ErrorLevel\":14,\"RedirectUrlOrderDetail\":null,\"PaymentAction\":null,\"CanShowFastCheckoutButton\":false"
+  },
+  {
+   "name": "GetZipCodes {\"Query\":\"50004\"}",
+   "status": 200,
+   "body": "{\"d\":{\"Value\":\"Nenašli jsme žádné místo, zkuste to prosím znovu.\",\"LeasingPartnerUrl\":null,\"DevErrorMessage\":null,\"Message\":null,\"ErrorNeoPurchaseFailed\":false,\"ErrorLevel\":14,\"RedirectUrlOrderDetail\":null,\"PaymentAction\":null,\"CanShowFastCheckoutButton\":false"
+  },
+  {
+   "name": "basket add",
+   "status": 200,
+   "body": "{\"crossSellAppAction\":{\"webLink\":\"https://www.alza.cz/CrossSell.htm?id=1024051379&pkitem=5303618\",\"href\":\"https://www.alza.cz/Services/RestService.svc/v7/gridOrder1\",\"appLink\":\"crossSell\",\"enabled\":true},\"crossPopupAction\":{\"href\":\"https://webapi.alza.cz/api/c"
+  },
+  {
+   "name": "D1 v13 (with basket)",
+   "status": 200,
+   "body": "{\"deliveryGroups\":[{\"deliveryGroupId\":394248686,\"deliveries\":[{\"isLimited\":false,\"beforeSelectAction\":null,\"afterSelectAction\":null,\"afterDeselectAction\":null,\"promoText\":null,\"customerPaymentCreditTooltipLink\":null,\"analytics\":null,\"id\":2680,\"name\":\"AlzaBox\","
+  },
+  {
+   "name": "D1 action scan",
+   "deliveries": 59,
+   "withActions": 0,
+   "sampleNullFields": [
+    "beforeSelectAction=null",
+    "afterSelectAction=null",
+    "afterDeselectAction=null"
+   ],
+   "payments": 14,
+   "paymentsWithActions": 0,
+   "alzaPlusBanner": "null"
+  },
+  {
+   "name": "chatbot navigation ?country=CZ",
+   "status": 200,
+   "body": "{\"commodityCodesCarouselAction\":null,\"chatbotInitializeChatAction\":{\"appLink\":\"chatbotInitializeChat\",\"enabled\":true,\"href\":\"https://chatbotapi.alza.cz/api/visitors/00000000-0000-0000-0000-000000000000/v1/chat?country=CZ\"},\"chatbotReinitializeChatAction\":{\"app"
+  },
+  {
+   "name": "chatbot nav keys",
+   "keys": [
+    "commodityCodesCarouselAction",
+    "chatbotInitializeChatAction",
+    "chatbotReinitializeChatAction",
+    "chatbotMetadataAction",
+    "chatbotSetRatingAction",
+    "chatbotSetParametersAction",
+    "chatbotPrivacyPolicy",
+    "chatbotGetConversationsAction",
+    "sendFeedbackAction"
+   ]
+  },
+  {
+   "name": "chat POST listCategoryId:[]",
+   "status": 200,
+   "body": "{\"configuration\":{\"sessionId\":null,\"resizeTimeout\":null,\"avatarImageUrl\":null,\"activeHistory\":null,\"configId\":131,\"version\":\"\",\"sessionExist\":false,\"sessionOnDemand\":false,\"sessionJustCreated\":false,\"pageType\":\"productDetail\",\"initialSize\":\"small\",\"sizeOnActio"
+  },
+  {
+   "name": "chat [] result",
+   "configId": 131,
+   "teamName": "Asistentka Alzee",
+   "showChat": true,
+   "keys": [
+    "configuration",
+    "showChat"
+   ]
+  },
+  {
+   "name": "chat POST listCategoryId:[{0,0}]",
+   "status": 200,
+   "body": "{\"configuration\":{\"sessionId\":null,\"resizeTimeout\":null,\"avatarImageUrl\":null,\"activeHistory\":null,\"configId\":131,\"version\":\"\",\"sessionExist\":false,\"sessionOnDemand\":false,\"sessionJustCreated\":false,\"pageType\":\"productDetail\",\"initialSize\":\"small\",\"sizeOnActio"
+  },
+  {
+   "name": "chat [{0,0}] result",
+   "configId": 131,
+   "teamName": "Asistentka Alzee",
+   "showChat": true
+  }
+ ]
+}

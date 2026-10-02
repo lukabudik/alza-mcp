@@ -1,0 +1,197 @@
+{
+  "startedAt": "2026-09-22T14:25:01.119Z",
+  "mainNavigation": {
+    "status": 200
+  },
+  "actions": [
+    {
+      "path": "nav.basketAuthenticationItemCreateActionsNavigation.form",
+      "name": null,
+      "method": "GET",
+      "href": "https://www.alza.cz/api/v1/basket/item/actions/authentication/basketItemCreateActions",
+      "rel": [
+        "form"
+      ],
+      "formValues": [
+        "basketId",
+        "userId",
+        "visitorGuid",
+        "productId",
+        "productQuantity",
+        "country",
+        "usesDelayedPayment",
+        "selectedAccessoriesIds",
+        "selectedHooksIds"
+      ]
+    },
+    {
+      "path": "nav.registerPushDevice",
+      "name": null,
+      "method": null,
+      "href": "https://webapi.alza.cz/api/users/SE100000001/v1/pushDevice/registration",
+      "rel": null,
+      "formValues": null
+    },
+    {
+      "path": "nav.registerPushDevice.form",
+      "name": null,
+      "method": "POST",
+      "href": "https://webapi.alza.cz/api/users/SE100000001/v1/pushDevice/registration",
+      "rel": [
+        "form"
+      ],
+      "formValues": [
+        "token",
+        "platform",
+        "deviceName"
+      ]
+    },
+    {
+      "path": "nav.confirmUserBuyoutForm",
+      "name": null,
+      "method": "POST",
+      "href": "https://webapi.alza.cz/api/users/100000001/v1/buyouts/confirmation?userFirmCode=SE100000001&country=CZ",
+      "rel": [
+        "form"
+      ],
+      "formValues": [
+        "buyoutIdentifier",
+        "requestId"
+      ]
+    },
+    {
+      "path": "nav.medicalPrescription",
+      "name": null,
+      "method": null,
+      "href": "https://webapi.alza.cz/api/users/100000001/v1/pharmacy/medicalPrescription?country=CZ",
+      "rel": null,
+      "formValues": null
+    },
+    {
+      "path": "nav.medicalPrescription.form",
+      "name": null,
+      "method": "GET",
+      "href": "https://webapi.alza.cz/api/users/100000001/v1/pharmacy/medicalPrescription?country=CZ",
+      "rel": [
+        "form"
+      ],
+      "formValues": [
+        "erpCode"
+      ]
+    },
+    {
+      "path": "nav.whisperer.form",
+      "name": null,
+      "method": "GET",
+      "href": "https://webapi.alza.cz/api/users/100000001/search/whisperer/v1/whisper?country=CZ&visitor=00000000-0000-0000-0000-000000000000&eshopUrl=https%3a%2f%2fwww.alza.cz%2f",
+      "rel": [
+        "query-form"
+      ],
+      "formValues": [
+        "searchTerm"
+      ]
+    },
+    {
+      "path": "nav.parcelLockers.form",
+      "name": null,
+      "method": "GET",
+      "href": "https://www.alza.cz/api/users/100000001/v1/orders/checkout/parcelLockers",
+      "rel": [
+        "query-form"
+      ],
+      "formValues": [
+        "qrCode"
+      ]
+    },
+    {
+      "path": "nav.unregisterPushDevice",
+      "name": null,
+      "method": null,
+      "href": "https://webapi.alza.cz/api/v1/pushDevice/unregistration",
+      "rel": null,
+      "formValues": null
+    },
+    {
+      "path": "nav.unregisterPushDevice.form",
+      "name": null,
+      "method": "POST",
+      "href": "https://webapi.alza.cz/api/v1/pushDevice/unregistration",
+      "rel": [
+        "form"
+      ],
+      "formValues": [
+        "token"
+      ]
+    }
+  ],
+  "topKeys": [
+    "self",
+    "logout",
+    "selectAccount",
+    "commodities",
+    "orderCommoditySearch",
+    "businessToBusinessZeroVat",
+    "userInvoices",
+    "alzaPlusPotentialSaving",
+    "thirdPartyCommodityLandingPage",
+    "authorisedPersons",
+    "activeOrdersOverview",
+    "studentProgram",
+    "sharedLimitHeader",
+    "passwordOverview",
+    "userAccountOverview",
+    "recurringBillingNavigation",
+    "newClaim",
+    "box2box",
+    "basketAuthenticationItemCreateActionsNavigation",
+    "registerPushDevice",
+    "benefitSavingsAction",
+    "confirmUserBuyoutForm",
+    "medicalPrescription",
+    "eshopInfo",
+    "basket",
+    "catalog",
+    "login",
+    "silentLogin",
+    "register",
+    "whispererEmpty",
+    "whisperer",
+    "parcelLockers",
+    "comparison",
+    "contact",
+    "statusSummaryV2",
+    "orders",
+    "favorites",
+    "electronicBooks",
+    "audioBooks",
+    "electronicLicences",
+    "games",
+    "warrantyClaims",
+    "userAccount",
+    "notifications",
+    "userInfo",
+    "expandMenuAnalytics",
+    "catalogNavigation",
+    "commodityManuals",
+    "watchDogs",
+    "infoMessages",
+    "earBanner",
+    "buyout",
+    "commodityReviews",
+    "deliveryAddresses",
+    "alzaPlusLandingPage",
+    "alzaPremiumLandingPage",
+    "alzaPremium",
+    "userSubscription",
+    "paymentCards",
+    "b2bVerification",
+    "privacySettings",
+    "chatNavigation",
+    "authorizedServices",
+    "contactForm",
+    "unregisterPushDevice",
+    "promoSections",
+    "commodityDetail",
+    "buyoutAction"
+  ]
+}

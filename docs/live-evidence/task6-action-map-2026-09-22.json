@@ -1,0 +1,62 @@
+{
+  "startedAt": "2026-09-22T13:59:30.138Z",
+  "user": "100000001",
+  "userAccountOverview": {
+    "status": 404,
+    "actionCount": 0,
+    "actions": []
+  },
+  "personalDetails": {
+    "status": 200,
+    "actionCount": 2,
+    "actions": [
+      {
+        "path": "personalDetails.gdprInfoAction",
+        "name": "Žádost o zaslání mých údajů",
+        "method": null,
+        "href": "https://webapi.alza.cz/api/users/100000001/v1/userAccount/gdprDialog",
+        "rel": null,
+        "formValues": null
+      },
+      {
+        "path": "personalDetails.deleteAccountAction",
+        "name": "Žádost o výmaz osobních údajů",
+        "method": null,
+        "href": "https://www.alza.cz/api/users/100000001/v1/account/deleteValidations?country=cz",
+        "rel": null,
+        "formValues": null
+      }
+    ]
+  },
+  "ordersNavigation": {
+    "status": 403,
+    "actionCount": 0,
+    "actions": []
+  },
+  "ordersOverview": {
+    "status": 403,
+    "actionCount": 0,
+    "actions": []
+  },
+  "ordersActive": {
+    "status": 200,
+    "actionCount": 1,
+    "actions": [
+      {
+        "path": "ordersActive.emptyInfo.action",
+        "name": "Začít nakupovat",
+        "method": null,
+        "href": "https://www.alza.cz/api/catalog/v1/homePage/userNavigation",
+        "rel": null,
+        "formValues": null
+      }
+    ]
+  },
+  "subscriptionsOverview": {
+    "status": 404,
+    "actionCount": 0,
+    "actions": []
+  },
+  "subscriptionsRaw": "",
+  "finishedAt": "2026-09-22T13:59:31.093Z"
+}

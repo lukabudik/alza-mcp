@@ -32,12 +32,13 @@ scripts/            # validate-api & ops scripts
 
 ## Adding a new tool
 
-1. Create `src/tools/your-tool.ts` exporting `createYourTool(deps): ToolDefinition`.
+1. Create `src/tools/your-tool.ts` exporting `createYourTool(deps): RegisterableTool`. Its `register()` must **return** the SDK's `RegisteredTool` handle (`return server.registerTool(...)`) — toolsets use it to enable/disable the tool.
 2. Define a Zod input schema. **Every field gets `.describe()`** — that text is what the LLM reads to decide whether and how to call the tool.
-3. Set `annotations.readOnlyHint: true` for read-only tools. Anything that mutates anything must set `destructiveHint: true` and require an explicit `confirm: true` argument.
-4. Return both `content[].text` (Markdown summary for chat) and `structuredContent` (typed JSON for the agent).
-5. Register the tool in `src/server.ts`.
-6. Add a fixture-based test in `test/`.
+3. Set `annotations.readOnlyHint: true` for read-only tools. Anything that mutates must set `readOnlyHint: false`; anything irreversible or money-relevant must also set `destructiveHint: true` and be gated by a one-time token (`prepare_mutation` → `confirmation_token` argument, see `web_place_order`/`cancel_order`).
+4. Return both `content[].text` (Markdown summary for chat) and `structuredContent` (typed JSON for the agent), and add an entry to `OUTPUT_SCHEMAS` in `src/tools/output-schemas.ts`.
+5. Register the tool in `src/server.ts` **and assign it to exactly one toolset** in `src/tools/toolsets.ts`. Startup throws if a registered tool isn't in a toolset (or is in two), so a new tool can never be silently unreachable.
+6. Add tests: update the tool counts in `test/tool-annotations.test.ts`, `test/output-schemas.test.ts` and `test/toolsets.test.ts`, add any new mutating/destructive/no-network tool to the sets in `tool-annotations.test.ts`, update `scripts/eval.ts`'s `CANONICAL_ORDER` and counts, and add a behavioural test for the tool's logic in `test/`.
+7. For anything touching a live Alza route, record it in `docs/mobile-endpoint-coverage.md` with a verification label (`source-confirmed` / `live-verified` / `blocked` / `unresolved`) and update `CHANGELOG.md`.
 
 ## Adding a data source
 

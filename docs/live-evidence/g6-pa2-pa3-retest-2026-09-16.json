@@ -1,0 +1,126 @@
+{
+ "startedAt": "2026-09-16T12:32:48.292Z",
+ "task": "PA2/PA3 mobile after-order err:1 re-test against WCF order 1058423434 (app-UA + API-version angles)",
+ "apk": {
+  "routes": [
+   "/services/restservice.svc/v2/getafterorderpayments (only v2 in APK 2026.17.0 string pool)",
+   "/api/orders/v4/afterOrderPayment (only v4 in APK 2026.17.0 string pool)"
+  ],
+  "uaTemplate": "okhttp/5.2.1;{manufacturer}/{model};{osVersion};cs_CZ;{versionName};{versionCode};0;cz.alza.eshop"
+ },
+ "safety": "PA3 fired only when PA2 returned err:1 (the invoice lookup failed) — no charge possible",
+ "steps": [
+  {
+   "step": "1 A1 PA2 app-UA 2026.17/459",
+   "r": {
+    "label": "A1 PA2 app-UA 2026.17/459",
+    "path": "/services/restservice.svc/v2/getafterorderpayments/1058423434/1076907159",
+    "method": "GET",
+    "status": 200,
+    "err": 1,
+    "msg": "Objednávka se zadaným ID neexistuje",
+    "json": "{\"priceToPay\":null,\"payments\":null,\"payments_cnt\":0,\"discoutForFreeDelivery\":null,\"alzaPremiumTerms\":null,\"err\":1,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":\"Objednávka se zadaným ID neexistuje\",\"user_name\":\"\",\"user_id\":-1,\"vzt\":1569051881423495,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789569168}"
+   }
+  },
+  {
+   "step": "2 A2 PA2 control MCP-UA",
+   "r": {
+    "label": "A2 PA2 control MCP-UA",
+    "path": "/services/restservice.svc/v2/getafterorderpayments/1058423434/1076907159",
+    "method": "GET",
+    "status": 200,
+    "err": 1,
+    "msg": "Objednávka se zadaným ID neexistuje",
+    "json": "{\"priceToPay\":null,\"payments\":null,\"payments_cnt\":0,\"discoutForFreeDelivery\":null,\"alzaPremiumTerms\":null,\"err\":1,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":\"Objednávka se zadaným ID neexistuje\",\"user_name\":\"\",\"user_id\":-1,\"vzt\":1569051881423495,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789569168}"
+   }
+  },
+  {
+   "step": "3 A3 PA2 v3 bump",
+   "r": {
+    "label": "A3 PA2 v3 bump",
+    "path": "/services/restservice.svc/v3/getafterorderpayments/1058423434/1076907159",
+    "method": "GET",
+    "status": 404
+   }
+  },
+  {
+   "step": "4 A4 PA2 v5 bump",
+   "r": {
+    "label": "A4 PA2 v5 bump",
+    "path": "/services/restservice.svc/v5/getafterorderpayments/1058423434/1076907159",
+    "method": "GET",
+    "status": 404
+   }
+  },
+  {
+   "step": "5 safety gate",
+   "r": {
+    "pa2Err": 1,
+    "pa3Fired": true
+   }
+  },
+  {
+   "step": "6 B1 PA3 app-UA paymentId 103",
+   "r": {
+    "label": "B1 PA3 app-UA paymentId 103",
+    "path": "/api/orders/v4/afterOrderPayment",
+    "method": "POST",
+    "status": 200,
+    "err": 1,
+    "msg": "Objednávka nebyla nalezena",
+    "json": "{\"nextNavStep\":null,\"url_next\":null,\"braintreePayment\":null,\"gaDeliveryPrice\":0,\"gaPrice\":0,\"gaVat\":0,\"showSmsDialog\":false,\"cardPaymentStatus\":0,\"afterOrderPaymentId\":0,\"err\":1,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":\"Objednávka nebyla nalezena\",\"user_name\":\"\",\"user_id\":-1,\"vzt\":1569051881423495,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789569168}"
+   }
+  },
+  {
+   "step": "7 B2 PA3 app-UA paymentId 144",
+   "r": {
+    "label": "B2 PA3 app-UA paymentId 144",
+    "path": "/api/orders/v4/afterOrderPayment",
+    "method": "POST",
+    "status": 200,
+    "err": 1,
+    "msg": "Objednávka nebyla nalezena",
+    "json": "{\"nextNavStep\":null,\"url_next\":null,\"braintreePayment\":null,\"gaDeliveryPrice\":0,\"gaPrice\":0,\"gaVat\":0,\"showSmsDialog\":false,\"cardPaymentStatus\":0,\"afterOrderPaymentId\":0,\"err\":1,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":\"Objednávka nebyla nalezena\",\"user_name\":\"\",\"user_id\":-1,\"vzt\":1569051881423495,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789569169}"
+   }
+  },
+  {
+   "step": "8 B3 PA3 control MCP-UA paymentId 103",
+   "r": {
+    "label": "B3 PA3 control MCP-UA paymentId 103",
+    "path": "/api/orders/v4/afterOrderPayment",
+    "method": "POST",
+    "status": 200,
+    "err": 1,
+    "msg": "Objednávka nebyla nalezena",
+    "json": "{\"nextNavStep\":null,\"url_next\":null,\"braintreePayment\":null,\"gaDeliveryPrice\":0,\"gaPrice\":0,\"gaVat\":0,\"showSmsDialog\":false,\"cardPaymentStatus\":0,\"afterOrderPaymentId\":0,\"err\":1,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":\"Objednávka nebyla nalezena\",\"user_name\":\"\",\"user_id\":-1,\"vzt\":1569051881423495,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789569169}"
+   }
+  },
+  {
+   "step": "9 B4 PA3 app-UA no-Bearer paymentId 103",
+   "r": {
+    "label": "B4 PA3 app-UA no-Bearer paymentId 103",
+    "path": "/api/orders/v4/afterOrderPayment",
+    "method": "POST",
+    "status": 200,
+    "err": 1,
+    "msg": "Objednávka nebyla nalezena",
+    "json": "{\"nextNavStep\":null,\"url_next\":null,\"braintreePayment\":null,\"gaDeliveryPrice\":0,\"gaPrice\":0,\"gaVat\":0,\"showSmsDialog\":false,\"cardPaymentStatus\":0,\"afterOrderPaymentId\":0,\"err\":1,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":\"Objednávka nebyla nalezena\",\"user_name\":\"\",\"user_id\":-1,\"vzt\":1569051881423495,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789569169}"
+   }
+  },
+  {
+   "step": "10 B5 PA3 v5 bump",
+   "r": {
+    "label": "B5 PA3 v5 bump",
+    "path": "/api/orders/v5/afterOrderPayment",
+    "method": "POST",
+    "status": 404,
+    "json": "{\"Message\":\"No HTTP resource was found that matches the request URI 'http://www.alza.cz:1002/api/orders/v5/afterOrderPayment'.\"}"
+   }
+  }
+ ],
+ "safetyGate": {
+  "pa2Err": 1,
+  "pa3Fired": true
+ },
+ "finishedAt": "2026-09-16T12:32:49.337Z"
+}

@@ -1,0 +1,338 @@
+{
+ "date": "2026-09-09",
+ "transport": "Playwright in-page fetch, same-origin www.alza.cz, mobile headers (Balancer-Guid/x-correlation-id), Bearer for auth rows",
+ "steps": [
+  {
+   "name": "setup: web basket add",
+   "method": "POST",
+   "url": "/api/basket/v1/items",
+   "status": 200,
+   "body": "{\"crossSellAppAction\":{\"webLink\":\"https://www.alza.cz/CrossSell.htm?id=1023794527&pkitem=5303618\",\"href\":\"https://www.alza.cz/Services/RestService.svc/v7/gridOrder1\",\"appLink\":\"crossSell\",\"enabled\":true},\"crossPopupAction\":{\"href\":\"https://webapi.alza.cz/api/c",
+   "parsed": {
+    "keys": [
+     "crossSellAppAction",
+     "crossPopupAction",
+     "updateAction",
+     "gtmData"
+    ]
+   }
+  },
+  {
+   "name": "setup: restservice basket/add",
+   "method": "POST",
+   "url": "/services/restservice.svc/v2/basket/add",
+   "status": 200,
+   "body": "{\"data\":{\"self\":{\"href\":\"https://www.alza.cz//api/router/legacy/catalog/product/7229946?pgrik=p__26752&ucik=u__401f1&country=CZ&electronicContentOnly=False\",\"appLink\":\"catalogProductDetail\",\"enabled\":true},\"usedProductDialog\":null,\"recommendations\":null,\"addit",
+   "parsed": {
+    "err": 0,
+    "keys": [
+     "data",
+     "order",
+     "crossPopupAction",
+     "nextActions",
+     "err",
+     "favCnt",
+     "basket_cnt",
+     "basket_total_cnt"
+    ]
+   }
+  },
+  {
+   "name": "C2 category/{id}",
+   "method": "GET",
+   "url": "/services/restservice.svc/v1/category/1?type=CATEGORY&typeId=0",
+   "status": 400,
+   "body": "{\"Message\":\"The request is invalid.\",\"ModelState\":{\"T\":[\"The T field is required.\"],\"P\":[\"The P field is required.\"]}}",
+   "parsed": {
+    "keys": [
+     "Message",
+     "ModelState"
+    ]
+   }
+  },
+  {
+   "name": "C5 legacy product detail",
+   "method": "GET",
+   "url": "/api/legacy/catalog/v14/product/5303618?pgrik=&ucik=&country=CZ",
+   "status": 400,
+   "body": "{\"Message\":\"The request is invalid.\",\"ModelState\":{\"Ucik\":[\"The Ucik field is required.\"],\"Pgrik\":[\"The Pgrik field is required.\"]}}",
+   "parsed": {
+    "keys": [
+     "Message",
+     "ModelState"
+    ]
+   }
+  },
+  {
+   "name": "C6 router product detail",
+   "method": "GET",
+   "url": "/api/router/legacy/catalog/product/5303618",
+   "status": 200,
+   "body": "{\"data\":{\"self\":{\"href\":\"https://www.alza.cz/api/router/legacy/catalog/product/5303618?pgrik=p__26752&ucik=u__401f1&country=CZ&electronicContentOnly=False\",\"appLink\":\"catalogProductDetail\",\"enabled\":true},\"isDailySlasher\":false,\"action_info\":null,\"actions\":nul",
+   "parsed": {
+    "err": 0,
+    "keys": [
+     "data",
+     "err",
+     "favCnt",
+     "basket_cnt",
+     "basket_total_cnt",
+     "msg",
+     "user_name",
+     "user_id"
+    ]
+   }
+  },
+  {
+   "name": "C8 skipped",
+   "reason": "no EAN found in C5"
+  },
+  {
+   "name": "A8 validateLoginName",
+   "method": "GET",
+   "url": "/services/restservice.svc/v1/validateLoginName?email=e2e-user@example.invalid",
+   "status": 200,
+   "body": "{\"err\":0,\"favCnt\":0,\"basket_cnt\":2,\"basket_total_cnt\":2,\"msg\":null,\"user_name\":\"\",\"user_id\":-1,\"vzt\":6677041087473110,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":17889465",
+   "parsed": {
+    "err": 0,
+    "keys": [
+     "err",
+     "favCnt",
+     "basket_cnt",
+     "basket_total_cnt",
+     "msg",
+     "user_name",
+     "user_id",
+     "vzt"
+    ]
+   }
+  },
+  {
+   "name": "A9 validateIsic (dummy card)",
+   "method": "POST",
+   "url": "/services/restservice.svc/v2/validateIsic",
+   "status": 200,
+   "body": "{\"err\":1,\"favCnt\":0,\"basket_cnt\":2,\"basket_total_cnt\":2,\"msg\":\"Zadejte číslo své ISIC / ITIC karty (např. S123456789123W).\",\"user_name\":\"\",\"user_id\":-1,\"vzt\":6677041087473110,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiu",
+   "parsed": {
+    "err": 1,
+    "keys": [
+     "err",
+     "favCnt",
+     "basket_cnt",
+     "basket_total_cnt",
+     "msg",
+     "user_name",
+     "user_id",
+     "vzt"
+    ]
+   }
+  },
+  {
+   "name": "B4 updBasket (basketId 1656919446)",
+   "method": "GET",
+   "url": "/services/restservice.svc/v2/updBasket/1656919446/0?isDelayedPayment=false",
+   "status": 200,
+   "body": "{\"data\":null,\"order\":{\"priceVat\":\"154 Kč\",\"price\":\"133 Kč\",\"vat\":\"21 Kč\",\"discount\":null,\"pricePayAmount\":154.0,\"priceToPay\":\"154 Kč\"},\"err\":1,\"favCnt\":0,\"basket_cnt\":2,\"basket_total_cnt\":2,\"msg\":\"Položka košíku neexistuje\",\"user_name\":\"\",\"user_id\":-1,\"vzt\":66",
+   "parsed": {
+    "err": 1,
+    "keys": [
+     "data",
+     "order",
+     "err",
+     "favCnt",
+     "basket_cnt",
+     "basket_total_cnt",
+     "msg",
+     "user_name"
+    ]
+   }
+  },
+  {
+   "name": "B5 unlockbasket",
+   "method": "POST",
+   "url": "/services/restservice.svc/v1/unlockbasket",
+   "status": 405,
+   "body": "{\"Message\":\"The requested resource does not support http method 'POST'.\"}",
+   "parsed": {
+    "keys": [
+     "Message"
+    ]
+   }
+  },
+  {
+   "name": "D1 getDeliveryPaymentGroups v13",
+   "method": "GET",
+   "url": "/services/restservice.svc/v13/getDeliveryPaymentGroups",
+   "status": 200,
+   "body": "{\"deliveryGroups\":[{\"deliveryGroupId\":394146575,\"deliveries\":[{\"isLimited\":false,\"beforeSelectAction\":null,\"afterSelectAction\":null,\"afterDeselectAction\":null,\"promoText\":null,\"customerPaymentCreditTooltipLink\":null,\"analytics\":null,\"id\":2680,\"name\":\"AlzaBox\",",
+   "parsed": {
+    "err": 0,
+    "keys": [
+     "deliveryGroups",
+     "payments",
+     "deliveryError",
+     "deliveryTip",
+     "paymentTip",
+     "warnings",
+     "err",
+     "favCnt"
+    ]
+   }
+  },
+  {
+   "name": "D2 getDeliveryAssociations",
+   "method": "POST",
+   "url": "/services/restservice.svc/v4/getDeliveryAssociations",
+   "status": 200,
+   "body": "{\"types\":[],\"data\":[{\"id\":103,\"isLowCredit\":false,\"price\":\"69 Kč\",\"originalPrice\":null,\"priceDecimal\":69.00,\"originalPriceDecimal\":0.0,\"isHidden\":false,\"deliveryDiscountText\":null,\"deliveryDiscountImgUrl\":null,\"paymentPrice\":\"zdarma\"},{\"id\":143,\"isLowCredit\":f",
+   "parsed": {
+    "err": 0,
+    "keys": [
+     "types",
+     "data",
+     "data_cnt",
+     "err",
+     "favCnt",
+     "basket_cnt",
+     "basket_total_cnt",
+     "msg"
+    ]
+   }
+  },
+  {
+   "name": "D2 associations count",
+   "count": 9
+  },
+  {
+   "name": "O1 sendOrder1",
+   "method": "GET",
+   "url": "/services/restservice.svc/v4/sendOrder1",
+   "status": 200,
+   "body": "{\"add_info\":{\"types\":[],\"types_cnt\":0,\"max_step\":2},\"comNotAvailable\":false,\"comUsed\":false,\"specVoucherNotInStockComm\":false,\"notAvialableCodes\":null,\"usedCodes\":[],\"usedCodes_length\":0,\"notAvialableCodes_length\":0,\"unavailableBasketProductsAction\":null,\"unav",
+   "parsed": {
+    "err": 0,
+    "keys": [
+     "add_info",
+     "comNotAvailable",
+     "comUsed",
+     "specVoucherNotInStockComm",
+     "notAvialableCodes",
+     "usedCodes",
+     "usedCodes_length",
+     "notAvialableCodes_length"
+    ]
+   }
+  },
+  {
+   "name": "O6 getOrder2Info",
+   "method": "GET",
+   "url": "/services/restservice.svc/v8/getOrder2Info",
+   "status": 400,
+   "body": "{\"Message\":\"The request is invalid.\",\"ModelState\":{\"request.Country\":[\"The field Country is invalid.\",\"The Country field is required.\"]}}",
+   "parsed": {
+    "keys": [
+     "Message",
+     "ModelState"
+    ]
+   }
+  },
+  {
+   "name": "G5 sendOrder2",
+   "method": "POST",
+   "url": "/services/restservice.svc/v7/sendOrder2",
+   "status": 200,
+   "body": "{\"register_type\":20,\"add_info\":{\"types\":[],\"types_cnt\":0,\"max_step\":3},\"isValidationRequired\":false,\"infoDeliveryText\":\"Doručení Na poštu\",\"postCity\":null,\"postStreet\":null,\"postZip\":null,\"deliveryId\":null,\"deliveriesInfo\":[{\"deliveryId\":2680,\"deliveryGroupId\"",
+   "parsed": {
+    "err": 0,
+    "keys": [
+     "register_type",
+     "add_info",
+     "isValidationRequired",
+     "infoDeliveryText",
+     "postCity",
+     "postStreet",
+     "postZip",
+     "deliveryId"
+    ]
+   }
+  },
+  {
+   "name": "G5 sendOrder3 (expect 500)",
+   "method": "POST",
+   "url": "/services/restservice.svc/v5/sendOrder3",
+   "status": 500,
+   "body": "{\"Message\":\"InternalServerError\"}",
+   "parsed": {
+    "keys": [
+     "Message"
+    ]
+   }
+  },
+  {
+   "name": "G6 getafterorderpayments (expect err:1)",
+   "method": "GET",
+   "url": "/services/restservice.svc/v2/getafterorderpayments/1056808137/1070772578",
+   "status": 200,
+   "body": "{\"priceToPay\":null,\"payments\":null,\"payments_cnt\":0,\"discoutForFreeDelivery\":null,\"alzaPremiumTerms\":null,\"err\":1,\"favCnt\":0,\"basket_cnt\":2,\"basket_total_cnt\":3,\"msg\":\"Faktura se zadaným ID neexistuje\",\"user_name\":\"\",\"user_id\":100000001,\"vzt\":6677041087473110,\"",
+   "parsed": {
+    "err": 1,
+    "keys": [
+     "priceToPay",
+     "payments",
+     "payments_cnt",
+     "discoutForFreeDelivery",
+     "alzaPremiumTerms",
+     "err",
+     "favCnt",
+     "basket_cnt"
+    ]
+   }
+  },
+  {
+   "name": "G6 afterOrderPayment (expect err:1)",
+   "method": "POST",
+   "url": "/api/orders/v4/afterOrderPayment",
+   "status": 200,
+   "body": "{\"nextNavStep\":null,\"url_next\":null,\"braintreePayment\":null,\"gaDeliveryPrice\":0.0000,\"gaPrice\":0.0,\"gaVat\":0.0,\"showSmsDialog\":false,\"cardPaymentStatus\":0,\"afterOrderPaymentId\":0,\"err\":1,\"favCnt\":0,\"basket_cnt\":2,\"basket_total_cnt\":3,\"msg\":\"Aktualizujte prosím",
+   "parsed": {
+    "err": 1,
+    "keys": [
+     "nextNavStep",
+     "url_next",
+     "braintreePayment",
+     "gaDeliveryPrice",
+     "gaPrice",
+     "gaVat",
+     "showSmsDialog",
+     "cardPaymentStatus"
+    ]
+   }
+  },
+  {
+   "name": "A7 alzapremium/trial",
+   "method": "GET",
+   "url": "/api/user/100000001/v1/alzapremium/trial",
+   "status": 404,
+   "body": "\r\n\r\n<!DOCTYPE html>\r\n<html id=\"rootHtml\" xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"cs-CZ\">\r\n<head><!--alza-component-version version=\"4.227.0\"--><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /><meta id=\"contentLanguage\" http-equiv=\"Conten"
+  },
+  {
+   "name": "O4 approveOrder4",
+   "method": "GET",
+   "url": "/services/restservice.svc/v1/approveOrder4",
+   "status": 200,
+   "body": "{\"Value\":null,\"LeasingPartnerUrl\":null,\"DevErrorMessage\":null,\"Message\":\"Při potvrzování objednávky došlo k chybě.\",\"ErrorNeoPurchaseFailed\":false,\"ErrorLevel\":1,\"RedirectUrlOrderDetail\":null,\"PaymentAction\":null,\"CanShowFastCheckoutButton\":false,\"IsAlzaPlusAc",
+   "parsed": {
+    "keys": [
+     "Value",
+     "LeasingPartnerUrl",
+     "DevErrorMessage",
+     "Message",
+     "ErrorNeoPurchaseFailed",
+     "ErrorLevel",
+     "RedirectUrlOrderDetail",
+     "PaymentAction"
+    ]
+   }
+  }
+ ]
+}

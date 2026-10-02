@@ -1,0 +1,136 @@
+{
+ "date": "2026-09-09",
+ "transport": "Playwright in-page fetch (www same-origin) + context.request (cross-host, no CORS) for identity/webapi; mobile headers throughout",
+ "refresh": {
+  "ok": false,
+  "status": 403,
+  "body": "<!DOCTYPE html>\r\n<html>\r\n  <head>\r\n    <meta charset=\"utf-8\" />\r\n    <title>Alza.cz</title>\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r\n    <link rel=\"shortcut icon\" href=\"/favicon-alza.ico\" type=\"image/x-icon\" />\r\n    <script>var getData = function () {\r\n  var host = window.location.hostname.split(\".\").slice(-1).pop();\r\n  var emails = {\r\n    cz: \"info@alza.cz\",\r\n ",
+  "keys": null,
+  "err": "<!DOCTYPE html>\r\n<html>\r\n  <head>\r\n    <meta charset=\"utf-8\" />\r\n    <title>Alza.cz</title>\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r\n    <link rel=\"shortcut icon\" h"
+ },
+ "webapiOrigin": "https://webapi.alza.cz",
+ "steps": [
+  {
+   "name": "C6 router product (review href scan)",
+   "method": "GET",
+   "url": "/api/router/legacy/catalog/product/5303618",
+   "status": 403,
+   "body": "<!DOCTYPE html>\r\n<html>\r\n  <head>\r\n    <meta charset=\"utf-8\" />\r\n    <title>Alza.cz</title>\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r\n    <link rel=\"shortcut icon\" href=\"/favicon-alza.ico\" type=\"image/x-icon\" />\r\n    <script>var getData = function () {\r\n  var host ",
+   "reviewHrefs": []
+  },
+  {
+   "name": "A5 getUserData v2 (token sanity)",
+   "method": "GET",
+   "url": "/services/restservice.svc/v2/getUserData",
+   "status": 200,
+   "body": "{\"isQualifiedForCryptoWallet\":false,\"mailingSegments\":[{\"name\":\"Alza\",\"id\":139851,\"parentId\":null,\"subscribed\":false},{\"name\":\"Media\",\"id\":139852,\"parentId\":null,\"subscribed\":false},{\"name\":\"Hračky\",\"id\":139853,\"parentId\":null,\"subscribed\":false},{\"name\":\"Beauty\",\"id\":139854,\"parentId\":null,\"subscribed\":false},{\"name\":\"MAXI drogerie\",\"id\":139862,\"parentId\":null,\"subscribed\":false},{\"name\":\"Sport\",\"id\":139863,\"parentId\":null,\"subscribed\":false},{\"name\":\"E-knihy\",\"id\":139856,\"parentId\":139852,\"subscribed\":false},{\"name\":\"Audioknihy\",\"id\":139857,\"parentId\":139852,\"subscribed\":false},{\"name\":\"Filmy\",\"id\":139858,\"parentId\":139852,\"subscribed\":false},{\"name\":\"Hudba\",\"id\":139859,\"parentId\":139852,\"subscribed\":false},{\"name\":\"Časopisy\",\"id\":139860,\"parentId\":139852,\"subscribed\":false},{\"name\":\"Software\",\"id\":139861,\"parentId\":139852,\"subscribed\":false},{\"name\":\"Hobby\",\"id\":321613,\"parentId\":null,\"subscribed\":false},{\"name\":\"Pro miminka\",\"id\":321632,\"parentId\":139862,\"subscribed\":false},{\"name\":\"Osvětlení\",\"id\":340441,\"parentId\":139851,\"subscribed\":false},{\"name\":\"Gaming\",\"id\":356739,\"parentId\":139851,\"subscribed\":false},{\"name\":\"Alza Premium\",\"id\":180057,\"parentId\":null,\"subscribed\":false}",
+   "userIdSeen": "-1"
+  },
+  {
+   "name": "A13 setIsic empty (authed)",
+   "method": "POST",
+   "url": "/services/restservice.svc/v1/setIsic",
+   "status": 401,
+   "body": "{\"Message\":\"Authorization has been denied for this request.\"}"
+  },
+  {
+   "name": "B6 addcoupon bogus (authed)",
+   "method": "GET",
+   "url": "/services/restservice.svc/v1/addcoupon/PROBEERK01A",
+   "status": 200,
+   "body": "{\"err\":1,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":\"Zadaný slevový / dárkový poukaz není platný.\",\"user_name\":\"\",\"user_id\":-1,\"vzt\":661413386636817,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789027990}",
+   "userIdSeen": "-1"
+  },
+  {
+   "name": "B7 delcoupon/1 integer (authed)",
+   "method": "GET",
+   "url": "/services/restservice.svc/v1/delcoupon/1",
+   "status": 200,
+   "body": "{\"err\":1,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":\"Kupón není v košíku.\",\"user_name\":\"\",\"user_id\":-1,\"vzt\":661413386636817,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789027991}",
+   "userIdSeen": "-1"
+  },
+  {
+   "name": "A12 setCountry 0 same-value (authed)",
+   "method": "POST",
+   "url": "/services/restservice.svc/v1/setCountry",
+   "status": 200,
+   "body": "{\"err\":0,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":null,\"user_name\":\"\",\"user_id\":-1,\"vzt\":661413386636817,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789027991}",
+   "userIdSeen": "-1"
+  },
+  {
+   "name": "B8 addGift empty (authed)",
+   "method": "POST",
+   "url": "/services/restservice.svc/v2/addGift",
+   "status": 200,
+   "body": "{\"err\":0,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":null,\"user_name\":\"\",\"user_id\":-1,\"vzt\":661413386636817,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789027991}",
+   "userIdSeen": "-1"
+  },
+  {
+   "name": "O10 feedback empty (authed)",
+   "method": "POST",
+   "url": "/services/restservice.svc/v1/feedback",
+   "status": 200,
+   "body": "{\"err\":1,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":\"Text komentáře musí být zadán.\",\"user_name\":\"\",\"user_id\":-1,\"vzt\":661413386636817,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789027991}",
+   "userIdSeen": "-1"
+  },
+  {
+   "name": "O8 costEstimate {} (authed)",
+   "method": "POST",
+   "url": "/api/orders/v1/costEstimate",
+   "status": 200,
+   "body": "{\"isTaxed\":false,\"feeAmount\":null,\"rate\":0.0,\"originalAmount\":\"0 Kč\",\"finalAmount\":\"0 Kč\",\"feeDescriptionTitle\":null,\"feeDescriptionAmount\":null,\"feeDescription\":null,\"feeDescriptionLink\":{\"href\":\"https://www.alza.cz/Services/RestService.svc/v2/getafterorderpayments/0/0\",\"appLink\":\"orderPayment\",\"name\":\"Zvolit jiný typ platby\",\"enabled\":false},\"freeDelivery\":{\"isFreeDelivery\":false,\"isWrongCardIssuer\":false,\"discountTitle\":null,\"discountPrice\":null,\"cancelFreeDeliveryFee\":0.0,\"cancelFreeDeliveryTitle\":null,\"cancelFreeDeliveryText\":null,\"cancelFreeDeliveryLinkText\":null,\"cancelFreeDeliveryLink\":{\"href\":\"https://www.alza.cz/Services/RestService.svc/v2/getafterorderpayments/0/0\",\"appLink\":\"orderPayment\",\"name\":\"Zvolit jiný typ platby\",\"enabled\":false}},\"cardInfo\":null}"
+  },
+  {
+   "name": "C9 hierarchicalFilter {} (authed)",
+   "method": "POST",
+   "url": "/services/restservice.svc/v1/hierarchicalFilter",
+   "status": 200,
+   "body": "{\"numberOfLevels\":0,\"numberOfNextLevel\":0,\"hierarchyTreeDetails\":null,\"parameter\":null,\"err\":1,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":\"Neplatný objekt filtru.\",\"user_name\":\"\",\"user_id\":-1,\"vzt\":661413386636817,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789027991}",
+   "userIdSeen": "-1"
+  },
+  {
+   "name": "B11 createCommodityList (authed pair)",
+   "method": "POST",
+   "url": "/services/restservice.svc/v1/createCommodityList",
+   "status": 200,
+   "body": "{\"data_cnt\":1,\"data\":[{\"id\":166249281,\"name\":\"probe-PROBEERK01A\",\"itemCount\":0,\"items\":null,\"totalPrice\":null,\"totalPriceWithoutVat\":null,\"type\":0,\"shareUrlCanModify\":\"https://www.alza.cz/nakupni-seznamy.htm?sharelist=6F656C6F696C6A78656A7\",\"shareUrlCannotModify\":\"https://www.alza.cz/nakupni-seznamy.htm?sharelist=736A6C6B6B71637E5E5\",\"canModify\":true,\"isShared\":false,\"sharerUserName\":null}],\"err\":0,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":null,\"user_name\":\"\",\"user_id\":-1,\"vzt\":661413386636817,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789027991}",
+   "userIdSeen": "-1"
+  },
+  {
+   "name": "B11 deleteCommodityList (id 166249281, authed)",
+   "method": "POST",
+   "url": "/services/restservice.svc/v1/deleteCommodityList",
+   "status": 200,
+   "body": "{\"err\":0,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":null,\"user_name\":\"\",\"user_id\":-1,\"vzt\":661413386636817,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789027991}",
+   "userIdSeen": "-1"
+  },
+  {
+   "name": "C14 mainNavigation (webapi origin, authed)",
+   "method": "GET",
+   "url": "https://webapi.alza.cz/api/users/100000001/mainNavigation?eshopUrl=www.alza.cz",
+   "status": 403,
+   "body": "<!DOCTYPE html>\r\n<html>\r\n  <head>\r\n    <meta charset=\"utf-8\" />\r\n    <title>Alza.cz</title>\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r\n    <link rel=\"shortcut icon\" href=\"/favicon-alza.ico\" type=\"image/x-icon\" />\r\n    <script>var getData = function () {\r\n  var host = window.location.hostname.split(\".\").slice(-1).pop();\r\n  var emails = {\r\n    cz: \"info@alza.cz\",\r\n    sk: \"info@alza.sk\",\r\n    de: \"info@alza.de\",\r\n    at: \"info@alza.at\",\r\n    hu: \"info@alza.hu\",\r\n  };\r\n  var email = (emails.hasOwnProperty(host) ? emails[host] : \"\") || emails[\"cz\"];\r\n  var translations = {\r\n    cs: {\r\n      title1: \"Omlouváme se, ale naše bezpečnostní systémy momentálně zablokovaly váš přístup\",\r\n      title2: \"Prosím, potvrďte, že jste z masa a kostí\",\r\n      title3: \"Kontrolujeme vaši bezpečnost\",\r\n      title4: \"Stránky jsou na chvíli nedostupné\",\r\n      text1: \"Pokud se připojujete z oblasti, která je z bezpečnostních důvodů blokována, doporučujeme využít VPN připojení nebo počkejte, až se vrátíte do oblasti, kde je přístup povolen.\",\r\n      text2: \"Děkujeme za pochopení.\",\r\n      text3: '\"PÍP PÍP TUDŮT - Děkujeme\"',\r\n      text4: \"Za chvíli vás automaticky přesměrujeme na naše stránky.\",\r\n      text5: \"Usilovně pracujeme na jejich opravě. Zkuste to prosím později.\",\r\n      text6: \"Omlouváme se. V posledních minutách od vás máme moc přístupů.\",\r\n      text7: \"P"
+  },
+  {
+   "name": "C13 visitors mainNavigation (webapi origin)",
+   "method": "GET",
+   "url": "https://webapi.alza.cz/api/visitors/00000000-0000-0000-0000-000000000000/mainNavigation",
+   "status": 403,
+   "body": "<!DOCTYPE html>\r\n<html>\r\n  <head>\r\n    <meta charset=\"utf-8\" />\r\n    <title>Alza.cz</title>\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r\n    <link rel=\"shortcut icon\" href=\"/favicon-alza.ico\" type=\"image/x-icon\" />\r\n    <script>var getData = function () {\r\n  var host = window.location.hostname.split(\".\").slice(-1).pop();\r\n  var emails = {\r\n    cz: \"info@alza.cz\",\r\n    sk: \"info@alza.sk\",\r\n    de: \"info@alza.de\",\r\n    at: \"info@alza.at\",\r\n    hu: \"info@alza.hu\",\r\n  };\r\n  var email = (emails.hasOwnProperty(host) ? emails[host] : \"\") || emails[\"cz\"];\r\n  var translations = {\r\n    cs: {\r\n      title1: \"Omlouváme se, ale naše bezpečnostní systémy momentálně zablokovaly váš přístup\",\r\n      title2: \"Prosím, potvrďte, že jste z masa a kostí\",\r\n      title3: \"Kontrolujeme vaši bezpečnost\",\r\n      title4: \"Stránky jsou na chvíli nedostupné\",\r\n      text1: \"Pokud se připojujete z oblasti, která je z bezpečnostních důvodů blokována, doporučujeme využít VPN připojení nebo počkejte, až se vrátíte do oblasti, kde je přístup povolen.\",\r\n      text2: \"Děkujeme za pochopení.\",\r\n      text3: '\"PÍP PÍP TUDŮT - Děkujeme\"',\r\n      text4: \"Za chvíli vás automaticky přesměrujeme na naše stránky.\",\r\n      text5: \"Usilovně pracujeme na jejich opravě. Zkuste to prosím později.\",\r\n      text6: \"Omlouváme se. V posledních minutách od vás máme moc přístupů.\",\r\n      text7: \"P"
+  },
+  {
+   "name": "R1 flag-shape 1/1 (webapi origin, authed)",
+   "method": "GET",
+   "url": "https://webapi.alza.cz/api/users/1/commodities/1/review",
+   "status": 403,
+   "body": "<!DOCTYPE html>\r\n<html>\r\n  <head>\r\n    <meta charset=\"utf-8\" />\r\n    <title>Alza.cz</title>\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r\n    <link rel=\"shortcut icon\" href=\"/favicon-alza.ico\" type=\"image/x-icon\" />\r\n    <script>var getData = function () {\r\n  var host = window.location.hostname.split(\".\").slice(-1).pop();\r\n  var emails = {\r\n    cz: \"info@alza.cz\",\r\n    sk: \"info@alza.sk\",\r\n    de: \"info@alza.de\",\r\n    at: \"info@alza.at\",\r\n    hu: \"info@alza.hu\",\r\n  };\r\n  var email = (emails.hasOwnProperty(host) ? emails[host] : \"\") || emails[\"cz\"];\r\n  var translations = {\r\n    cs: {\r\n      title1: \"Omlouváme se, ale naše bezpečnostní systémy momentálně zablokovaly váš přístup\",\r\n      title2: \"Prosím, potvrďte, že jste z masa a kostí\",\r\n      title3: \"Kontrolujeme vaši bezpečnost\",\r\n      title4: \"Stránky jsou na chvíli nedostupné\",\r\n      text1: \"Pokud se připojujete z oblasti, která je z bezpečnostních důvodů blokována, doporučujeme využít VPN připojení nebo počkejte, až se vrátíte do oblasti, kde je přístup povolen.\",\r\n      text2: \"Děkujeme za pochopení.\",\r\n      text3: '\"PÍP PÍP TUDŮT - Děkujeme\"',\r\n      text4: \"Za chvíli vás automaticky přesměrujeme na naše stránky.\",\r\n      text5: \"Usilovně pracujeme na jejich opravě. Zkuste to prosím později.\",\r\n      text6: \"Omlouváme se. V posledních minutách od vás máme moc přístupů.\",\r\n      text7: \"P"
+  },
+  {
+   "name": "OR5 quickOrder summary (webapi origin, authed)",
+   "method": "GET",
+   "url": "https://webapi.alza.cz/api/users/100000001/v1/quickOrder/summary/commodities/5303618?pgrik=p__26752&ucik=u__401f1",
+   "status": 403,
+   "body": "<!DOCTYPE html>\r\n<html>\r\n  <head>\r\n    <meta charset=\"utf-8\" />\r\n    <title>Alza.cz</title>\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r\n    <link rel=\"shortcut icon\" href=\"/favicon-alza.ico\" type=\"image/x-icon\" />\r\n    <script>var getData = function () {\r\n  var host = window.location.hostname.split(\".\").slice(-1).pop();\r\n  var emails = {\r\n    cz: \"info@alza.cz\",\r\n    sk: \"info@alza.sk\",\r\n    de: \"info@alza.de\",\r\n    at: \"info@alza.at\",\r\n    hu: \"info@alza.hu\",\r\n  };\r\n  var email = (emails.hasOwnProperty(host) ? emails[host] : \"\") || emails[\"cz\"];\r\n  var translations = {\r\n    cs: {\r\n      title1: \"Omlouváme se, ale naše bezpečnostní systémy momentálně zablokovaly váš přístup\",\r\n      title2: \"Prosím, potvrďte, že jste z masa a kostí\",\r\n      title3: \"Kontrolujeme vaši bezpečnost\",\r\n      title4: \"Stránky jsou na chvíli nedostupné\",\r\n      text1: \"Pokud se připojujete z oblasti, která je z bezpečnostních důvodů blokována, doporučujeme využít VPN připojení nebo počkejte, až se vrátíte do oblasti, kde je přístup povolen.\",\r\n      text2: \"Děkujeme za pochopení.\",\r\n      text3: '\"PÍP PÍP TUDŮT - Děkujeme\"',\r\n      text4: \"Za chvíli vás automaticky přesměrujeme na naše stránky.\",\r\n      text5: \"Usilovně pracujeme na jejich opravě. Zkuste to prosím později.\",\r\n      text6: \"Omlouváme se. V posledních minutách od vás máme moc přístupů.\",\r\n      text7: \"P"
+  }
+ ]
+}

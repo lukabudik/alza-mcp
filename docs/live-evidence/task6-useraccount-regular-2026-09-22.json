@@ -1,0 +1,112 @@
+{
+  "self": {
+    "href": "https://webapi.alza.cz/api/users/100000001/v1/userAccount?sectionType=Regular&country=CZ&isLocked=True",
+    "appLink": "userAccountSection",
+    "enabled": true
+  },
+  "form": {
+    "method": "PUT",
+    "value": [
+      {
+        "name": "firmName",
+        "label": "Jméno a příjmení",
+        "itemType": "string",
+        "isEnabled": true
+      },
+      {
+        "name": "street",
+        "label": "Ulice a číslo popisné",
+        "itemType": "string",
+        "isEnabled": true
+      },
+      {
+        "name": "postalCode",
+        "label": "PSČ",
+        "itemType": "string",
+        "isEnabled": true
+      },
+      {
+        "name": "city",
+        "label": "Město",
+        "itemType": "string",
+        "isEnabled": true
+      },
+      {
+        "name": "country",
+        "value": "CZ",
+        "itemType": "string",
+        "isHidden": true,
+        "isEnabled": true
+      },
+      {
+        "name": "bankAccountNumber",
+        "label": "Číslo bankovního účtu",
+        "pattern": "^[0-9]+[-]{0,1}[0-9]+$",
+        "itemType": "string",
+        "isRequired": false,
+        "isEnabled": true
+      },
+      {
+        "name": "bankAccountCode",
+        "label": "Kód banky",
+        "pattern": "^[\\d]*$",
+        "itemType": "string",
+        "isRequired": false,
+        "isEnabled": true,
+        "min": 4
+      }
+    ],
+    "rel": [
+      "edit-form"
+    ],
+    "href": "https://webapi.alza.cz/api/users/100000001/v1/userAccount?sectionType=Regular&isLocked=True"
+  },
+  "contactActions": {
+    "phoneNumber": "+420 601 234 567",
+    "changePhoneNumberAction": {
+      "href": "https://webapi.alza.cz/api/users/100000001/v1/userAccount/phoneDialog?country=CZ",
+      "appLink": "userAccountChangePhoneDialog",
+      "name": "Změnit",
+      "enabled": true,
+      "analytics": {
+        "actions": {
+          "onClick": {
+            "data": {
+              "custom_event_name": "click_phone_change",
+              "custom_event_group": "bo_billing_address",
+              "custom_event_p2": "billing_address"
+            },
+            "event": "custom_event",
+            "reportAction": null
+          }
+        }
+      }
+    },
+    "phoneNumberDescription": "Na telefon vám posíláme informace, které potřebujete k vyzvednutí objednávek a ověřovací kódy pro přihlášení.",
+    "contactEmail": "e2e-user@example.invalid",
+    "changeContactEmailAction": {
+      "href": "https://webapi.alza.cz/api/users/100000001/v1/userAccount/emailDialog?country=CZ",
+      "appLink": "userAccountChangeEmailDialog",
+      "name": "Změnit",
+      "enabled": true,
+      "analytics": {
+        "actions": {
+          "onClick": {
+            "data": {
+              "custom_event_name": "click_email_address_change",
+              "custom_event_group": "bo_billing_address",
+              "custom_event_p2": "billing_address"
+            },
+            "event": "custom_event",
+            "reportAction": null
+          }
+        }
+      }
+    },
+    "contactEmailDescription": "Na e-mail vám posíláme doklady, informace o stavu vašich objednávek, reklamací a dalších případů."
+  },
+  "fillCompanyInfoAction": null,
+  "confirmationDialog": null,
+  "changeAction": null,
+  "showStudentProgram": false
+}

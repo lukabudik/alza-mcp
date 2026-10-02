@@ -1,0 +1,143 @@
+{
+  "record": "e2e-order-payment-complete",
+  "date": "2026-09-06",
+  "account": {
+    "email": "e2e-user@example.invalid",
+    "user_id": 100000001,
+    "registered_via": "POST /services/restservice.svc/v2/CreateUser (code:null)"
+  },
+  "product": {
+    "code": "FKP0383232",
+    "price_czk": 35
+  },
+  "delivery": {
+    "delivery_id": 2680,
+    "parcel_shop_id": "1128203",
+    "box": "Hradec Kralove - Kutnohorská (U Vacku)",
+    "price_czk": 69
+  },
+  "payment_at_order": {
+    "payment_id": 103,
+    "name": "Bankovním převodem - proforma"
+  },
+  "orders": [
+    {
+      "order_id": "1056806231",
+      "created_by": "web UI flow (guest)",
+      "final_state": "cancelled (PUT cancellations, reason 5, 202)"
+    },
+    {
+      "order_id": "1056807179",
+      "created_by": "web UI flow + in-session AOP probe",
+      "final_state": "unpaid proforma (expires 2026-09-14)"
+    },
+    {
+      "order_id": "1056807586",
+      "created_by": "web UI flow + in-session afterOrderPayment probe",
+      "final_state": "cancelled (PUT cancellations, reason 5, 202)"
+    },
+    {
+      "order_id": "1056808137",
+      "created_by": "pure WCF API chain (authenticated)",
+      "final_state": "unpaid proforma; MojePlatba after-payment executed",
+      "part_id": "1070772578",
+      "order_hash": "0EABE9WA68A897B38MB71BBFCAA3"
+    }
+  ],
+  "recorded_order": {
+    "order_id": "1056808137",
+    "total_czk": 104,
+    "status": "Prosím zaplaťte (awaiting payment)",
+    "proforma": {
+      "document": "Proforma 1056808137",
+      "due": "2026-09-14",
+      "account": "2171532/0800",
+      "bank": "Česká spořitelna, a.s.",
+      "variable_symbol": "1056808137"
+    },
+    "qr_instant_payment": "SPD*1.0*ACC:CZ5608000000000002171532*AM:104*CC:CZK*RF:1056808137*MSG:OBJEDNAVKA 1056808137 NA ALZA.CZ*PT:IP*X-VS:1056808137*X-KS:0308",
+    "after_payment_dialog": {
+      "operation": "GetAfterPaymentDialog (EShopService.svc)",
+      "methods": [
+        213,
+        216,
+        219,
+        143,
+        144,
+        203
+      ],
+      "amount": "104,-"
+    },
+    "payment_execution": {
+      "method": "MojePlatba (paymentId 144)",
+      "operation": "CreateAfterPayment (EShopService.svc)",
+      "request": {
+        "orderId": "1056808137",
+        "paymentId": 144,
+        "hash": "0EABE9WA68A897B38MB71BBFCAA3",
+        "enableAD": false,
+        "invoiceId": "0",
+        "price": null,
+        "smsCode": null,
+        "smsId": 0,
+        "isTrusted": false,
+        "amountToPay": null,
+        "headerId": null,
+        "orderPaymentId": "0"
+      },
+      "result": "redirect to https://login.kb.cz/login?sso=MojePlatba-1189&layout=BRAND_WITHOUT_SP (KB MojePlatba SSO gateway)"
+    }
+  },
+  "wcf_chain_recorded_order": {
+    "SaveOrder2": {
+      "status": 200,
+      "err": 0,
+      "msg": null
+    },
+    "SaveOrder3": {
+      "status": 200,
+      "err": 0,
+      "msg": null
+    },
+    "SaveAndConfirmOrder2": {
+      "first": {
+        "err": 113,
+        "msg": null,
+        "popup": true
+      },
+      "second": {
+        "err": 0,
+        "msg": null
+      }
+    },
+    "CheckOrder4": {
+      "status": 200,
+      "err": 0,
+      "msg": null,
+      "head": "{\"RedirectToUrl\":\"\",\"reservationsToRefresh\":[],\"bankIdAuthApiAction\":null,\"Value\":\"\",\"LeasingPartnerUrl\":null,\"DevErrorMessage\":null,\"Message\":null,\"ErrorNeoPurchaseFailed\":false,\"ErrorLevel\":0,\"RedirectUrlOrderDetail\":null,\"PaymentAction\":null,\"CanShowFastCheckoutButton\":false,\"IsAlzaPlusActionPaym"
+    },
+    "SendOrder4": {
+      "err": 0,
+      "get_order_detail_action": {
+        "webLink": "https://www.alza.cz/my-account/order-details-1056808137.htm?x=REDACTED",
+        "href": "https://www.alza.cz/api/anonymous/v1/orders/1056808137?country=CZ",
+        "appLink": "orderDetail",
+        "enabled": true
+      }
+    }
+  },
+  "mobile_pipeline_probe": {
+    "sendOrder1_v4": "GET 200 (err:1 on empty cart)",
+    "sendOrder2_v7": "200 err:0 (delivery registered, register_type 20)",
+    "sendOrder3_v5": "HTTP 500 InternalServerError for guest newUserInfo, authenticated {}, and full authenticated Parameters (email/billingInfo f*/deliveryAddress d*) — server-side gap (unresolved)"
+  },
+  "mobile_after_order_endpoints": {
+    "getafterorderpayments_1056808137_1070772578": "200 err:1 'Faktura se zadaným ID neexistuje' (WCF-created order; documented)",
+    "afterOrderPayment": "200 err:1 'Aktualizujte prosím aplikace' (paymentIds 2/4/103/143/144, with/without Bearer, UA 2026.15/17/9999; documented)"
+  },
+  "cancellation_api": {
+    "form": "GET /api/v1/orders/{id}/{hash}/parts/{partId}/cancelForm (PUT form, reason 0-5 + submit, href .../cancellations)",
+    "commit": "PUT /api/v1/orders/{id}/{hash}/parts/{partId}/cancellations {value:[...]} -> 202; verified cancelled 1056806231 + 1056807586",
+    "hashless": "POST /api/anonymous/v1/orders/{id}/hashRequests (link to purchase email)"
+  }
+}

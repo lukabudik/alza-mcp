@@ -1,0 +1,35 @@
+{
+ "date": "2026-09-09",
+ "stack": "compiled dist/ modules (esbuild bundle) executed in the live page",
+ "steps": [
+  {
+   "step": "alza_chat_navigation (real dist code, in-page)",
+   "keys": [
+    "commodityCodesCarouselAction",
+    "chatbotInitializeChatAction",
+    "chatbotReinitializeChatAction",
+    "chatbotMetadataAction",
+    "chatbotSetRatingAction",
+    "chatbotSetParametersAction",
+    "chatbotPrivacyPolicy",
+    "chatbotGetConversationsAction"
+   ],
+   "initChatHref": "https://chatbotapi.alza.cz/api/visitors/00000000-0000-0000-0000-000000000000/v1/chat?country=CZ"
+  },
+  {
+   "step": "alza_chat_send (real dist code, in-page)",
+   "configId": 131,
+   "teamName": "Asistentka Alzee",
+   "welcomeText": "Jak Vám mohu pomoci?",
+   "sessionExist": false,
+   "showChat": true
+  },
+  {
+   "step": "alza_mobile_read web_zip_codes (real dist code, in-page)",
+   "errorLevel": 0,
+   "valueIsHtml": true,
+   "firstDataText": "500 00",
+   "firstDataCity": "Hradec Králové"
+  }
+ ]
+}

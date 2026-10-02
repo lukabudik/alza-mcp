@@ -1,0 +1,370 @@
+{
+ "date": "2026-09-09",
+ "transport": "Playwright in-page fetch, same-origin www.alza.cz, mobile headers (Balancer-Guid/x-correlation-id), Bearer for auth rows",
+ "steps": [
+  {
+   "name": "A10 o3Info (bare GET)",
+   "method": "GET",
+   "url": "/services/restservice.svc/v2/o3Info",
+   "status": 200,
+   "body": "{\"allowPurchase\":false,\"price\":null,\"priceValue\":0.0,\"priceVat\":null,\"priceVatValue\":0.0,\"vat\":null,\"vatValue\":0.0,\"discount\":null,\"price_pay\":null,\"price_payValue\":0.0,\"deliveryAddressName\":null,\"consents\":null,\"basketConsents\":null,\"regulatoryAndOperationalTerms\":null,\"formattedRegulatoryAndOperat",
+   "parsed": {
+    "err": 1,
+    "keys": [
+     "allowPurchase",
+     "price",
+     "priceValue",
+     "priceVat",
+     "priceVatValue",
+     "vat",
+     "vatValue",
+     "discount",
+     "price_pay",
+     "price_payValue"
+    ]
+   }
+  },
+  {
+   "name": "C14 mainNavigation (Bearer, eshopUrl)",
+   "method": "GET",
+   "url": "/api/users/100000001/mainNavigation?eshopUrl=https%3A%2F%2Fwww.alza.cz%2F",
+   "status": 404,
+   "body": "{\"Message\":\"No HTTP resource was found that matches the request URI 'http://www.alza.cz:1002/api/users/100000001/mainNavigation?eshopUrl=https%3A%2F%2Fwww.alza.cz%2F'.\"}",
+   "parsed": {
+    "keys": [
+     "Message"
+    ]
+   }
+  },
+  {
+   "name": "C14 mainNavigation (Bearer, bare)",
+   "method": "GET",
+   "url": "/api/users/100000001/mainNavigation",
+   "status": 404,
+   "body": "{\"Message\":\"No HTTP resource was found that matches the request URI 'http://www.alza.cz:1002/api/users/100000001/mainNavigation'.\"}",
+   "parsed": {
+    "keys": [
+     "Message"
+    ]
+   }
+  },
+  {
+   "name": "R1 user review flags 0/1 (user scope 0, commodity scope 1)",
+   "method": "GET",
+   "url": "/api/users/0/commodities/1/review",
+   "status": 404,
+   "body": "\r\n\r\n<!DOCTYPE html>\r\n<html id=\"rootHtml\" xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"cs-CZ\">\r\n<head><!--alza-component-version version=\"4.227.0\"--><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /><meta id=\"contentLanguage\" http-equiv=\"Content-Language\" content=\"cs-CZ\" /><meta http"
+  },
+  {
+   "name": "R1 user review flags 1/1",
+   "method": "GET",
+   "url": "/api/users/1/commodities/1/review",
+   "status": 404,
+   "body": "\r\n\r\n<!DOCTYPE html>\r\n<html id=\"rootHtml\" xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"cs-CZ\">\r\n<head><!--alza-component-version version=\"4.227.0\"--><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /><meta id=\"contentLanguage\" http-equiv=\"Content-Language\" content=\"cs-CZ\" /><meta http"
+  },
+  {
+   "name": "R1 user review id-style (current MCP URL)",
+   "method": "GET",
+   "url": "/api/users/100000001/commodities/5303618/review",
+   "status": 404,
+   "body": "\r\n\r\n<!DOCTYPE html>\r\n<html id=\"rootHtml\" xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"cs-CZ\">\r\n<head><!--alza-component-version version=\"4.227.0\"--><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /><meta id=\"contentLanguage\" http-equiv=\"Content-Language\" content=\"cs-CZ\" /><meta http"
+  },
+  {
+   "name": "B6 addcoupon (bogus PROBET62W0N)",
+   "method": "GET",
+   "url": "/services/restservice.svc/v1/addcoupon/PROBET62W0N",
+   "status": 200,
+   "body": "{\"err\":1,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":\"Zadaný slevový / dárkový poukaz není platný.\",\"user_name\":\"\",\"user_id\":-1,\"vzt\":2574535424312201,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":178902",
+   "parsed": {
+    "err": 1,
+    "keys": [
+     "err",
+     "favCnt",
+     "basket_cnt",
+     "basket_total_cnt",
+     "msg",
+     "user_name",
+     "user_id",
+     "vzt",
+     "countryID",
+     "countryPhonePrefix"
+    ]
+   }
+  },
+  {
+   "name": "B7 delcoupon (bogus PROBET62W0N)",
+   "method": "GET",
+   "url": "/services/restservice.svc/v1/delcoupon/PROBET62W0N",
+   "status": 400,
+   "body": "{\"Message\":\"The request is invalid.\",\"ModelState\":{\"couponId\":[\"The value 'PROBET62W0N' is not valid for Int32.\"]}}",
+   "parsed": {
+    "keys": [
+     "Message",
+     "ModelState"
+    ]
+   }
+  },
+  {
+   "name": "B11 createCommodityList (probe-…)",
+   "method": "POST",
+   "url": "/services/restservice.svc/v1/createCommodityList",
+   "status": 200,
+   "body": "{\"data_cnt\":1,\"data\":[{\"id\":166247730,\"name\":\"probe-PROBET62W0N\",\"itemCount\":0,\"items\":null,\"totalPrice\":null,\"totalPriceWithoutVat\":null,\"type\":0,\"shareUrlCanModify\":\"https://www.alza.cz/nakupni-seznamy.htm?sharelist=6F656C6F696C687D60694\",\"shareUrlCannotModify\":\"https://www.alza.cz/nakupni-seznamy",
+   "parsed": {
+    "err": 0,
+    "keys": [
+     "data_cnt",
+     "data",
+     "err",
+     "favCnt",
+     "basket_cnt",
+     "basket_total_cnt",
+     "msg",
+     "user_name",
+     "user_id",
+     "vzt"
+    ]
+   },
+   "extractedId": null
+  },
+  {
+   "name": "O9 addOrderService (bogus probeService/1/0)",
+   "method": "GET",
+   "url": "/services/restservice.svc/v1/addOrderService/probeService/1/0",
+   "status": 400,
+   "body": "{\"Message\":\"The request is invalid.\",\"ModelState\":{\"orderItemId\":[\"The value 'probeService' is not valid for Int32.\"]}}",
+   "parsed": {
+    "keys": [
+     "Message",
+     "ModelState"
+    ]
+   }
+  },
+  {
+   "name": "C6 router product (for OR5 pgrik/ucik)",
+   "method": "GET",
+   "url": "/api/router/legacy/catalog/product/5303618",
+   "status": 200,
+   "body": "{\"data\":{\"self\":{\"href\":\"https://www.alza.cz/api/router/legacy/catalog/product/5303618?pgrik=p__26752&ucik=u__401f1&country=CZ&electronicContentOnly=False\",\"appLink\":\"catalogProductDetail\",\"enabled\":true},\"isDailySlasher\":false,\"action_info\":null,\"actions\":null,\"actions_cnt\":0,\"artist\":null,\"availab",
+   "parsed": {
+    "err": 0,
+    "keys": [
+     "data",
+     "err",
+     "favCnt",
+     "basket_cnt",
+     "basket_total_cnt",
+     "msg",
+     "user_name",
+     "user_id",
+     "vzt",
+     "countryID"
+    ]
+   },
+   "pgrik": "p__26752",
+   "ucik": "u__401f1"
+  },
+  {
+   "name": "OR5 quickOrder summary (pgrik/ucik from C6)",
+   "method": "GET",
+   "url": "/api/users/100000001/v1/quickOrder/summary/commodities/5303618?pgrik=p__26752&ucik=u__401f1",
+   "status": 401,
+   "body": "{\"Message\":\"Authorization has been denied for this request.\"}",
+   "parsed": {
+    "keys": [
+     "Message"
+    ]
+   }
+  },
+  {
+   "name": "O8 costEstimate {}",
+   "method": "POST",
+   "url": "/api/orders/v1/costEstimate",
+   "status": 200,
+   "body": "{\"isTaxed\":false,\"feeAmount\":null,\"rate\":0.0,\"originalAmount\":\"0 Kč\",\"finalAmount\":\"0 Kč\",\"feeDescriptionTitle\":null,\"feeDescriptionAmount\":null,\"feeDescription\":null,\"feeDescriptionLink\":{\"href\":\"https://www.alza.cz/Services/RestService.svc/v2/getafterorderpayments/0/0\",\"appLink\":\"orderPayment\",\"na",
+   "parsed": {
+    "keys": [
+     "isTaxed",
+     "feeAmount",
+     "rate",
+     "originalAmount",
+     "finalAmount",
+     "feeDescriptionTitle",
+     "feeDescriptionAmount",
+     "feeDescription",
+     "feeDescriptionLink",
+     "freeDelivery"
+    ]
+   }
+  },
+  {
+   "name": "O8 costEstimate {isAfterOrder:false}",
+   "method": "POST",
+   "url": "/api/orders/v1/costEstimate",
+   "status": 200,
+   "body": "{\"isTaxed\":false,\"feeAmount\":null,\"rate\":0.0,\"originalAmount\":\"0 Kč\",\"finalAmount\":\"0 Kč\",\"feeDescriptionTitle\":null,\"feeDescriptionAmount\":null,\"feeDescription\":null,\"feeDescriptionLink\":{\"href\":\"https://www.alza.cz/Services/RestService.svc/v2/getafterorderpayments/0/0\",\"appLink\":\"orderPayment\",\"na",
+   "parsed": {
+    "keys": [
+     "isTaxed",
+     "feeAmount",
+     "rate",
+     "originalAmount",
+     "finalAmount",
+     "feeDescriptionTitle",
+     "feeDescriptionAmount",
+     "feeDescription",
+     "feeDescriptionLink",
+     "freeDelivery"
+    ]
+   }
+  },
+  {
+   "name": "C9 hierarchicalFilter {}",
+   "method": "POST",
+   "url": "/services/restservice.svc/v1/hierarchicalFilter",
+   "status": 200,
+   "body": "{\"numberOfLevels\":0,\"numberOfNextLevel\":0,\"hierarchyTreeDetails\":null,\"parameter\":null,\"err\":1,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":\"Neplatný objekt filtru.\",\"user_name\":\"\",\"user_id\":-1,\"vzt\":2574535424312201,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\"",
+   "parsed": {
+    "err": 1,
+    "keys": [
+     "numberOfLevels",
+     "numberOfNextLevel",
+     "hierarchyTreeDetails",
+     "parameter",
+     "err",
+     "favCnt",
+     "basket_cnt",
+     "basket_total_cnt",
+     "msg",
+     "user_name"
+    ]
+   }
+  },
+  {
+   "name": "D3 getAllDeliveryCountries (for A12 countryId)",
+   "method": "GET",
+   "url": "/services/restservice.svc/v1/getAllDeliveryCountries",
+   "status": 200,
+   "body": "{\"data\":[{\"id\":22,\"name\":\"Rakousko\",\"isSelected\":false,\"code\":\"AT\",\"flag\":\"https://cdn.alza.cz/Styles/full/images/countries/AT.png\"},{\"id\":0,\"name\":\"Česká republika\",\"isSelected\":true,\"code\":\"CZ\",\"flag\":\"https://cdn.alza.cz/Styles/full/images/countries/CZ.png\"},{\"id\":3,\"name\":\"Německo\",\"isSelected\":",
+   "parsed": {
+    "err": 0,
+    "keys": [
+     "data",
+     "data_cnt",
+     "err",
+     "favCnt",
+     "basket_cnt",
+     "basket_total_cnt",
+     "msg",
+     "user_name",
+     "user_id",
+     "vzt"
+    ]
+   },
+   "czCountry": {
+    "id": 0,
+    "iso": "CZ"
+   }
+  },
+  {
+   "name": "A12 setCountry (same-value id 0)",
+   "method": "POST",
+   "url": "/services/restservice.svc/v1/setCountry",
+   "status": 200,
+   "body": "{\"err\":0,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":null,\"user_name\":\"\",\"user_id\":-1,\"vzt\":2574535424312201,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789025490}",
+   "parsed": {
+    "err": 0,
+    "keys": [
+     "err",
+     "favCnt",
+     "basket_cnt",
+     "basket_total_cnt",
+     "msg",
+     "user_name",
+     "user_id",
+     "vzt",
+     "countryID",
+     "countryPhonePrefix"
+    ]
+   }
+  },
+  {
+   "name": "A13 setIsic (empty → validation error)",
+   "method": "POST",
+   "url": "/services/restservice.svc/v1/setIsic",
+   "status": 401,
+   "body": "{\"Message\":\"Authorization has been denied for this request.\"}",
+   "parsed": {
+    "keys": [
+     "Message"
+    ]
+   }
+  },
+  {
+   "name": "B8 addGift (empty rangeIdsGiftCodes)",
+   "method": "POST",
+   "url": "/services/restservice.svc/v2/addGift",
+   "status": 200,
+   "body": "{\"err\":0,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":null,\"user_name\":\"\",\"user_id\":-1,\"vzt\":2574535424312201,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789025490}",
+   "parsed": {
+    "err": 0,
+    "keys": [
+     "err",
+     "favCnt",
+     "basket_cnt",
+     "basket_total_cnt",
+     "msg",
+     "user_name",
+     "user_id",
+     "vzt",
+     "countryID",
+     "countryPhonePrefix"
+    ]
+   }
+  },
+  {
+   "name": "O10 feedback (empty text/info)",
+   "method": "POST",
+   "url": "/services/restservice.svc/v1/feedback",
+   "status": 200,
+   "body": "{\"err\":1,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":\"Text komentáře musí být zadán.\",\"user_name\":\"\",\"user_id\":-1,\"vzt\":2574535424312201,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789025490}",
+   "parsed": {
+    "err": 1,
+    "keys": [
+     "err",
+     "favCnt",
+     "basket_cnt",
+     "basket_total_cnt",
+     "msg",
+     "user_name",
+     "user_id",
+     "vzt",
+     "countryID",
+     "countryPhonePrefix"
+    ]
+   }
+  },
+  {
+   "name": "O10 feedback (no auth, empty)",
+   "method": "POST",
+   "url": "/services/restservice.svc/v1/feedback",
+   "status": 200,
+   "body": "{\"err\":1,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":\"Text komentáře musí být zadán.\",\"user_name\":\"\",\"user_id\":-1,\"vzt\":2574535424312201,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789025490}",
+   "parsed": {
+    "err": 1,
+    "keys": [
+     "err",
+     "favCnt",
+     "basket_cnt",
+     "basket_total_cnt",
+     "msg",
+     "user_name",
+     "user_id",
+     "vzt",
+     "countryID",
+     "countryPhonePrefix"
+    ]
+   }
+  }
+ ]
+}

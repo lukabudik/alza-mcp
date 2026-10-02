@@ -1,0 +1,346 @@
+{
+ "startedAt": "2026-09-16T12:19:21.999Z",
+ "task": "OR11 cancellation re-test on order 1058423434 (resolve the 2026-09-15 null-response anomaly)",
+ "prior": "tmp/cancel-result.json (2026-09-15): PUT → 2xx empty body; verification: 'Počkejte prosím' / 'Zpracováváme změny.'",
+ "steps": [
+  {
+   "step": "1 order state before (anonymous read)",
+   "r": {
+    "path": "/api/anonymous/v1/orders/1058423434",
+    "method": "GET",
+    "status": 200,
+    "json": {
+     "self": {
+      "webLink": "/my-account/order-details-1058423434.htm",
+      "href": "https://www.alza.cz/api/anonymous/v1/orders/1058423434",
+      "appLink": "anonymousOrderDetail",
+      "enabled": true
+     },
+     "parts": [
+      {
+       "self": {
+        "href": "https://www.alza.cz/api/anonymous/v1/orders/parts/1076907159",
+        "appLink": "orderDetail",
+        "enabled": true,
+        "analytics": {
+         "actions": {
+          "onView": {
+           "data": {
+            "custom_event_name": "view_order",
+            "custom_event_group": "bo_orders",
+            "custom_event_p2": "order_detail",
+            "custom_event_p6": "1058423434"
+           },
+           "event": "custom_event",
+           "reportAction": null
+          }
+         }
+        }
+       },
+       "downloadDocumentLabel": "Stáhnout objednávku 1058423434",
+       "downloadDocumentAction": {
+        "href": "https://www.alza.cz/",
+        "appLink": "userSignIn",
+        "name": "Stáhnout objednávku 1058423434",
+        "enabled": true
+       },
+       "signInPrompt": "Přihlaste se k účtu al***e2e-user@example.invalid, abyste viděli všechny informace o objednávce a mohli s ní manipulovat.",
+       "actions": {
+        "onDetailClick": null,
+        "onCryptoPaymentsClick": null,
+        "onPaymentClick": null,
+        "onDelayedPaymentClick": null,
+        "onUserVerificationClick": null,
+        "onCheckoutClick": null,
+        "onCheckoutDialogClick": null,
+        "onParcelLockersCheckoutClick": null,
+        "onParcelLockersPickupClick": null,
+        "onRestoreParcelLockersCheckoutClick": null,
+        "onReportDamagedDeliveryClick": null,
+        "onRebuyClick": null,
+        "onEmloyeeDiscountClick": null,
+        "onCancellationClick": null,
+        "onDropCancellationClick": null,
+        "onQuestionClick": null,
+        "onPrintDocumentClick": null,
+        "onConfirmDeliveryClick": null,
+        "onExtendReservationClick": null,
+        "onSendHashClick": null,
+        "onSignInClick": {
+         "href": "https://www.alza.cz/",
+         "appLink": "userSignIn",
+         "name": "Přihlásit se",
+         "enabled": true
+        },
+        "splitAction": null,
+        "onConfirmAcceptanceClick": null,
+        "onClaimGuideClick": null,
+        "onReturnGuideClick": null,
+        "onReportDamageGuideClick": null,
+        "onMapNavigationClick": null,
+        "onCourierTrackingClick": null,
+        "onApprovementOrderDialogClick": null,
+        "externalOrderNumberUpdateDialogAction": null,
+        "onChatbotClick": null,
+        "onCareBoxPickUpClick": null,
+        "onCareBoxLinkOrderClick": null
+       },
+       "partName": null,
+       "partNumber": "1058423434",
+       "status": "Objednávka byla zrušena",
+       "statusDescription": "",
+       "orderStatusDescription": {
+        "text": "",
+        "actions": {}
+       },
+       "partialDeliveryPaymentInfo": null,
+       "phase": 4,
+       "created": "2026-09-15T17:32:23.46Z",
+       "isLocked": false
+      }
+     ],
+     "splitOrders": [],
+     "callCenterInfo": {
+      "title": "Telefonický kontakt",
+      "text": "+420225340111, nonstop",
+      "phoneNumber": "+420225340111",
+      "callUri": "tel:+420225340111",
+      "onQuestionClick": {
+       "href": "https://www.alza.cz/api/anonymous/v1/orders/1058423434/helpdesk/questions",
+       "appLink": "orderHelpdeskQuestionsV2",
+       "name": "Potřebuji poradit",
+       "enabled": true,
+       "analytics": {
+        "actions": {
+         "onClick": {
+          "data": {
+           "custom_event_name": "click_order_state",
+           "custom_event_group": "bo_orders",
+           "custom_event_p1": "order_detail_button",
+           "custom_event_p2": "order_detail",
+           "custom_event_p6": "1058423434"
+          },
+          "event": "custom_event",
+          "reportAction": null
+         }
+        }
+       }
+      },
+      "onContactPageClick": {
+       "href": "https://www.alza.cz/contact-and-support/objednavky-a-platby/4",
+       "appLink": "webView",
+       "name": "Potřebuji poradit",
+       "enabled": true,
+       "analytics": {
+        "actions": {
+         "onClick": {
+          "data": {
+           "custom_event_name": "click_need_advise",
+           "custom_event_group": "bo_orders",
+           "custom_event_p1": "order_detail_button",
+           "custom_event_p2": "order_detail"
+          },
+          "event": "custom_event",
+          "reportAction": null
+         }
+        }
+       }
+      },
+      "onChatbotClick": null
+     },
+     "slowApology": null,
+     "orderId": "1058423434",
+     "orderNumber": "1058 423 434",
+     "orderName": "Objednávka 1058 423 434",
+     "orderTypeName": "Objednávka",
+     "created": "2026-09-15T17:32:23.46Z",
+     "icon": null
+    }
+   }
+  },
+  {
+   "step": "1b hash",
+   "r": {
+    "prior": "0A8697U8EU43B71A25B3bOB215",
+    "currentInResponse": null,
+    "note": "anonymous read does not expose the hash"
+   }
+  },
+  {
+   "step": "2 cancellation PUT re-issued",
+   "r": {
+    "path": "/api/v1/orders/1058423434/0A8697U8EU43B71A25B3bOB215/parts/1076907159/cancellations",
+    "method": "PUT",
+    "status": 202,
+    "json": null
+   }
+  },
+  {
+   "step": "3 order state after (anonymous read)",
+   "r": {
+    "path": "/api/anonymous/v1/orders/1058423434",
+    "method": "GET",
+    "status": 200,
+    "json": {
+     "self": {
+      "webLink": "/my-account/order-details-1058423434.htm",
+      "href": "https://www.alza.cz/api/anonymous/v1/orders/1058423434",
+      "appLink": "anonymousOrderDetail",
+      "enabled": true
+     },
+     "parts": [
+      {
+       "self": {
+        "href": "https://www.alza.cz/api/anonymous/v1/orders/parts/1076907159",
+        "appLink": "orderDetail",
+        "enabled": true,
+        "analytics": {
+         "actions": {
+          "onView": {
+           "data": {
+            "custom_event_name": "view_order",
+            "custom_event_group": "bo_orders",
+            "custom_event_p2": "order_detail",
+            "custom_event_p6": "1058423434"
+           },
+           "event": "custom_event",
+           "reportAction": null
+          }
+         }
+        }
+       },
+       "downloadDocumentLabel": "Stáhnout objednávku 1058423434",
+       "downloadDocumentAction": {
+        "href": "https://www.alza.cz/",
+        "appLink": "userSignIn",
+        "name": "Stáhnout objednávku 1058423434",
+        "enabled": true
+       },
+       "signInPrompt": "Přihlaste se k účtu al***e2e-user@example.invalid, abyste viděli všechny informace o objednávce a mohli s ní manipulovat.",
+       "actions": {
+        "onDetailClick": null,
+        "onCryptoPaymentsClick": null,
+        "onPaymentClick": null,
+        "onDelayedPaymentClick": null,
+        "onUserVerificationClick": null,
+        "onCheckoutClick": null,
+        "onCheckoutDialogClick": null,
+        "onParcelLockersCheckoutClick": null,
+        "onParcelLockersPickupClick": null,
+        "onRestoreParcelLockersCheckoutClick": null,
+        "onReportDamagedDeliveryClick": null,
+        "onRebuyClick": null,
+        "onEmloyeeDiscountClick": null,
+        "onCancellationClick": null,
+        "onDropCancellationClick": null,
+        "onQuestionClick": null,
+        "onPrintDocumentClick": null,
+        "onConfirmDeliveryClick": null,
+        "onExtendReservationClick": null,
+        "onSendHashClick": null,
+        "onSignInClick": {
+         "href": "https://www.alza.cz/",
+         "appLink": "userSignIn",
+         "name": "Přihlásit se",
+         "enabled": true
+        },
+        "splitAction": null,
+        "onConfirmAcceptanceClick": null,
+        "onClaimGuideClick": null,
+        "onReturnGuideClick": null,
+        "onReportDamageGuideClick": null,
+        "onMapNavigationClick": null,
+        "onCourierTrackingClick": null,
+        "onApprovementOrderDialogClick": null,
+        "externalOrderNumberUpdateDialogAction": null,
+        "onChatbotClick": null,
+        "onCareBoxPickUpClick": null,
+        "onCareBoxLinkOrderClick": null
+       },
+       "partName": null,
+       "partNumber": "1058423434",
+       "status": "Počkejte prosím",
+       "statusDescription": "Zpracováváme změny.",
+       "orderStatusDescription": {
+        "text": "Zpracováváme změny.",
+        "actions": {}
+       },
+       "partialDeliveryPaymentInfo": null,
+       "phase": 3,
+       "created": "2026-09-15T17:32:23.46Z",
+       "isLocked": true
+      }
+     ],
+     "splitOrders": [],
+     "callCenterInfo": {
+      "title": "Telefonický kontakt",
+      "text": "+420225340111, nonstop",
+      "phoneNumber": "+420225340111",
+      "callUri": "tel:+420225340111",
+      "onQuestionClick": {
+       "href": "https://www.alza.cz/api/anonymous/v1/orders/1058423434/helpdesk/questions",
+       "appLink": "orderHelpdeskQuestionsV2",
+       "name": "Potřebuji poradit",
+       "enabled": true,
+       "analytics": {
+        "actions": {
+         "onClick": {
+          "data": {
+           "custom_event_name": "click_order_state",
+           "custom_event_group": "bo_orders",
+           "custom_event_p1": "order_detail_button",
+           "custom_event_p2": "order_detail",
+           "custom_event_p6": "1058423434"
+          },
+          "event": "custom_event",
+          "reportAction": null
+         }
+        }
+       }
+      },
+      "onContactPageClick": {
+       "href": "https://www.alza.cz/contact-and-support/objednavky-a-platby/4",
+       "appLink": "webView",
+       "name": "Potřebuji poradit",
+       "enabled": true,
+       "analytics": {
+        "actions": {
+         "onClick": {
+          "data": {
+           "custom_event_name": "click_need_advise",
+           "custom_event_group": "bo_orders",
+           "custom_event_p1": "order_detail_button",
+           "custom_event_p2": "order_detail"
+          },
+          "event": "custom_event",
+          "reportAction": null
+         }
+        }
+       }
+      },
+      "onChatbotClick": null
+     },
+     "slowApology": null,
+     "orderId": "1058423434",
+     "orderNumber": "1058 423 434",
+     "orderName": "Objednávka 1058 423 434",
+     "orderTypeName": "Objednávka",
+     "created": "2026-09-15T17:32:23.46Z",
+     "icon": null
+    }
+   }
+  },
+  {
+   "step": "4 order state (authenticated read)",
+   "r": {
+    "path": "/api/v1/orders/1058423434",
+    "method": "GET",
+    "status": 404,
+    "json": {
+     "Message": "No HTTP resource was found that matches the request URI 'http://www.alza.cz:1002/api/v1/orders/1058423434'."
+    }
+   }
+  }
+ ],
+ "finishedAt": "2026-09-16T12:19:22.342Z"
+}

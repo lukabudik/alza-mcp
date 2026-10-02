@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { OUTPUT_SCHEMAS } from "./output-schemas.js";
 import { formatPickupPoints } from "./format.js";
 import type { RegisterableTool, ToolDeps } from "./types.js";
 
@@ -26,7 +27,7 @@ const inputSchema = {
     .array(z.enum(["alzabox", "branch"]))
     .optional()
     .describe(
-      "Restrict to specific pickup-point types. 'alzabox' = self-service parcel locker (24/7). 'branch' = brick-and-mortar AlzaShop with staff. Default: both."
+      "Restrict to specific pickup-point types. 'branch' = brick-and-mortar AlzaShop with staff (currently the only type that returns results). 'alzabox' = self-service parcel locker — accepted, but returns nothing: Alza's AlzaBox lookup API is checkout-cart-scoped (requires an orderId/groupId from an active cart), not a standalone geo endpoint. For real AlzaBox results, use `add_to_cart` + `delivery_options` + `web_pickup_places` instead — see that tool's description. Default: both."
     ),
 };
 
@@ -35,13 +36,19 @@ export function createFindPickupPointsTool(deps: ToolDeps): RegisterableTool {
   return {
     name,
     register(server, errorWrap) {
-      server.registerTool(
+      return server.registerTool(
         name,
         {
           title: "Find Alza showrooms",
           description:
-            "Find Alza brick-and-mortar showrooms (AlzaShop) near a postal code. Use this when a user wants to know where they can collect a delivery, browse products in person, or get on-site advice. Note: AlzaBox parcel-locker discovery is planned for v0.2 — v0.1 returns staffed AlzaShop locations only.",
+            "Find Alza brick-and-mortar showrooms (AlzaShop) near a Czech/Slovak postal code: name, address, distance, and opening hours. " +
+            "Use when the user wants to browse in person, get on-site advice, or find where an AlzaShop branch is. " +
+            "Note: `types` accepts `alzabox`, but only `branch` results are returned here — Alza's AlzaBox lookup is checkout-cart-scoped (its API 400s without an orderId/groupId from an active cart), not a standalone postal-code search. " +
+            "For real AlzaBox locker results: `add_to_cart` a product, call `delivery_options`, take the AlzaBox delivery option's `deliveryOption.href` query params (`orderId`, `groupId`), then call `web_pickup_places` with those plus `latitude`/`longitude` and `types: [1]` — results come back distance-sorted. " +
+            "Also note: not every product is AlzaBox-eligible — Alza excludes large items (observed: 34\"+ monitors) from the AlzaBox network entirely, routing them to a small set of oversized-item pickup points instead; `delivery_options` reveals this per product. " +
+            "Read-only. Example: `find_pickup_points({postal_code: '110 00', radius_km: 10})`",
           inputSchema,
+          outputSchema: OUTPUT_SCHEMAS["find_pickup_points"],
           annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: true },
         },
         async (args) =>

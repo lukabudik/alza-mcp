@@ -1,0 +1,58 @@
+{
+ "date": "2026-09-09",
+ "steps": [
+  {
+   "step": "C11 navigation category-carousel hrefs",
+   "status": 200,
+   "links": [
+    "https://www.alza.cz/api/catalog/v1/homePage/categories/1?pgri=p__26752&ui=u__401f1"
+   ],
+   "topKeys": [
+    "self",
+    "breadcrumbs",
+    "name",
+    "value",
+    "disclaimers",
+    "shareWebLink"
+   ]
+  },
+  {
+   "step": "G4 POST basket/v1/items (browser)",
+   "status": 200,
+   "basketId": 1656899450,
+   "keys": [
+    "crossSellAppAction",
+    "crossPopupAction",
+    "updateAction",
+    "gtmData"
+   ],
+   "itemId": "1023695032"
+  },
+  {
+   "step": "G4 checkout/cart (wrong visitor probe)",
+   "status": 200,
+   "body": "{\"self\":{\"href\":\"https://www.alza.cz/api/v1/visitors/00000000-0000-0000-0000-000000000000/baskets/1656899450/checkout/cart?country=CZ\",\"appLink\":\"BasketCheckoutCart\",\"enabled\":true},\"maxStep\":0,\"sameDayDeliveryMessage\":null,\"itemsAction\":{\"href\":\"https://www.alza.cz/api/v1/anonymous/baskets/16568994"
+  },
+  {
+   "step": "G5 sendOrder3 re-test",
+   "addStatus": 200,
+   "gid": 394105835,
+   "sendOrder2": 200,
+   "sendOrder3": 500,
+   "sendOrder3Body": "{\"Message\":\"InternalServerError\"}"
+  },
+  {
+   "step": "G6 after-order re-test",
+   "getafterorderpayments": {
+    "status": 200,
+    "err": 1,
+    "msg": "Faktura se zadaným ID neexistuje"
+   },
+   "afterOrderPayment": {
+    "status": 200,
+    "err": 1,
+    "msg": "Aktualizujte prosím aplikace"
+   }
+  }
+ ]
+}

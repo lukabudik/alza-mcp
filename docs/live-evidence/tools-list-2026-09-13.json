@@ -1,0 +1,1860 @@
+{
+  "capture": "tools/list over stdio against the built server (node dist/index.js), 2026-09-13",
+  "startedAt": "2026-09-13T17:28:08.731Z",
+  "serverInfo": {
+    "name": "alza-mcp",
+    "title": "Alza (unofficial)",
+    "version": "0.3.0"
+  },
+  "protocolVersion": "2025-06-18",
+  "capabilities": {
+    "tools": {
+      "listChanged": true
+    },
+    "resources": {
+      "listChanged": true
+    },
+    "prompts": {
+      "listChanged": true
+    }
+  },
+  "instructionsPresent": true,
+  "toolCount": 41,
+  "sha256OfFullCapture": "281d44eed6b2ecc75a757689c14d9903ffcf701f5e677731d010907d74b535a0",
+  "tools": [
+    {
+      "name": "search_products",
+      "title": "Search Alza products",
+      "descriptionChars": 642,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Search keywords. Required. Example: 'iPhone 15 Pro', 'PlayStation 5', 'gaming mouse Logitech'."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50,
+            "description": "Maximum number of results to return. Default 20, max 50."
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "1-indexed page number for paginating beyond `limit` results."
+          },
+          "sort": {
+            "type": "string",
+            "enum": [
+              "relevance",
+              "price-asc",
+              "price-desc",
+              "rating",
+              "newest"
+            ],
+            "description": "Sort order, default 'relevance'. Price (asc/desc) and rating sorts are applied to the fetched result page (up to ~20 items per page), not the whole catalog \u2014 Alza's search page ignores server-side sort parameters. For the cheapest match overall, use a larger `limit` or combine with `min_price`/`max_price`."
+          },
+          "min_price": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Minimum price in the locale's currency."
+          },
+          "max_price": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Maximum price in the locale's currency."
+          },
+          "in_stock": {
+            "type": "boolean",
+            "description": "If true, only return products that are available right now."
+          },
+          "category_id": {
+            "type": "integer",
+            "description": "Restrict the search to a specific category id. Use list_categories to discover ids."
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "get_product",
+      "title": "Get product details",
+      "descriptionChars": 739,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Alza product code, e.g. 'WEXOA002B0'. This is the canonical identifier returned by `search_products` (the `code` field). Not the numeric id."
+          }
+        },
+        "required": [
+          "code"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "get_product_reviews",
+      "title": "Get product reviews",
+      "descriptionChars": 545,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Alza product code, e.g. 'WEXOA002B0'. Same as the `code` from `search_products`."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50,
+            "description": "Maximum number of individual reviews to include. Default 10, max 50."
+          }
+        },
+        "required": [
+          "code"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "find_pickup_points",
+      "title": "Find Alza showrooms",
+      "descriptionChars": 507,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "postal_code": {
+            "type": "string",
+            "minLength": 3,
+            "description": "Czech (or other supported country) postal code. Examples: '110 00', '11000', '602 00'. Spaces are tolerated."
+          },
+          "radius_km": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 100,
+            "description": "Search radius in kilometres. Default 15 km."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50,
+            "description": "Maximum number of pickup points to return. Default 10."
+          },
+          "types": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "alzabox",
+                "branch"
+              ]
+            },
+            "description": "Restrict to specific pickup-point types. 'branch' = brick-and-mortar AlzaShop with staff (currently the only type that returns results). 'alzabox' = self-service parcel locker \u2014 accepted, but AlzaBox discovery is not yet implemented so it returns nothing. Default: both."
+          }
+        },
+        "required": [
+          "postal_code"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "list_categories",
+      "title": "List Alza categories",
+      "descriptionChars": 219,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "parent_id": {
+            "type": "integer",
+            "description": "Parent category id. Omit to list top-level categories. Pass an id from a previous result to drill down."
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "auth_discovery",
+      "title": "Read Alza OAuth discovery",
+      "descriptionChars": 398,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "auth_start",
+      "title": "Start Alza mobile API OAuth",
+      "descriptionChars": 619,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "auth_exchange",
+      "title": "Exchange Alza OAuth code",
+      "descriptionChars": 586,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Authorization code from the `alza://identity` redirect (the `code` query parameter)."
+          },
+          "state": {
+            "type": "string",
+            "minLength": 1,
+            "description": "State value returned by `auth_start`; must match the pending PKCE session exactly."
+          }
+        },
+        "required": [
+          "code",
+          "state"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "mobile_read",
+      "title": "Read a raw Alza mobile API operation",
+      "descriptionChars": 1736,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "operation": {
+            "type": "string",
+            "enum": [
+              "url_info",
+              "legacy_product",
+              "router_product",
+              "quick_order_summary",
+              "user_review",
+              "discussion_posts",
+              "premium_trial",
+              "validate_login_name",
+              "o3_info",
+              "validate_isic",
+              "order_helpdesk_questions",
+              "user_data",
+              "contacts",
+              "visitor_navigation",
+              "user_navigation",
+              "catalog_user_navigation",
+              "anonymous_orders",
+              "anonymous_order",
+              "user_order",
+              "order_part",
+              "after_order_payments",
+              "order_add_info",
+              "order2_info",
+              "delivery_countries",
+              "commodity_lists",
+              "commodity_list",
+              "alternatives",
+              "branches",
+              "zip_codes",
+              "search",
+              "category",
+              "facets",
+              "ean_lookup",
+              "hierarchical_filter",
+              "basket_info",
+              "cart",
+              "cost_estimate",
+              "web_after_payment_dialog",
+              "home_categories",
+              "web_zip_codes",
+              "chat_navigation"
+            ],
+            "description": "Which fixed, APK-confirmed mobile API read operation to execute. See the tool description for per-operation arguments."
+          },
+          "args": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "Operation-specific arguments as a JSON object, e.g. router_product: {product_id: 13078770}; web_after_payment_dialog: {order_id: \"...\"}. Omit for operations that take none."
+          }
+        },
+        "required": [
+          "operation"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "prepare_mutation",
+      "title": "Prepare an Alza mutation",
+      "descriptionChars": 1199,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "create",
+              "rename",
+              "delete",
+              "add",
+              "remove",
+              "move",
+              "set_country",
+              "set_isic",
+              "add_gift",
+              "add_order_service",
+              "set_watchdog",
+              "send_feedback",
+              "submit_discussion",
+              "rate_discussion",
+              "coupon_add",
+              "coupon_remove",
+              "basket_update",
+              "basket_unlock",
+              "after_order_payment",
+              "register",
+              "address_create",
+              "address_edit",
+              "address_delete",
+              "review_submit",
+              "subscription_activate",
+              "subscription_update_installment",
+              "attachment_upload",
+              "web_place_order",
+              "web_after_order_payment"
+            ],
+            "description": "Which mutation you are about to perform; the token will only be accepted by that action's tool."
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": false,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "mutate_list",
+      "title": "Execute a whitelisted Alza mutation",
+      "descriptionChars": 963,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "create",
+              "rename",
+              "delete",
+              "add",
+              "remove",
+              "move",
+              "set_country",
+              "set_isic",
+              "add_gift",
+              "add_order_service",
+              "set_watchdog",
+              "send_feedback",
+              "submit_discussion",
+              "rate_discussion",
+              "coupon_add",
+              "coupon_remove",
+              "basket_update",
+              "basket_unlock"
+            ],
+            "description": "Which whitelisted mutation to execute; determines the expected `payload` shape."
+          },
+          "confirmation_token": {
+            "type": "string",
+            "minLength": 32,
+            "description": "One-time token from `prepare_mutation` prepared with this same `action`."
+          },
+          "payload": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "Mutation payload matching the mobile DTO for `action`, e.g. coupon_add: {coupon: \"CODE\"}; coupon_remove: {couponId: 123}; basket_update: {basket_id: 1, flag: true}."
+          }
+        },
+        "required": [
+          "action",
+          "confirmation_token",
+          "payload"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "account_status",
+      "title": "Check mobile API auth status",
+      "descriptionChars": 348,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true,
+        "destructiveHint": false,
+        "openWorldHint": false
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "cart",
+      "title": "Read the Alza account cart",
+      "descriptionChars": 753,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "add_to_cart",
+      "title": "Add a product to the account cart",
+      "descriptionChars": 828,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Alza product code, e.g. 'RI054b1' (the `code` field from `search_products`)."
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 99,
+            "default": 1,
+            "description": "How many units to add. Default 1, max 99."
+          }
+        },
+        "required": [
+          "code"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "delivery_options",
+      "title": "List delivery & payment options",
+      "descriptionChars": 728,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "selected_delivery_option_id": {
+            "type": "integer",
+            "description": "Delivery option id from a prior response to anchor the group listing on a chosen delivery method. Omit for the default listing."
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "select_pickup_point",
+      "title": "Select an AlzaBox / pickup point",
+      "descriptionChars": 750,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "association": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "The DeliveryPaymentAssociation object copied from the `delivery_options` response for the chosen pickup point."
+          }
+        },
+        "required": [
+          "association"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "checkout_preview",
+      "title": "Preview mobile checkout",
+      "descriptionChars": 728,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "selected_delivery_option_id": {
+            "type": "integer",
+            "description": "Delivery option id from `delivery_options` to preview that specific delivery method. Omit for the server default."
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": false,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "place_order",
+      "title": "Submit an order (mobile API)",
+      "descriptionChars": 755,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "confirmation_token": {
+            "type": "string",
+            "minLength": 32,
+            "description": "Checkout token from `checkout_preview` (one-time)."
+          },
+          "delivery_payment": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "SelectedDeliveryPayment object copied from the checkout/delivery response."
+          },
+          "user_info": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/properties/delivery_payment/additionalProperties"
+            },
+            "description": "SendOrderUserInfo object (contact + address fields) copied from or confirmed against the profile/address book."
+          },
+          "complete_order": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/properties/delivery_payment/additionalProperties"
+            },
+            "description": "SendCompleteOrder object copied from the checkout response."
+          }
+        },
+        "required": [
+          "confirmation_token",
+          "delivery_payment",
+          "user_info",
+          "complete_order"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false,
+        "destructiveHint": true,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "web_pickup_places",
+      "title": "List web pickup places (AlzaBox, branches, 24/7)",
+      "descriptionChars": 663,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "description": "Basket/order id of the current checkout (from the basket context), if any."
+          },
+          "group_id": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "description": "Delivery group id (from delivery options), if any."
+          },
+          "latitude": {
+            "type": "number",
+            "minimum": -90,
+            "maximum": 90,
+            "description": "Latitude to centre the search on (WGS84)."
+          },
+          "longitude": {
+            "type": "number",
+            "minimum": -180,
+            "maximum": 180,
+            "description": "Longitude to centre the search on (WGS84)."
+          },
+          "types": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "exclusiveMinimum": 0
+            },
+            "minItems": 1,
+            "maxItems": 5,
+            "description": "Pickup type filter (e.g. 1=AlzaBox, 2=branches); omit for all types."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "description": "Page size for the place list. Default server value."
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Pagination offset for the place list."
+          },
+          "place_id": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "description": "Fetch the detail for a single place (the call the web UI fires on place selection)."
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "web_add_to_cart",
+      "title": "Add a product to the web visitor cart",
+      "descriptionChars": 601,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "commodity_id": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "description": "Numeric Alza commodity id (e.g. 7229946; the numeric id from `get_product`/`search_products`)."
+          },
+          "count": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 99,
+            "default": 1,
+            "description": "How many units to add. Default 1, max 99."
+          }
+        },
+        "required": [
+          "commodity_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "web_cart",
+      "title": "Read the web visitor cart",
+      "descriptionChars": 424,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "basket_id": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "description": "Basket id returned by `web_add_to_cart` (the current web basket)."
+          }
+        },
+        "required": [
+          "basket_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "chat_navigation",
+      "title": "Read the chatbot HATEOAS navigation",
+      "descriptionChars": 434,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "country": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2,
+            "description": "2-letter country code, e.g. 'CZ'. Defaults to CZ."
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "chat_send",
+      "title": "Open/continue an Alza chatbot session",
+      "descriptionChars": 603,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "page_type": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 30,
+            "description": "Page context code: 1=product detail, 5=Order1, 6=Order2, 24=Order4 (2026-09-09 capture)."
+          },
+          "country": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2,
+            "description": "2-letter country code, e.g. 'CZ'."
+          },
+          "referrer": {
+            "type": "string",
+            "maxLength": 500,
+            "description": "Referrer URL for the chat context, if known."
+          },
+          "initial_input": {
+            "type": "string",
+            "maxLength": 2000,
+            "description": "The user's first message text (initialInput)."
+          },
+          "force_initialize": {
+            "type": "boolean",
+            "description": "Force a fresh chat initialization instead of reusing the session."
+          },
+          "list_category_id": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "category_id": {
+                  "type": "integer"
+                },
+                "category_type_id": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "category_id",
+                "category_type_id"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 10,
+            "description": "Product-context categories; the server requires the field \u2014 an empty array works without context."
+          },
+          "commodity_code": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Alza product code for the product-detail context (page_type 1)."
+          },
+          "commodity_type": {
+            "type": "integer",
+            "description": "Commodity type id for the product-detail context."
+          },
+          "manufacturer": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Manufacturer name for the product-detail context, if known."
+          },
+          "entity_id": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Entity id for the page context, if known."
+          },
+          "seo_prefix": {
+            "type": "string",
+            "maxLength": 128,
+            "description": "SEO prefix from the product page URL, if known."
+          }
+        },
+        "required": [
+          "page_type"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "profile",
+      "title": "Read Alza user profile and address book",
+      "descriptionChars": 857,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "contacts",
+      "title": "Read Alza account contacts",
+      "descriptionChars": 459,
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {}
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "register",
+      "title": "Register a new Alza account",
+      "descriptionChars": 460,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 100,
+            "description": "Account email address (the login)."
+          },
+          "phone": {
+            "type": "string",
+            "minLength": 6,
+            "maxLength": 20,
+            "description": "Phone number, e.g. '+420 777 123 456'."
+          },
+          "pwd": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 64,
+            "description": "Initial password. It is a credential \u2014 confirm with the user before sending."
+          },
+          "code": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Verification code, if Alza required one for this registration."
+          },
+          "confirmation_token": {
+            "type": "string",
+            "minLength": 32,
+            "description": "One-time token from `prepare_mutation` prepared with the matching action."
+          }
+        },
+        "required": [
+          "email",
+          "phone",
+          "pwd",
+          "confirmation_token"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false,
+        "destructiveHint": true,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "address_upsert",
+      "title": "Create or edit a delivery address",
+      "descriptionChars": 504,
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "address_delete",
+      "title": "Delete a delivery address",
+      "descriptionChars": 367,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "An AppAction object copied verbatim from a prior tool response (e.g. `profile`); it must contain form.meta.href. Never hand-craft URLs."
+          },
+          "address_id": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "description": "The address id to delete, from the `profile` address book."
+          },
+          "confirmation_token": {
+            "type": "string",
+            "minLength": 32,
+            "description": "One-time token from `prepare_mutation` prepared with the matching action."
+          }
+        },
+        "required": [
+          "action",
+          "address_id",
+          "confirmation_token"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false,
+        "destructiveHint": true,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "address_search",
+      "title": "Search delivery addresses",
+      "descriptionChars": 381,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "An AppAction object copied verbatim from a prior tool response (e.g. `profile`); it must contain form.meta.href. Never hand-craft URLs."
+          },
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50,
+            "description": "Zip or city query, e.g. '110 00' or 'Brno'."
+          }
+        },
+        "required": [
+          "action",
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "payment_methods",
+      "title": "List available payment methods",
+      "descriptionChars": 574,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "selected_delivery_option_id": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "description": "Delivery option id from `delivery_options` to list the payments valid for that delivery. Omit for the default set."
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "after_order_payments",
+      "title": "List after-order payment options",
+      "descriptionChars": 606,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "The unpaid order id (from `order`)."
+          },
+          "part_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "The order part id to pay (from `order`)."
+          }
+        },
+        "required": [
+          "order_id",
+          "part_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "pay_after_order",
+      "title": "Execute an after-order payment (mobile API)",
+      "descriptionChars": 621,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "The unpaid order id (from `order`)."
+          },
+          "invoice_number": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Invoice number for the payment (from the order detail)."
+          },
+          "payment_id": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "description": "Payment method id from `after_order_payments`."
+          },
+          "card_id": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "description": "Stored-card id to pay with, if the user has one on file."
+          },
+          "device_fingerprint": {
+            "type": "string",
+            "maxLength": 128,
+            "description": "Device fingerprint expected by the payment gateway, if known."
+          },
+          "confirmation_token": {
+            "type": "string",
+            "minLength": 32,
+            "description": "One-time token from `prepare_mutation` prepared with the matching action."
+          }
+        },
+        "required": [
+          "order_id",
+          "invoice_number",
+          "payment_id",
+          "confirmation_token"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false,
+        "destructiveHint": true,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "web_pay_after_order",
+      "title": "Execute a web after-order payment (working path)",
+      "descriptionChars": 542,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "The unpaid order id (from `order` or the order-detail link)."
+          },
+          "payment_id": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "description": "Payment method id from the after-payment dialog (e.g. 144 MojePlatba, 143 Platba 24, 103 proforma)."
+          },
+          "order_hash": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "The `?x=` order hash from the order-detail link, if present."
+          },
+          "invoice_id": {
+            "type": "string",
+            "maxLength": 32,
+            "default": "0",
+            "description": "Invoice id for the payment. Default \"0\" (server default)."
+          },
+          "price": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Override the amount to pay in CZK. Omit to pay the full due amount."
+          },
+          "confirmation_token": {
+            "type": "string",
+            "minLength": 32,
+            "description": "One-time token from `prepare_mutation` prepared with the matching action."
+          }
+        },
+        "required": [
+          "order_id",
+          "payment_id",
+          "confirmation_token"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false,
+        "destructiveHint": true,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "order",
+      "title": "Read an Alza order",
+      "descriptionChars": 573,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "order_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "The order id to read."
+          },
+          "part_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "description": "Order part id for the part detail read. Omit for the whole order."
+          },
+          "user_flag": {
+            "type": "number",
+            "enum": [
+              0,
+              1
+            ],
+            "default": 0,
+            "description": "Order scope selector, 0/1, exactly as the mobile app sends it. Default 0."
+          },
+          "initial_created": {
+            "type": "boolean",
+            "default": false,
+            "description": "Include the initial-creation view of the order. Default false."
+          }
+        },
+        "required": [
+          "order_id"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "review_submit",
+      "title": "Submit a product review",
+      "descriptionChars": 505,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "An AppAction object copied verbatim from a prior tool response (e.g. `profile`); it must contain form.meta.href. Never hand-craft URLs."
+          },
+          "rating": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5,
+            "description": "Star rating, 1 (worst) to 5 (best)."
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 10000,
+            "description": "Review text, if the user wants to write one."
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "description": "Form field name exactly as returned by the form response."
+                },
+                "value": {
+                  "description": "Field value."
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "text",
+                    "integer",
+                    "boolean",
+                    "decimal",
+                    "text-array",
+                    "integer-array"
+                  ],
+                  "description": "Field type from the form response, if provided."
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 20,
+            "description": "Extra typed form values copied verbatim from the form response (payment/installment/consent fields). Omit if the form returned none."
+          },
+          "confirmation_token": {
+            "type": "string",
+            "minLength": 32,
+            "description": "One-time token from `prepare_mutation` prepared with the matching action."
+          }
+        },
+        "required": [
+          "action",
+          "rating",
+          "confirmation_token"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "complaint_claims",
+      "title": "List warranty claims",
+      "descriptionChars": 376,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "An AppAction object copied verbatim from a prior tool response (e.g. `profile`); it must contain form.meta.href. Never hand-craft URLs."
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "subscription_overview",
+      "title": "Read AlzaSubscription overview",
+      "descriptionChars": 354,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "An AppAction object copied verbatim from a prior tool response (e.g. `profile`); it must contain form.meta.href. Never hand-craft URLs."
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "idempotentHint": true,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "subscription_activate",
+      "title": "Activate AlzaSubscription",
+      "descriptionChars": 401,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "An AppAction object copied verbatim from a prior tool response (e.g. `profile`); it must contain form.meta.href. Never hand-craft URLs."
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "description": "Form field name exactly as returned by the form response."
+                },
+                "value": {
+                  "description": "Field value."
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "text",
+                    "integer",
+                    "boolean",
+                    "decimal",
+                    "text-array",
+                    "integer-array"
+                  ],
+                  "description": "Field type from the form response, if provided."
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 20,
+            "description": "Extra typed form values copied verbatim from the form response (payment/installment/consent fields). Omit if the form returned none."
+          },
+          "confirmation_token": {
+            "type": "string",
+            "minLength": 32,
+            "description": "One-time token from `prepare_mutation` prepared with the matching action."
+          }
+        },
+        "required": [
+          "action",
+          "confirmation_token"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false,
+        "destructiveHint": true,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "subscription_update_installment",
+      "title": "Update AlzaSubscription installment plan",
+      "descriptionChars": 392,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "An AppAction object copied verbatim from a prior tool response (e.g. `profile`); it must contain form.meta.href. Never hand-craft URLs."
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "description": "Form field name exactly as returned by the form response."
+                },
+                "value": {
+                  "description": "Field value."
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "text",
+                    "integer",
+                    "boolean",
+                    "decimal",
+                    "text-array",
+                    "integer-array"
+                  ],
+                  "description": "Field type from the form response, if provided."
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 20,
+            "description": "Extra typed form values copied verbatim from the form response (payment/installment/consent fields). Omit if the form returned none."
+          },
+          "confirmation_token": {
+            "type": "string",
+            "minLength": 32,
+            "description": "One-time token from `prepare_mutation` prepared with the matching action."
+          }
+        },
+        "required": [
+          "action",
+          "confirmation_token"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false,
+        "destructiveHint": true,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "upload_attachment",
+      "title": "Upload complaint/claim attachments",
+      "descriptionChars": 539,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "object",
+            "additionalProperties": {},
+            "description": "An AppAction object copied verbatim from a prior tool response (e.g. `profile`); it must contain form.meta.href. Never hand-craft URLs."
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "part_name": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "description": "Form part name from the form response."
+                },
+                "file_name": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "description": "Original file name, e.g. \"damage-1.jpg\"."
+                },
+                "mime_type": {
+                  "type": "string",
+                  "maxLength": 64,
+                  "description": "MIME type, e.g. \"image/jpeg\" (whitelisted image types only)."
+                },
+                "data_url": {
+                  "type": "string",
+                  "pattern": "^data\\:",
+                  "description": "Full base64 data URL, e.g. \"data:image/jpeg;base64,...\"."
+                }
+              },
+              "required": [
+                "part_name",
+                "file_name",
+                "data_url"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1,
+            "maxItems": 5,
+            "description": "The image files to upload (1\u20135, \u226410 MiB each)."
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "description": "Form field name exactly as returned by the form response."
+                },
+                "value": {
+                  "description": "Field value."
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "text",
+                    "integer",
+                    "boolean",
+                    "decimal",
+                    "text-array",
+                    "integer-array"
+                  ],
+                  "description": "Field type from the form response, if provided."
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 20,
+            "description": "Extra typed form values copied verbatim from the form response (payment/installment/consent fields). Omit if the form returned none."
+          },
+          "confirmation_token": {
+            "type": "string",
+            "minLength": 32,
+            "description": "One-time token from `prepare_mutation` prepared with the matching action."
+          }
+        },
+        "required": [
+          "action",
+          "files",
+          "confirmation_token"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false,
+        "destructiveHint": false,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    },
+    {
+      "name": "web_place_order",
+      "title": "Place an order (legacy web WCF \u2014 working path)",
+      "descriptionChars": 964,
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "delivery_id": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "description": "Delivery option id (e.g. 2680 for AlzaBox; from `delivery_options`)."
+          },
+          "delivery_group_id": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Live delivery group id (from `delivery_options`; omit or 0 for the server default)."
+          },
+          "parcel_shop_id": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Pickup place id (an AlzaBox parcelShopId from `web_pickup_places`), when delivering to a pickup point."
+          },
+          "payment_id": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "description": "Payment method id (e.g. 103 proforma; from `payment_methods`)."
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "Recipient name."
+          },
+          "street": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "Street and house number."
+          },
+          "city": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "description": "City."
+          },
+          "zip_code": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 12,
+            "description": "Postal code."
+          },
+          "phone": {
+            "type": "string",
+            "minLength": 6,
+            "maxLength": 20,
+            "description": "Contact phone."
+          },
+          "email": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 100,
+            "description": "Contact email (order confirmation goes here)."
+          },
+          "register_user": {
+            "type": "boolean",
+            "default": false,
+            "description": "Register the buyer as a new account as part of checkout. Default false."
+          },
+          "login": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Existing login to buy as (defaults to the email)."
+          },
+          "country_id": {
+            "type": "integer",
+            "default": 0,
+            "description": "Country id for the order. Default 0 (server default, CZ)."
+          },
+          "quotation": {
+            "type": "boolean",
+            "default": false,
+            "description": "Treat the order as a quotation instead of a purchase. Default false."
+          },
+          "internal_description": {
+            "type": "string",
+            "maxLength": 2000,
+            "description": "Internal order note, if required."
+          },
+          "user_consents": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "consent_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64
+                },
+                "value": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "consent_id",
+                "value"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 10,
+            "description": "User consent flags verbatim from the checkout context (consent_id \u2192 accepted)."
+          },
+          "basket_consents": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "consent_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64
+                },
+                "value": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "consent_id",
+                "value"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 10,
+            "description": "Basket-level consent flags verbatim from the checkout context (consent_id \u2192 accepted)."
+          },
+          "confirmation_token": {
+            "type": "string",
+            "minLength": 32,
+            "description": "One-time token from `prepare_mutation` prepared with the matching action."
+          }
+        },
+        "required": [
+          "delivery_id",
+          "payment_id",
+          "name",
+          "street",
+          "city",
+          "zip_code",
+          "phone",
+          "email",
+          "confirmation_token"
+        ],
+        "additionalProperties": false,
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "idempotentHint": false,
+        "destructiveHint": true,
+        "openWorldHint": true
+      },
+      "outputSchema": false
+    }
+  ],
+  "summary": {
+    "undescribedParams": 0,
+    "emptyInputSchema": 0,
+    "withOutputSchema": 0,
+    "readOnly": 23,
+    "destructive": 8,
+    "openWorldMissing": [
+      "get_product",
+      "get_product_reviews",
+      "list_categories"
+    ],
+    "idempotentMissing": [
+      "search_products"
+    ]
+  }
+}

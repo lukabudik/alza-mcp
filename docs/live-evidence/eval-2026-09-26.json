@@ -1,0 +1,218 @@
+{
+  "generatedAt": "2026-09-26T22:42:19.552Z",
+  "package": "alza-mcp",
+  "serverVersion": "0.3.0",
+  "protocolVersion": "2025-11-25",
+  "transport": "in-memory",
+  "scenarioCount": 6,
+  "scenarios": [
+    {
+      "name": "registration-surface",
+      "live": false,
+      "status": "passed",
+      "durationMs": 0,
+      "checks": [
+        {
+          "check": "tool count is 55 (53 domain tools + list_toolsets + set_toolset)",
+          "ok": true,
+          "observed": "55"
+        },
+        {
+          "check": "registration order is deterministic",
+          "ok": true,
+          "observed": "[\"search_products\",\"get_product\",\"get_product_reviews\",\"find_pickup_points\",\"list_categories\",\"auth_discovery\",\"auth_start\",\"auth_exchange\",\"mobile_read\",\"prepare_mutation\",\"mutate_list\",\"account_status\",\"cart\",\"add_to_cart\",\"delivery_options\",\"select_pickup_point\",\"checkout_preview\",\"place_order\",\"web_pickup_places\",\"web_add_to_cart\",\"web_cart\",\"chat_navigation\",\"chat_send\",\"profile\",\"contacts\",\"register\",\"address_upsert\",\"address_delete\",\"address_search\",\"payment_methods\",\"after_order_payments\",\"pay_after_order\",\"web_pay_after_order\",\"order\",\"order_search\",\"order_archive\",\"product_by_ean\",\"gdpr_info\",\"claim_detail\",\"order_document\",\"change_password\",\"two_factor_set\",\"phone_change\",\"email_change\",\"delete_account\",\"review_submit\",\"complaint_claims\",\"subscription_overview\",\"subscription_activate\",\"subscription_update_installment\",\"upload_attachment\",\"web_place_order\",\"cancel_order\",\"list_toolsets\",\"set_toolset\"]"
+        },
+        {
+          "check": "every tool has a ≥40-char description and a title",
+          "ok": true,
+          "observed": ""
+        },
+        {
+          "check": "every tool publishes an object outputSchema",
+          "ok": true,
+          "observed": ""
+        },
+        {
+          "check": "outputSchema map covers all 53 domain-tool names",
+          "ok": true,
+          "observed": "53"
+        },
+        {
+          "check": "readOnlyHint true on exactly 30",
+          "ok": true,
+          "observed": "30"
+        },
+        {
+          "check": "destructiveHint true on exactly 10",
+          "ok": true,
+          "observed": "10"
+        },
+        {
+          "check": "readOnlyHint false (mutating) on exactly 25",
+          "ok": true,
+          "observed": "25"
+        }
+      ]
+    },
+    {
+      "name": "catalog-read",
+      "live": true,
+      "status": "failed",
+      "durationMs": 19193,
+      "checks": [
+        {
+          "check": "isError false",
+          "ok": true,
+          "observed": "undefined"
+        },
+        {
+          "check": "structuredContent present",
+          "ok": true,
+          "observed": "no structuredContent"
+        },
+        {
+          "check": "query echoed",
+          "ok": true,
+          "observed": "notebook"
+        },
+        {
+          "check": "pageSize respected (≤5)",
+          "ok": true,
+          "observed": "5"
+        },
+        {
+          "check": "≥1 product returned",
+          "ok": true,
+          "observed": "5"
+        },
+        {
+          "check": "product has code+name+currency",
+          "ok": true,
+          "observed": "ADC454p20e Dell Pro 15 Essential PV15250 Platinum Silver CZK"
+        },
+        {
+          "check": "text channel is human-readable (≥80 chars, names the first product)",
+          "ok": true,
+          "observed": "948 chars"
+        },
+        {
+          "check": "get_product isError false",
+          "ok": true,
+          "observed": "undefined"
+        },
+        {
+          "check": "get_product returns the requested code",
+          "ok": true,
+          "observed": "ADC454p20e vs ADC454p20e"
+        },
+        {
+          "check": "product has name+url",
+          "ok": true,
+          "observed": "Dell Pro 15 Essential PV15250 Platinum Silver https://www.alza.cz/dell-pro-15-essential-pv15250-d13141863.htm?o=1"
+        },
+        {
+          "check": "get_product_reviews isError false",
+          "ok": false,
+          "observed": "true"
+        },
+        {
+          "check": "reviews is an array",
+          "ok": false,
+          "observed": "undefined"
+        },
+        {
+          "check": "code echoed",
+          "ok": false,
+          "observed": "undefined vs ADC454p20e"
+        }
+      ]
+    },
+    {
+      "name": "auth-discovery",
+      "live": true,
+      "status": "passed",
+      "durationMs": 78,
+      "checks": [
+        {
+          "check": "blocked upstream → graceful error result mentioning HTTP",
+          "ok": true,
+          "observed": "Error: OAuth discovery failed with HTTP 403"
+        }
+      ]
+    },
+    {
+      "name": "account-status",
+      "live": false,
+      "status": "passed",
+      "durationMs": 5,
+      "checks": [
+        {
+          "check": "isError false",
+          "ok": true,
+          "observed": "undefined"
+        },
+        {
+          "check": "authenticated is a boolean",
+          "ok": true,
+          "observed": "true"
+        },
+        {
+          "check": "visitorId is a string",
+          "ok": true,
+          "observed": "00000000-0000-0000-0000-000000000000"
+        },
+        {
+          "check": "apiBaseUrl is an alza URL",
+          "ok": true,
+          "observed": "https://www.alza.cz"
+        }
+      ]
+    },
+    {
+      "name": "account-read",
+      "live": true,
+      "status": "passed",
+      "durationMs": 587,
+      "checks": [
+        {
+          "check": "authenticated user_data isError false",
+          "ok": true,
+          "observed": "undefined"
+        },
+        {
+          "check": "authenticated user_data err 0 or object",
+          "ok": true,
+          "observed": "{\"isQualifiedForCryptoWallet\":false,\"mailingSegments\":[{\"name\":\"Alza\",\"id\":13985"
+        }
+      ]
+    },
+    {
+      "name": "input-validation-error-quality",
+      "live": false,
+      "status": "passed",
+      "durationMs": 5,
+      "checks": [
+        {
+          "check": "empty code rejected",
+          "ok": true,
+          "observed": "true"
+        },
+        {
+          "check": "error mentions the offending parameter",
+          "ok": true,
+          "observed": "MCP error -32602: Input validation error: Invalid arguments for tool get_product: [\n  {\n    \"code\": \"too_small\",\n    \"mi"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total": 6,
+    "passed": 5,
+    "failed": 1
+  },
+  "notes": [
+    "Non-mutating harness: catalog reads, auth_discovery, account_status, mobile_read; no cart/order mutations.",
+    "Live scenarios hit alza.cz/identity.alza.cz; offline scenarios are deterministic.",
+    "Per-check details in scenarios[].checks; observed values recorded for auditability."
+  ]
+}

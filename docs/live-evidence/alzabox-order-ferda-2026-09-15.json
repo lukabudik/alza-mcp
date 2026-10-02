@@ -1,0 +1,228 @@
+{
+ "startedAt": "2026-09-15T17:31:26.924Z",
+ "task": "Test placing an order to the AlzaBox nearest to Example Street 1 (claimed: 'Ferda, Hradec Králové')",
+ "product": {
+  "code": "FKP0383232",
+  "name": "Kniha Srdečný pozdrav plus pexeso (e2e convention item)",
+  "price": "35 CZK"
+ },
+ "targetBox": {
+  "name": "Hradec Králové - Dvorská (Ferda)",
+  "deliveryId": 2680,
+  "parcelShopId": "1127188"
+ },
+ "contact": {
+  "name": "E2E Test",
+  "street": "Example Street 1",
+  "city": "Hradec Králové",
+  "zip_code": "500 03",
+  "phone": "+420601234567",
+  "email": "e2e-user@example.invalid",
+  "login": "e2e-user@example.invalid"
+ },
+ "steps": [
+  {
+   "step": "add_to_cart",
+   "ok": true,
+   "durationMs": 3891,
+   "isError": false,
+   "structuredContent": "{\"data\":{\"self\":{\"href\":\"https://www.alza.cz//api/router/legacy/catalog/product/7229946?pgrik=p__26752&ucik=u__401f1&country=CZ&electronicContentOnly=False\",\"appLink\":\"catalogProductDetail\",\"enabled\":true},\"usedProductDialog\":null,\"recommendations\":null,\"additionalServices\":null,\"additionalServicesCount\":0,\"recommendationsCount\":0,\"isDelayedPayment\":false,\"isNeo\":false,\"deliveryGroupId\":0,\"originalPrice\":null,\"quantityDiscountsCnt\":0,\"quantityDiscounts\":null,\"quantityDiscountsV2Cnt\":0,\"quantityDiscountsV2\":[],\"minimumAmount\":0,\"amountInPack\":0,\"currency\":null,\"priceNoCurrency\":null,\"onMoveToBuyLaterClick\":null,\"priceInfoV2\":{\"priceWithVat\":\"35,-\",\"instalmentsPriceWithVat\":null,\"comparePrice\":null,\"pricePrefix\":null,\"pricePostfix\":null,\"priceDescription\":null,\"priceType\":2,\"priceGroupType\":0,\"headerText\":\"Cenová bomba\",\"headerIconUrl\":null,\"priceSave\":\"Ušetříte 4,-\",\"explanationPriceAction\":{\"href\":\"https://webapi.alza.cz/api/commodity/v1/7229946/explanationPrice/dialog?country=CZ&pgrik=p__26752&ucik=u__401f1\",\"appLink\":\"explanationPriceDialog\",\"enabled\":true},\"unitPriceWithVat\":\"35,-\",\"unitName\":\"ks\",\"priceWithoutVatNoCurrency\":35,\"priceNoCurrency\":35},\"priceInfoV3\":{\"mainPriceTag\":{\"primaryPrice\":\"35,-\",\"primaryPricePrefix\":null,\"primaryPricePostfix\":null,\"primaryPriceNoCurrency\":35,\"secondaryPrice\":null,\"secondaryPricePrefix\":null,\"secondaryPricePostfix\":null,\"comparePrice\":null,\"priceDescription\":null,\"priceType\":2,\"priceGroupType\":0,\"headerText\":\"Cenová bomba\",\"headerIconUrl\":null,\"priceSave\":\"Ušetříte 4,-\",\"explanationPriceAction\":{\"href\":\"https://webapi.alza.cz/api/commodity/v1/7229946/explanationPrice/dialog?country=CZ&pgrik=p__26752&ucik=u__401f1\",\"appLink\":\"explanationPriceDialog\",\"enabled\":true},\"footerPriceAction\":null,\"calculatePriceActionForm\":null,\"calculateInstallmentsPriceAction\":null,\"footerIconUrl\":null,\"codeToBuyWith\":null},\"alternativePriceTag\":null},\"personalizedAvailability\":null,\"cheapestFreeActionId\":null,\"orderItemId\":1028196723,\"parentId\":null,\"accesoryTypeId\":null,\"code\":\"FKP0383232\",\"name\":\"Kniha Srdečný pozdrav plus pexeso: Ukrajinsko-české Česko-ukrajinské\",\"price\":\"35 Kč\",\"priceVat\":\"35 Kč\",\"pricePerItem\":\"35 Kč\",\"pricePerItemVat\":\"35 Kč\",\"count\":1,\"promo\":[],\"Children\":null,\"data_cnt\":0,\"data\":null,\"type\":0,\"imgUrl\":\"https://image.alza.cz/products/FKP0383232/FKP0383232.jpg?width=190&height=190\",\"reservated_until\":null,\"availability\":null,\"commodityId\":7229946,\"gaCategory\":null,\"gaPrice\":35},\"order\":{\"priceVat\":\"35 Kč\",\"price",
+   "text": "# Added to Alza cart\n- Kniha Srdečný pozdrav plus pexeso: Ukrajinsko-české Česko-ukrajinské (FKP0383232) × 1\norderItemId: 1028196723\ncart now holds 1 line(s)\ncart total: 35 Kč\n\n_Full envelope (identifiers, line details, raw fields) is in structuredContent._"
+  },
+  {
+   "step": "mobile_read basket_info",
+   "ok": true,
+   "durationMs": 3668,
+   "isError": false,
+   "structuredContent": "{\"orderId\":1658048077,\"deliveriesInfo\":[{\"deliveryId\":-1,\"deliveryGroupId\":395871783,\"deliveryName\":null,\"deliveryPrice\":null,\"deliveryGroupPrice\":null,\"deliveryZipCode\":null,\"deliveryAddressId\":null,\"zipId\":null,\"parcelShopId\":0,\"deliveryItemType\":null,\"alzaBoxName\":null,\"availability\":null,\"deliveryTimeFrame\":null,\"deliveryCanPickDeliveryTime\":false,\"imgUrl\":null,\"deliveryVariantId\":0,\"deliveryServicesIds\":null,\"price\":0,\"externalCarriageWarning\":null}],\"paymentInfo\":{\"adyenPaymentType\":null,\"paymentId\":-1,\"paymentName\":\"\",\"paymentPrice\":\"zdarma\",\"paymentPriceValue\":0,\"selectedCard\":null,\"imgUrl\":\"\",\"imgUrlSubIcons\":[],\"isBraintree\":false,\"isCsob\":false,\"feeDescriptionTitle\":null,\"feeDescriptionAmount\":null,\"feeDescription\":null,\"feeDescriptionLink\":null,\"paymentType\":null},\"pricePayAmt\":35,\"isDiscounting\":false,\"err\":0,\"favCnt\":0,\"basket_cnt\":1,\"basket_total_cnt\":1,\"msg\":null,\"user_name\":\"\",\"user_id\":-1,\"vzt\":4706096315960274,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789500694,\"email\":null,\"phone\":\"\",\"name\":null,\"street\":null,\"zip\":null,\"city\":null,\"canQuotate\":false,\"allowPurchase\":true,\"price\":\"35 Kč\",\"priceVat\":\"35 Kč\",\"vat\":\"0 Kč\",\"discount\":null,\"pricePay\":\"35 Kč\"}",
+   "text": "{\n  \"orderId\": 1658048077,\n  \"deliveriesInfo\": [\n    {\n      \"deliveryId\": -1,\n      \"deliveryGroupId\": 395871783,\n      \"deliveryName\": null,\n      \"deliveryPrice\": null,\n      \"deliveryGroupPrice\": null,\n      \"deliveryZipCode\": null,\n      \"deliveryAddressId\": null,\n      \"zipId\": null,\n      \"parcelShopId\": 0,\n      \"deliveryItemType\": null,\n      \"alzaBoxName\": null,\n      \"availability\": null,\n      \"deliveryTimeFrame\": null,\n      \"deliveryCanPickDeliveryTime\": false,\n      \"imgUrl\": null,\n      \"deliveryVariantId\": 0,\n      \"deliveryServicesIds\": null,\n      \"price\": 0,\n      \"externalCarriageWarning\": null\n    }\n  ],\n  \"paymentInfo\": {\n    \"adyenPaymentType\": null,\n    \"paymentId\": -1,\n    \"paymentName\": \"\",\n    \"paymentPrice\": \"zdarma\",\n    \"paymentPriceValue\": 0,\n    \"selectedCard\": null,\n    \"imgUrl\": \"\",\n    \"imgUrlSubIcons\": [],\n    \"isBraintree\": false,\n    \"isCsob\": false"
+  },
+  {
+   "step": "web_pickup_places (AlzaBox, 100 nearest)",
+   "ok": true,
+   "durationMs": 8249,
+   "isError": false,
+   "structuredContent": "{\"form\":{\"self\":{\"href\":\"https://www.alza.cz/api/personalPickup/v1/pickupPlaceForm?orderId=1658048077&groupId=395871783&types[0]=1&types[1]=2\",\"appLink\":\"pickupPlaceForm\",\"enabled\":true},\"types\":[{\"isSelected\":true,\"state\":1,\"imgUrl\":\"https://image.alza.cz/Foto/Domains/Logistics/PersonalPickup/svg/icon-2.svg\",\"name\":\"AlzaBox\",\"description\":\"od 49 Kč\",\"count\":3983,\"type\":1,\"groupId\":1,\"groupName\":null,\"groupOrder\":1},{\"isSelected\":true,\"state\":1,\"imgUrl\":\"https://image.alza.cz/Foto/Domains/Logistics/PersonalPickup/svg/icon-1.svg\",\"name\":\"Alza prodejna\",\"description\":\"zdarma nebo od 45 Kč\",\"count\":37,\"type\":2,\"groupId\":1,\"groupName\":null,\"groupOrder\":1},{\"isSelected\":false,\"state\":2,\"imgUrl\":\"https://image.alza.cz/Foto/Domains/Logistics/PersonalPickup/svg/icon-4096.svg\",\"name\":\"AlzaPoint\",\"description\":\"Doprava je nedostupná\",\"count\":0,\"type\":15,\"groupId\":1,\"groupName\":null,\"groupOrder\":1},{\"isSelected\":false,\"state\":2,\"imgUrl\":\"https://image.alza.cz/Foto/Domains/Logistics/PersonalPickup/svg/icon-ppl.svg\",\"name\":\"PPL ParcelShop\",\"description\":\"Doprava je nedostupná\",\"count\":0,\"type\":12,\"groupId\":2,\"groupName\":\"Partnerská místa\",\"groupOrder\":2},{\"isSelected\":false,\"state\":2,\"imgUrl\":\"https://image.alza.cz/Foto/Domains/Logistics/PersonalPickup/svg/icon-ppl.svg\",\"name\":\"PPL Box\",\"description\":\"Doprava je nedostupná\",\"count\":0,\"type\":24,\"groupId\":2,\"groupName\":\"Partnerská místa\",\"groupOrder\":2},{\"isSelected\":false,\"state\":2,\"imgUrl\":\"https://image.alza.cz/Foto/Domains/Logistics/PersonalPickup/svg/icon-973.svg\",\"name\":\"Balíkovna\",\"description\":\"Doprava je nedostupná\",\"count\":0,\"type\":3,\"groupId\":2,\"groupName\":\"Partnerská místa\",\"groupOrder\":2},{\"isSelected\":false,\"state\":2,\"imgUrl\":\"https://image.alza.cz/Foto/Domains/Logistics/PersonalPickup/svg/icon-3033.svg\",\"name\":\"DPD pickup\",\"description\":\"Doprava je nedostupná\",\"count\":0,\"type\":21,\"groupId\":2,\"groupName\":\"Partnerská místa\",\"groupOrder\":2},{\"isSelected\":false,\"state\":2,\"imgUrl\":\"https://image.alza.cz/Foto/Domains/Logistics/PersonalPickup/svg/icon-8.svg\",\"name\":\"Zásilkovna\",\"description\":\"Doprava je nedostupná\",\"count\":0,\"type\":4,\"groupId\":2,\"groupName\":\"Partnerská místa\",\"groupOrder\":2},{\"isSelected\":false,\"state\":2,\"imgUrl\":\"https://image.alza.cz/Foto/Domains/Logistics/PersonalPickup/svg/icon-8.svg\",\"name\":\"Z-Box\",\"description\":\"Doprava je nedostupná\",\"count\":0,\"type\":20,\"groupId\":2,\"groupName\":\"Partnerská místa\",\"groupOrder\":2}],\"pointsForm\":{\"method\":\"GET\",\"value\":[{\"name\":\"rightLongitude\",\"itemType\":\"dec",
+   "text": "{\n  \"form\": {\n    \"self\": {\n      \"href\": \"https://www.alza.cz/api/personalPickup/v1/pickupPlaceForm?orderId=1658048077&groupId=395871783&types[0]=1&types[1]=2\",\n      \"appLink\": \"pickupPlaceForm\",\n      \"enabled\": true\n    },\n    \"types\": [\n      {\n        \"isSelected\": true,\n        \"state\": 1,\n        \"imgUrl\": \"https://image.alza.cz/Foto/Domains/Logistics/PersonalPickup/svg/icon-2.svg\",\n        \"name\": \"AlzaBox\",\n        \"description\": \"od 49 Kč\",\n        \"count\": 3983,\n        \"type\": 1,\n        \"groupId\": 1,\n        \"groupName\": null,\n        \"groupOrder\": 1\n      },\n      {\n        \"isSelected\": true,\n        \"state\": 1,\n        \"imgUrl\": \"https://image.alza.cz/Foto/Domains/Logistics/PersonalPickup/svg/icon-1.svg\",\n        \"name\": \"Alza prodejna\",\n        \"description\": \"zdarma nebo od 45 Kč\",\n        \"count\": 37,\n        \"type\": 2,\n        \"groupId\": 1,\n        \"groupName\": null,"
+  },
+  {
+   "step": "cart",
+   "ok": true,
+   "durationMs": 7549,
+   "isError": false,
+   "structuredContent": "{\"info\":{\"orderId\":1658048077,\"deliveriesInfo\":[{\"deliveryId\":-1,\"deliveryGroupId\":395871783,\"deliveryName\":null,\"deliveryPrice\":null,\"deliveryGroupPrice\":null,\"deliveryZipCode\":null,\"deliveryAddressId\":null,\"zipId\":null,\"parcelShopId\":0,\"deliveryItemType\":null,\"alzaBoxName\":null,\"availability\":null,\"deliveryTimeFrame\":null,\"deliveryCanPickDeliveryTime\":false,\"imgUrl\":null,\"deliveryVariantId\":0,\"deliveryServicesIds\":null,\"price\":0,\"externalCarriageWarning\":null}],\"paymentInfo\":{\"adyenPaymentType\":null,\"paymentId\":-1,\"paymentName\":\"\",\"paymentPrice\":\"zdarma\",\"paymentPriceValue\":0,\"selectedCard\":null,\"imgUrl\":\"\",\"imgUrlSubIcons\":[],\"isBraintree\":false,\"isCsob\":false,\"feeDescriptionTitle\":null,\"feeDescriptionAmount\":null,\"feeDescription\":null,\"feeDescriptionLink\":null,\"paymentType\":null},\"pricePayAmt\":35,\"isDiscounting\":false,\"err\":0,\"favCnt\":0,\"basket_cnt\":1,\"basket_total_cnt\":1,\"msg\":null,\"user_name\":\"\",\"user_id\":-1,\"vzt\":4706096315960274,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789500706,\"email\":null,\"phone\":\"\",\"name\":null,\"street\":null,\"zip\":null,\"city\":null,\"canQuotate\":false,\"allowPurchase\":true,\"price\":\"35 Kč\",\"priceVat\":\"35 Kč\",\"vat\":\"0 Kč\",\"discount\":null,\"pricePay\":\"35 Kč\"},\"items\":{\"orderAccessoriesAction\":null,\"add_info\":{\"types\":[],\"types_cnt\":0,\"max_step\":2},\"vouchers\":[],\"vouchers_cnt\":0,\"data\":[{\"self\":{\"href\":\"https://www.alza.cz//api/router/legacy/catalog/product/7229946?pgrik=p__26752&ucik=u__401f1&country=CZ&electronicContentOnly=False\",\"appLink\":\"catalogProductDetail\",\"enabled\":true},\"usedProductDialog\":null,\"recommendations\":null,\"additionalServices\":[],\"additionalServicesCount\":0,\"recommendationsCount\":0,\"isDelayedPayment\":false,\"isNeo\":false,\"deliveryGroupId\":395871783,\"originalPrice\":null,\"quantityDiscountsCnt\":0,\"quantityDiscounts\":null,\"quantityDiscountsV2Cnt\":0,\"quantityDiscountsV2\":[],\"minimumAmount\":1,\"amountInPack\":1,\"currency\":\"Czech koruna\",\"priceNoCurrency\":35,\"onMoveToBuyLaterClick\":{\"appLink\":\"commodityList\",\"name\":\"Uložit na později\",\"form\":{\"method\":\"POST\",\"value\":[{\"name\":\"productId\",\"value\":7229946,\"itemType\":\"integer\",\"isHidden\":true,\"isEnabled\":true},{\"name\":\"commodityListType\",\"value\":14,\"itemType\":\"integer\",\"isHidden\":true,\"isRequired\":false,\"isEnabled\":true}],\"rel\":[\"form\"],\"href\":\"https://www.alza.cz/services/restservice.svc/v2/addCommodityToList\"},\"enabled\":true},\"priceInfoV2\":{\"priceWithVat\":\"35 Kč\",\"instalmentsPriceWith",
+   "text": "# Alza cart (user -1)\n1 item line(s) · total 35 Kč\n\n## Items\n- 1× Kniha Srdečný pozdrav plus pexeso: Ukrajinsko-české Česko-ukrajinské (FKP0383232) — 35 Kč\nvouchers: 0\n\n_Full envelope (identifiers, line details, raw fields) is in structuredContent._"
+  },
+  {
+   "step": "prepare_mutation web_place_order",
+   "ok": true,
+   "durationMs": 0,
+   "isError": false,
+   "structuredContent": "{\"action\":\"web_place_order\",\"confirmationToken\":\"eca5996b73499c4b61a6ae87a152180ad2ecd6ec9c3590e8\"}",
+   "text": "{\n  \"action\": \"web_place_order\",\n  \"confirmationToken\": \"eca5996b73499c4b61a6ae87a152180ad2ecd6ec9c3590e8\"\n}"
+  },
+  {
+   "step": "web_place_order",
+   "ok": true,
+   "durationMs": 25890,
+   "isError": false,
+   "structuredContent": "{\"error_levels\":{\"SaveOrder2\":0,\"SaveOrder3\":0,\"SaveAndConfirmOrder2\":0,\"CheckOrder4\":0,\"SendOrder4\":0},\"order_id\":1058423434,\"order_detail_link\":\"https://www.alza.cz/my-account/order-details-1058423434.htm?x=REDACTED\",\"send_order4\":{\"OrderId\":0,\"Price\":0,\"CardId\":null,\"PaymentId\":null,\"IsDelayedPaymentOrder\":false,\"IsAlzaNeoOrder\":false,\"ErrorNeoPurchaseFailed\":false,\"GiveSharedLimitConsentAction\":null,\"GetOrderDetailAction\":{\"webLink\":\"https://www.alza.cz/my-account/order-details-1058423434.htm?x=REDACTED\",\"href\":\"https://www.alza.cz/api/anonymous/v1/orders/1058423434?country=CZ\",\"appLink\":\"orderDetail\",\"enabled\":true},\"Value\":null,\"LeasingPartnerUrl\":null,\"DevErrorMessage\":null,\"Message\":null,\"ErrorLevel\":0,\"RedirectUrlOrderDetail\":\"https://www.alza.cz/my-account/order-details-1058423434.htm?x=REDACTED&initialCreated=1\",\"PaymentAction\":null,\"CanShowFastCheckoutButton\":false,\"IsAlzaPlusActionPayment\":false}}",
+   "text": "{\n  \"error_levels\": {\n    \"SaveOrder2\": 0,\n    \"SaveOrder3\": 0,\n    \"SaveAndConfirmOrder2\": 0,\n    \"CheckOrder4\": 0,\n    \"SendOrder4\": 0\n  },\n  \"order_id\": 1058423434,\n  \"order_detail_link\": \"https://www.alza.cz/my-account/order-details-1058423434.htm?x=REDACTED\",\n  \"send_order4\": {\n    \"OrderId\": 0,\n    \"Price\": 0,\n    \"CardId\": null,\n    \"PaymentId\": null,\n    \"IsDelayedPaymentOrder\": false,\n    \"IsAlzaNeoOrder\": false,\n    \"ErrorNeoPurchaseFailed\": false,\n    \"GiveSharedLimitConsentAction\": null,\n    \"GetOrderDetailAction\": {\n      \"webLink\": \"https://www.alza.cz/my-account/order-details-1058423434.htm?x=REDACTED\",\n      \"href\": \"https://www.alza.cz/api/anonymous/v1/orders/1058423434?country=CZ\",\n      \"appLink\": \"orderDetail\",\n      \"enabled\": true\n    },\n    \"Value\": null,\n    \"LeasingPartnerUrl\": null,\n    \"DevErrorMessage\": null,\n    \"Message\": "
+  },
+  {
+   "step": "order (verification)",
+   "ok": false,
+   "durationMs": 3593,
+   "isError": true,
+   "text": "Error: Alza API GET /api/users/0/v1/orders/1058423434 failed with HTTP 401: {\"Message\":\"Authorization has been denied for this request.\"}"
+  }
+ ],
+ "checkoutContext": {
+  "orderId": 1658048077,
+  "groupId": 395871783,
+  "basket_cnt": 1
+ },
+ "nearestBoxes": [
+  {
+   "rank": 1,
+   "id": "1127188-2680",
+   "name": "Hradec Králové - Dvorská (Ferda)",
+   "parcelShopId": 1127188
+  },
+  {
+   "rank": 2,
+   "id": "1096656-2680",
+   "name": "Hradec Králové - Koutníkova",
+   "parcelShopId": 1096656
+  },
+  {
+   "rank": 3,
+   "id": "1148212-2680",
+   "name": "Hradec Králové - Pražská třída (Maro)",
+   "parcelShopId": 1148212
+  },
+  {
+   "rank": 4,
+   "id": "1147696-2680",
+   "name": "Hradec Králové - Pražská třída (TJ Montas)",
+   "parcelShopId": 1147696
+  },
+  {
+   "rank": 5,
+   "id": "1010348-2680",
+   "name": "Hradec Králové (Aupark)",
+   "parcelShopId": 1010348
+  }
+ ],
+ "ferdaRank": 1,
+ "ferdaEntry": {
+  "self": {
+   "href": "https://www.alza.cz/api/personalPickup/v1/places/2680/1127188?orderId=1658048077&groupId=395871783",
+   "appLink": "pickupPlaceDetail",
+   "enabled": true
+  },
+  "id": "1127188-2680",
+  "deliveryId": 2680,
+  "parcelShopId": 1127188,
+  "isFree": false,
+  "isChristmasGuaranteed": false,
+  "isPremium": false,
+  "typeText": "AlzaBox",
+  "articleUrl": null,
+  "detailAction": null,
+  "state": 0,
+  "detail": null,
+  "warning": null,
+  "externalCarriageWarning": null,
+  "reservationInfo": {
+   "periodToPickup": "Vyzvedněte do: pá 18.09.",
+   "pickupTime": "23:59",
+   "extensionWarning": "",
+   "limitedTimeToPickup": false
+  },
+  "timeslotsInfo": null,
+  "gpsPosition": {
+   "latitude": 50.220382,
+   "longitude": 15.79718
+  },
+  "type": 1,
+  "title": "Alzabox",
+  "name": "Hradec Králové - Dvorská (Ferda)",
+  "addressText": "Dvorská 648/64, 50311 Hradec Králové",
+  "image": "https://image.alza.cz/Foto/Domains/Logistics/PersonalPickup/svg/icon-2-xl.svg",
+  "availabilityInfo": "Doručíme 17.9.  do 10:00",
+  "price": "od 49 Kč",
+  "stateText": null,
+  "isDelayed": false
+ },
+ "order": {
+  "id": "1058423434",
+  "link": "https://www.alza.cz/my-account/order-details-1058423434.htm?x=REDACTED",
+  "errorLevels": {
+   "SaveOrder2": 0,
+   "SaveOrder3": 0,
+   "SaveAndConfirmOrder2": 0,
+   "CheckOrder4": 0,
+   "SendOrder4": 0
+  }
+ },
+ "finishedAt": "2026-09-15T17:32:19.765Z",
+ "verification": {
+  "anonymous_order_api": {
+   "endpoint": "GET /api/anonymous/v1/orders/1058423434",
+   "status": "Prosím zaplaťte (awaiting payment)",
+   "phase": 2,
+   "partId": 1076907159,
+   "orderNumber": "1058 423 434",
+   "created": "2026-09-15T17:32:23.46Z",
+   "accountLink": "signInPrompt: 'Přihlaste se k účtu al***e2e-user@example.invalid...' — order is linked to the e2e account email"
+  },
+  "after_payment_dialog": {
+   "endpoint": "POST /Services/EShopService.svc/GetAfterPaymentDialog (orderId 1058423434, orderHash 0A8697U8EU43B71A25B3bOB215)",
+   "aopDelivery": 2680,
+   "meaning": "aopDelivery=2680 = AlzaBox deliveryId — the order's registered delivery method is AlzaBox (confirmed server-side from the order record)",
+   "paymentMethodsOffered": [
+    "Apple Pay (213)",
+    "Kartou online (216)",
+    "Google Pay (219)",
+    "… (MojePlatba/Platba 24 per e2e record)"
+   ]
+  },
+  "nearest_box_verification": {
+   "endpoint": "GET /api/personalPickup/v1/places (types[0]=1 AlzaBox, lat/lng of Example Street 1, distance-sorted, 3981 boxes total)",
+   "nearest": [
+    "1. Hradec Králové - Dvorská (Ferda) — parcelShopId 1127188",
+    "2. Hradec Králové - Koutníkova — 1096656",
+    "3. Hradec Králové - Pražská třída (Maro) — 1148212",
+    "4. Hradec Králové - Pražská třída (TJ Montas) — 1147696",
+    "5. Hradec Králové (Aupark) — 1010348"
+   ],
+   "conclusion": "the claimed 'Ferda, Hradec Králové' IS the nearest AlzaBox to Example Street 1 (rank 1 of 3981)"
+  },
+  "wcf_chain": {
+   "steps": [
+    "SaveOrder2",
+    "SaveOrder3",
+    "SaveAndConfirmOrder2",
+    "CheckOrder4",
+    "SendOrder4"
+   ],
+   "errorLevels": {
+    "SaveOrder2": 0,
+    "SaveOrder3": 0,
+    "SaveAndConfirmOrder2": 0,
+    "CheckOrder4": 0,
+    "SendOrder4": 0
+   },
+   "save2_payload": {
+    "deliveryGroupId": 395871783,
+    "deliveryId": 2680,
+    "parcelShopId": "1127188",
+    "paymentId": 103,
+    "alzaPlusSubscriptionId": 0,
+    "cetelemLeasingId": 0
+   }
+  },
+  "outcome": "SUCCESS — order 1058423434 placed to AlzaBox 'Hradec Králové - Dvorská (Ferda)' (parcelShopId 1127188), 35 CZK book + AlzaBox delivery, proforma (unpaid), linked to the e2e account. Payment available (Apple Pay / card / Google Pay / …) or the order can be cancelled (e2e pattern: PUT /api/v1/orders/{id}/{hash}/parts/{partId}/cancellations)."
+ }
+}

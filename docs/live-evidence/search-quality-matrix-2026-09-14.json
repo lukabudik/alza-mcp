@@ -1,0 +1,960 @@
+{
+  "capture": "search-quality-matrix-2026-09-14.json",
+  "matrix": {
+    "server": {
+      "command": "node",
+      "args": [
+        "/home/dev/Development/alza-mcp/dist/index.js"
+      ]
+    },
+    "startedAt": "2026-09-14T14:23:11.963Z",
+    "initialize": {
+      "result": {
+        "protocolVersion": "2025-06-18",
+        "capabilities": {
+          "tools": {
+            "listChanged": true
+          },
+          "resources": {
+            "listChanged": true
+          },
+          "prompts": {
+            "listChanged": true
+          }
+        },
+        "serverInfo": {
+          "name": "alza-mcp",
+          "title": "Alza (unofficial)",
+          "version": "0.3.0"
+        },
+        "instructions": "Alza.cz catalog and shopping assistant. Unofficial — not affiliated with or endorsed by Alza.cz a.s. Catalog: `search_products` (keyword + filters) → `get_product` (detail) → `get_product_reviews` (reviews); `list_categories` for category ids; `find_pickup_points` for AlzaShop showrooms near a postal code. Account & checkout (OAuth token auto-loads from ~/.alza-mcp/tokens.json; check `account_status`): `cart`, `add_to_cart`, `delivery_options`, `select_pickup_point`, `checkout_preview` → `place_order` (mobile API), or the legacy web WCF path `web_add_to_cart` → `web_cart` → `web_pickup_places` → `web_place_order`. Order submission currently works via the legacy web WCF path (`web_place_order`); the mobile `place_order` (sendOrder3) returns HTTP 500 (docs/gap-analysis.md G1/G5). Credentials are never collected by the MCP. High-impact mutations (payment, registration, address, review, subscription, attachment, order) require a one-time token from `prepare_mutation` — confirm with the user before calling them. `mobile_read` is the raw read-only escape hatch for mobile API operations without a dedicated tool."
+      }
+    },
+    "toolNames": [],
+    "toolCount": 0,
+    "toolSummaries": [],
+    "calls": [
+      {
+        "name": "search_products",
+        "arguments": {
+          "query": "čistič na kolo",
+          "sort": "price-asc",
+          "in_stock": true,
+          "max_price": 300,
+          "limit": 5
+        },
+        "isError": false,
+        "contentText": "Top 5 result(s) for **\"čistič na kolo\"** (scanned 24 candidates):\n\n- **Force Strong na řetězy láhev 0,5 l růžový** · code: `SPTfor0202` · 139 CZK · in stock · ★ 4.5\n  https://www.alza.cz/sport/force-strong-na-retezy-lahev-0-5-l-ruzovy-d12572579.htm?o=9\n- **Force Čistič modrý 750 ml** · code: `OLP085` · 169 CZK · in stock · ★ 4.6\n  https://www.alza.cz/sport/force-cistic-modry-750-ml-d2925015.htm?o=8\n- **Force k doplnění 1000 ml modrý** · code: `SPT18159` · 169 CZK · in stock · ★ 4.6\n  https://www.alza.cz/sport/force-k-doplneni-1000-ml-modry-d4367355.htm?o=16\n- **BikeWorkx Clean Star 200 ml** · code: `SPTbiwo004` · 169 CZK · in stock · ★ 3.5\n  https://www.alza.cz/sport/bikeworkx-clean-star-200-ml-d12582308.htm?o=22\n- **BikeWorkx Greener Cleaner 500 ml** · code: `SPTbiwo007` · 189 CZK · in stock · ★ 5.0\n  https://www.alza.cz/sport/bikeworkx-greener-cleaner-500-ml-d12582318.htm?o=21",
+        "structuredContent": {
+          "query": "čistič na kolo",
+          "total": 5,
+          "page": 1,
+          "pageSize": 5,
+          "candidatesScanned": 24,
+          "products": [
+            {
+              "code": "SPTfor0202",
+              "id": 12572579,
+              "name": "Force Strong na řetězy láhev 0,5 l růžový",
+              "url": "https://www.alza.cz/sport/force-strong-na-retezy-lahev-0-5-l-ruzovy-d12572579.htm?o=9",
+              "image": "https://image.alza.cz/products/SPTfor0202/SPTfor0202.jpg?width=230&height=230",
+              "price": 139,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.5
+            },
+            {
+              "code": "OLP085",
+              "id": 2925015,
+              "name": "Force Čistič modrý 750 ml",
+              "url": "https://www.alza.cz/sport/force-cistic-modry-750-ml-d2925015.htm?o=8",
+              "image": "https://image.alza.cz/products/OLP085/OLP085.jpg?width=230&height=230",
+              "price": 169,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.6
+            },
+            {
+              "code": "SPT18159",
+              "id": 4367355,
+              "name": "Force k doplnění 1000 ml modrý",
+              "url": "https://www.alza.cz/sport/force-k-doplneni-1000-ml-modry-d4367355.htm?o=16",
+              "image": "https://image.alza.cz/products/SPT18159/SPT18159.jpg?width=230&height=230",
+              "price": 169,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.6
+            },
+            {
+              "code": "SPTbiwo004",
+              "id": 12582308,
+              "name": "BikeWorkx Clean Star 200 ml",
+              "url": "https://www.alza.cz/sport/bikeworkx-clean-star-200-ml-d12582308.htm?o=22",
+              "image": "https://image.alza.cz/products/SPTbiwo004/SPTbiwo004.jpg?width=230&height=230",
+              "price": 169,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 3.5
+            },
+            {
+              "code": "SPTbiwo007",
+              "id": 12582318,
+              "name": "BikeWorkx Greener Cleaner 500 ml",
+              "url": "https://www.alza.cz/sport/bikeworkx-greener-cleaner-500-ml-d12582318.htm?o=21",
+              "image": "https://image.alza.cz/products/SPTbiwo007/SPTbiwo007.jpg?width=230&height=230",
+              "price": 189,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 5
+            }
+          ]
+        }
+      },
+      {
+        "name": "search_products",
+        "arguments": {
+          "query": "notebook",
+          "sort": "price-asc",
+          "limit": 50
+        },
+        "isError": false,
+        "contentText": "Top 50 result(s) for **\"notebook\"** (scanned 68 candidates):\n\n- **Lenovo Chromebook Duet 11M889 Luna Grey + aktivní stylus Lenovo** · code: `NT420x3c` · 8 888 CZK · in stock · ★ 4.7\n  https://www.alza.cz/lenovo-chromebook-duet-11m889-luna-grey-d12706299.htm\n- **HP 15-fc0972nc Moonlight Blue** · code: `HPCN1011w5g101` · 10 990 CZK · in stock · ★ 5.0\n  https://www.alza.cz/hp-15-fc0972nc-moonlight-blue-d13128350.htm\n- **HP 15-fc0970nc Natural Silver** · code: `HPCN1011w5g100` · 11 490 CZK · in stock · ★ 3.0\n  https://www.alza.cz/hp-15-fc0970nc-natural-silver-d13128349.htm\n- **Lenovo V15 G5 IRL Business Black** · code: `NT220f6e9v` · 11 590 CZK · in stock · ★ 4.6\n  https://www.alza.cz/lenovo-v15-g5-irl-business-black-d13117211.htm\n- **Lenovo V15 G5 IRL Business Black** · code: `NT220f6e10g` · 11 990 CZK · in stock · ★ 3.3\n  https://www.alza.cz/lenovo-v15-g5-irl-business-black-d13098668.htm\n- **HP 250R G10 Silver** · code: `HPBN0009j4r2` · 12 990 CZK · in stock · ★ 4.3\n  https://www.alza.cz/hp-250r-g10-silver-d13171529.htm\n- **Lenovo V15 G5 IRL Business Black** · code: `NT220f6e10a` · 13 490 CZK · in stock · ★ 4.4\n  https://www.alza.cz/lenovo-v15-g5-irl-business-black-d13098666.htm\n- **Lenovo IdeaPad Slim 3 15AMN8 Arctic Grey (bez adaptéru)** · code: `NT389g175` · 13 989 CZK · in stock · ★ 3.0\n  https://www.alza.cz/lenovo-ideapad-slim-3-15amn8-arctic-grey-bez-adapteru-d13366019.htm\n- **Acer Aspire Go 15 Pure Silver (AG15-32P-C3L4)** · code: `NC027p9v20` · 14 990 CZK · in stock · ★ 5.0\n  https://www.alza.cz/acer-aspire-go-15-pure-silver-ag15-32p-c3l4-d12768911.htm\n- **Acer Aspire Go 16 Pure Silver (AG16-71P-56UC)** · code: `NC039q0fe1` · 14 990 CZK · in stock · ★ 5.0\n  https://www.alza.cz/acer-aspire-go-16-pure-silver-ag16-71p-56uc-d13136635.htm\n- **Dell Pro 15 Essential PV15250 Black** · code: `ADC454p20b` · 15 690 CZK · in stock · ★ 4.8\n  https://www.alza.cz/dell-pro-15-essential-pv15250-d13141864.htm\n- **Acer Aspire Go 15 Pure Silver (AG15-42P-R0YS)** · code: `NC027p9v48` · 16 390 CZK · in stock · ★ 5.0\n  https://www.alza.cz/acer-aspire-go-15-pure-silver-ag15-42p-r0ys-d13136630.htm\n- **Lenovo V15 G5 IRL Business Black** · code: `NT220f6e10h` · 16 590 CZK · in stock · ★ 4.6\n  https://www.alza.cz/lenovo-v15-g5-irl-business-black-d13098670.htm\n- **MacBook Neo 13\" CZ 2026 Indigo - s možností vyzkoušet na 60 dní zdarma** · code: `NL275a4a` · 16 990 CZK · in stock · ★ 4.9\n  https://www.alza.cz/macbook-neo-13-cz-2026-indigo-d13271297.htm\n- **MSI Cyborg 15 A13UC-2265XCZ kovový** · code: `NB960a0p28` · 16 990 CZK · in stock · ★ 3.8\n  https://www.alza.cz/msi-cyborg-15-a13uc-2265xcz-kovovy-d13221620.htm\n- **MacBook Neo 13\" CZ 2026 Citrusově žlutý - s možností vyzkoušet na 60 dní zdarma** · code: `NL275a3a` · 17 490 CZK · in stock · ★ 4.8\n  https://www.alza.cz/macbook-neo-13-cz-2026-citrusove-zluty-d13271294.htm\n- **MacBook Neo 13\" CZ 2026 Stříbrný - s možností vyzkoušet na 60 dní zdarma** · code: `NL275a1a` · 17 490 CZK · in stock · ★ 4.9\n  https://www.alza.cz/macbook-neo-13-cz-2026-stribrny-d13271293.htm\n- **MacBook Neo 13\" CZ 2026 Ruměný - s možností vyzkoušet na 60 dní zdarma** · code: `NL275a2a` · 17 490 CZK · in stock · ★ 4.9\n  https://www.alza.cz/macbook-neo-13-cz-2026-rumeny-d13271292.htm\n- **Dell 16 DC16250** · code: `ADC454q02c` · 17 990 CZK · in stock · ★ 4.4\n  https://www.alza.cz/dell-16-dc16250-d13000280.htm\n- **Lenovo IdeaPad Slim 3 15IRH10 Luna Grey kovový** · code: `NT389g81` · 18 989 CZK · in stock · ★ 4.7\n  https://www.alza.cz/lenovo-ideapad-slim-3-15irh10-luna-grey-kovovy-d12930603.htm\n- **Acer Nitro V 16 AI Shale Black (ANV16-42-R1M5)** · code: `NC108c7i09a50` · 19 988 CZK · in stock · ★ 4.0\n  https://www.alza.cz/acer-nitro-v-16-ai-shale-black-anv16-42-r1m5-d13105211.htm\n- **Lenovo IdeaPad Slim 3 15IRH10 Cosmic Blue kovový** · code: `NT389g109` · 19 989 CZK · in stock · ★ 5.0\n  https://www.alza.cz/lenovo-ideapad-slim-3-15irh10-cosmic-blue-kovovy-d12956994.htm\n- **Lenovo IdeaPad Slim 3 15IRH10 Cosmic Blue kovový** · code: `NT389g92` · 19 989 CZK · in stock · ★ 4.4\n  https://www.alza.cz/lenovo-ideapad-slim-3-15irh10-cosmic-blue-kovovy-d12941152.htm\n- **MacBook Neo 13\" CZ 2026 Ruměný s Touch ID - s možností vyzkoušet na 60 dní zdarma** · code: `NL275a2b` · 19 990 CZK · in stock · ★ 5.0\n  https://www.alza.cz/macbook-neo-13-cz-2026-rumeny-s-touch-id-d13271307.htm\n- **MacBook Neo 13\" CZ 2026 Citrusově žlutý s Touch ID - s možností vyzkoušet na 60 dní zdarma** · code: `NL275a3b` · 19 990 CZK · in stock · ★ 4.2\n  https://www.alza.cz/macbook-neo-13-cz-2026-citrusove-zluty-s-touch-id-d13271306.htm\n- **MacBook Neo 13\" CZ 2026 Indigo s Touch ID - s možností vyzkoušet na 60 dní zdarma** · code: `NL275a4b` · 20 190 CZK · in stock · ★ 4.6\n  https://www.alza.cz/macbook-neo-13-cz-2026-indigo-s-touch-id-d13271309.htm\n- **MacBook Neo 13\" CZ 2026 Stříbrný s Touch ID - s možností vyzkoušet na 60 dní zdarma** · code: `NL275a1b` · 20 190 CZK · in stock · ★ 4.3\n  https://www.alza.cz/macbook-neo-13-cz-2026-stribrny-s-touch-id-d13271300.htm\n- **HP OmniBook 5 Next Gen AI 14-he0900nc Silver (3 roky servis)** · code: `HPCN2069b36` · 20 990 CZK · in stock · ★ 5.0\n  https://www.alza.cz/hp-omnibook-5-next-gen-ai-14-he0900nc-silver-d13101208.htm\n- **ASUS TUF Gaming A15 FA506NCG-HN188W Graphite Black (1 rok ochrany proti poškození zdarma po registraci)** · code: `NA670a72g32` · 21 164 CZK · in stock · ★ 4.3\n  https://www.alza.cz/asus-tuf-gaming-a15-fa506ncg-hn188w-graphite-black-d13116219.htm\n- **Dell 16 DC16250** · code: `ADC454q02b` · 21 990 CZK · in stock · ★ 5.0\n  https://www.alza.cz/dell-16-dc16250-d13000281.htm\n- **HP OmniBook 5 AI 16-ag1900nc Glacier Silver (3 roky servis)** · code: `HPCN2069d6` · 22 390 CZK · in stock · ★ 5.0\n  https://www.alza.cz/hp-omnibook-5-ai-16-ag1900nc-glacier-silver-d12993218.htm\n- **HP OmniBook 7 Aero AI 13-bg1900nc Glacier Silver (2 roky ON-SITE servis)** · code: `HPCN2069c8` · 22 690 CZK · in stock · ★ 4.0\n  https://www.alza.cz/hp-omnibook-7-aero-ai-13-bg1900nc-glacier-silver-d12993220.htm\n- **HP OmniBook 3 AI 15-fn0900nc Glacier Silver** · code: `HPCN2069b30` · 22 990 CZK · in stock · ★ 5.0\n  https://www.alza.cz/hp-omnibook-3-ngai-15-fn0900nc-d13101173.htm\n- **HP ProBook 4 G1i 16 (3 roky servis)** · code: `HPBN1013w18` · 22 990 CZK · in stock · ★ 3.0\n  https://www.alza.cz/hp-probook-4-g1i-16-d13070704.htm\n- **HP ProBook 4 G1a 16 (3 roky servis)** · code: `HPBN1013w7` · 23 490 CZK · in stock · ★ 4.5\n  https://www.alza.cz/hp-probook-4-g1a-16-d13070694.htm\n- **Lenovo ThinkBook 16 G8 IRL Arctic Grey (záruka 3 roky ON-SITE)** · code: `NT187h30b15` · 24 490 CZK · in stock · ★ 4.0\n  https://www.alza.cz/lenovo-thinkbook-16-g8-irl-arctic-grey-d13098663.htm\n- **VICTUS by HP 15-fb3957nc Performance Blue (3 roky servis)** · code: `HPCN509m12` · 24 890 CZK · in stock · ★ 4.7\n  https://www.alza.cz/victus-by-hp-15-fb3957nc-performance-blue-d12867438.htm\n- **Lenovo LOQ Essential 15IRX11 Luna Grey (záruka na 3 roky po registraci)** · code: `NT379x137` · 24 989 CZK · in stock · ★ 5.0\n  https://www.alza.cz/lenovo-loq-essential-15irx11-luna-grey-d13114464.htm\n- **Lenovo Yoga Slim 7 14ILL11 Luna Grey celokovový (bez adaptéru) (záruka na 3 roky po registraci)** · code: `NT318p8y28` · 24 989 CZK · in stock · ★ 4.3\n  https://www.alza.cz/lenovo-yoga-slim-7-14ill11-luna-grey-celokovovy-bez-adapteru-d13503867.htm\n- **Lenovo LOQ Essential 15IRX11 Luna Grey (záruka na 3 roky po registraci)** · code: `NT379x140` · 24 989 CZK · in stock · ★ 4.1\n  https://www.alza.cz/lenovo-loq-essential-15irx11-luna-grey-d13114463.htm\n- **VICTUS by HP 15-fa2901nc Mica Silver (3 roky servis)** · code: `HPCN509k58` · 26 790 CZK · in stock · ★ 4.0\n  https://www.alza.cz/victus-by-hp-15-fa2901nc-mica-silver-d13027386.htm\n- **Lenovo LOQ 15ARP10E Luna Grey (záruka na 3 roky po registraci)** · code: `NT379x159` · 26 989 CZK · in stock · ★ 5.0\n  https://www.alza.cz/lenovo-loq-15arp10e-luna-grey-d13234282.htm\n- **ASUS Vivobook S 14 S3407AA-OLED003W Matte Gray (1 rok ochrany proti poškození zdarma po registraci)** · code: `NA651b83q10` · 29 987 CZK · in stock · ★ 5.0\n  https://www.alza.cz/asus-vivobook-s-14-s3407aa-oled003w-matte-gray-d13317644.htm\n- **MacBook Air 13\" M5 CZ 2026 Temně inkoustový** · code: `NL253a2a` · 31 990 CZK · in stock · ★ 4.6\n  https://www.alza.cz/macbook-air-13-m5-cz-2026-temne-inkoustovy-d13268816.htm\n- **MSI Cyborg A15 AI B2HWGKG-081XCZ kovový** · code: `NB960a0p15` · 31 990 CZK · in stock · ★ 5.0\n  https://www.alza.cz/msi-cyborg-a15-ai-b2hwgkg-081xcz-kovovy-d13054843.htm\n- **VICTUS by HP 15-fa2904nc Performance Blue** · code: `HPCN509k60` · 32 990 CZK · in stock · ★ 5.0\n  https://www.alza.cz/victus-by-hp-15-fa2904nc-performance-blue-d13027383.htm\n- **VICTUS by HP 15-fb3903nc Performance Blue (3 roky servis)** · code: `HPCN509k66` · 32 990 CZK · in stock · ★ 5.0\n  https://www.alza.cz/victus-by-hp-15-fb3903nc-performance-blue-d13027388.htm\n- **Lenovo LOQ 15IRX10 Luna Grey (záruka na 3 roky po registraci)** · code: `NT379x113` · 33 321 CZK · in stock · ★ 4.7\n  https://www.alza.cz/lenovo-loq-15irx10-luna-grey-d13042694.htm\n- **Lenovo ThinkPad E16 Gen 3 Black (záruka 3 roky on-site)** · code: `NT203j17` · 33 790 CZK · in stock · ★ 5.0\n  https://www.alza.cz/lenovo-thinkpad-e16-gen-3-black-d13001695.htm\n- **Acer Nitro V 16 AI Shale Black (ANV16-42-R01F) + prodloužená záruka na 3 roky po registraci na www.acer.cz** · code: `NC108c7i09a41` · 33 877 CZK · in stock · ★ 4.7\n  https://www.alza.cz/acer-nitro-v-16-ai-shale-black-anv16-42-r01f-d13013182.htm",
+        "structuredContent": {
+          "query": "notebook",
+          "total": 50,
+          "page": 1,
+          "pageSize": 50,
+          "candidatesScanned": 68,
+          "products": [
+            {
+              "code": "NT420x3c",
+              "id": 12706299,
+              "name": "Lenovo Chromebook Duet 11M889 Luna Grey + aktivní stylus Lenovo",
+              "url": "https://www.alza.cz/lenovo-chromebook-duet-11m889-luna-grey-d12706299.htm",
+              "image": "https://image.alza.cz/products/NT420x3c/NT420x3c.jpg?width=230&height=230",
+              "price": 8888,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.7
+            },
+            {
+              "code": "HPCN1011w5g101",
+              "id": 13128350,
+              "name": "HP 15-fc0972nc Moonlight Blue",
+              "url": "https://www.alza.cz/hp-15-fc0972nc-moonlight-blue-d13128350.htm",
+              "image": "https://image.alza.cz/products/HPCN1011w5g101/HPCN1011w5g101.jpg?width=230&height=230",
+              "price": 10990,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 5
+            },
+            {
+              "code": "HPCN1011w5g100",
+              "id": 13128349,
+              "name": "HP 15-fc0970nc Natural Silver",
+              "url": "https://www.alza.cz/hp-15-fc0970nc-natural-silver-d13128349.htm",
+              "image": "https://image.alza.cz/products/HPCN1011w5g100/HPCN1011w5g100.jpg?width=230&height=230",
+              "price": 11490,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 3
+            },
+            {
+              "code": "NT220f6e9v",
+              "id": 13117211,
+              "name": "Lenovo V15 G5 IRL Business Black",
+              "url": "https://www.alza.cz/lenovo-v15-g5-irl-business-black-d13117211.htm",
+              "image": "https://image.alza.cz/products/NT220f6e9v/NT220f6e9v.jpg?width=230&height=230",
+              "price": 11590,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.6
+            },
+            {
+              "code": "NT220f6e10g",
+              "id": 13098668,
+              "name": "Lenovo V15 G5 IRL Business Black",
+              "url": "https://www.alza.cz/lenovo-v15-g5-irl-business-black-d13098668.htm",
+              "image": "https://image.alza.cz/products/NT220f6e10g/NT220f6e10g.jpg?width=230&height=230",
+              "price": 11990,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 3.3
+            },
+            {
+              "code": "HPBN0009j4r2",
+              "id": 13171529,
+              "name": "HP 250R G10 Silver",
+              "url": "https://www.alza.cz/hp-250r-g10-silver-d13171529.htm",
+              "image": "https://image.alza.cz/products/HPBN0009j4r2/HPBN0009j4r2.jpg?width=230&height=230",
+              "price": 12990,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.3
+            },
+            {
+              "code": "NT220f6e10a",
+              "id": 13098666,
+              "name": "Lenovo V15 G5 IRL Business Black",
+              "url": "https://www.alza.cz/lenovo-v15-g5-irl-business-black-d13098666.htm",
+              "image": "https://image.alza.cz/products/NT220f6e10a/NT220f6e10a.jpg?width=230&height=230",
+              "price": 13490,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.4
+            },
+            {
+              "code": "NT389g175",
+              "id": 13366019,
+              "name": "Lenovo IdeaPad Slim 3 15AMN8 Arctic Grey (bez adaptéru)",
+              "url": "https://www.alza.cz/lenovo-ideapad-slim-3-15amn8-arctic-grey-bez-adapteru-d13366019.htm",
+              "image": "https://image.alza.cz/products/NT389g175/NT389g175.jpg?width=230&height=230",
+              "price": 13989,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 3
+            },
+            {
+              "code": "NC027p9v20",
+              "id": 12768911,
+              "name": "Acer Aspire Go 15 Pure Silver (AG15-32P-C3L4)",
+              "url": "https://www.alza.cz/acer-aspire-go-15-pure-silver-ag15-32p-c3l4-d12768911.htm",
+              "image": "https://image.alza.cz/products/NC027p9v20/NC027p9v20.jpg?width=230&height=230",
+              "price": 14990,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 5
+            },
+            {
+              "code": "NC039q0fe1",
+              "id": 13136635,
+              "name": "Acer Aspire Go 16 Pure Silver (AG16-71P-56UC)",
+              "url": "https://www.alza.cz/acer-aspire-go-16-pure-silver-ag16-71p-56uc-d13136635.htm",
+              "image": "https://image.alza.cz/products/NC039q0fe1/NC039q0fe1.jpg?width=230&height=230",
+              "price": 14990,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 5
+            },
+            {
+              "code": "ADC454p20b",
+              "id": 13141864,
+              "name": "Dell Pro 15 Essential PV15250 Black",
+              "url": "https://www.alza.cz/dell-pro-15-essential-pv15250-d13141864.htm",
+              "image": "https://image.alza.cz/products/ADC454p20b/ADC454p20b.jpg?width=230&height=230",
+              "price": 15690,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.8
+            },
+            {
+              "code": "NC027p9v48",
+              "id": 13136630,
+              "name": "Acer Aspire Go 15 Pure Silver (AG15-42P-R0YS)",
+              "url": "https://www.alza.cz/acer-aspire-go-15-pure-silver-ag15-42p-r0ys-d13136630.htm",
+              "image": "https://image.alza.cz/products/NC027p9v48/NC027p9v48.jpg?width=230&height=230",
+              "price": 16390,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 5
+            },
+            {
+              "code": "NT220f6e10h",
+              "id": 13098670,
+              "name": "Lenovo V15 G5 IRL Business Black",
+              "url": "https://www.alza.cz/lenovo-v15-g5-irl-business-black-d13098670.htm",
+              "image": "https://image.alza.cz/products/NT220f6e10h/NT220f6e10h.jpg?width=230&height=230",
+              "price": 16590,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.6
+            },
+            {
+              "code": "NL275a4a",
+              "id": 13271297,
+              "name": "MacBook Neo 13\" CZ 2026 Indigo - s možností vyzkoušet na 60 dní zdarma",
+              "url": "https://www.alza.cz/macbook-neo-13-cz-2026-indigo-d13271297.htm",
+              "image": "https://image.alza.cz/products/NL275a4a/NL275a4a.jpg?width=230&height=230",
+              "price": 16990,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.9
+            },
+            {
+              "code": "NB960a0p28",
+              "id": 13221620,
+              "name": "MSI Cyborg 15 A13UC-2265XCZ kovový",
+              "url": "https://www.alza.cz/msi-cyborg-15-a13uc-2265xcz-kovovy-d13221620.htm",
+              "image": "https://image.alza.cz/products/NB960a0p28/NB960a0p28.jpg?width=230&height=230",
+              "price": 16990,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 3.8
+            },
+            {
+              "code": "NL275a3a",
+              "id": 13271294,
+              "name": "MacBook Neo 13\" CZ 2026 Citrusově žlutý - s možností vyzkoušet na 60 dní zdarma",
+              "url": "https://www.alza.cz/macbook-neo-13-cz-2026-citrusove-zluty-d13271294.htm",
+              "image": "https://image.alza.cz/products/NL275a3a/NL275a3a.jpg?width=230&height=230",
+              "price": 17490,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.8
+            },
+            {
+              "code": "NL275a1a",
+              "id": 13271293,
+              "name": "MacBook Neo 13\" CZ 2026 Stříbrný - s možností vyzkoušet na 60 dní zdarma",
+              "url": "https://www.alza.cz/macbook-neo-13-cz-2026-stribrny-d13271293.htm",
+              "image": "https://image.alza.cz/products/NL275a1a/NL275a1a.jpg?width=230&height=230",
+              "price": 17490,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.9
+            },
+            {
+              "code": "NL275a2a",
+              "id": 13271292,
+              "name": "MacBook Neo 13\" CZ 2026 Ruměný - s možností vyzkoušet na 60 dní zdarma",
+              "url": "https://www.alza.cz/macbook-neo-13-cz-2026-rumeny-d13271292.htm",
+              "image": "https://image.alza.cz/products/NL275a2a/NL275a2a.jpg?width=230&height=230",
+              "price": 17490,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.9
+            },
+            {
+              "code": "ADC454q02c",
+              "id": 13000280,
+              "name": "Dell 16 DC16250",
+              "url": "https://www.alza.cz/dell-16-dc16250-d13000280.htm",
+              "image": "https://image.alza.cz/products/ADC454q02c/ADC454q02c.jpg?width=230&height=230",
+              "price": 17990,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.4
+            },
+            {
+              "code": "NT389g81",
+              "id": 12930603,
+              "name": "Lenovo IdeaPad Slim 3 15IRH10 Luna Grey kovový",
+              "url": "https://www.alza.cz/lenovo-ideapad-slim-3-15irh10-luna-grey-kovovy-d12930603.htm",
+              "image": "https://image.alza.cz/products/NT389g81/NT389g81.jpg?width=230&height=230",
+              "price": 18989,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.7
+            },
+            {
+              "code": "NC108c7i09a50",
+              "id": 13105211,
+              "name": "Acer Nitro V 16 AI Shale Black (ANV16-42-R1M5)",
+              "url": "https://www.alza.cz/acer-nitro-v-16-ai-shale-black-anv16-42-r1m5-d13105211.htm",
+              "image": "https://image.alza.cz/products/NC108c7i09a50/NC108c7i09a50.jpg?width=230&height=230",
+              "price": 19988,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4
+            },
+            {
+              "code": "NT389g109",
+              "id": 12956994,
+              "name": "Lenovo IdeaPad Slim 3 15IRH10 Cosmic Blue kovový",
+              "url": "https://www.alza.cz/lenovo-ideapad-slim-3-15irh10-cosmic-blue-kovovy-d12956994.htm",
+              "image": "https://image.alza.cz/products/NT389g109/NT389g109.jpg?width=230&height=230",
+              "price": 19989,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 5
+            },
+            {
+              "code": "NT389g92",
+              "id": 12941152,
+              "name": "Lenovo IdeaPad Slim 3 15IRH10 Cosmic Blue kovový",
+              "url": "https://www.alza.cz/lenovo-ideapad-slim-3-15irh10-cosmic-blue-kovovy-d12941152.htm",
+              "image": "https://image.alza.cz/products/NT389g92/NT389g92.jpg?width=230&height=230",
+              "price": 19989,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.4
+            },
+            {
+              "code": "NL275a2b",
+              "id": 13271307,
+              "name": "MacBook Neo 13\" CZ 2026 Ruměný s Touch ID - s možností vyzkoušet na 60 dní zdarma",
+              "url": "https://www.alza.cz/macbook-neo-13-cz-2026-rumeny-s-touch-id-d13271307.htm",
+              "image": "https://image.alza.cz/products/NL275a2b/NL275a2b.jpg?width=230&height=230",
+              "price": 19990,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 5
+            },
+            {
+              "code": "NL275a3b",
+              "id": 13271306,
+              "name": "MacBook Neo 13\" CZ 2026 Citrusově žlutý s Touch ID - s možností vyzkoušet na 60 dní zdarma",
+              "url": "https://www.alza.cz/macbook-neo-13-cz-2026-citrusove-zluty-s-touch-id-d13271306.htm",
+              "image": "https://image.alza.cz/products/NL275a3b/NL275a3b.jpg?width=230&height=230",
+              "price": 19990,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.2
+            },
+            {
+              "code": "NL275a4b",
+              "id": 13271309,
+              "name": "MacBook Neo 13\" CZ 2026 Indigo s Touch ID - s možností vyzkoušet na 60 dní zdarma",
+              "url": "https://www.alza.cz/macbook-neo-13-cz-2026-indigo-s-touch-id-d13271309.htm",
+              "image": "https://image.alza.cz/products/NL275a4b/NL275a4b.jpg?width=230&height=230",
+              "price": 20190,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.6
+            },
+            {
+              "code": "NL275a1b",
+              "id": 13271300,
+              "name": "MacBook Neo 13\" CZ 2026 Stříbrný s Touch ID - s možností vyzkoušet na 60 dní zdarma",
+              "url": "https://www.alza.cz/macbook-neo-13-cz-2026-stribrny-s-touch-id-d13271300.htm",
+              "image": "https://image.alza.cz/products/NL275a1b/NL275a1b.jpg?width=230&height=230",
+              "price": 20190,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.3
+            },
+            {
+              "code": "HPCN2069b36",
+              "id": 13101208,
+              "name": "HP OmniBook 5 Next Gen AI 14-he0900nc Silver (3 roky servis)",
+              "url": "https://www.alza.cz/hp-omnibook-5-next-gen-ai-14-he0900nc-silver-d13101208.htm",
+              "image": "https://image.alza.cz/products/HPCN2069b36/HPCN2069b36.jpg?width=230&height=230",
+              "price": 20990,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 5
+            },
+            {
+              "code": "NA670a72g32",
+              "id": 13116219,
+              "name": "ASUS TUF Gaming A15 FA506NCG-HN188W Graphite Black (1 rok ochrany proti poškození zdarma po registraci)",
+              "url": "https://www.alza.cz/asus-tuf-gaming-a15-fa506ncg-hn188w-graphite-black-d13116219.htm",
+              "image": "https://image.alza.cz/products/NA670a72g32/NA670a72g32.jpg?width=230&height=230",
+              "price": 21164,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.3
+            },
+            {
+              "code": "ADC454q02b",
+              "id": 13000281,
+              "name": "Dell 16 DC16250",
+              "url": "https://www.alza.cz/dell-16-dc16250-d13000281.htm",
+              "image": "https://image.alza.cz/products/ADC454q02b/ADC454q02b.jpg?width=230&height=230",
+              "price": 21990,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 5
+            },
+            {
+              "code": "HPCN2069d6",
+              "id": 12993218,
+              "name": "HP OmniBook 5 AI 16-ag1900nc Glacier Silver (3 roky servis)",
+              "url": "https://www.alza.cz/hp-omnibook-5-ai-16-ag1900nc-glacier-silver-d12993218.htm",
+              "image": "https://image.alza.cz/products/HPCN2069d6/HPCN2069d6.jpg?width=230&height=230",
+              "price": 22390,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 5
+            },
+            {
+              "code": "HPCN2069c8",
+              "id": 12993220,
+              "name": "HP OmniBook 7 Aero AI 13-bg1900nc Glacier Silver (2 roky ON-SITE servis)",
+              "url": "https://www.alza.cz/hp-omnibook-7-aero-ai-13-bg1900nc-glacier-silver-d12993220.htm",
+              "image": "https://image.alza.cz/products/HPCN2069c8/HPCN2069c8.jpg?width=230&height=230",
+              "price": 22690,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4
+            },
+            {
+              "code": "HPCN2069b30",
+              "id": 13101173,
+              "name": "HP OmniBook 3 AI 15-fn0900nc Glacier Silver",
+              "url": "https://www.alza.cz/hp-omnibook-3-ngai-15-fn0900nc-d13101173.htm",
+              "image": "https://image.alza.cz/products/HPCN2069b30/HPCN2069b30.jpg?width=230&height=230",
+              "price": 22990,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 5
+            },
+            {
+              "code": "HPBN1013w18",
+              "id": 13070704,
+              "name": "HP ProBook 4 G1i 16 (3 roky servis)",
+              "url": "https://www.alza.cz/hp-probook-4-g1i-16-d13070704.htm",
+              "image": "https://image.alza.cz/products/HPBN1013w18/HPBN1013w18.jpg?width=230&height=230",
+              "price": 22990,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 3
+            },
+            {
+              "code": "HPBN1013w7",
+              "id": 13070694,
+              "name": "HP ProBook 4 G1a 16 (3 roky servis)",
+              "url": "https://www.alza.cz/hp-probook-4-g1a-16-d13070694.htm",
+              "image": "https://image.alza.cz/products/HPBN1013w7/HPBN1013w7.jpg?width=230&height=230",
+              "price": 23490,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.5
+            },
+            {
+              "code": "NT187h30b15",
+              "id": 13098663,
+              "name": "Lenovo ThinkBook 16 G8 IRL Arctic Grey (záruka 3 roky ON-SITE)",
+              "url": "https://www.alza.cz/lenovo-thinkbook-16-g8-irl-arctic-grey-d13098663.htm",
+              "image": "https://image.alza.cz/products/NT187h30b15/NT187h30b15.jpg?width=230&height=230",
+              "price": 24490,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4
+            },
+            {
+              "code": "HPCN509m12",
+              "id": 12867438,
+              "name": "VICTUS by HP 15-fb3957nc Performance Blue (3 roky servis)",
+              "url": "https://www.alza.cz/victus-by-hp-15-fb3957nc-performance-blue-d12867438.htm",
+              "image": "https://image.alza.cz/products/HPCN509m12/HPCN509m12.jpg?width=230&height=230",
+              "price": 24890,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.7
+            },
+            {
+              "code": "NT379x137",
+              "id": 13114464,
+              "name": "Lenovo LOQ Essential 15IRX11 Luna Grey (záruka na 3 roky po registraci)",
+              "url": "https://www.alza.cz/lenovo-loq-essential-15irx11-luna-grey-d13114464.htm",
+              "image": "https://image.alza.cz/products/NT379x137/NT379x137.jpg?width=230&height=230",
+              "price": 24989,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 5
+            },
+            {
+              "code": "NT318p8y28",
+              "id": 13503867,
+              "name": "Lenovo Yoga Slim 7 14ILL11 Luna Grey celokovový (bez adaptéru) (záruka na 3 roky po registraci)",
+              "url": "https://www.alza.cz/lenovo-yoga-slim-7-14ill11-luna-grey-celokovovy-bez-adapteru-d13503867.htm",
+              "image": "https://image.alza.cz/products/NT318p8y28/NT318p8y28.jpg?width=230&height=230",
+              "price": 24989,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.3
+            },
+            {
+              "code": "NT379x140",
+              "id": 13114463,
+              "name": "Lenovo LOQ Essential 15IRX11 Luna Grey (záruka na 3 roky po registraci)",
+              "url": "https://www.alza.cz/lenovo-loq-essential-15irx11-luna-grey-d13114463.htm",
+              "image": "https://image.alza.cz/products/NT379x140/NT379x140.jpg?width=230&height=230",
+              "price": 24989,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.1
+            },
+            {
+              "code": "HPCN509k58",
+              "id": 13027386,
+              "name": "VICTUS by HP 15-fa2901nc Mica Silver (3 roky servis)",
+              "url": "https://www.alza.cz/victus-by-hp-15-fa2901nc-mica-silver-d13027386.htm",
+              "image": "https://image.alza.cz/products/HPCN509k58/HPCN509k58.jpg?width=230&height=230",
+              "price": 26790,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4
+            },
+            {
+              "code": "NT379x159",
+              "id": 13234282,
+              "name": "Lenovo LOQ 15ARP10E Luna Grey (záruka na 3 roky po registraci)",
+              "url": "https://www.alza.cz/lenovo-loq-15arp10e-luna-grey-d13234282.htm",
+              "image": "https://image.alza.cz/products/NT379x159/NT379x159.jpg?width=230&height=230",
+              "price": 26989,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 5
+            },
+            {
+              "code": "NA651b83q10",
+              "id": 13317644,
+              "name": "ASUS Vivobook S 14 S3407AA-OLED003W Matte Gray (1 rok ochrany proti poškození zdarma po registraci)",
+              "url": "https://www.alza.cz/asus-vivobook-s-14-s3407aa-oled003w-matte-gray-d13317644.htm",
+              "image": "https://image.alza.cz/products/NA651b83q10/NA651b83q10.jpg?width=230&height=230",
+              "price": 29987,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 5
+            },
+            {
+              "code": "NL253a2a",
+              "id": 13268816,
+              "name": "MacBook Air 13\" M5 CZ 2026 Temně inkoustový",
+              "url": "https://www.alza.cz/macbook-air-13-m5-cz-2026-temne-inkoustovy-d13268816.htm",
+              "image": "https://image.alza.cz/products/NL253a2a/NL253a2a.jpg?width=230&height=230",
+              "price": 31990,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.6
+            },
+            {
+              "code": "NB960a0p15",
+              "id": 13054843,
+              "name": "MSI Cyborg A15 AI B2HWGKG-081XCZ kovový",
+              "url": "https://www.alza.cz/msi-cyborg-a15-ai-b2hwgkg-081xcz-kovovy-d13054843.htm",
+              "image": "https://image.alza.cz/products/NB960a0p15/NB960a0p15.jpg?width=230&height=230",
+              "price": 31990,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 5
+            },
+            {
+              "code": "HPCN509k60",
+              "id": 13027383,
+              "name": "VICTUS by HP 15-fa2904nc Performance Blue",
+              "url": "https://www.alza.cz/victus-by-hp-15-fa2904nc-performance-blue-d13027383.htm",
+              "image": "https://image.alza.cz/products/HPCN509k60/HPCN509k60.jpg?width=230&height=230",
+              "price": 32990,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 5
+            },
+            {
+              "code": "HPCN509k66",
+              "id": 13027388,
+              "name": "VICTUS by HP 15-fb3903nc Performance Blue (3 roky servis)",
+              "url": "https://www.alza.cz/victus-by-hp-15-fb3903nc-performance-blue-d13027388.htm",
+              "image": "https://image.alza.cz/products/HPCN509k66/HPCN509k66.jpg?width=230&height=230",
+              "price": 32990,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 5
+            },
+            {
+              "code": "NT379x113",
+              "id": 13042694,
+              "name": "Lenovo LOQ 15IRX10 Luna Grey (záruka na 3 roky po registraci)",
+              "url": "https://www.alza.cz/lenovo-loq-15irx10-luna-grey-d13042694.htm",
+              "image": "https://image.alza.cz/products/NT379x113/NT379x113.jpg?width=230&height=230",
+              "price": 33321,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.7
+            },
+            {
+              "code": "NT203j17",
+              "id": 13001695,
+              "name": "Lenovo ThinkPad E16 Gen 3 Black (záruka 3 roky on-site)",
+              "url": "https://www.alza.cz/lenovo-thinkpad-e16-gen-3-black-d13001695.htm",
+              "image": "https://image.alza.cz/products/NT203j17/NT203j17.jpg?width=230&height=230",
+              "price": 33790,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 5
+            },
+            {
+              "code": "NC108c7i09a41",
+              "id": 13013182,
+              "name": "Acer Nitro V 16 AI Shale Black (ANV16-42-R01F) + prodloužená záruka na 3 roky po registraci na www.acer.cz",
+              "url": "https://www.alza.cz/acer-nitro-v-16-ai-shale-black-anv16-42-r01f-d13013182.htm",
+              "image": "https://image.alza.cz/products/NC108c7i09a41/NC108c7i09a41.jpg?width=230&height=230",
+              "price": 33877,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.7
+            }
+          ]
+        }
+      },
+      {
+        "name": "search_products",
+        "arguments": {
+          "query": "notebook",
+          "page": 2,
+          "limit": 5
+        },
+        "isError": false,
+        "contentText": "Top 5 result(s) for **\"notebook\"** (scanned 24 candidates):\n\n- **MacBook Pro 14\" M5 PRO CZ 2026 Stříbrný** · code: `NL271d1a` · 62 990 CZK · in stock · ★ 5.0\n  https://www.alza.cz/macbook-pro-14-m5-pro-cz-2026-stribrny-d13268956.htm\n- **Lenovo LOQ 15ARP10E Luna Grey (záruka na 3 roky po registraci)** · code: `NT379x159` · 26 989 CZK · in stock · ★ 5.0\n  https://www.alza.cz/lenovo-loq-15arp10e-luna-grey-d13234282.htm\n- **Lenovo LOQ Essential 15IRX11 Luna Grey (záruka na 3 roky po registraci)** · code: `NT379x137` · 24 989 CZK · in stock · ★ 5.0\n  https://www.alza.cz/lenovo-loq-essential-15irx11-luna-grey-d13114464.htm\n- **VICTUS by HP 15-fa2901nc Mica Silver (3 roky servis)** · code: `HPCN509k58` · 26 790 CZK · in stock · ★ 4.0\n  https://www.alza.cz/victus-by-hp-15-fa2901nc-mica-silver-d13027386.htm\n- **ASUS TUF Gaming A15 FA506NCG-HN188W Graphite Black (1 rok ochrany proti poškození zdarma po registraci)** · code: `NA670a72g32` · 21 164 CZK · in stock · ★ 4.3\n  https://www.alza.cz/asus-tuf-gaming-a15-fa506ncg-hn188w-graphite-black-d13116219.htm",
+        "structuredContent": {
+          "query": "notebook",
+          "total": 5,
+          "page": 2,
+          "pageSize": 5,
+          "candidatesScanned": 24,
+          "products": [
+            {
+              "code": "NL271d1a",
+              "id": 13268956,
+              "name": "MacBook Pro 14\" M5 PRO CZ 2026 Stříbrný",
+              "url": "https://www.alza.cz/macbook-pro-14-m5-pro-cz-2026-stribrny-d13268956.htm",
+              "image": "https://image.alza.cz/products/NL271d1a/NL271d1a.jpg?width=230&height=230",
+              "price": 62990,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 5
+            },
+            {
+              "code": "NT379x159",
+              "id": 13234282,
+              "name": "Lenovo LOQ 15ARP10E Luna Grey (záruka na 3 roky po registraci)",
+              "url": "https://www.alza.cz/lenovo-loq-15arp10e-luna-grey-d13234282.htm",
+              "image": "https://image.alza.cz/products/NT379x159/NT379x159.jpg?width=230&height=230",
+              "price": 26989,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 5
+            },
+            {
+              "code": "NT379x137",
+              "id": 13114464,
+              "name": "Lenovo LOQ Essential 15IRX11 Luna Grey (záruka na 3 roky po registraci)",
+              "url": "https://www.alza.cz/lenovo-loq-essential-15irx11-luna-grey-d13114464.htm",
+              "image": "https://image.alza.cz/products/NT379x137/NT379x137.jpg?width=230&height=230",
+              "price": 24989,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 5
+            },
+            {
+              "code": "HPCN509k58",
+              "id": 13027386,
+              "name": "VICTUS by HP 15-fa2901nc Mica Silver (3 roky servis)",
+              "url": "https://www.alza.cz/victus-by-hp-15-fa2901nc-mica-silver-d13027386.htm",
+              "image": "https://image.alza.cz/products/HPCN509k58/HPCN509k58.jpg?width=230&height=230",
+              "price": 26790,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4
+            },
+            {
+              "code": "NA670a72g32",
+              "id": 13116219,
+              "name": "ASUS TUF Gaming A15 FA506NCG-HN188W Graphite Black (1 rok ochrany proti poškození zdarma po registraci)",
+              "url": "https://www.alza.cz/asus-tuf-gaming-a15-fa506ncg-hn188w-graphite-black-d13116219.htm",
+              "image": "https://image.alza.cz/products/NA670a72g32/NA670a72g32.jpg?width=230&height=230",
+              "price": 21164,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.3
+            }
+          ]
+        }
+      },
+      {
+        "name": "search_products",
+        "arguments": {
+          "query": "PS4 hra",
+          "in_stock": true,
+          "limit": 10
+        },
+        "isError": false,
+        "contentText": "Top 10 result(s) for **\"PS4 hra\"** (scanned 24 candidates):\n\n- **EA Sports FC 26 - PS4** · code: `MSX1640` · 899 CZK · in stock · ★ 4.7\n  https://www.alza.cz/gaming/ea-sports-fc-26-ps4-d13009038.htm\n- **Grand Theft Auto V (GTA 5): Premium Edition - PS4** · code: `MSX088p` · 499 CZK · in stock · ★ 4.8\n  https://www.alza.cz/gaming/grand-theft-auto-v-gta-5-premium-edition-ps4-d5672686.htm\n- **Gran Turismo 7 - PS5** · code: `PSV0002` · 1 559 CZK · in stock · ★ 4.8\n  https://www.alza.cz/gaming/gran-turismo-7?dq=5868397\n- **Minecraft: Starter Collection - PS4** · code: `MSX1162` · 659 CZK · in stock · ★ 4.8\n  https://www.alza.cz/gaming/minecraft?dq=6616943\n- **Mafia Trilogy - PS4** · code: `MSX823` · 849 CZK · in stock · ★ 4.8\n  https://www.alza.cz/gaming/mafia-trilogy?dq=5846447\n- **The Last of Us Part II - PS4** · code: `MSX445` · 399 CZK · in stock · ★ 4.9\n  https://www.alza.cz/gaming/the-last-of-us-part-ii-ps4?dq=5150384\n- **Hogwarts Legacy - PS4** · code: `MSX907` · 499 CZK · in stock · ★ 4.8\n  https://www.alza.cz/gaming/hogwarts-legacy-ps4-d6153913.htm\n- **Dark Souls Trilogy - PS4** · code: `MSX602` · 769 CZK · in stock · ★ 4.8\n  https://www.alza.cz/gaming/dark-souls-trilogy-ps4-d5539253.htm\n- **Grand Theft Auto: The Trilogy (GTA) - The Definitive Edition - PS4** · code: `MSX1229` · 629 CZK · in stock · ★ 4.7\n  https://www.alza.cz/gaming/grand-theft-auto-the-trilogy-gta-the-definitive-edition-ps4-d6803506.htm\n- **It Takes Two - PS4** · code: `MSX952` · 899 CZK · in stock · ★ 4.9\n  https://www.alza.cz/gaming/it-takes-two-ps4-d6288257.htm",
+        "structuredContent": {
+          "query": "PS4 hra",
+          "total": 10,
+          "page": 1,
+          "pageSize": 10,
+          "candidatesScanned": 24,
+          "products": [
+            {
+              "code": "MSX1640",
+              "id": 13009038,
+              "name": "EA Sports FC 26 - PS4",
+              "url": "https://www.alza.cz/gaming/ea-sports-fc-26-ps4-d13009038.htm",
+              "image": "https://image.alza.cz/products/MSX1640/MSX1640.jpg?width=230&height=230",
+              "price": 899,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.7
+            },
+            {
+              "code": "MSX088p",
+              "id": 5672686,
+              "name": "Grand Theft Auto V (GTA 5): Premium Edition - PS4",
+              "url": "https://www.alza.cz/gaming/grand-theft-auto-v-gta-5-premium-edition-ps4-d5672686.htm",
+              "image": "https://image.alza.cz/products/MSX088p/MSX088p.jpg?width=230&height=230",
+              "price": 499,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.8
+            },
+            {
+              "code": "PSV0002",
+              "id": 5868397,
+              "name": "Gran Turismo 7 - PS5",
+              "url": "https://www.alza.cz/gaming/gran-turismo-7?dq=5868397",
+              "image": "https://image.alza.cz/products/PSV0002/PSV0002.jpg?width=230&height=230",
+              "price": 1559,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.8
+            },
+            {
+              "code": "MSX1162",
+              "id": 6616943,
+              "name": "Minecraft: Starter Collection - PS4",
+              "url": "https://www.alza.cz/gaming/minecraft?dq=6616943",
+              "image": "https://image.alza.cz/products/MSX1162/MSX1162.jpg?width=230&height=230",
+              "price": 659,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.8
+            },
+            {
+              "code": "MSX823",
+              "id": 5846447,
+              "name": "Mafia Trilogy - PS4",
+              "url": "https://www.alza.cz/gaming/mafia-trilogy?dq=5846447",
+              "image": "https://image.alza.cz/products/MSX823/MSX823.jpg?width=230&height=230",
+              "price": 849,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.8
+            },
+            {
+              "code": "MSX445",
+              "id": 5150384,
+              "name": "The Last of Us Part II - PS4",
+              "url": "https://www.alza.cz/gaming/the-last-of-us-part-ii-ps4?dq=5150384",
+              "image": "https://image.alza.cz/products/MSX445/MSX445.jpg?width=230&height=230",
+              "price": 399,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.9
+            },
+            {
+              "code": "MSX907",
+              "id": 6153913,
+              "name": "Hogwarts Legacy - PS4",
+              "url": "https://www.alza.cz/gaming/hogwarts-legacy-ps4-d6153913.htm",
+              "image": "https://image.alza.cz/products/MSX907/MSX907.jpg?width=230&height=230",
+              "price": 499,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.8
+            },
+            {
+              "code": "MSX602",
+              "id": 5539253,
+              "name": "Dark Souls Trilogy - PS4",
+              "url": "https://www.alza.cz/gaming/dark-souls-trilogy-ps4-d5539253.htm",
+              "image": "https://image.alza.cz/products/MSX602/MSX602.jpg?width=230&height=230",
+              "price": 769,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.8
+            },
+            {
+              "code": "MSX1229",
+              "id": 6803506,
+              "name": "Grand Theft Auto: The Trilogy (GTA) - The Definitive Edition - PS4",
+              "url": "https://www.alza.cz/gaming/grand-theft-auto-the-trilogy-gta-the-definitive-edition-ps4-d6803506.htm",
+              "image": "https://image.alza.cz/products/MSX1229/MSX1229.jpg?width=230&height=230",
+              "price": 629,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.7
+            },
+            {
+              "code": "MSX952",
+              "id": 6288257,
+              "name": "It Takes Two - PS4",
+              "url": "https://www.alza.cz/gaming/it-takes-two-ps4-d6288257.htm",
+              "image": "https://image.alza.cz/products/MSX952/MSX952.jpg?width=230&height=230",
+              "price": 899,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 4.9
+            }
+          ]
+        }
+      },
+      {
+        "name": "search_products",
+        "arguments": {
+          "query": "xyzzy123qwerty",
+          "limit": 5
+        },
+        "isError": false,
+        "contentText": "Top 5 result(s) for **\"xyzzy123qwerty\"** (scanned 24 candidates):\n\n- **iSaprio Lesklé pouzdro Heart Dark - Xiaomi Redmi 13C 5G** · code: `iSapkry2140` · 429 CZK · in stock · ★ 5.0\n  https://www.alza.cz/isaprio-leskle-pouzdro-heart-dark-xiaomi-redmi-13c-5g-d12954824.htm?o=1\n- **iSaprio Abstract Outlines 12 pro Xiaomi Mi A3** · code: `iSAPa111` · 419 CZK · in stock · ★ 2.0\n  https://www.alza.cz/isaprio-abstract-outlines-pro-xiaomi-mi-a3-d6477323.htm?o=2\n- **iSaprio Emerald - Xiaomi Poco X3 Pro / X3 NFC** · code: `iSAPkrt2579` · 419 CZK · in stock\n  https://www.alza.cz/isaprio-emerald-xiaomi-poco-x3-pro-x3-nfc-d12420452.htm?o=3\n- **iSaprio čiré pouzdro - Elements - Xiaomi Poco X3 Pro / X3 NFC** · code: `iSAPkrt2553` · 189 CZK · in stock · ★ 3.7\n  https://www.alza.cz/isaprio-c-ire-pouzdro-elements-xiaomi-poco-x3-pro-x3-nfc-d12420418.htm?o=4\n- **iSaprio Lesklé pouzdro Dark Waves 10 - Xiaomi Poco X3 Pro / X3 NFC** · code: `iSapkry2089` · 429 CZK · in stock\n  https://www.alza.cz/isaprio-leskle-pouzdro-dark-waves-10-xiaomi-poco-x3-pro-x3-nfc-d12954890.htm?o=5",
+        "structuredContent": {
+          "query": "xyzzy123qwerty",
+          "total": 5,
+          "page": 1,
+          "pageSize": 5,
+          "candidatesScanned": 24,
+          "products": [
+            {
+              "code": "iSapkry2140",
+              "id": 12954824,
+              "name": "iSaprio Lesklé pouzdro Heart Dark - Xiaomi Redmi 13C 5G",
+              "url": "https://www.alza.cz/isaprio-leskle-pouzdro-heart-dark-xiaomi-redmi-13c-5g-d12954824.htm?o=1",
+              "image": "https://image.alza.cz/products/iSapkry2140/iSapkry2140.jpg?width=230&height=230",
+              "price": 429,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 5
+            },
+            {
+              "code": "iSAPa111",
+              "id": 6477323,
+              "name": "iSaprio Abstract Outlines 12 pro Xiaomi Mi A3",
+              "url": "https://www.alza.cz/isaprio-abstract-outlines-pro-xiaomi-mi-a3-d6477323.htm?o=2",
+              "image": "https://image.alza.cz/products/iSAPa111/iSAPa111.jpg?width=230&height=230",
+              "price": 419,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 2
+            },
+            {
+              "code": "iSAPkrt2579",
+              "id": 12420452,
+              "name": "iSaprio Emerald - Xiaomi Poco X3 Pro / X3 NFC",
+              "url": "https://www.alza.cz/isaprio-emerald-xiaomi-poco-x3-pro-x3-nfc-d12420452.htm?o=3",
+              "image": "https://image.alza.cz/products/iSAPkrt2579/iSAPkrt2579.jpg?width=230&height=230",
+              "price": 419,
+              "currency": "CZK",
+              "availability": "in stock"
+            },
+            {
+              "code": "iSAPkrt2553",
+              "id": 12420418,
+              "name": "iSaprio čiré pouzdro - Elements - Xiaomi Poco X3 Pro / X3 NFC",
+              "url": "https://www.alza.cz/isaprio-c-ire-pouzdro-elements-xiaomi-poco-x3-pro-x3-nfc-d12420418.htm?o=4",
+              "image": "https://image.alza.cz/products/iSAPkrt2553/iSAPkrt2553.jpg?width=230&height=230",
+              "price": 189,
+              "currency": "CZK",
+              "availability": "in stock",
+              "rating": 3.7
+            },
+            {
+              "code": "iSapkry2089",
+              "id": 12954890,
+              "name": "iSaprio Lesklé pouzdro Dark Waves 10 - Xiaomi Poco X3 Pro / X3 NFC",
+              "url": "https://www.alza.cz/isaprio-leskle-pouzdro-dark-waves-10-xiaomi-poco-x3-pro-x3-nfc-d12954890.htm?o=5",
+              "image": "https://image.alza.cz/products/iSapkry2089/iSapkry2089.jpg?width=230&height=230",
+              "price": 429,
+              "currency": "CZK",
+              "availability": "in stock"
+            }
+          ]
+        }
+      }
+    ],
+    "stderrTail": "{\"ts\":\"2026-09-14T14:23:12.181Z\",\"level\":\"info\",\"msg\":\"alza-mcp ready\",\"baseUrl\":\"https://www.alza.cz\",\"cdp\":false}\n{\"ts\":\"2026-09-14T14:25:12.255Z\",\"level\":\"info\",\"msg\":\"alza-browser: launching managed Chromium\",\"headless\":true}\n",
+    "finishedAt": "2026-09-14T14:25:28.574Z"
+  }
+}

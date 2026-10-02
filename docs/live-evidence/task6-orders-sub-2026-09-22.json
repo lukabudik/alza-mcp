@@ -1,0 +1,199 @@
+{
+  "startedAt": "2026-09-22T16:57:16.074Z",
+  "archiveList": {
+    "status": 200
+  },
+  "archiveActions": [],
+  "order_1056808137": {
+    "status": 200,
+    "actions": [
+      {
+        "path": "od1056808137.parts.0.items.0.onClaimItemGuideClick",
+        "name": "Reklamovat",
+        "method": null,
+        "href": "https://www.alza.cz/api/users/100000001/v1/warrantyClaimsGuide/1056808137/checkGifts",
+        "rel": null,
+        "formValues": null
+      },
+      {
+        "path": "od1056808137.parts.0.items.0.onClaimItemGuideClick.form",
+        "name": null,
+        "method": "POST",
+        "href": "https://www.alza.cz/api/users/100000001/v1/warrantyClaimsGuide/1056808137/checkGifts",
+        "rel": [
+          "form"
+        ],
+        "formValues": [
+          "warrantyClaimTypeId",
+          "documentItems",
+          "email",
+          "supportNewReturnReasons",
+          "country",
+          "isChatbotEnabled"
+        ]
+      },
+      {
+        "path": "od1056808137.parts.0.items.1.onClaimItemGuideClick",
+        "name": "Reklamovat",
+        "method": null,
+        "href": "https://www.alza.cz/api/users/100000001/v1/warrantyClaimsGuide/1056808137/checkGifts",
+        "rel": null,
+        "formValues": null
+      },
+      {
+        "path": "od1056808137.parts.0.items.1.onClaimItemGuideClick.form",
+        "name": null,
+        "method": "POST",
+        "href": "https://www.alza.cz/api/users/100000001/v1/warrantyClaimsGuide/1056808137/checkGifts",
+        "rel": [
+          "form"
+        ],
+        "formValues": [
+          "warrantyClaimTypeId",
+          "documentItems",
+          "email",
+          "supportNewReturnReasons",
+          "country",
+          "isChatbotEnabled"
+        ]
+      },
+      {
+        "path": "od1056808137.parts.0.actions.onCareBoxLinkOrderClick",
+        "name": null,
+        "method": null,
+        "href": "https://webapi.alza.cz/api/users/100000001/v1/careBox/linkOrder",
+        "rel": null,
+        "formValues": null
+      },
+      {
+        "path": "od1056808137.parts.0.actions.onCareBoxLinkOrderClick.form",
+        "name": null,
+        "method": "POST",
+        "href": "https://webapi.alza.cz/api/users/100000001/v1/careBox/linkOrder",
+        "rel": [
+          "form"
+        ],
+        "formValues": [
+          "qrCode"
+        ]
+      },
+      {
+        "path": "od1056808137.callCenterInfo.onChatbotClick.form",
+        "name": null,
+        "method": "POST",
+        "href": "https://chatbotapi.alza.cz/api/%7BidentityType%7D/%7BidentityId%7D/v1/navigation?country=CZ",
+        "rel": [
+          "form"
+        ],
+        "formValues": [
+          "forceInitialize",
+          "referrer"
+        ]
+      }
+    ]
+  },
+  "order_1058423434": {
+    "status": 200,
+    "actions": [
+      {
+        "path": "od1058423434.parts.0.items.0.onClaimItemGuideClick",
+        "name": "Reklamovat",
+        "method": null,
+        "href": "https://www.alza.cz/api/users/100000001/v1/warrantyClaimsGuide/1058423434/checkGifts",
+        "rel": null,
+        "formValues": null
+      },
+      {
+        "path": "od1058423434.parts.0.items.0.onClaimItemGuideClick.form",
+        "name": null,
+        "method": "POST",
+        "href": "https://www.alza.cz/api/users/100000001/v1/warrantyClaimsGuide/1058423434/checkGifts",
+        "rel": [
+          "form"
+        ],
+        "formValues": [
+          "warrantyClaimTypeId",
+          "documentItems",
+          "email",
+          "supportNewReturnReasons",
+          "country",
+          "isChatbotEnabled"
+        ]
+      },
+      {
+        "path": "od1058423434.parts.0.items.1.onClaimItemGuideClick",
+        "name": "Reklamovat",
+        "method": null,
+        "href": "https://www.alza.cz/api/users/100000001/v1/warrantyClaimsGuide/1058423434/checkGifts",
+        "rel": null,
+        "formValues": null
+      },
+      {
+        "path": "od1058423434.parts.0.items.1.onClaimItemGuideClick.form",
+        "name": null,
+        "method": "POST",
+        "href": "https://www.alza.cz/api/users/100000001/v1/warrantyClaimsGuide/1058423434/checkGifts",
+        "rel": [
+          "form"
+        ],
+        "formValues": [
+          "warrantyClaimTypeId",
+          "documentItems",
+          "email",
+          "supportNewReturnReasons",
+          "country",
+          "isChatbotEnabled"
+        ]
+      },
+      {
+        "path": "od1058423434.parts.0.actions.onCareBoxLinkOrderClick",
+        "name": null,
+        "method": null,
+        "href": "https://webapi.alza.cz/api/users/100000001/v1/careBox/linkOrder",
+        "rel": null,
+        "formValues": null
+      },
+      {
+        "path": "od1058423434.parts.0.actions.onCareBoxLinkOrderClick.form",
+        "name": null,
+        "method": "POST",
+        "href": "https://webapi.alza.cz/api/users/100000001/v1/careBox/linkOrder",
+        "rel": [
+          "form"
+        ],
+        "formValues": [
+          "qrCode"
+        ]
+      },
+      {
+        "path": "od1058423434.callCenterInfo.onChatbotClick.form",
+        "name": null,
+        "method": "POST",
+        "href": "https://chatbotapi.alza.cz/api/%7BidentityType%7D/%7BidentityId%7D/v1/navigation?country=CZ",
+        "rel": [
+          "form"
+        ],
+        "formValues": [
+          "forceInitialize",
+          "referrer"
+        ]
+      }
+    ]
+  },
+  "userSubscriptionNav": {
+    "webLink": "https://www.alza.cz/my-account/profile/set-subscription",
+    "href": "https://webapi.alza.cz/api/users/100000001/v1/subscription?country=CZ",
+    "appLink": "userSubscription",
+    "enabled": true
+  },
+  "recurringBillingNav": {
+    "webLink": "https://www.alza.cz/my-account/recurring-subscriptions",
+    "href": "https://webapi.alza.cz/api/users/SE100000001/v1/userRecurringBilling?offset=0&limit=10&country=CZ&pgrik=p__26752",
+    "appLink": "recurringBillingDetail",
+    "enabled": true
+  },
+  "subscriptionsV1": {
+    "status": 404,
+    "sample": "\"\""
+  }
+}

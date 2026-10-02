@@ -1,8 +1,9 @@
 {
   "name": "alza-mcp",
   "mcpName": "io.github.lukabudik/alza-mcp",
-  "version": "0.1.2",
-  "description": "Unofficial Model Context Protocol server for Alza.cz — gives AI agents a read-only interface to browse products, reviews, and pickup points.",
+  "version": "0.3.0",
+  "description": "Unofficial Model Context Protocol server for Alza.cz — product search, details, reviews, and pickup points, plus the authenticated account, cart, checkout, order, and payment stack (mobile REST + legacy web WCF).",
+
   "type": "module",
   "main": "dist/index.js",
   "bin": {
@@ -22,8 +23,22 @@
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
     "validate:api": "tsx scripts/validate-api.ts",
+    "eval": "tsx scripts/eval.ts",
+    "pentest:app-action": "tsx scripts/pentest-app-action.ts",
+    "pentest:app-action:python": "python3 scripts/pentest-app-action.py",
+    "live:endpoint-matrix": "python3 scripts/live-endpoint-matrix.py",
+    "live:user-journeys": "python3 scripts/live-user-journeys.py",
     "postinstall": "node scripts/postinstall.cjs",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "auth:login": "node scripts/alza-auth-login.mjs",
+    "auth:login:noninteractive": "node scripts/alza-auth-login-noninteractive.mjs",
+    "auth:exchange": "node scripts/alza-auth-exchange.mjs",
+    "auth:login:py": "python3 scripts/alza_auth_login.py",
+    "auth:refresh": "node scripts/alza-auth-refresh.mjs",
+    "auth:smoke": "node scripts/alza-auth-smoke.mjs",
+    "live:e2e": "node scripts/e2e-order-payment.browser.mjs run",
+    "test:contract": "vitest run test/registration-contract.test.ts",
+    "live:e2e:node": "node scripts/e2e-order-payment.mjs"
   },
   "keywords": [
     "mcp",

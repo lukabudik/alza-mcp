@@ -1,0 +1,51 @@
+{
+ "date": "2026-09-08",
+ "steps": [
+  {
+   "step": "C1 basket/add FKP0383232 (guest)",
+   "status": 200,
+   "body": "{\"data\":{\"self\":{\"href\":\"https://www.alza.cz//api/router/legacy/catalog/product/7229946?pgrik=p__26752&ucik=u__401f1&country=CZ&electronicContentOnly=False\",\"appLink\":\"catalogProductDetail\",\"enabled\":true},\"usedProductDialog\":null,\"recommendations\":null,\"additionalServices\":null,\"additionalServicesC"
+  },
+  {
+   "step": "C2 getDeliveryPaymentGroups v12",
+   "status": 200,
+   "body": "{\"deliveryGroups\":[{\"deliveryGroupId\":393813777,\"deliveries\":[{\"isLimited\":false,\"beforeSelectAction\":null,\"afterSelectAction\":null,\"afterDeselectAction\":null,\"promoText\":null,\"customerPaymentCreditTooltipLink\":null,\"analytics\":null,\"id\":2680,\"name\":\"AlzaBox\",\"legend\":\"<p>Samoobslužné schránky jsou "
+  },
+  {
+   "step": "C2b live deliveryGroupId for 2680",
+   "gid": null
+  },
+  {
+   "step": "C3 SaveOrder2",
+   "status": 200,
+   "errorLevel": 0,
+   "message": null,
+   "alzaPlusAction": null,
+   "body": "{\"d\":{\"isCardPayment\":false,\"GroupId\":null,\"IsFeeCharged\":false,\"FeeAmount\":null,\"FinalPrice\":\"0,-\",\"OriginalPrice\":\"0,-\",\"OrderPrice\":\"104\",\"FeeDescriptionTitle\":null,\"FeeDescriptionAmount\":null,\"FeeDescription\":null,\"FeeDescriptionLink\":null,\"alzaPlusPopupDialogAction\":null,\"Value\":null,\"LeasingPartnerUrl\":null,\"DevErrorMessage\":null,\"Message\":null,\"ErrorNeoPurchaseFailed\":false,\"ErrorLevel\":0,\"RedirectUrlOrderDetail\":null,\"PaymentAction\":null,\"CanShowFastCheckoutButton\":false,\"IsAlzaPlusActio"
+  },
+  {
+   "step": "C4 SaveOrder3 (guest user info)",
+   "status": 200,
+   "errorLevel": 0,
+   "message": null,
+   "alzaPlusAction": null,
+   "body": "{\"d\":{\"Grid\":null,\"Values\":[],\"DevErrorMessage\":null,\"Message\":null,\"ErrorNeoPurchaseFailed\":false,\"ErrorLevel\":0,\"RedirectUrlOrderDetail\":null,\"PaymentAction\":null,\"CanShowFastCheckoutButton\":false,\"IsAlzaPlusActionPayment\":false}}"
+  },
+  {
+   "step": "C5 SaveAndConfirmOrder2 — FIRST attempt (expect 113 gate)",
+   "status": 200,
+   "errorLevel": 113,
+   "message": null,
+   "alzaPlusAction": "ISSUED",
+   "body": "{\"d\":{\"isCardPayment\":false,\"GroupId\":null,\"IsFeeCharged\":false,\"FeeAmount\":null,\"FinalPrice\":\"0,-\",\"OriginalPrice\":\"0,-\",\"OrderPrice\":null,\"FeeDescriptionTitle\":null,\"FeeDescriptionAmount\":null,\"FeeDescription\":null,\"FeeDescriptionLink\":null,\"alzaPlusPopupDialogAction\":{\"href\":\"https://webapi.alza.cz/api/v1/anonymous/baskets/1656792294/alzaplus/popUp?country=CZ\",\"appLink\":\"alzaPlusPromotionForSubscription\",\"enabled\":true},\"Value\":null,\"LeasingPartnerUrl\":null,\"DevErrorMessage\":null,\"Message\":nu"
+  },
+  {
+   "step": "C6 SaveAndConfirmOrder2 — retry (expect 0)",
+   "status": 200,
+   "errorLevel": 0,
+   "message": null,
+   "alzaPlusAction": null,
+   "body": "{\"d\":{\"isCardPayment\":false,\"GroupId\":null,\"IsFeeCharged\":false,\"FeeAmount\":null,\"FinalPrice\":\"0,-\",\"OriginalPrice\":\"0,-\",\"OrderPrice\":null,\"FeeDescriptionTitle\":null,\"FeeDescriptionAmount\":null,\"FeeDescription\":null,\"FeeDescriptionLink\":null,\"alzaPlusPopupDialogAction\":null,\"Value\":null,\"LeasingPartnerUrl\":null,\"DevErrorMessage\":null,\"Message\":null,\"ErrorNeoPurchaseFailed\":false,\"ErrorLevel\":0,\"RedirectUrlOrderDetail\":null,\"PaymentAction\":null,\"CanShowFastCheckoutButton\":false,\"IsAlzaPlusAction"
+  }
+ ]
+}

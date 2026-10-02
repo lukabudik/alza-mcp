@@ -1,0 +1,16 @@
+{
+ "date": "2026-09-09",
+ "steps": [
+  {
+   "name": "B5 unlockbasket?country=CZ (GET)",
+   "status": 200,
+   "body": "{\"err\":0,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":null,\"user_name\":\"\",\"user_id\":-1,\"vzt\":8839813555526558,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"pre"
+  },
+  {
+   "name": "A7 m.alza.cz /api/user/…/v1/alzapremium/trial",
+   "status": 404,
+   "body": "\r\n\r\n<!DOCTYPE html>\r\n<html id=\"rootHtml\" xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"cs-CZ\">\r\n<head><!--alza-component-version version=\"4.227.0\"--><title>\r\n\tChyba | Alza.cz\r\n</title><meta name=\"author\"",
+   "isJson": false
+  }
+ ]
+}

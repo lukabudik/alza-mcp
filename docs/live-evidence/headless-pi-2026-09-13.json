@@ -1,0 +1,64 @@
+{
+  "captured_at": "2026-09-13T20:05:00Z",
+  "purpose": "End-to-end pi-level verification of the alza MCP server after the 2026-09-13 best-practices cycle: pi startup → MCP config load → alza connect → tool discovery → tools/call → live Alza data → final answer. Complements the in-memory eval harness (eval-2026-09-13.json) with pi's real MCP gateway (protocolVersion 2025-06-18 path, stdio transport).",
+  "command": "pi --mode json --print --no-session --thinking minimal -p \"<task prompt>\"",
+  "model": "rtxbeast/qwen3.8-27b-abliterated (local LiteLLM proxy on 127.0.0.1:4000)",
+  "mcp_config": "~/.pi/agent/mcp.json → server \"alza\" → node /home/dev/Development/alza-mcp/dist/index.js (41 tools)",
+  "runs": [
+    {
+      "id": "run-1-catalog-search",
+      "task_prompt": "Use the alza MCP server: search Alza for \"kabel hdmi\", sorted by price ascending, only in-stock items, max price 300 CZK, limit 5. Report the cheapest product's name, price, product code, and Alza URL. Answer as a short 5-line list.",
+      "log": "/tmp/pi-headless-1.log",
+      "exit_code": 0,
+      "outcome": "PASS",
+      "elapsed_s": 374,
+      "tool_discovery": "pi meta-tool mcp({search:\"search\",server:\"alza\"}) → alza_search_products ranked #1 with full description surfaced (including the client-side sort note from the 2026-09-12 fix).",
+      "call": {
+        "name": "alza_search_products",
+        "args": { "query": "kabel hdmi", "sort": "price-asc", "in_stock": true, "max_price": 300, "limit": 5 }
+      },
+      "result_excerpt": "Found 5 results for \"kabel hdmi\" (showing 5): Vention HDMI 2.0 High Quality Cable 1m Black · VENTc12 · 99 CZK · in stock · ★ 4.8; Vention HDMI 2.0 1.5m Black · VENTc13 · 109 CZK; …",
+      "sort_verified": "Results came back ascending by price (99, 109, …) — the client-side compareForSort fix from commit 5ec2527 is observable at the pi level (the 2026-09-12 run had observed unsorted upstream order).",
+      "final_answer": "- Name: Vention HDMI 2.0 High Quality Cable 1m Black\n- Price: 99 CZK (in stock)\n- Product code: VENTc12\n- Alza URL: https://www.alza.cz/vention-hdmi-2-0-high-quality-cable-1m-black-d5827419.htm\n- Rating: ★ 4.8 — cheapest of 5 in-stock results under 300 CZK"
+    },
+    {
+      "id": "run-2-authenticated-account-stack",
+      "task_prompt": "Use the alza MCP server: first confirm my Alza account is authenticated (account_status), then report my current cart state: how many items, the running total, and the currency. Do not add or remove anything. Answer as a short 3-line list, at most 30 words total.",
+      "log": "/tmp/pi-headless-2.log",
+      "exit_code": 0,
+      "outcome": "PASS",
+      "elapsed_s": 41,
+      "tool_chain": [
+        { "step": "mcp({search:\"account_status\"})", "result": "alza_account_status surfaced (Read-only account/identity state: authenticated flag, visitorId, apiBaseUrl…)" },
+        { "step": "mcp({search:\"cart\",regex:true})", "result": "alza_cart surfaced among 13 'cart'-matching tools" },
+        { "step": "alza_account_status {}", "isError": false, "result_excerpt": "{ \"authenticated\": true, \"visitorId\": \"00000000-0000-0000-0000-000000000000\", \"apiBaseUrl\": \"https://www.alza.cz\" }" },
+        { "step": "alza_cart {}", "isError": false, "result_excerpt": "# Alza cart (user -1) 0 item line(s) items: Jsem tak prázdný... vouchers: 0 — full envelope in structuredContent" },
+        { "step": "mcpScript retries", "result": "model explored the adapter envelope via mcpScript (2 script_error retries, then ok:true) — adapter-level batch path also reaches the server" }
+      ],
+      "authenticated": true,
+      "final_answer": "- Authenticated: yes\n- Items: 0\n- Total: 0 CZK",
+      "finding": "Cart is empty (server msg \"Jsem tak prázdný...\"), so the running total is 0 CZK; the model reported this honestly instead of inventing items. account_status authenticated=true confirms the loaded token (err-0 path) works through pi."
+    },
+    {
+      "id": "run-3-mutation-token-flow",
+      "task_prompt": "Use the alza MCP server: call prepare_mutation with action address_delete to mint a confirmation token. Report whether a confirmation token was returned and which action it is bound to. Do NOT call the actual address_delete mutation. Answer in at most 30 words.",
+      "log": "/tmp/pi-headless-3.log",
+      "exit_code": 0,
+      "outcome": "PASS",
+      "elapsed_s": 11,
+      "tool_chain": [
+        { "step": "mcp({describe:\"alza/prepare_mutation\"})", "result": "not found → redirected to alza_prepare_mutation" },
+        { "step": "mcp({describe:\"alza_prepare_mutation\"})", "result": "full description surfaced: 'Start a two-step mutation by returning a one-time confirmation token bound to exactly one action. This call itself sends nothing to Alza…'" },
+        { "step": "alza_prepare_mutation {action:\"address_delete\"}", "isError": false, "result_excerpt": "{ \"action\": \"address_delete\", \"confirmationToken\": \"ee14a0fb3f238cdb60a050205a28db2c8595397ce8a2d709\" }" }
+      ],
+      "final_answer": "Yes — a one-time confirmation token was returned: ee14a0fb…, bound to the address_delete action. No address_delete mutation was executed.",
+      "finding": "The two-step mutation design is observable end-to-end through pi: the token minting is server-side (stateful), the description correctly told the model that 'this call sends nothing to Alza', and the model reported the action binding without executing the delete."
+    }
+  ],
+  "environment_notes": [
+    "Model generation on the local proxy is slow at times (~2.6 s/token during one probe); two earlier attempts of run-2 timed out (420 s, then 720 s) while the two MCP tool calls had ALREADY completed successfully (isError false) — only the final answer generation was cut. The 1800 s rerun settled in 41 s; tool-call evidence from the timed-out attempts is consistent with the recorded one.",
+    "pi's adapter exposes MCP servers through meta-tools (mcp search/describe/call) plus mcpScript batch scripting; all 41 alza tools were discoverable and callable in both paths.",
+    "All three runs used the stdio transport via ~/.pi/agent/mcp.json; the in-memory harness evidence (eval-2026-09-13.json) remains the SDK-validated complement."
+  ],
+  "summary": { "total": 3, "passed": 3, "failed": 0 }
+}

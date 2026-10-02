@@ -1,5 +1,7 @@
 node_modules/
 dist/
+.venv-cf/
+tmp/
 *.log
 .env
 .env.local
@@ -10,3 +12,5 @@ coverage/
 *.tsbuildinfo
 validation-results.json
 .postinstall.log
+.pi/
+__pycache__/

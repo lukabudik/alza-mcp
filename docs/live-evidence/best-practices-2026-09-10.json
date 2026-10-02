@@ -1,0 +1,146 @@
+{
+  "captured_at": "2026-09-10 (best-practices overhaul, goal mtw1vl36-egggjn)",
+  "purpose": "Live evidence that the MCP best-practices overhaul is in effect: consistent tool naming (no gateway double-prefix), agent-facing descriptions on the wire, full annotation set, concise text channel, fixed prepare_mutation enum.",
+  "stdio_probe": {
+    "command": "node dist/index.js (initialize 2025-06-18 + tools/list)",
+    "tool_count": 41,
+    "naming": "all bare names; the pi gateway surfaces them as alza_<name> — no alza_alza_* double prefix",
+    "sample_names": [
+      "cart",
+      "add_to_cart",
+      "profile",
+      "order",
+      "web_place_order",
+      "mobile_read",
+      "prepare_mutation",
+      "search_products",
+      "get_product"
+    ],
+    "annotations_sample": {
+      "cart": {
+        "readOnlyHint": true,
+        "idempotentHint": true,
+        "destructiveHint": false,
+        "openWorldHint": true
+      }
+    },
+    "description_quality_sample": {
+      "cart": "753 chars, 7 sentences — outcome, when to use, when NOT (web_cart), prerequisite (account_status/auth flow), read-only note",
+      "add_to_cart.code": "Alza product code, e.g. 'RI054b1' (the `code` field from `search_products`)."
+    },
+    "prepare_mutation_enum": {
+      "count": 29,
+      "includes": [
+        "web_place_order",
+        "web_after_order_payment"
+      ],
+      "note": "was 27 values before; the two web-checkout actions the description and domain MUTATION_ACTIONS required are now schema-valid"
+    }
+  },
+  "gateway_smoke": {
+    "gateway": "pi MCP gateway, server 'alza' (41 tools, namespaced alza_*)",
+    "catalog_read": {
+      "tool": "alza_search_products",
+      "args": {
+        "query": "čistič na kolo",
+        "sort": "price-asc",
+        "min_price": 50,
+        "max_price": 300,
+        "in_stock": true,
+        "limit": 5
+      },
+      "result": {
+        "total": 5,
+        "shown": 5,
+        "top": [
+          {
+            "code": "SPTms2604",
+            "name": "Force PRO čistič k doplnění 1 l žlutý",
+            "price": 209
+          },
+          {
+            "code": "SPTbiwo005",
+            "name": "BikeWorkx Cleaner & Degreaser 750 ml",
+            "price": 229
+          },
+          {
+            "code": "MUCK004",
+            "name": "Muc-Off Chain Cleaner 400ml",
+            "price": 269
+          }
+        ]
+      }
+    },
+    "account_read_cart": {
+      "tool": "alza_cart",
+      "text_channel_chars": 158,
+      "text_head": "# Alza cart (user -1)\n0 item line(s)\n\nitems: Jsem tak prázdný...\nvouchers: 0",
+      "note": "concise text channel active (was ~20KB raw JSON text); full envelope preserved in structuredContent",
+      "structured_content": true
+    },
+    "account_read_status": {
+      "tool": "alza_account_status",
+      "result": {
+        "authenticated": true,
+        "apiBaseUrl": "https://www.alza.cz"
+      }
+    }
+  },
+  "tests": {
+    "suite": "82 passed (70 previous + 12 new formatter tests)",
+    "new_tests": "test/account-format.test.ts — cart/profile/add_to_cart/order/checkout_preview formatters, err:1 + anonymous + garbage-shape tolerance, withConciseText fallback + structuredContent preservation"
+  },
+  "gate": "npm test 82/82, tsc --noEmit clean, npm run build clean, git diff --check clean",
+  "stdio_tools_call_capture": {
+    "note": "Independent, file-verifiable capture of the same two smoke reads over raw stdio (sequential calls) — no gateway/browser round-trip needed to re-verify.",
+    "search_products": {
+      "args": {
+        "query": "čistič na kolo",
+        "sort": "price-asc",
+        "min_price": 50,
+        "max_price": 300,
+        "in_stock": true,
+        "limit": 5
+      },
+      "isError": false,
+      "total": 5,
+      "textLen": 817,
+      "products": [
+        {
+          "code": "SPTms2604",
+          "name": "Force PRO čistič k doplnění 1 l žlutý",
+          "price": 209
+        },
+        {
+          "code": "MUCK004",
+          "name": "Muc-Off Chain Cleaner 400ml",
+          "price": 269
+        },
+        {
+          "code": "SPTfor0202",
+          "name": "Force Strong na řetězy láhev 0,5 l růžový",
+          "price": 139
+        },
+        {
+          "code": "MUCK003",
+          "name": "Muc-Off Disc Brake 400ml",
+          "price": 299
+        },
+        {
+          "code": "OLP085",
+          "name": "Force Čistič modrý 750 ml",
+          "price": 169
+        }
+      ]
+    },
+    "cart": {
+      "isError": false,
+      "textLen": 158,
+      "text": "# Alza cart (user -1)\n0 item line(s)\n\nitems: Jsem tak prázdný...\nvouchers: 0\n\n_Full envelope (identifiers, line details, raw fields) is in structuredContent._",
+      "structuredKeys": [
+        "info",
+        "items"
+      ]
+    }
+  }
+}

@@ -37,6 +37,9 @@ export interface BrowserOptions {
  */
 export class AlzaBrowser {
   readonly locale: Locale;
+  get baseUrl(): string {
+    return this.locale.baseUrl;
+  }
   private readonly cdpUrl?: string;
   private readonly headless: boolean;
   private readonly idleTtlMs: number;

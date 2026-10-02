@@ -1,0 +1,212 @@
+{
+ "date": "2026-09-08",
+ "steps": [
+  {
+   "step": "basket/add FKP0383232",
+   "status": 200,
+   "item": {
+    "name": "Kniha Srdečný pozdrav plus pexeso: Ukrajinsko-české Česko-ukrajinské",
+    "price": "35 Kč",
+    "orderItemId": 1023043895
+   }
+  },
+  {
+   "step": "G2 getDeliveryPaymentGroups v13",
+   "status": 200,
+   "liveGroupId": 393850813,
+   "alzaBoxPrice": 69,
+   "pickupFormHref": "https://www.alza.cz/api/personalPickup/v1/pickupPlaceForm?orderId=1656804523&groupId=393850813"
+  },
+  {
+   "step": "G3 pickupPlaceForm",
+   "status": 200,
+   "types": [
+    {
+     "type": 1,
+     "name": "AlzaBox",
+     "count": 0
+    },
+    {
+     "type": 2,
+     "name": "Alza prodejna",
+     "count": 0
+    },
+    {
+     "type": 15,
+     "name": "AlzaPoint",
+     "count": 0
+    },
+    {
+     "type": 12,
+     "name": "PPL ParcelShop",
+     "count": 0
+    },
+    {
+     "type": 24,
+     "name": "PPL Box",
+     "count": 0
+    },
+    {
+     "type": 3,
+     "name": "Balíkovna",
+     "count": 0
+    },
+    {
+     "type": 21,
+     "name": "DPD pickup",
+     "count": 0
+    },
+    {
+     "type": 4,
+     "name": "Zásilkovna",
+     "count": 0
+    },
+    {
+     "type": 20,
+     "name": "Z-Box",
+     "count": 0
+    }
+   ]
+  },
+  {
+   "step": "G3 pickup places list",
+   "status": 200,
+   "firstPlace": null,
+   "rawKeys": [
+    "self",
+    "paging",
+    "value"
+   ]
+  },
+  {
+   "op": "SaveOrder2",
+   "status": 200,
+   "errorLevel": 0,
+   "message": null,
+   "body": {
+    "isCardPayment": false,
+    "GroupId": null,
+    "IsFeeCharged": false,
+    "FeeAmount": null,
+    "FinalPrice": "0,-",
+    "OriginalPrice": "0,-",
+    "OrderPrice": "104",
+    "FeeDescriptionTitle": null,
+    "FeeDescriptionAmount": null,
+    "FeeDescription": null,
+    "FeeDescriptionLink": null,
+    "alzaPlusPopupDialogAction": null,
+    "Value": null,
+    "LeasingPartnerUrl": null,
+    "DevErrorMessage": null,
+    "Message": null,
+    "ErrorNeoPurchaseFailed": false,
+    "ErrorLevel": 0,
+    "RedirectUrlOrderDetail": null,
+    "PaymentAction": null,
+    "CanShowFastCheckoutButton": false,
+    "IsAlzaPlusActionPayment": false
+   }
+  },
+  {
+   "op": "SaveOrder3",
+   "status": 200,
+   "errorLevel": 0,
+   "message": null,
+   "body": {
+    "Grid": null,
+    "Values": [],
+    "DevErrorMessage": null,
+    "Message": null,
+    "ErrorNeoPurchaseFailed": false,
+    "ErrorLevel": 0,
+    "RedirectUrlOrderDetail": null,
+    "PaymentAction": null,
+    "CanShowFastCheckoutButton": false,
+    "IsAlzaPlusActionPayment": false
+   }
+  },
+  {
+   "op": "SaveAndConfirmOrder2 (1st)",
+   "status": 404,
+   "errorLevel": null,
+   "message": null,
+   "body": ""
+  },
+  {
+   "op": "CheckOrder4",
+   "status": 200,
+   "errorLevel": 0,
+   "message": null,
+   "body": {
+    "RedirectToUrl": "",
+    "reservationsToRefresh": [],
+    "bankIdAuthApiAction": null,
+    "Value": "",
+    "LeasingPartnerUrl": null,
+    "DevErrorMessage": null,
+    "Message": null,
+    "ErrorNeoPurchaseFailed": false,
+    "ErrorLevel": 0,
+    "RedirectUrlOrderDetail": null,
+    "PaymentAction": null,
+    "CanShowFastCheckoutButton": false,
+    "IsAlzaPlusActionPayment": false
+   }
+  },
+  {
+   "op": "SendOrder4",
+   "status": 200,
+   "errorLevel": 0,
+   "message": null,
+   "body": {
+    "OrderId": 0,
+    "Price": 0,
+    "CardId": null,
+    "PaymentId": null,
+    "IsDelayedPaymentOrder": false,
+    "IsAlzaNeoOrder": false,
+    "ErrorNeoPurchaseFailed": false,
+    "GiveSharedLimitConsentAction": null,
+    "GetOrderDetailAction": {
+     "webLink": "https://www.alza.cz/my-account/order-details-1057075103.htm?x=REDACTED",
+     "href": "https://www.alza.cz/api/anonymous/v1/orders/1057075103?country=CZ",
+     "appLink": "orderDetail",
+     "enabled": true
+    },
+    "Value": null,
+    "LeasingPartnerUrl": null,
+    "DevErrorMessage": null,
+    "Message": null,
+    "ErrorLevel": 0,
+    "RedirectUrlOrderDetail": "https://www.alza.cz/my-account/order-details-1057075103.htm?x=REDACTED&initialCreated=1",
+    "PaymentAction": null,
+    "CanShowFastCheckoutButton": false,
+    "IsAlzaPlusActionPayment": false
+   }
+  },
+  {
+   "step": "G1 order created",
+   "orderId": 0,
+   "errorLevel": 0,
+   "webLink": "https://www.alza.cz/my-account/order-details-1057075103.htm?x=REDACTED",
+   "orderHash": "0BB816E57F1B22B2"
+  },
+  {
+   "step": "G1 GetAfterPaymentDialog (read)",
+   "status": 200,
+   "errorLevel": 0,
+   "methodIdsInDialog": []
+  },
+  {
+   "step": "G1 CreateAfterPayment 144 MojePlatba",
+   "status": 200,
+   "errorLevel": 1,
+   "message": "Chybné vstupní parametry"
+  }
+ ],
+ "order_id": 0,
+ "order_hash": "0BB816E57F1B22B2",
+ "parcel_shop_id": null,
+ "group_id": 393850813
+}

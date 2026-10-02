@@ -1,0 +1,370 @@
+{
+ "LeaveOrder1": {
+  "status": 200,
+  "body": "{\"d\":{\"UnavailableBasketProductsAction\":null,\"UnavailableBasketAccessoriesAction\":null,\"CheckVouchersUnusedBalanceInBasketAction\":null,\"DevErrorMessage\":null,\"Message\":\"\",\"ErrorNeoPurchaseFailed\":false,\"ErrorLevel\":0,\"Re"
+ },
+ "LeaveOrder2": {
+  "status": 404,
+  "body": ""
+ },
+ "LeaveOrder3": {
+  "status": 404,
+  "body": ""
+ },
+ "LeaveOrder4": {
+  "status": 404,
+  "body": ""
+ },
+ "SaveOrder1": {
+  "status": 404,
+  "body": ""
+ },
+ "SaveOrder2": {
+  "status": 200,
+  "body": "{\"d\":{\"isCardPayment\":false,\"GroupId\":null,\"IsFeeCharged\":false,\"FeeAmount\":null,\"FinalPrice\":null,\"OriginalPrice\":null,\"OrderPrice\":null,\"FeeDescriptionTitle\":null,\"FeeDescriptionAmount\":null,\"FeeDescription\":null,\"FeeD"
+ },
+ "SaveOrder3": {
+  "status": 200,
+  "body": "{\"d\":{\"Grid\":null,\"Values\":[],\"DevErrorMessage\":null,\"Message\":\"Neplatná objednávka\",\"ErrorNeoPurchaseFailed\":false,\"ErrorLevel\":1,\"RedirectUrlOrderDetail\":null,\"PaymentAction\":null,\"CanShowFastCheckoutButton\":false,\"IsA"
+ },
+ "SaveOrder4": {
+  "status": 404,
+  "body": ""
+ },
+ "SaveAndConfirmOrder1": {
+  "status": 404,
+  "body": ""
+ },
+ "SaveAndConfirmOrder2": {
+  "status": 200,
+  "body": "{\"d\":{\"isCardPayment\":false,\"GroupId\":null,\"IsFeeCharged\":false,\"FeeAmount\":null,\"FinalPrice\":null,\"OriginalPrice\":null,\"OrderPrice\":null,\"FeeDescriptionTitle\":null,\"FeeDescriptionAmount\":null,\"FeeDescription\":null,\"FeeD"
+ },
+ "SaveAndConfirmOrder3": {
+  "status": 404,
+  "body": ""
+ },
+ "CheckOrder1": {
+  "status": 404,
+  "body": ""
+ },
+ "CheckOrder2": {
+  "status": 404,
+  "body": ""
+ },
+ "CheckOrder3": {
+  "status": 404,
+  "body": ""
+ },
+ "CheckOrder4": {
+  "status": 200,
+  "body": "{\"d\":{\"RedirectToUrl\":\"\",\"reservationsToRefresh\":[],\"bankIdAuthApiAction\":null,\"Value\":\"/Order1.htm\",\"LeasingPartnerUrl\":null,\"DevErrorMessage\":null,\"Message\":\"Košík je prázdný\",\"ErrorNeoPurchaseFailed\":false,\"ErrorLevel"
+ },
+ "CheckOrder5": {
+  "status": 404,
+  "body": ""
+ },
+ "SendOrder1": {
+  "status": 404,
+  "body": ""
+ },
+ "SendOrder2": {
+  "status": 404,
+  "body": ""
+ },
+ "SendOrder3": {
+  "status": 404,
+  "body": ""
+ },
+ "SendOrder4": {
+  "status": 200,
+  "body": "{\"d\":{\"OrderId\":0,\"Price\":0.0,\"CardId\":null,\"PaymentId\":null,\"IsDelayedPaymentOrder\":false,\"IsAlzaNeoOrder\":false,\"ErrorNeoPurchaseFailed\":false,\"GiveSharedLimitConsentAction\":null,\"GetOrderDetailAction\":null,\"Value\":nul"
+ },
+ "SendOrder5": {
+  "status": 404,
+  "body": ""
+ },
+ "VerifyUser": {
+  "status": 200,
+  "body": "{\"d\":{\"verifiedUser\":false,\"isUserLoggedIn\":false,\"isSingleOrder\":false,\"parsedName\":\"\",\"hasFullBillingData\":false,\"DevErrorMessage\":null,\"Message\":null,\"ErrorNeoPurchaseFailed\":false,\"ErrorLevel\":0,\"RedirectUrlOrderDeta"
+ },
+ "VerifyEmail": {
+  "status": 404,
+  "body": ""
+ },
+ "VerifyPhone": {
+  "status": 404,
+  "body": ""
+ },
+ "GetAfterPaymentDialog": {
+  "status": 200,
+  "body": "{\"Value\":\"\",\"LeasingPartnerUrl\":null,\"DevErrorMessage\":null,\"Message\":null,\"ErrorNeoPurchaseFailed\":false,\"ErrorLevel\":0,\"RedirectUrlOrderDetail\":null,\"PaymentAction\":null,\"CanShowFastCheckoutButton\":false,\"IsAlzaPlusAct"
+ },
+ "CreateAfterPayment": {
+  "status": 200,
+  "body": "{\"Value\":null,\"LeasingPartnerUrl\":null,\"DevErrorMessage\":null,\"Message\":\"Vyberte platbu\",\"ErrorNeoPurchaseFailed\":false,\"ErrorLevel\":1,\"RedirectUrlOrderDetail\":null,\"PaymentAction\":null,\"CanShowFastCheckoutButton\":false,"
+ },
+ "GetAfterOrderPayments": {
+  "status": 404,
+  "body": ""
+ },
+ "AfterOrderPayment": {
+  "status": 404,
+  "body": ""
+ },
+ "GetOrderStatus": {
+  "status": 404,
+  "body": ""
+ },
+ "GetOrderDetail": {
+  "status": 404,
+  "body": ""
+ },
+ "GetOrderDetails": {
+  "status": 404,
+  "body": ""
+ },
+ "GetInvoice": {
+  "status": 404,
+  "body": ""
+ },
+ "GetInvoiceList": {
+  "status": 404,
+  "body": ""
+ },
+ "DownloadInvoice": {
+  "status": 404,
+  "body": ""
+ },
+ "CancelOrder": {
+  "status": 404,
+  "body": ""
+ },
+ "CancelOrderPart": {
+  "status": 404,
+  "body": ""
+ },
+ "GetCancelOrderReasons": {
+  "status": 404,
+  "body": ""
+ },
+ "GetAvailableCoupons": {
+  "status": 404,
+  "body": ""
+ },
+ "ApplyCoupon": {
+  "status": 404,
+  "body": ""
+ },
+ "ValidateCoupon": {
+  "status": 404,
+  "body": ""
+ },
+ "RemoveCoupon": {
+  "status": 404,
+  "body": ""
+ },
+ "GetPaymentMethods": {
+  "status": 404,
+  "body": ""
+ },
+ "GetDeliveryMethods": {
+  "status": 404,
+  "body": ""
+ },
+ "GetDeliveryOptions": {
+  "status": 404,
+  "body": ""
+ },
+ "GetPickupPlaces": {
+  "status": 404,
+  "body": ""
+ },
+ "GetPickupPoints": {
+  "status": 404,
+  "body": ""
+ },
+ "SelectPickupPoint": {
+  "status": 404,
+  "body": ""
+ },
+ "GetPickupTimeframes": {
+  "status": 404,
+  "body": ""
+ },
+ "GetOrderConfirmation": {
+  "status": 404,
+  "body": ""
+ },
+ "GetOrderHelpdeskQuestions": {
+  "status": 404,
+  "body": ""
+ },
+ "GetOrderMessages": {
+  "status": 404,
+  "body": ""
+ },
+ "GetOrderNotifications": {
+  "status": 404,
+  "body": ""
+ },
+ "SendOrderEmail": {
+  "status": 404,
+  "body": ""
+ },
+ "GetOrderDocuments": {
+  "status": 404,
+  "body": ""
+ },
+ "GetOrderParts": {
+  "status": 404,
+  "body": ""
+ },
+ "GetAlzaPlusStatus": {
+  "status": 404,
+  "body": ""
+ },
+ "GetAlzaPremiumStatus": {
+  "status": 404,
+  "body": ""
+ },
+ "ActivateAlzaPlus": {
+  "status": 404,
+  "body": ""
+ },
+ "CancelAlzaPlus": {
+  "status": 404,
+  "body": ""
+ },
+ "GetSubscriptionStatus": {
+  "status": 404,
+  "body": ""
+ },
+ "GetWarrantyClaims": {
+  "status": 404,
+  "body": ""
+ },
+ "SubmitWarrantyClaim": {
+  "status": 404,
+  "body": ""
+ },
+ "GetShippingTimeframes": {
+  "status": 404,
+  "body": ""
+ },
+ "GetDeliveryTimeframes": {
+  "status": 404,
+  "body": ""
+ },
+ "GetBranches": {
+  "status": 404,
+  "body": ""
+ },
+ "GetZipCodes": {
+  "status": 200,
+  "body": "{\"d\":{\"Value\":\"Nenašli jsme žádné místo, zkuste to prosím znovu.\",\"LeasingPartnerUrl\":null,\"DevErrorMessage\":null,\"Message\":null,\"ErrorNeoPurchaseFailed\":false,\"ErrorLevel\":14,\"RedirectUrlOrderDetail\":null,\"PaymentAction"
+ },
+ "GetOrderStatistics": {
+  "status": 404,
+  "body": ""
+ },
+ "GetOrderProgress": {
+  "status": 404,
+  "body": ""
+ },
+ "GetOrderTimeline": {
+  "status": 404,
+  "body": ""
+ },
+ "GetAvailablePayments": {
+  "status": 404,
+  "body": ""
+ },
+ "GetPaymentStatus": {
+  "status": 404,
+  "body": ""
+ },
+ "CreatePayment": {
+  "status": 404,
+  "body": ""
+ },
+ "GetPaymentLink": {
+  "status": 404,
+  "body": ""
+ },
+ "GetOrderHash": {
+  "status": 404,
+  "body": ""
+ },
+ "ValidateOrderHash": {
+  "status": 404,
+  "body": ""
+ },
+ "GetOrderLink": {
+  "status": 404,
+  "body": ""
+ },
+ "GetProductAvailability": {
+  "status": 404,
+  "body": ""
+ },
+ "GetBasketInfo": {
+  "status": 404,
+  "body": ""
+ },
+ "GetBasket": {
+  "status": 404,
+  "body": ""
+ },
+ "SaveBasket": {
+  "status": 404,
+  "body": ""
+ },
+ "GetCoupons": {
+  "status": 404,
+  "body": ""
+ },
+ "GetPromotions": {
+  "status": 404,
+  "body": ""
+ },
+ "GetGiftOptions": {
+  "status": 404,
+  "body": ""
+ },
+ "GetOrderServices": {
+  "status": 404,
+  "body": ""
+ },
+ "AddOrderService": {
+  "status": 404,
+  "body": ""
+ },
+ "GetOrderAddInfo": {
+  "status": 404,
+  "body": ""
+ },
+ "GetOrder2Info": {
+  "status": 404,
+  "body": ""
+ },
+ "GetOrder3Info": {
+  "status": 404,
+  "body": ""
+ },
+ "GetOrder": {
+  "status": 404,
+  "body": ""
+ },
+ "GetOrders": {
+  "status": 404,
+  "body": ""
+ },
+ "GetMyOrders": {
+  "status": 404,
+  "body": ""
+ },
+ "GetUnpaidOrders": {
+  "status": 404,
+  "body": ""
+ }
+}

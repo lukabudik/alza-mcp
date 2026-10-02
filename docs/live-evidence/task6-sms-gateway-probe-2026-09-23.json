@@ -1,0 +1,18 @@
+{
+  "startedAt": "2026-09-23T12:34:16Z",
+  "createUser": {
+    "status": 200,
+    "body": "{\"err\":0,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":\"e2e-user@example.invalid\",\"user_name\":\"\",\"user_id\":-1,\"vzt\":7075476481965651,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1790174056}"
+  },
+  "userData": {
+    "status": 200,
+    "user_id": 27730384,
+    "phone": "+46731299509"
+  },
+  "secondFactorRequest": {
+    "status": 200,
+    "body": "{\"code\":\"TwoFactorAuthSms\",\"form\":{\"method\":\"POST\",\"value\":[{\"name\":\"code\",\"itemType\":\"integer\",\"isEnabled\":true}],\"rel\":[\"form\"],\"href\":\"https://www.alza.cz/api/identity/v1/second-factor/confirmations\"},\"codeLength\":4,\"infoText1\":\"Kód jsme odeslali na vaše telefonní číslo ******509\",\"infoText2\":\"Kód byl odeslán\",\"helpText1\":\"Nedaří se vám ověřit?\",\"helpText2\":{\"text\":\"Zavolejte nám, prosím na <st"
+  },
+  "gatewayInbox": null,
+  "finishedAt": "2026-09-23T12:35:59Z"
+}

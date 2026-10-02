@@ -1,0 +1,241 @@
+{
+  "startedAt": "2026-09-22T11:22:04.183Z",
+  "account": {
+    "user_id": "100000001",
+    "visitor_id": "00000000-0000-0000-0000-000000000000",
+    "note": "standing E2E account (e2e-user@example.invalid)"
+  },
+  "a17_personalDetails": {
+    "status": 200,
+    "shape": {
+      "self": {
+        "href": "string",
+        "appLink": "string",
+        "enabled": "boolean"
+      },
+      "title": "string",
+      "gdprInfoAction": {
+        "href": "string",
+        "appLink": "string",
+        "name": "string",
+        "enabled": "boolean"
+      },
+      "deleteAccountAction": {
+        "href": "string",
+        "appLink": "string",
+        "name": "string",
+        "enabled": "boolean"
+      }
+    }
+  },
+  "a17_gdprDialog": {
+    "status": 200,
+    "shape": {
+      "self": {
+        "href": "string",
+        "appLink": "string",
+        "enabled": "boolean"
+      },
+      "title": "string",
+      "description": "string",
+      "emailInfo": {
+        "mailInfo": "string",
+        "email": "string"
+      },
+      "sendGdprInfoForm": {
+        "method": "string",
+        "value": [],
+        "rel": [
+          "string"
+        ],
+        "href": "string"
+      }
+    }
+  },
+  "a17_gdprDialog_emailInfo": {
+    "mailInfo": "Data budou zaslána v průběhu noci, ve formátu XML, na e-mail:",
+    "email": "e2e-user@example.invalid"
+  },
+  "a17_gdprExport": {
+    "status": 202,
+    "note": "202 Accepted = export queued to the login email"
+  },
+  "or6_search_formUrlencoded": {
+    "status": 200,
+    "ordersCount": 1,
+    "firstOrder": {
+      "id": null,
+      "documents": [
+        {
+          "self": {
+            "href": "https://pdf.alza.cz/Apps/pdfdoc.asp?d=1058423434P&x=3FF329241F0B89X26E07D2FC65Bm",
+            "appLink": "orderDocument",
+            "enabled": true
+          },
+          "id": "1058423434",
+          "name": "1058423434"
+        }
+      ]
+    },
+    "commoditiesCount": 0
+  },
+  "or6_search_jsonBody": {
+    "status": 200,
+    "note": "415 = JSON body rejected; form-urlencoded required"
+  },
+  "or6_search_noCountry": {
+    "status": 200,
+    "note": "documents whether country=CZ is required"
+  },
+  "or10_invoiceSource": {
+    "from": "order_search documents[0]"
+  },
+  "or10_invoiceDownload": {
+    "status": 200,
+    "contentType": "application/pdf",
+    "bytes": 350287,
+    "magic": "255044462d312e37",
+    "isPdf": true
+  },
+  "k2_claimsBase": {
+    "status": 200,
+    "claimCount": -1,
+    "shape": {
+      "self": {
+        "href": "string",
+        "appLink": "string",
+        "enabled": "boolean"
+      },
+      "activeWarrantyClaims": {
+        "href": "string",
+        "appLink": "string",
+        "name": "string",
+        "enabled": "boolean"
+      },
+      "archiveWarrantyClaims": {
+        "href": "string",
+        "appLink": "string",
+        "name": "string",
+        "form": {
+          "method": "string",
+          "value": "object",
+          "rel": "object",
+          "href": "string"
+        },
+        "enabled": "boolean",
+        "analytics": {
+          "actions": "object"
+        }
+      },
+      "purchasedCommodities": {
+        "href": "string",
+        "appLink": "string",
+        "name": "string",
+        "enabled": "boolean"
+      },
+      "searchForm": {
+        "method": "string",
+        "value": [
+          "object"
+        ],
+        "rel": [
+          "string"
+        ],
+        "href": "string"
+      },
+      "warrantyClaimSearch": {
+        "href": "string",
+        "appLink": "string",
+        "enabled": "boolean"
+      },
+      "chatbotAction": null,
+      "activeCreditNotes": {
+        "webLink": "string",
+        "href": "string",
+        "appLink": "string",
+        "enabled": "boolean"
+      }
+    }
+  },
+  "k2_claimsActive": {
+    "status": 200,
+    "claimCount": 0,
+    "shape": {
+      "self": {
+        "webLink": "string",
+        "href": "string",
+        "appLink": "string",
+        "enabled": "boolean"
+      },
+      "warrantyClaims": [],
+      "emptyInfo": {
+        "message": {
+          "text": "string",
+          "actions": "object"
+        },
+        "action": {
+          "href": "string",
+          "appLink": "string",
+          "name": "string",
+          "enabled": "boolean"
+        }
+      },
+      "slowApology": null
+    }
+  },
+  "k2_claimsArchive": {
+    "status": 200,
+    "claimCount": 0,
+    "shape": {
+      "self": {
+        "href": "string",
+        "appLink": "string",
+        "enabled": "boolean"
+      },
+      "paging": {
+        "limit": "number",
+        "size": "number",
+        "first": {
+          "href": "string",
+          "appLink": "string",
+          "enabled": "boolean"
+        },
+        "previous": null,
+        "next": null,
+        "last": null
+      },
+      "value": []
+    }
+  },
+  "finishedAt": "2026-09-22T11:22:07.118Z",
+  "or6_body_check_followup_2026-09-22": {
+    "note": "follow-up probe tmp/task5-or6-bodycheck.mts: both encodings accepted live; searchTerm required",
+    "form_urlencoded": {
+      "status": 200,
+      "orders": 1,
+      "response_keys": [
+        "self",
+        "commodities",
+        "orders"
+      ]
+    },
+    "json_body": {
+      "status": 200,
+      "orders": 1,
+      "response_keys": [
+        "self",
+        "commodities",
+        "orders"
+      ]
+    },
+    "form_no_searchTerm": {
+      "status": 400,
+      "keys": [
+        "Message",
+        "ModelState"
+      ],
+      "note": "searchTerm is a required bound field"
+    },
+    "country_param": "route returns 200 with and without ?country=CZ; implementation keeps country=CZ to match the verified route"
+  }
+}

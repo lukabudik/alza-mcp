@@ -1,0 +1,10 @@
+[
+ {
+  "url": "https://api.alza.cz/api/user/100000001/v1/alzapremium/trial",
+  "error": "Error: page.goto: net::ERR_NAME_NOT_RESOLVED at https://api.alza.cz/api/user/100000001/v1/alzapremium/trial"
+ },
+ {
+  "url": "https://www.alza.cz/api/v1/alzapremium/trial",
+  "error": "Error: page.goto: Navigation to \"https://www.alza.cz/api/v1/alzapremium/trial\" is interrupted by another navigation to \"chrome-error://chromewebdata/\""
+ }
+]

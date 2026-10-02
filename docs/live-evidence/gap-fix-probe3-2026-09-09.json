@@ -1,0 +1,43 @@
+{
+ "date": "2026-09-09",
+ "steps": [
+  {
+   "step": "c12_bare",
+   "status": 400,
+   "keys": "",
+   "snippet": "\"\""
+  },
+  {
+   "step": "c12_full",
+   "status": 200,
+   "keys": [
+    "self",
+    "breadcrumbs",
+    "name",
+    "value",
+    "disclaimers",
+    "shareWebLink"
+   ],
+   "snippet": "{\"self\":{\"webLink\":\"https://www.alza.cz/\",\"href\":\"https://www.alza.cz/api/catalog/v1/homePage/categories/1?pgri=p__26752&ui=u__401f1\",\"appLink\":\"catalogLocalTitlePage\",\"enabled\":true},\"breadcrumbs\":[{\"category\":{\"clientAction\":{\"href\":\"https://www.alza.cz/api/"
+  },
+  {
+   "step": "G4 add (cookie-less, own Balancer-Guid)",
+   "status": 200,
+   "basketId": "1656899525",
+   "itemId": "1023695328",
+   "keys": [
+    "crossSellAppAction",
+    "crossPopupAction",
+    "updateAction",
+    "gtmData"
+   ]
+  },
+  {
+   "step": "G4 cart+items (cookie-less)",
+   "cartStatus": 403,
+   "cartMaxStep": "",
+   "itemsStatus": 403,
+   "items": ""
+  }
+ ]
+}

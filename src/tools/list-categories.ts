@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { OUTPUT_SCHEMAS } from "./output-schemas.js";
 import { formatCategories } from "./format.js";
 import type { RegisterableTool, ToolDeps } from "./types.js";
 
@@ -17,14 +18,15 @@ export function createListCategoriesTool(deps: ToolDeps): RegisterableTool {
   return {
     name,
     register(server, errorWrap) {
-      server.registerTool(
+      return server.registerTool(
         name,
         {
           title: "List Alza categories",
           description:
             "Browse the Alza category tree one level at a time. Useful for narrowing a product search — find the right category id, then pass it to `search_products` as `category_id`. Without arguments, returns top-level categories.",
           inputSchema,
-          annotations: { readOnlyHint: true, idempotentHint: true },
+          outputSchema: OUTPUT_SCHEMAS["list_categories"],
+          annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: true },
         },
         async (args) =>
           errorWrap(name, async () => {

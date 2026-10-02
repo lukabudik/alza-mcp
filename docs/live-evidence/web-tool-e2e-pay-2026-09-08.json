@@ -1,0 +1,50 @@
+{
+ "date": "2026-09-08",
+ "order": "1057075103",
+ "hash": "0BB816E57F1B22B2n5BwGFB9CA7",
+ "steps": [
+  {
+   "step": "order read (pre-payment)",
+   "status": "Objednávku jsme přijali",
+   "keys": [
+    "self",
+    "parts",
+    "splitOrders",
+    "callCenterInfo",
+    "slowApology",
+    "orderId",
+    "orderNumber",
+    "orderName",
+    "orderTypeName",
+    "created",
+    "icon"
+   ]
+  },
+  {
+   "step": "G1 GetAfterPaymentDialog (read, real order)",
+   "status": 200,
+   "errorLevel": 0,
+   "methodIds": [
+    "213",
+    "216",
+    "219",
+    "143",
+    "144",
+    "203"
+   ],
+   "dialogSnippet": "<div id=\"afterOrderPaymentDialog\" class=\"hide\">\n<div id=\"aopPg\">\n<div id=\"paymentDialog\">\n<div id=\"aopData\" class=\"hide\">\n<span id=\"aopHash\">0BB816E57F1B22B2n5BwGFB9CA7</span>\n<span id=\"aopId\">1057075"
+  },
+  {
+   "step": "G1 CreateAfterPayment 144 MojePlatba (real order)",
+   "status": 200,
+   "errorLevel": 0,
+   "message": null,
+   "value": "https://www.alza.cz/Secure/MojePlatba-aop.htm?aop=1325060564",
+   "raw": "{\"Value\":\"https://www.alza.cz/Secure/MojePlatba-aop.htm?aop=1325060564\",\"LeasingPartnerUrl\":null,\"DevErrorMessage\":null,\"Message\":null,\"ErrorNeoPurchaseFailed\":false,\"ErrorLevel\":0,\"RedirectUrlOrderDetail\":null,\"PaymentAction\":null,\"CanShowFastCheckoutButton\":false,\"IsAlzaPlusActionPayment\":false}"
+  },
+  {
+   "step": "order read (final)",
+   "status": "Objednávku jsme přijali"
+  }
+ ]
+}

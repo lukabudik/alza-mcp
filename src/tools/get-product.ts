@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { OUTPUT_SCHEMAS } from "./output-schemas.js";
 import { formatProduct } from "./format.js";
 import type { RegisterableTool, ToolDeps } from "./types.js";
 
@@ -16,14 +17,18 @@ export function createGetProductTool(deps: ToolDeps): RegisterableTool {
   return {
     name,
     register(server, errorWrap) {
-      server.registerTool(
+      return server.registerTool(
         name,
         {
           title: "Get product details",
           description:
-            "Fetch details for a single product by its Alza code: name, price, current availability, brand, category, primary image, and URL. Sourced from the product page's JSON-LD schema, so values are accurate and stable. NOTE: the structured `params` (spec table) field is often empty in v0.1 — full spec extraction is planned for v0.2. Use this after `search_products` to dig into a specific result.",
+            "Fetch details for a single product by its Alza code (the `code` from `search_products`, e.g. 'WEXOA002B0' — not the numeric id): name, price (with the original price when discounted), availability, rating, brand, category, primary image, URL, and the spec table when the product page carries one (up to 30 rows, merged from both the DOM spec table and the JSON-LD `additionalProperty` list some page templates use instead — fixed 2026-09-27 after a product with only the latter returned no params at all). " +
+            "Use after `search_products` to compare shortlisted candidates in depth, and to get the canonical URL to show the user. " +
+            "For reviews use `get_product_reviews`; for the complete spec sheet (parameterGroups) use `mobile_read` with operation=`router_product` and product_id = the numeric `d########` id from the product URL. " +
+            "Sourced from the product page's JSON-LD schema, so values are accurate and stable. Read-only.",
           inputSchema,
-          annotations: { readOnlyHint: true, idempotentHint: true },
+          outputSchema: OUTPUT_SCHEMAS["get_product"],
+          annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: true },
         },
         async (args) =>
           errorWrap(name, async () => {

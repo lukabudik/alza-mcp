@@ -1,0 +1,150 @@
+{
+  "startedAt": "2026-09-23T19:57:40Z",
+  "purpose": "A14-A18 live verification on a disposable account (never the E2E 100000001)",
+  "identity": {
+    "email": "alza.d…",
+    "phone": "+420777123456",
+    "pwd": "AlzaTask6!x218bce",
+    "newEmail": "e2e-user@example.invalid",
+    "newPhone": "+420777234567",
+    "newPassword": "AlzaT…"
+  },
+  "newPassword": "***",
+  "user_id": 100000002,
+  "steps": [
+    {
+      "step": "1_CreateUser",
+      "status": 200,
+      "body": "{\"err\": 0, \"favCnt\": 0, \"basket_cnt\": 0, \"basket_total_cnt\": 0, \"msg\": \"e2e-user@example.invalid\", \"user_name\": \"\", \"user_id\": -1, \"vzt\": 4969123228996610, \"countryID\": 0, \"countryPhonePrefix\": \"420\", \"premiumBooks\": 0, \"premiumDelivery\": 0, \"premiumValidTo\": null, \"premiumRenew\": false, \"serverTime\": 1790200660}"
+    },
+    {
+      "step": "2_pkce_login_tokenA",
+      "status": 200,
+      "body": "{\"visitor_id\": \"47084fc9a4f68618c91a41264b4a737b\", \"expires_in\": 5400, \"note\": \"code + exchange OK\"}"
+    },
+    {
+      "step": "3_getUserData_baseline",
+      "status": 200,
+      "body": "{\"user_id\": 100000002, \"keys\": [\"B2b\", \"DIC\", \"IC\", \"bankAccountOwnerName\", \"bankaccount\", \"bankcode\", \"basket_cnt\", \"basket_total_cnt\", \"baskets\", \"baskets_cnt\", \"cBic\", \"cIban\", \"cIcDph\", \"canChangeBillingAddress\", \"canChangePhone\", \"city\", \"countryID\", \"countryPhonePrefix\", \"deliveryaddress_cnt\", \"deliveryadresses\", \"email\", \"err\", \"favCnt\", \"firm\", \"firmcodetext\", \"hasIsic\", \"hasPaymentCard\", \"icDph\", \"id\", \"info\", \"internalNumber\", \"isKindleEmailAutoSend\", \"isQualifiedForCryptoWallet\", \"isic\", \"kindleEmail\", \"lastChange\", \"loginemail\", \"mailingSegments\", \"msg\", \"nonews\", \"phone\", \"phoneVal …(+431 chars)"
+    },
+    {
+      "step": "4_a16_phone_change",
+      "status": 401,
+      "body": "{\"errorCode\": \"identityTwoFactorAuthentication\", \"message\": \"Pro provedení této operace je vyžadováno dodatečné ověření.\", \"form\": {\"method\": \"POST\", \"value\": [], \"title\": \"Dodatečné oveření\", \"rel\": [\"form\"], \"href\": \"https://www.alza.cz/api/identity/v1/second-factor/requests\"}}"
+    },
+    {
+      "step": "4b_getUserData_afterPhone",
+      "status": 200,
+      "body": "{\"phone\": \"+420777123456\"}"
+    },
+    {
+      "step": "4c_secondFactorRequests",
+      "status": 200,
+      "body": "{\"code\": \"TwoFactorAuthSms\", \"form\": {\"method\": \"POST\", \"value\": [{\"name\": \"code\", \"itemType\": \"integer\", \"isEnabled\": true}], \"rel\": [\"form\"], \"href\": \"https://www.alza.cz/api/identity/v1/second-factor/confirmations\"}, \"codeLength\": 4, \"infoText1\": \"Kód jsme odeslali na vaše telefonní číslo ******456\", \"infoText2\": \"Kód byl odeslán\", \"helpText1\": \"Nedaří se vám ověřit?\", \"helpText2\": {\"text\": \"Zavolejte nám, prosím na <strong>225 340 111</strong>\", \"actions\": {}}}"
+    },
+    {
+      "step": "4d_secondFactorConfirmations_wrongCode",
+      "status": 400,
+      "body": "{\"errorCode\": \"InvalidUnlockCode\"}"
+    },
+    {
+      "step": "4e_secondFactorConfirmations_zeroCode",
+      "status": 400,
+      "body": "{\"errorCode\": \"InvalidUnlockCode\"}"
+    },
+    {
+      "step": "4f_a16_phone_change_retryAfterWrongCode",
+      "status": 401,
+      "body": "{\"errorCode\": \"identityTwoFactorAuthentication\", \"message\": \"Pro provedení této operace je vyžadováno dodatečné ověření.\", \"form\": {\"method\": \"POST\", \"value\": [], \"title\": \"Dodatečné oveření\", \"rel\": [\"form\"], \"href\": \"https://www.alza.cz/api/identity/v1/second-factor/requests\"}}"
+    },
+    {
+      "step": "5_a16_email_change",
+      "status": 401,
+      "body": "{\"errorCode\": \"identityTwoFactorAuthentication\", \"message\": \"Pro provedení této operace je vyžadováno dodatečné ověření.\", \"form\": {\"method\": \"POST\", \"value\": [], \"title\": \"Dodatečné oveření\", \"rel\": [\"form\"], \"href\": \"https://www.alza.cz/api/identity/v1/second-factor/requests\"}}"
+    },
+    {
+      "step": "5b_getUserData_afterEmail",
+      "status": 200,
+      "body": "{\"email\": \"e2e-user@example.invalid\"}"
+    },
+    {
+      "step": "6_a15_twoFactor_enable",
+      "status": 401,
+      "body": "{\"errorCode\": \"identityTwoFactorAuthentication\", \"message\": \"Pro provedení této operace je vyžadováno dodatečné ověření.\", \"form\": {\"method\": \"POST\", \"value\": [], \"title\": \"Dodatečné oveření\", \"rel\": [\"form\"], \"href\": \"https://www.alza.cz/api/identity/v1/second-factor/requests\"}}"
+    },
+    {
+      "step": "6b_getUserData_after2FAon",
+      "status": 200,
+      "body": "{\"2faEnabled\": null}"
+    },
+    {
+      "step": "6c_a15_twoFactor_disable",
+      "status": 401,
+      "body": "{\"errorCode\": \"identityTwoFactorAuthentication\", \"message\": \"Pro provedení této operace je vyžadováno dodatečné ověření.\", \"form\": {\"method\": \"POST\", \"value\": [], \"title\": \"Dodatečné oveření\", \"rel\": [\"form\"], \"href\": \"https://www.alza.cz/api/identity/v1/second-factor/requests\"}}"
+    },
+    {
+      "step": "7_a14_change_password",
+      "status": 401,
+      "body": "{\"errorCode\": \"identityTwoFactorAuthentication\", \"message\": \"Pro provedení této operace je vyžadováno dodatečné ověření.\", \"form\": {\"method\": \"POST\", \"value\": [], \"title\": \"Dodatečné oveření\", \"rel\": [\"form\"], \"href\": \"https://www.alza.cz/api/identity/v1/second-factor/requests\"}}"
+    },
+    {
+      "step": "7c_a18_delete_account_attemptTokenA",
+      "status": 401,
+      "body": "{\"errorCode\": \"identityTwoFactorAuthentication\", \"message\": \"Pro provedení této operace je vyžadováno dodatečné ověření.\", \"form\": {\"method\": \"POST\", \"value\": [], \"title\": \"Dodatečné oveření\", \"rel\": [\"form\"], \"href\": \"https://www.alza.cz/api/identity/v1/second-factor/requests\"}}"
+    },
+    {
+      "step": "7b_getUserData_tokenA_afterPwdChange",
+      "status": 200,
+      "body": "{\"note\": \"expect 401 — token A should be dead\", \"body\": {\"err\": 0, \"msg\": null, \"email\": \"e2e-user@example.invalid\"}}"
+    },
+    {
+      "step": "8_pkce_relogin_newCreds",
+      "status": 0,
+      "body": "{\"error\": \"login did not yield the alza:// redirect (post status 200, terminal location ''); terminal page: \", \"note\": \"re-login with the new identity failed — inspect 7b/5b\"}"
+    }
+  ],
+  "finishedAt": "2026-09-23T19:57:42Z",
+  "conclusion": {
+    "verifiedLive": [
+      "CreateUser (A11 route) 200 — disposable identity created (never the standing E2E account)",
+      "PKCE login (authorization_code) OK — code + exchange",
+      "getUserData 200 (user_id, phone, email baseline)",
+      "A14/A15/A16/A18 mutation endpoints reached with the exact live DTOs; each returns 401 identityTwoFactorAuthentication with the step-up form (per-operation second factor — the APK 'Dodatečné ověření' code dialog)",
+      "POST /api/identity/v1/second-factor/requests → 200 TwoFactorAuthSms (4-digit code to the account phone)",
+      "POST /api/identity/v1/second-factor/confirmations → 400 InvalidUnlockCode on wrong code (endpoint bound + validating)"
+    ],
+    "blockedByEnvironment": [
+      "final step — entering the real 4-digit SMS code: needs a reachable CZ/SK mobile line; free gateway numbers (SE +46731299509, FI +3584573994619 on receive-sms-online.info) polled ≥3 min each with no delivery (Alza's SMS provider does not reach them from this egress)"
+    ],
+    "e2eTokenFinding": {
+      "finding": "the standing E2E token (refreshed 2026-09-23 via refresh_token grant, original auth_time 2026-09-06) is rejected with 401 'Authorization has been denied' on the www /api/users/{id}/v1/* services (order search, warrantyClaims), while the SAME refreshed grant on a fresh disposable account returns 200, and restservice/webapi routes work — the users service enforces a re-authentication window on the token's original auth_time; an interactive re-login of the E2E account (password not stored in the repo) restores those reads",
+      "affected": [
+        "GET /api/users/{flag}/v1/orders/{id} (OR1 authenticated read, `order` tool user_flag=1)",
+        "POST /api/users/{id}/v1/orders/search/results (OR6)",
+        "GET /api/users/{id}/v1/warrantyClaims (K1)"
+      ],
+      "stillWorking": [
+        "GET /api/anonymous/v1/orders/{id}",
+        "restservice getUserData",
+        "webapi userAccount routes"
+      ]
+    }
+  },
+  "smsGatewayProbe": {
+    "service": "receive-sms-online.info (free shared inboxes; SE/FI/NL numbers only)",
+    "testedNumbers": [
+      "+46731299509 (SE)",
+      "+3584573994619 (FI)"
+    ],
+    "polling": "≥180 s per number, get_sms_register.php?phone=… + X-Alt-Data, inbox stayed empty",
+    "result": "no Alza second-factor SMS delivered — recorded as environment-bound, not a route/DTO defect"
+  },
+  "disposableAccountsCreatedByThisRun": [
+    "e2e-user@example.invalid (first run, pre-login; orphaned — no password retained)",
+    "e2e-user@example.invalid (second run, orphaned)",
+    "e2e-user@example.invalid (user_id 27729972, full 401-gate run)",
+    "e2e-user@example.invalid (user_id 27730384, SE gateway phone +46731299509, SMS-gateway probe)",
+    "e2e-user@example.invalid (FI gateway phone +3584573994619, SMS-gateway probe)",
+    "e2e-user@example.invalid (user_id 100000002, final consolidated run)"
+  ]
+}

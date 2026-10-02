@@ -1,0 +1,144 @@
+{
+  "phoneDialog": {
+    "status": 200,
+    "json": {
+      "self": {
+        "href": "https://webapi.alza.cz/api/users/100000001/v1/userAccount/phoneDialog?country=CZ",
+        "appLink": "userAccountChangePhoneDialog",
+        "enabled": true
+      },
+      "title": "Změna telefonního čísla",
+      "description": "Pokud objednáváte známému, nemusíte číslo měnit. Stačí jeho číslo zadat do dodacích údajů.",
+      "phoneNumberUsageInfo": "Na telefon vám posíláme informace, které potřebujete k vyzvednutí objednávek a ověřovací kódy pro přihlášení.",
+      "form": {
+        "method": "PATCH",
+        "value": [
+          {
+            "name": "op",
+            "value": "replace",
+            "itemType": "string",
+            "isHidden": true,
+            "isEnabled": true
+          },
+          {
+            "name": "path",
+            "value": "/phone",
+            "itemType": "string",
+            "isHidden": true,
+            "isEnabled": true
+          },
+          {
+            "name": "value",
+            "label": "Zadejte telefonní číslo",
+            "itemType": "string",
+            "semanticItemType": "phone",
+            "isEnabled": true
+          },
+          {
+            "name": "phonePrefix",
+            "value": [
+              "+420"
+            ],
+            "options": [
+              {
+                "label": "+420",
+                "value": "+420",
+                "isEnabled": true
+              },
+              {
+                "label": "+421",
+                "value": "+421",
+                "isEnabled": true
+              },
+              {
+                "label": "+49",
+                "value": "+49",
+                "isEnabled": true
+              },
+              {
+                "label": "+36",
+                "value": "+36",
+                "isEnabled": true
+              },
+              {
+                "label": "+43",
+                "value": "+43",
+                "isEnabled": true
+              }
+            ],
+            "itemType": "set",
+            "isEnabled": true
+          }
+        ],
+        "rel": [
+          "edit-form"
+        ],
+        "href": "https://www.alza.cz/api/users/100000001/v1/account?country=CZ"
+      },
+      "flags": [
+        {
+          "phonePrefix": "+420",
+          "imageUrl": "https://cdn.alza.cz/Images/flags/country/cz.svg"
+        },
+        {
+          "phonePrefix": "+421",
+          "imageUrl": "https://cdn.alza.cz/Images/flags/country/sk.svg"
+        },
+        {
+          "phonePrefix": "+49",
+          "imageUrl": "https://cdn.alza.cz/Images/flags/country/de.svg"
+        },
+        {
+          "phonePrefix": "+36",
+          "imageUrl": "https://cdn.alza.cz/Images/flags/country/hu.svg"
+        },
+        {
+          "phonePrefix": "+43",
+          "imageUrl": "https://cdn.alza.cz/Images/flags/country/at.svg"
+        }
+      ]
+    }
+  },
+  "emailDialog": {
+    "status": 200,
+    "json": {
+      "self": {
+        "href": "https://webapi.alza.cz/api/users/100000001/v1/userAccount/emailDialog?country=CZ",
+        "appLink": "userAccountChangeEmailDialog",
+        "enabled": true
+      },
+      "title": "Změna kontaktního e-mailu",
+      "description": "Na e-mail vám posíláme doklady, informace o stavu vašich objednávek, reklamací a dalších případů",
+      "form": {
+        "method": "PATCH",
+        "value": [
+          {
+            "name": "op",
+            "value": "replace",
+            "itemType": "string",
+            "isHidden": true,
+            "isEnabled": true
+          },
+          {
+            "name": "path",
+            "value": "/email",
+            "itemType": "string",
+            "isHidden": true,
+            "isEnabled": true
+          },
+          {
+            "name": "value",
+            "label": "Zadejte nový e-mail",
+            "itemType": "string",
+            "semanticItemType": "email",
+            "isEnabled": true
+          }
+        ],
+        "rel": [
+          "edit-form"
+        ],
+        "href": "https://www.alza.cz/api/users/100000001/v1/account?country=CZ"
+      }
+    }
+  }
+}

@@ -1,0 +1,151 @@
+{
+  "startedAt": "2026-09-22T16:02:43.028Z",
+  "passwordInfo": {
+    "status": 200,
+    "json": {
+      "self": {
+        "href": "https://webapi.alza.cz/api/users/100000001/v1/userAccount/password?country=CZ",
+        "appLink": "userAccountPasswordInfo",
+        "enabled": true
+      },
+      "changeAction": {
+        "href": "https://www.alza.cz/api/users/100000001/v2/account/password/dialog",
+        "appLink": "userAccountChangePasswordDialog",
+        "name": "Změnit heslo",
+        "enabled": true,
+        "analytics": {
+          "actions": {
+            "onClick": {
+              "data": {
+                "custom_event_name": "click_password_change",
+                "custom_event_group": "bo_security_and_password",
+                "custom_event_p2": "password_change"
+              },
+              "event": "custom_event",
+              "reportAction": null
+            }
+          }
+        }
+      },
+      "title": "Heslo",
+      "description": {
+        "text": "Váš přihlašovací e-mail je <strong>e2e-user@example.invalid</strong>.",
+        "actions": {}
+      }
+    }
+  },
+  "twoFactorInfo": {
+    "status": 200,
+    "json": {
+      "self": {
+        "href": "https://webapi.alza.cz/api/users/100000001/v1/userAccount/password/2fa?country=CZ",
+        "appLink": "userAccount2FaInfo",
+        "enabled": true
+      },
+      "changeAction": {
+        "href": "https://www.alza.cz/api/users/100000001/v1/account?country=CZ",
+        "appLink": "userAccount",
+        "form": {
+          "method": "PATCH",
+          "value": [
+            {
+              "name": "op",
+              "value": "replace",
+              "itemType": "string",
+              "isHidden": true,
+              "isEnabled": true
+            },
+            {
+              "name": "path",
+              "value": "/2faEnabled",
+              "itemType": "string",
+              "isHidden": true,
+              "isEnabled": true
+            },
+            {
+              "name": "value",
+              "value": false,
+              "itemType": "boolean",
+              "isEnabled": true
+            }
+          ],
+          "rel": [
+            "edit-form"
+          ],
+          "href": "https://www.alza.cz/api/users/100000001/v1/account?country=CZ"
+        },
+        "enabled": true
+      },
+      "title": "Zabezpečení pomocí SMS kódu",
+      "description": {
+        "text": "Při přihlašování a dalších kritických operacích, které vyžadují zvýšenou bezpečnost (např. platby), budete zadávat krátký kód, který vám zdarma pošleme do SMS zprávy na vaše telefonní číslo +420 601 234 567. Telefon si můžete změnit na stránce s <action name=\"billingInformationAction\" />.",
+        "actions": {
+          "billingInformationAction": {
+            "href": "https://webapi.alza.cz/api/users/100000001/v1/userAccount/navigation?islocked=False&country=CZ&sectionType=None",
+            "appLink": "userAccountNavigation",
+            "name": "fakturačními údaji",
+            "enabled": true
+          }
+        }
+      }
+    }
+  },
+  "deleteValidations": {
+    "status": 200,
+    "json": {
+      "self": {
+        "href": "https://www.alza.cz/api/users/100000001/v1/account/deleteValidation?country=cz",
+        "appLink": "userAccountDeleteValidation",
+        "enabled": true
+      },
+      "deleteContent": {
+        "deleteConsequenceTexts": [
+          "Uplatněním práva na výmaz smažeme váš zákaznický účet a s tím související osobní údaje.",
+          "Nedostanete se tak již ke svým fakturám, dobropisům, reklamačním protokolům a dalším dokladům.",
+          "Ztratíte dále přístup do své elektronické knihovny s e-knihami, audioknihami a dalším elektronickým obsahem. Váš zákaznický účet zkrátka přestane existovat."
+        ],
+        "deleteUserAccountAction": {
+          "href": "https://www.alza.cz/api/users/100000001/v1/account?country=cz",
+          "appLink": "userAccountDelete",
+          "name": "Smazat účet a údaje",
+          "form": {
+            "method": "DELETE",
+            "value": [
+              {
+                "name": "acknowledgeAndDelete",
+                "label": "Beru na vědomí a chci smazat všechny údaje a zákaznický účet",
+                "value": false,
+                "itemType": "boolean",
+                "isEnabled": true
+              },
+              {
+                "name": "submit",
+                "label": "Smazat účet a údaje",
+                "itemType": "submitButton",
+                "isEnabled": true
+              }
+            ],
+            "rel": [
+              "form"
+            ],
+            "href": "https://www.alza.cz/api/users/100000001/v1/account?country=cz"
+          },
+          "enabled": true
+        }
+      },
+      "validationErrorContent": null,
+      "paymentCardAnnouncementText": {
+        "text": "Informace o vaší platební kartě nejsou uložené u naší společnosti, ale u poskytovatele platební brány. Proto tato data nemůžeme vymazat. Více viz naše <action name=\"privacyPolicyAction\" />.",
+        "actions": {
+          "privacyPolicyAction": {
+            "href": "https://www.alza.cz/privacy-policy",
+            "appLink": "webView",
+            "name": "podmínky ochrany osobních údajů",
+            "enabled": true
+          }
+        }
+      },
+      "errors": []
+    }
+  }
+}

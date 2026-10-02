@@ -1,0 +1,241 @@
+{
+ "date": "2026-09-09",
+ "transport": "Playwright in-page fetch + out-of-page identity refresh grant; fresh Bearer after rotation",
+ "refresh": {
+  "ok": false,
+  "status": 403,
+  "keys": null
+ },
+ "steps": [
+  {
+   "name": "A5 getUserData (fresh Bearer sanity)",
+   "method": "GET",
+   "url": "/services/restservice.svc/v1/getUserData",
+   "status": 404,
+   "body": "The resource you are looking for has been removed, had its name changed, or is temporarily unavailable."
+  },
+  {
+   "name": "C14 mainNavigation (fresh, eshopUrl=www.alza.cz)",
+   "method": "GET",
+   "url": "/api/users/100000001/mainNavigation?eshopUrl=www.alza.cz",
+   "status": 404,
+   "body": "{\"Message\":\"No HTTP resource was found that matches the request URI 'http://www.alza.cz:1002/api/users/100000001/mainNavigation?eshopUrl=www.alza.cz'.\"}",
+   "parsed": {
+    "keys": [
+     "Message"
+    ]
+   }
+  },
+  {
+   "name": "C14 mainNavigation (fresh, bare)",
+   "method": "GET",
+   "url": "/api/users/100000001/mainNavigation",
+   "status": 404,
+   "body": "{\"Message\":\"No HTTP resource was found that matches the request URI 'http://www.alza.cz:1002/api/users/100000001/mainNavigation'.\"}",
+   "parsed": {
+    "keys": [
+     "Message"
+    ]
+   }
+  },
+  {
+   "name": "C13 visitors mainNavigation (comparison)",
+   "method": "GET",
+   "url": "/api/visitors/00000000-0000-0000-0000-000000000000/mainNavigation",
+   "status": 404,
+   "body": "{\"Message\":\"No HTTP resource was found that matches the request URI 'http://www.alza.cz:1002/api/visitors/00000000-0000-0000-0000-000000000000/mainNavigation'.\"}",
+   "parsed": {
+    "keys": [
+     "Message"
+    ]
+   }
+  },
+  {
+   "name": "OR5 quickOrder summary (restservice route, pgrik/ucik from C6)",
+   "method": "GET",
+   "url": "/services/restservice.svc/v1/quickOrder/summary/commodities/5303618?pgrik=p__26752&ucik=u__401f1&country=CZ",
+   "status": 404,
+   "body": "The resource you are looking for has been removed, had its name changed, or is temporarily unavailable."
+  },
+  {
+   "name": "OR5 quickOrder summary (api/users route, fresh)",
+   "method": "GET",
+   "url": "/api/users/100000001/v1/quickOrder/summary/commodities/5303618?pgrik=p__26752&ucik=u__401f1",
+   "status": 401,
+   "body": "{\"Message\":\"Authorization has been denied for this request.\"}",
+   "parsed": {
+    "keys": [
+     "Message"
+    ]
+   }
+  },
+  {
+   "name": "A13 setIsic empty (fresh Bearer)",
+   "method": "POST",
+   "url": "/services/restservice.svc/v1/setIsic",
+   "status": 401,
+   "body": "{\"Message\":\"Authorization has been denied for this request.\"}",
+   "parsed": {
+    "keys": [
+     "Message"
+    ]
+   }
+  },
+  {
+   "name": "C6 router product (full href scan)",
+   "method": "GET",
+   "url": "/api/router/legacy/catalog/product/5303618?pgrik=p__26752&ucik=u__401f1&country=CZ",
+   "status": 200,
+   "body": "{\"data\":{\"self\":{\"href\":\"https://www.alza.cz/api/router/legacy/catalog/product/5303618?pgrik=p__26752&ucik=u__401f1&country=CZ&electronicContentOnly=False\",\"appLink\":\"catalogProductDetail\",\"enabled\":true},\"isDailySlasher\":false,\"action_info\":null,\"actions\":null,\"actions_cnt\":0,\"artist\":null,\"availabilityDesc\":null,\"commodityLife\":null,\"links\":[],\"links_cnt\":\"0\",\"extendedWarranty\":null,\"gaCategory\":\"Společenské a deskové hry\",\"gaPrice\":119.00,\"genre\":null,\"imgs\":[{\"big_url\":\"https://image.alza.cz/Foto/f3/HR/HRAif8315.jpg\",\"id\":\"HRAif8315\",\"order\":1,\"origUrl\":\"https://image.alza.cz/Foto/f4/HR/HRAif8315.jpg\",\"url\":\"https://image.alza.cz/Foto/f1/HR/HRAif8315.jpg\"},{\"big_url\":\"https://image.alza.cz/Foto/FotoAdd/HR/HRAif8315-02.jpg\",\"id\":\"HRAif8315-02\",\"order\":2,\"origUrl\":\"https://image.alza.cz/Foto/FotoAddOrig/HR/HRAif8315-02.jpg\",\"url\":\"https://image.alza.cz/Foto/FotoAddSmall/HR/HRAif8315-02.jpg\"}],\"imgs_cnt\":2,\"info_bottom\":null,\"info_top\":null,\"isFav\":false,\"favListsIds\":[],\"is_in_stock\":true,\"labels\":[],\"desc\":null,\"parameterGroups\":[{\"groupId\":4582,\"name\":\"Typ produktu\",\"hierarchic\":false,\"params\":[{\"id\":19128,\"art\":null,\"artId\":0,\"artTitle\":null,\"name\":\"Typ produktu\",\"renderType\":",
+   "parsed": {
+    "err": 0,
+    "msg": null,
+    "keys": [
+     "data",
+     "err",
+     "favCnt",
+     "basket_cnt",
+     "basket_total_cnt",
+     "msg",
+     "user_name",
+     "user_id",
+     "vzt",
+     "countryID",
+     "countryPhonePrefix",
+     "premiumBooks"
+    ]
+   },
+   "reviewHrefs": [
+    "https://webapi.alza.cz/api/catalog/v2/commodities/5303618/reviewStats?country=CZ&pgrik=p__26752&ucik=u__401f1",
+    "https://webapi.alza.cz/api/catalog/commodities/5303618/reviews?country=CZ"
+   ]
+  },
+  {
+   "name": "R1 review href from C6 router: https://webapi.alza.cz/api/catalog/v2/commodities/5303618/reviewStats?country=CZ&pgrik=p__",
+   "method": "GET",
+   "url": "https://webapi.alza.cz/api/catalog/v2/commodities/5303618/reviewStats?country=CZ&pgrik=p__26752&ucik=u__401f1",
+   "error": "TypeError: Failed to fetch"
+  },
+  {
+   "name": "R1 review href from C6 router: https://webapi.alza.cz/api/catalog/commodities/5303618/reviews?country=CZ",
+   "method": "GET",
+   "url": "https://webapi.alza.cz/api/catalog/commodities/5303618/reviews?country=CZ",
+   "error": "TypeError: Failed to fetch"
+  },
+  {
+   "name": "R1 flag-shape retest (fresh)",
+   "method": "GET",
+   "url": "/api/users/1/commodities/1/review",
+   "status": 404,
+   "body": "\r\n\r\n<!DOCTYPE html>\r\n<html id=\"rootHtml\" xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"cs-CZ\">\r\n<head><!--alza-component-version version=\"4.227.0\"--><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /><meta id=\"contentLanguage\" http-equiv=\"Content-Language\" content=\"cs-CZ\" /><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" /><title>\r\n\tChyba | Alza.cz\r\n</title><meta name=\"author\" content=\"Alza a.s.\" /><meta id=\"metaDescription\" name=\"description\" content=\"...největší obchod s počítači a elektronikou!\" /><meta id=\"keywords\" name=\"keywords\" content=\"online internetový obchod prodej levné počítače elektronika Alza.cz Praha\" /><link rel=\"shortcut icon\" href=\"/favicon-alza.ico\" type=\"image/x-icon\" />\r\n<link rel=\"icon\" href=\"/Images/appIcons/favicon-512x512.png\" />\r\n<link rel=\"canonical\" href=\"https://www.alza.cz/api/users/1/commodities/1/review\" />\r\n<meta name=\"msapplication-TileColor\" content=\"#FFFFFF\" /><meta name=\"SKYPE_TOOLBAR\" content=\"SKYPE_TOOLBAR_PARSER_COMPATIBLE\" /><meta id=\"ogHeight\" property=\"og:image:width\" content=\"400\" /><meta id=\"ogWidth\" property=\"og:image:height\" content=\"300\" /><meta property=\"fb:app_id\" content=\"181388238617107\" /><meta name=\"applica"
+  },
+  {
+   "name": "B11 deleteCommodityList (cleanup id 166247730)",
+   "method": "POST",
+   "url": "/services/restservice.svc/v1/deleteCommodityList",
+   "status": 200,
+   "body": "{\"err\":0,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":null,\"user_name\":\"\",\"user_id\":-1,\"vzt\":3177703653444642,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789027608}",
+   "parsed": {
+    "err": 0,
+    "msg": null,
+    "keys": [
+     "err",
+     "favCnt",
+     "basket_cnt",
+     "basket_total_cnt",
+     "msg",
+     "user_name",
+     "user_id",
+     "vzt",
+     "countryID",
+     "countryPhonePrefix",
+     "premiumBooks",
+     "premiumDelivery"
+    ]
+   }
+  },
+  {
+   "name": "B11 createCommodityList (probe-…, clean pair)",
+   "method": "POST",
+   "url": "/services/restservice.svc/v1/createCommodityList",
+   "status": 200,
+   "body": "{\"data_cnt\":1,\"data\":[{\"id\":166249024,\"name\":\"probe-PROBE4EOK88\",\"itemCount\":0,\"items\":null,\"totalPrice\":null,\"totalPriceWithoutVat\":null,\"type\":0,\"shareUrlCanModify\":\"https://www.alza.cz/nakupni-seznamy.htm?sharelist=6F656C6F696C6A765F6D2\",\"shareUrlCannotModify\":\"https://www.alza.cz/nakupni-seznamy.htm?sharelist=736A6C6B6B716178610\",\"canModify\":true,\"isShared\":false,\"sharerUserName\":null}],\"err\":0,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":null,\"user_name\":\"\",\"user_id\":-1,\"vzt\":3177703653444642,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789027608}",
+   "parsed": {
+    "err": 0,
+    "msg": null,
+    "keys": [
+     "data_cnt",
+     "data",
+     "err",
+     "favCnt",
+     "basket_cnt",
+     "basket_total_cnt",
+     "msg",
+     "user_name",
+     "user_id",
+     "vzt",
+     "countryID",
+     "countryPhonePrefix"
+    ]
+   },
+   "extractedId": 166249024
+  },
+  {
+   "name": "B11 deleteCommodityList (id 166249024)",
+   "method": "POST",
+   "url": "/services/restservice.svc/v1/deleteCommodityList",
+   "status": 200,
+   "body": "{\"err\":0,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":null,\"user_name\":\"\",\"user_id\":-1,\"vzt\":3177703653444642,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789027609}",
+   "parsed": {
+    "err": 0,
+    "msg": null,
+    "keys": [
+     "err",
+     "favCnt",
+     "basket_cnt",
+     "basket_total_cnt",
+     "msg",
+     "user_name",
+     "user_id",
+     "vzt",
+     "countryID",
+     "countryPhonePrefix",
+     "premiumBooks",
+     "premiumDelivery"
+    ]
+   }
+  },
+  {
+   "name": "B7 delcoupon/1 (integer binding probe)",
+   "method": "GET",
+   "url": "/services/restservice.svc/v1/delcoupon/1",
+   "status": 200,
+   "body": "{\"err\":1,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":\"Neplatná objednávka\",\"user_name\":\"\",\"user_id\":-1,\"vzt\":3177703653444642,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789027609}",
+   "parsed": {
+    "err": 1,
+    "msg": "Neplatná objednávka",
+    "keys": [
+     "err",
+     "favCnt",
+     "basket_cnt",
+     "basket_total_cnt",
+     "msg",
+     "user_name",
+     "user_id",
+     "vzt",
+     "countryID",
+     "countryPhonePrefix",
+     "premiumBooks",
+     "premiumDelivery"
+    ]
+   }
+  },
+  {
+   "name": "O9 addOrderService/12345/1/0 (integer binding probe)",
+   "method": "GET",
+   "url": "/services/restservice.svc/v1/addOrderService/12345/1/0",
+   "status": 404,
+   "body": ""
+  }
+ ]
+}

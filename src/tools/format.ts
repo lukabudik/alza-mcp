@@ -1,4 +1,4 @@
-import type { Product, ProductReviews, SearchResult, Category, PickupPoint } from "../domain/types.js";
+import type { Product, ProductReviews, SearchResult, Category, PickupPoint, FacetGroup } from "../domain/types.js";
 
 export function formatPrice(price: number | undefined, currency: string): string {
   if (price === undefined) return "—";
@@ -15,11 +15,13 @@ export function formatProductLine(p: Product): string {
 }
 
 export function formatSearchResult(res: SearchResult): string {
+  const scanned =
+    res.candidatesScanned !== undefined ? ` (scanned ${res.candidatesScanned} candidates)` : "";
   if (res.products.length === 0) {
-    return `No products found for **"${res.query}"**.`;
+    return `No products found for **"${res.query}"**${scanned}.`;
   }
   const lines: string[] = [
-    `Found ${res.total} results for **"${res.query}"** (showing ${res.products.length}):`,
+    `Top ${res.products.length} result(s) for **"${res.query}"**${scanned}:`,
     "",
     ...res.products.map(formatProductLine),
   ];
@@ -77,6 +79,22 @@ export function formatCategories(cats: Category[]): string {
   return cats
     .map((c) => `- **${c.name}** (id: ${c.id})${c.childCount ? ` — ${c.childCount} subcategories` : ""}`)
     .join("\n");
+}
+
+export function formatCategoryFilters(groups: FacetGroup[]): string {
+  if (groups.length === 0) return "No attribute filters for this category.";
+  const lines: string[] = [];
+  for (const g of groups) {
+    const flag = g.filterable ? "" : " (not filterable via search_products — informational only)";
+    lines.push(`**${g.name}** (param_id: ${g.paramId}, ${g.renderType})${flag}`);
+    for (const v of g.values.slice(0, 15)) {
+      const count = v.count !== undefined ? ` (${v.count})` : "";
+      lines.push(`  - ${v.description}${count} → value_id: ${v.valueId}`);
+    }
+    if (g.values.length > 15) lines.push(`  … ${g.values.length - 15} more values`);
+    lines.push("");
+  }
+  return lines.join("\n").trim();
 }
 
 export function formatPickupPoints(points: PickupPoint[]): string {

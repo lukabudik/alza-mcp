@@ -1,0 +1,61 @@
+{
+ "date": "2026-09-09",
+ "steps": [
+  {
+   "name": "C6 data keys",
+   "keys": [
+    "self",
+    "isDailySlasher",
+    "action_info",
+    "actions",
+    "actions_cnt",
+    "artist",
+    "availabilityDesc",
+    "commodityLife",
+    "links",
+    "links_cnt",
+    "extendedWarranty",
+    "gaCategory",
+    "gaPrice",
+    "genre",
+    "imgs",
+    "imgs_cnt",
+    "info_bottom",
+    "info_top",
+    "isFav",
+    "favListsIds",
+    "is_in_stock",
+    "labels",
+    "desc",
+    "parameterGroups",
+    "parameterGroupsCount",
+    "rating_list",
+    "rcmCredits",
+    "related_commodity_cnt",
+    "related_commodity",
+    "reliability"
+   ]
+  },
+  {
+   "name": "ean-ish matches",
+   "found": []
+  },
+  {
+   "name": "C4 external product",
+   "status": 200,
+   "size": 12042,
+   "eanish": []
+  },
+  {
+   "name": "13-digit runs in C4",
+   "found": [
+    "8590878621978"
+   ]
+  },
+  {
+   "name": "C8 getProductByEANlist (8590878621978)",
+   "status": 200,
+   "body": "{\"data\":{\"self\":{\"href\":\"https://www.alza.cz/api/router/legacy/catalog/product/5303618?pgrik=p__26752&ucik=u__401f1&country=CZ&electronicContentOnly=False\",\"appLink\":\"catalogProductDetail\",\"enabled\":true},\"isDailySlasher"
+  }
+ ]
+}

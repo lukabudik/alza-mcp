@@ -1,0 +1,28 @@
+{
+ "startedAt": "2026-09-16T12:23:47.841Z",
+ "task": "OR11 cancellation follow-up read on order 1058423434 (no mutation — confirm the re-triggered processing resolves)",
+ "prior": "tmp/cancel-retest-2026-09-16.json: re-issued PUT = 202 + empty body → status 'Zpracováváme změny' / isLocked true / phase 3",
+ "reads": [
+  {
+   "label": "read-1 (immediately after re-test)",
+   "status": 200,
+   "part": {
+    "status": "Objednávka byla zrušena",
+    "statusDescription": "",
+    "isLocked": false,
+    "phase": 4
+   }
+  },
+  {
+   "label": "read-2 (after 45s)",
+   "status": 200,
+   "part": {
+    "status": "Objednávka byla zrušena",
+    "statusDescription": "",
+    "isLocked": false,
+    "phase": 4
+   }
+  }
+ ],
+ "finishedAt": "2026-09-16T12:24:33.152Z"
+}

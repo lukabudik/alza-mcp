@@ -1,0 +1,63 @@
+{
+ "date": "2026-09-09",
+ "steps": [
+  {
+   "name": "C6 router product (bare)",
+   "status": 200,
+   "body": "{\"data\":{\"self\":{\"href\":\"https://www.alza.cz/api/router/legacy/catalog/product/5303618?pgrik=p__26752&ucik=u__401f1&country=CZ&electronicContentOnly=False\",\"appLink\":\"catalogProductDetail\",\"enabled\":true},\"isDailySlasher"
+  },
+  {
+   "name": "C2 variant T=CATEGORY&P=0",
+   "status": 200,
+   "body": "{\"analytics\":{\"actions\":{\"onView\":{\"data\":{\"cat_name\":\"Alza\"},\"event\":\"view_item_list\",\"reportAction\":null}}},\"priceKiller\":null,\"err\":0,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":null,\"user_name\":\"\",\"user_id\":"
+  },
+  {
+   "name": "C2 variant T=CATEGORY&P=1",
+   "status": 200,
+   "body": "{\"analytics\":{\"actions\":{\"onView\":{\"data\":{\"cat_name\":\"Alza\"},\"event\":\"view_item_list\",\"reportAction\":null}}},\"priceKiller\":null,\"err\":0,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":null,\"user_name\":\"\",\"user_id\":"
+  },
+  {
+   "name": "C2 variant T=0&P=0",
+   "status": 200,
+   "body": "{\"analytics\":{\"actions\":{\"onView\":{\"data\":{\"cat_name\":\"Alza\"},\"event\":\"view_item_list\",\"reportAction\":null}}},\"priceKiller\":null,\"err\":0,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":null,\"user_name\":\"\",\"user_id\":"
+  },
+  {
+   "name": "C2 variant type+T+P",
+   "status": 200,
+   "body": "{\"analytics\":{\"actions\":{\"onView\":{\"data\":{\"cat_name\":\"Alza\"},\"event\":\"view_item_list\",\"reportAction\":null}}},\"priceKiller\":null,\"err\":0,\"favCnt\":0,\"basket_cnt\":0,\"basket_total_cnt\":0,\"msg\":null,\"user_name\":\"\",\"user_id\":"
+  },
+  {
+   "name": "C5 with pgrik/ucik from C6",
+   "status": 200,
+   "body": "{\"self\":{\"href\":\"https://www.alza.cz/api/router/legacy/catalog/product/5303618?pgrik=p__26752&ucik=u__401f1&country=CZ\",\"appLink\":\"catalogProductDetail\",\"enabled\":true},\"isDailySlasher\":false,\"accessories\":[],\"transportS"
+  },
+  {
+   "name": "B5 unlockbasket as GET",
+   "status": 400,
+   "body": "{\"Message\":\"The request is invalid.\",\"ModelState\":{\"requestModel.Country\":[\"The field Country is invalid.\",\"The Country field is required.\"]}}"
+  },
+  {
+   "name": "O6 ?country=CZ",
+   "status": 200,
+   "body": "{\"alzaPlusBanner\":null,\"alzaPlusActionBannerAction\":null,\"favoritePlaces\":null,\"priceDemandInformation\":null,\"add_info\":null,\"deliveriesInfo\":[],\"paymentInfo\":null,\"price\":0.0,\"mainCard\":null,\"deliveryOptions\":null,\"err\""
+  },
+  {
+   "name": "O6 ?Country=CZ",
+   "status": 200,
+   "body": "{\"alzaPlusBanner\":null,\"alzaPlusActionBannerAction\":null,\"favoritePlaces\":null,\"priceDemandInformation\":null,\"add_info\":null,\"deliveriesInfo\":[],\"paymentInfo\":null,\"price\":0.0,\"mainCard\":null,\"deliveryOptions\":null,\"err\""
+  },
+  {
+   "name": "A7 www ?country=CZ",
+   "status": 404,
+   "body": "\r\n\r\n<!DOCTYPE html>\r\n<html id=\"rootHtml\" xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"cs-CZ\">\r\n<head><!--alza-component-version version=\"4.227.0\"--><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /><meta"
+  },
+  {
+   "name": "A7 m.alza.cz",
+   "error": "TypeError: Failed to fetch"
+  },
+  {
+   "name": "A7 api.alza.cz",
+   "error": "TypeError: Failed to fetch"
+  }
+ ]
+}

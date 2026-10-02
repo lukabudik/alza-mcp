@@ -1,0 +1,79 @@
+{
+ "startedAt": "2026-09-16T12:11:25.168Z",
+ "task": "G5 deep probe: full checkout pipeline on m.alza.cz (the APK's production-mobile API host)",
+ "apk": {
+  "route": "POST /services/restservice.svc/v5/sendOrder3",
+  "hostAssembly": [
+   "h31.d(): mobile branch prepends 'm'",
+   "uek.g(): u5j join '.' of ['m','alza','cz']",
+   "sr6 k67/td7: d()='cz', g()=['alza']"
+  ],
+  "productionMobileHost": "m.alza.cz",
+  "productionDesktopHost": "www.alza.cz"
+ },
+ "steps": [
+  {
+   "step": "0 getUserData (app UA 2026.17)",
+   "status": 200,
+   "err": 0,
+   "json": "{\"isQualifiedForCryptoWallet\":false,\"mailingSegments\":[{\"name\":\"Alza\",\"id\":139851,\"parentId\":null,\"subscribed\":false},{\"name\":\"Media\",\"id\":139852,\"parentId\":null,\"subscribed\":false},{\"name\":\"Hračky\",\"id\":139853,\"parentId\":null,\"subscribed\":false},{\"name\":\"Beauty\",\"id\":139854,\"parentId\":null,\"subscribed\":false},{\"name\":\"MAXI drogerie\",\"id\":139862,\"parentId\":null,\"subscribed\":false},{\"name\":\"Sport\",\"id\":139863,\"parentId\":null,\"subscribed\":false},{\"name\":\"E-knihy\",\"id\":139856,\"parentId\":139852,\"subscribed\":false},{\"name\":\"Audioknihy\",\"id\":139857,\"parentId\":139852,\"subscribed\":false},{\"name\":\"Filmy\",\"id\":139858,\"parentId\":139852,\"subscribed\":false},{\"name\":\"Hudba\",\"id\":139859,\"parentId\":139852,\"subscribed\":false},{\"name\":\"Časopisy\",\"id\":139860,\"parentId\":139852,\"subscribed\":false},{\"name\":\"Software\",\"id\":139861,\"parentId\":139852,\"subscribed\":false},{\"name\":\"Hobby\",\"id\":321613,\"parentId\":null,\"subscribed\":false},{\"name\":\"Pro miminka\",\"id\":321632,\"parentId\":139862,\"subscribed\":false},{\"name\":\"Osvětlení\",\"id\":340441,\"parentId\":139851,\"subscribed\":false},{\"name\":\"Gaming\",\"id\":356739,\"parentId\":139851,\"subscribed\":false},{\"name\":\"Alza Premium\",\"id\":180057,\"parentId\":null,\"subscribed\":false},{\"name\":\"Televize\",\"id\":556674,\"parentId\":139851,\"subscribed\":false},{\"name\":\"Foto\",\"id\":556675,\"parentId\":139851,\"subscribed\":false},{\"name\":\"Audio-Video\",\"id\":556676,\"parentId\":139851,\"subscribed\":",
+   "label": "app-UA getUserData"
+  },
+  {
+   "step": "1 basket/add",
+   "status": 200,
+   "err": 0,
+   "json": "{\"data\":{\"self\":{\"href\":\"https://m.alza.cz//api/router/legacy/catalog/product/7229946?pgrik=p__26752&ucik=u__401f1&country=CZ&electronicContentOnly=False\",\"appLink\":\"catalogProductDetail\",\"enabled\":true},\"usedProductDialog\":null,\"recommendations\":null,\"additionalServices\":null,\"additionalServicesCount\":0,\"recommendationsCount\":0,\"isDelayedPayment\":false,\"isNeo\":false,\"deliveryGroupId\":0,\"originalPrice\":null,\"quantityDiscountsCnt\":0,\"quantityDiscounts\":null,\"quantityDiscountsV2Cnt\":0,\"quantityDiscountsV2\":[],\"minimumAmount\":0,\"amountInPack\":0,\"currency\":null,\"priceNoCurrency\":null,\"onMoveToBuyLaterClick\":null,\"priceInfoV2\":{\"priceWithVat\":\"35,-\",\"instalmentsPriceWithVat\":null,\"comparePrice\":null,\"pricePrefix\":null,\"pricePostfix\":null,\"priceDescription\":null,\"priceType\":2,\"priceGroupType\":0,\"headerText\":\"Cenová bomba\",\"headerIconUrl\":null,\"priceSave\":\"Ušetříte 4,-\",\"explanationPriceAction\":{\"href\":\"https://webapi.alza.cz/api/commodity/v1/7229946/explanationPrice/dialog?country=CZ&pgrik=p__26752&ucik=u__401f1\",\"appLink\":\"explanationPriceDialog\",\"enabled\":true},\"unitPriceWithVat\":\"35,-\",\"unitName\":\"ks\",\"priceWithoutVatNoCurrency\":35,\"priceNoCurrency\":35},\"priceInfoV3\":{\"mainPriceTag\":{\"primaryPrice\":\"35,-\",\"primaryPricePrefix\":null,\"primaryPricePostfix\":null,\"primaryPriceNoCurrency\":35,\"secondaryPrice\":null,\"secondaryPricePrefix\":null,\"secondaryPricePostfix\":null,\"comparePrice\":nul",
+   "label": "app-UA basket/add"
+  },
+  {
+   "step": "2 sendOrder1",
+   "status": 200,
+   "err": 0,
+   "json": "{\"add_info\":{\"types\":[{\"body\":\"Proto jsou k dispozici pouze vybrané druhy doprav.\",\"title\":\"Zboží povezeme z externího skladu.\",\"type\":6,\"foregroundColor\":null,\"backgroundColor\":null,\"articleId\":null,\"priceRangeId\":0,\"selectableGiftsCount\":0,\"incompatibleVoucherWarning\":false,\"gifts\":null,\"imgUrl\":null,\"remainGiftCountTitle\":null,\"maximumGiftCount\":0,\"actions\":[]}],\"types_cnt\":1,\"max_step\":2},\"comNotAvailable\":false,\"comUsed\":false,\"specVoucherNotInStockComm\":false,\"notAvialableCodes\":null,\"usedCodes\":[],\"usedCodes_length\":0,\"notAvialableCodes_length\":0,\"unavailableBasketProductsAction\":null,\"unavailableBasketAccessoriesAction\":null,\"unusedVouchersBalanceDialogAction\":null,\"err\":0,\"favCnt\":0,\"basket_cnt\":1,\"basket_total_cnt\":1,\"msg\":null,\"user_name\":\"\",\"user_id\":-1,\"vzt\":2247733637577388,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789567885}",
+   "label": "app-UA sendOrder1"
+  },
+  {
+   "step": "3a deliveryPaymentGroups v13",
+   "status": 200,
+   "err": 0,
+   "json": "{\"deliveryGroups\":[{\"deliveryGroupId\":396087063,\"deliveries\":[{\"isLimited\":false,\"beforeSelectAction\":null,\"afterSelectAction\":null,\"afterDeselectAction\":null,\"promoText\":null,\"customerPaymentCreditTooltipLink\":null,\"analytics\":null,\"id\":2680,\"name\":\"AlzaBox\",\"legend\":\"<p>Samoobslužné schránky jsou ideální volbou pro každého, kdo hledá rychlý a bezpečný způsob vyzvednutí objednávek. Najdete je v každém městě, vyhnete se čekání ve frontách, umožňují bezkontaktní otevření a zpravidla jsou přístupné nonstop, takže se pro zboží můžete zastavit klidně o půlnoci.</p>\",\"itemType\":\"AlzaBox\",\"group\":\"Delivery\",\"maxPrice\":200000,\"associatedItems_cnt\":0,\"associatedItems\":[],\"price\":\"69 Kč\",\"priceDecimal\":69,\"img\":\"https://cdn.alza.cz/Foto/ImgGalery/IkonyKosik2/svg/delivery/alza-box.svg\",\"canPickDeliveryTime\":false,\"parentId\":0,\"availability\":\"\",\"isPremium\":false,\"isChristmasDeliveryGuaranteed\":false,\"deliveryLogisticRules\":{\"canPickDeliveryTime\":false,\"canPickDeliveryServices\":false,\"canPickPostOffice\":false,\"canPickParcelPost\":false,\"canPickParcelShop\":false,\"canPickBranch\":false,\"canPickDeliveryVariants\":false,\"canPickBalikovna\":false,\"showCourierTimeIntervalPicker\":true,\"canPickVehicle\":false},\"isPersonal\":true,\"hideStoredPaymentCards\":null},{\"isLimited\":false,\"beforeSelectAction\":null,\"afterSelectAction\":null,\"afterDeselectAction\":null,\"promoText\":null,\"customerPaymentCreditTooltipLin",
+   "label": "app-UA v13 groups"
+  },
+  {
+   "step": "3b resolved groupId",
+   "status": 200,
+   "err": null,
+   "json": "{\"groupId\":396087063,\"found\":true}"
+  },
+  {
+   "step": "3c sendOrder2 (AlzaBox registered)",
+   "status": 200,
+   "err": 0,
+   "json": "{\"register_type\":20,\"add_info\":{\"types\":[],\"types_cnt\":0,\"max_step\":3},\"isValidationRequired\":false,\"infoDeliveryText\":\"Doručení Na poštu\",\"postCity\":null,\"postStreet\":null,\"postZip\":null,\"deliveryId\":null,\"deliveriesInfo\":[{\"deliveryId\":2680,\"deliveryGroupId\":396087063,\"deliveryName\":\"Hradec Králové - Kutnohorská (U Vacků)\",\"deliveryPrice\":\"\",\"deliveryGroupPrice\":\"104 Kč\",\"deliveryZipCode\":null,\"deliveryAddressId\":null,\"zipId\":null,\"parcelShopId\":1128203,\"deliveryItemType\":\"AlzaBox\",\"alzaBoxName\":null,\"availability\":\"\",\"deliveryTimeFrame\":null,\"deliveryCanPickDeliveryTime\":false,\"imgUrl\":\"https://cdn.alza.cz/Foto/ImgGalery/IkonyKosik2/svg/delivery/alza-box.svg\",\"deliveryVariantId\":0,\"deliveryServicesIds\":null,\"price\":0,\"externalCarriageWarning\":null}],\"paymentInfo\":null,\"deliveryZip\":null,\"deliveryCity\":null,\"alzaPlusSubscription\":{\"href\":\"https://webapi.alza.cz/api/v1/anonymous/baskets/1658155923/alzaplus/popUp?country=CZ\",\"appLink\":\"alzaPlusPromotionForSubscription\",\"enabled\":true},\"showBillingInfoDisclaimer\":false,\"err\":0,\"favCnt\":0,\"basket_cnt\":1,\"basket_total_cnt\":1,\"msg\":null,\"user_name\":\"\",\"user_id\":-1,\"vzt\":2247733637577388,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789567886}",
+   "label": "app-UA sendOrder2"
+  },
+  {
+   "step": "4 M1 app-UA 2026.17 + B-full auth",
+   "status": 500,
+   "err": null,
+   "json": "{\"Message\":\"InternalServerError\"}",
+   "label": "M1 app-UA 2026.17 + B-full auth"
+  },
+  {
+   "step": "4 M2 app-UA 2026.17 + B-guest",
+   "status": 500,
+   "err": null,
+   "json": "{\"Message\":\"InternalServerError\"}",
+   "label": "M2 app-UA 2026.17 + B-guest"
+  },
+  {
+   "step": "4 M3 app-UA 2026.17 + B-empty",
+   "status": 500,
+   "err": null,
+   "json": "{\"Message\":\"InternalServerError\"}",
+   "label": "M3 app-UA 2026.17 + B-empty"
+  }
+ ],
+ "finishedAt": "2026-09-16T12:11:26.568Z"
+}

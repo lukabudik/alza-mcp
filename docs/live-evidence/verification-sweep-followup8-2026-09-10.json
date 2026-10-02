@@ -1,0 +1,45 @@
+{
+ "date": "2026-09-10",
+ "note": "Fresh access token minted 2026-09-10T06:30Z via scripts/alza-auth-refresh.mjs (refresh grant, RT rotated; discovery 403 → APK default endpoint). Re-probes settle whether the 2026-09-09 401s were expiry- or policy-level.",
+ "steps": [
+  {
+   "name": "A5 getUserData v2 (FRESH token sanity)",
+   "method": "GET",
+   "url": "/services/restservice.svc/v2/getUserData",
+   "status": 200,
+   "body": "{\"isQualifiedForCryptoWallet\":false,\"mailingSegments\":[{\"name\":\"Alza\",\"id\":139851,\"parentId\":null,\"subscribed\":false},{\"name\":\"Media\",\"id\":139852,\"parentId\":null,\"subscribed\":false},{\"name\":\"Hračky\",\"id\":139853,\"parentId\":null,\"subscribed\":false},{\"name\":\"Beauty\",\"id\":139854,\"parentId\":null,\"subscribed\":false},{\"name\":\"MAXI drogerie\",\"id\":139862,\"parentId\":null,\"subscribed\":false},{\"name\":\"Sport\",\"id\":139863,\"parentId\":null,\"subscribed\":false},{\"name\":\"E-knihy\",\"id\":139856,\"parentId\":139852,\"subscribed\":false},{\"name\":\"Audioknihy\",\"id\":139857,\"parentId\":139852,\"subscribed\":false},{\"name\":\"Filmy\",\"id\":139858,\"parentId\":139852,\"subscribed\":false},{\"name\":\"Hudba\",\"id\":139859,\"parentId\":139852,\"subscribed\":false},{\"name\":\"Časopisy\",\"id\":139860,\"parentId\":139852,\"subscribed\":false},{\"name\":\"Software\",\"id\":139861,\"parentId\":139852,\"subscribed\":false},{\"name\":\"Hobby\",\"id\":321613,\"parentId\":null"
+  },
+  {
+   "name": "A13 setIsic empty (FRESH token)",
+   "method": "POST",
+   "url": "/services/restservice.svc/v1/setIsic",
+   "status": 200,
+   "body": "{\"err\":0,\"favCnt\":0,\"basket_cnt\":2,\"basket_total_cnt\":3,\"msg\":null,\"user_name\":\"\",\"user_id\":100000001,\"vzt\":3358957878760695,\"countryID\":0,\"countryPhonePrefix\":\"420\",\"premiumBooks\":0,\"premiumDelivery\":0,\"premiumValidTo\":null,\"premiumRenew\":false,\"serverTime\":1789029159}"
+  },
+  {
+   "name": "OR5 quickOrder summary api/users (FRESH token)",
+   "method": "GET",
+   "url": "/api/users/100000001/v1/quickOrder/summary/commodities/5303618?country=CZ&pgrik=p__26752&ucik=u__401f1",
+   "status": 200,
+   "body": "{\"voucherCode\":null,\"totalPrice\":119.00,\"totalPriceWithoutVat\":98.3471,\"commodityId\":5303618,\"deliveryId\":2680,\"alzaBoxId\":1168379,\"paymentId\":null,\"tokenId\":null,\"subscriptionType\":\"None\",\"isDeliveriesVisible\":true,\"isVouchersEnabled\":true,\"totalPriceFormatted\":\"119,-\",\"items\":[{\"id\":5303618,\"name\":\"Značky aut\",\"imageUrl\":\"https://image.alza.cz/products/HRAif8315/HRAif8315.jpg?width=360&height=360\",\"buyInfo\":{\"count\":1,\"maxCount\":2147483647,\"minCount\":1},\"price\":119.00,\"totalPrice\":119.00,\"totalPriceFormatted\":\"119,-\",\"type\":0,\"quantityDiscounts\":[],\"priceInfoV2\":{\"priceWithVat\":\"119 Kč\",\"instalmentsPriceWithVat\":null,\"comparePrice\":null,\"pricePrefix\":null,\"pricePostfix\":null,\"priceDescription\":null,\"priceType\":1,\"priceGroupType\":0,\"headerText\":null,\"headerIconUrl\":null,\"priceSave\":null,\"explanationPriceAction\":null,\"unitPriceWithVat\":\"119 Kč\",\"unitName\":\"ks\",\"priceWithoutVatNoCurrency\""
+  },
+  {
+   "name": "C14 users mainNavigation +country=CZ (webapi, FRESH token)",
+   "url": "https://webapi.alza.cz/api/users/100000001/mainNavigation?country=CZ&eshopUrl=www.alza.cz",
+   "status": 500,
+   "body": "{\"message\":\"InternalServerError\"}"
+  },
+  {
+   "name": "R1 flag 0/1 +country=CZ (webapi, FRESH token)",
+   "url": "https://webapi.alza.cz/api/users/0/commodities/1/review?country=CZ",
+   "status": 403,
+   "body": "{\"message\":\"Forbidden\"}"
+  },
+  {
+   "name": "R1 userReviewActions substituted (FRESH token)",
+   "url": "https://webapi.alza.cz/api/users/100000001/review/8692552/actions?country=cz",
+   "status": 200,
+   "body": "{\"self\":{\"href\":\"https://webapi.alza.cz/api/users/100000001/review/8692552/actions?country=cz\",\"appLink\":\"userReviewActions\",\"enabled\":true},\"actionMap\":[{\"appLink\":\"likeReview\",\"name\":\"Užitečné\",\"form\":{\"method\":\"PUT\",\"value\":null,\"isFormValid\":false,\"rel\":[\"form\"],\"href\":\"https://webapi.alza.cz/api/users/100000001/review/8692552/like\"},\"enabled\":true,\"analytics\":{\"actions\":{\"onClick\":{\"data\":{\"custom_event_name\":\"click_detail_review_like\",\"custom_event_p1\":\"detail\",\"custom_event_p2\":\"standart\"},"
+  }
+ ]
+}

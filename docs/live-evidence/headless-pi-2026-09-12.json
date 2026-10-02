@@ -1,0 +1,31 @@
+{
+  "captured_at": "2026-09-12T15:10:00Z",
+  "purpose": "Verify pi agent running in headless (non-interactive) mode on a task that requires the alza MCP server: startup → MCP config load → alza connect → tool discovery → tools/call → live Alza search → final answer.",
+  "command": "pi -a --thinking minimal --no-session --mode json -p \"<task prompt>\"",
+  "task_prompt": "Use the alza MCP server: search Alza for 'čistič na kolo', sorted by price ascending, only in-stock items, max price 300 CZK, limit 5. Report the cheapest product's name, price, product code, and Alza URL. Answer as a short 5-line list.",
+  "model": "rtxbeast/qwen3.8-27b-abliterated (via local rtxbeast provider)",
+  "run_1": {
+    "log": "/tmp/pi-headless.log",
+    "exit_code": 0,
+    "outcome": "PASS",
+    "tool_discovery": "adapter meta-tool search 'alza search product' → alza_search_products ranked #1 (score 413), schema shape surfaced",
+    "call": {"name": "alza_search_products", "args": {"query": "čistič na kolo", "sort": "price-asc", "in_stock": true, "max_price": 300, "limit": 5}},
+    "final_answer": "- Product: Force Strong na řetězy láhev 0,5 l růžový\n- Price: 139 CZK (in stock)\n- Product code: SPTfor0202\n- Alza URL: https://www.alza.cz/sport/force-strong-na-retezy-lahev-0-5-l-ruzovy-d12572579.htm\n- Note: cheapest of 5 in-stock results for \"čistič na kolo\" ≤ 300 CZK",
+    "finding": "results were NOT sorted ascending (209, 229, 139, 269, 169) — model still identified the cheapest correctly"
+  },
+  "sort_finding": {
+    "discovered": "2026-09-12",
+    "evidence": "direct probes of https://www.alza.cz/search.htm?exps=… with o=0, o=2, o=3 (and hash #sort_N) all return identical relevance order; Alza's sort control is client-side JS (a.js-sort-item → #sort_0/1/2/5/6), not honored server-side",
+    "fix": "client-side sort in CatalogDomain.searchProducts via exported compareForSort (price-asc/price-desc/rating applied to the fetched page; missing prices/ratings sort last); honest description + param docs updated",
+    "files": ["src/domain/catalog.ts", "src/tools/search-products.ts", "test/catalog-sort.test.ts"]
+  },
+  "run_2": {
+    "log": "/tmp/pi-headless2.log",
+    "exit_code": 0,
+    "outcome": "PASS",
+    "call": {"name": "alza_search_products", "args": {"query": "čistič na kolo", "sort": "price-asc", "in_stock": true, "max_price": 300, "limit": 5}},
+    "final_answer": "- Cheapest match: Force Strong na řetězy láhev 0,5 l růžový\n- Price: 139 CZK\n- Product code: SPTfor0202\n- Alza URL: https://www.alza.cz/sport/force-strong-na-retezy-lahev-0-5-l-ruzovy-d12572579.htm\n- Context: top of 5 in-stock results ≤ 300 CZK (price-asc; runner-up was 169 CZK)",
+    "confirmation": "results now sorted ascending (139 → 169 …); model reported runner-up correctly"
+  },
+  "gate": {"tests": "87/87 (10 files)", "typecheck": "clean", "build": "clean", "diff_check": "clean"}
+}

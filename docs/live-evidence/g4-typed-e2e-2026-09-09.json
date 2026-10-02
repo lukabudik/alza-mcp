@@ -1,0 +1,50 @@
+{
+ "date": "2026-09-09",
+ "stack": "compiled dist/ modules (esbuild bundle) executed in the live page",
+ "steps": [
+  {
+   "step": "alza_web_add_to_cart (real dist code, in-page)",
+   "basket_id": 1656953518,
+   "item_id": 1024024214,
+   "responseKeys": [
+    "crossSellAppAction",
+    "crossPopupAction",
+    "updateAction",
+    "gtmData"
+   ]
+  },
+  {
+   "step": "alza_web_cart (real dist code, in-page)",
+   "cartKeys": [
+    "self",
+    "maxStep",
+    "sameDayDeliveryMessage",
+    "itemsAction",
+    "emptyCartAction",
+    "addItemsToCommodityListAction",
+    "priceAction",
+    "frequentPurchasesAction"
+   ],
+   "maxStep": 0,
+   "itemCount": 1,
+   "firstItem": {
+    "productId": 5303618,
+    "count": 1,
+    "basketItemId": 1024024214
+   }
+  },
+  {
+   "step": "alza_delivery_options (v13 typed, same stack)",
+   "deliveryGroups": 1,
+   "firstGid": 394237858,
+   "keys": [
+    "deliveryGroups",
+    "payments",
+    "deliveryError",
+    "deliveryTip",
+    "paymentTip",
+    "warnings"
+   ]
+  }
+ ]
+}
