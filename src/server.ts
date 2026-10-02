@@ -16,7 +16,7 @@ import { createListCategoryFiltersTool } from "./tools/list-category-filters.js"
 import { createSearchProductsTool } from "./tools/search-products.js";
 import type { ToolResult } from "./tools/types.js";
 
-const VERSION = "0.2.0";
+const VERSION = "0.2.1";
 
 export interface BuildOptions {
   baseUrl?: string;

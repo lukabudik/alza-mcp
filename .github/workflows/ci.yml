@@ -22,3 +22,11 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
+      # The published package must install cleanly (postinstall ships in `files`).
+      - name: Install packed tarball
+        run: |
+          npm pack --pack-destination "$RUNNER_TEMP"
+          mkdir "$RUNNER_TEMP/consumer" && cd "$RUNNER_TEMP/consumer"
+          npm init -y > /dev/null
+          ALZA_MCP_SKIP_INSTALL= npm install "$RUNNER_TEMP"/alza-mcp-*.tgz
+          test -x node_modules/.bin/alza-mcp
