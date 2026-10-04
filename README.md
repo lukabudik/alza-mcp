@@ -22,8 +22,6 @@ Ask: *"Find me the best pro-grade wheel cleaner under 600 Kč and tell me where 
 
 ## Quick install
 
-**Version note (2026-10-04):** this README describes the merged `main` branch (version `0.3.0`). The npm registry currently serves `0.2.0` (which also lacks the postinstall packaging fix merged in #4), so the `npx` commands below install the published catalog version until a new release is published. To use the full account/checkout toolsets now, follow [Development](#development), build the repository, and configure your MCP client with `command: "node"` and `args: ["/absolute/path/to/alza-mcp/dist/index.js"]`.
-
 ### Claude Code
 
 ```bash

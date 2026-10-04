@@ -8,8 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 - README **Contributors** section, thanking [@samuelseidel](https://github.com/samuelseidel).
+- Roadmap tracked as GitHub issues ([#8](https://github.com/lukabudik/alza-mcp/issues/8)–[#23](https://github.com/lukabudik/alza-mcp/issues/23)), plus feature-request and PR templates.
 
 ### Changed
+- README: removed the stale note saying npm serves 0.2.0.
 - CHANGELOG: the 0.3.0 changes now sit under a dated 0.3.0 heading. They had been left under Unreleased, next to a stale 0.3.0 entry from the fork.
 
 ## [0.3.0] — 2026-10-05
