@@ -1,0 +1,93 @@
+name: Live canary
+
+# Runs the read-only catalog checks (scripts/validate-api.ts) against live
+# alza.cz once a day, so a site change is caught before users report it.
+#
+# Outcomes:
+#   pass        → green run, nothing else.
+#   checks fail → red run + a `canary` issue (or a comment on the open one).
+#   Cloudflare  → the runner itself was challenged; that says nothing about
+#                 our selectors, so the run stays green with a warning and no
+#                 issue is filed.
+#
+# Known limitation (verified 2026-10-05): Alza's Cloudflare serves GitHub-hosted
+# runners (Azure, AS8075) an interactive "potvrďte, že jste z masa a kostí"
+# challenge — HTTP 403, cf-mitigated: challenge — that never clears, with
+# headless-shell, headed Chromium or headed Google Chrome alike. On
+# `ubuntu-latest` the canary therefore only reports the block. To get a real
+# signal, register a self-hosted runner on a residential/office IP and set the
+# repository variable CANARY_RUNS_ON to its label (e.g. `self-hosted`). This is
+# a public repo: read GitHub's self-hosted runner security notes first (a fork
+# PR can edit any workflow to target that label; keep fork-PR approval on).
+
+on:
+  schedule:
+    - cron: "17 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: live-canary
+  cancel-in-progress: false
+
+jobs:
+  canary:
+    runs-on: ${{ vars.CANARY_RUNS_ON || 'ubuntu-latest' }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # postinstall (scripts/postinstall.cjs) downloads chromium headless-shell.
+      - run: npm ci
+
+      - name: Run live checks
+        id: validate
+        run: |
+          set +e
+          npm run validate:api -- --markdown "$RUNNER_TEMP/canary.md" 2>&1 | tee "$RUNNER_TEMP/canary.log"
+          code=${PIPESTATUS[0]}
+          set -e
+          if [ ! -s "$RUNNER_TEMP/canary.md" ]; then
+            # Crashed before rendering a summary — fall back to the log tail.
+            { echo "### ❌ Live canary crashed (exit $code)"; echo; echo '```'; tail -n 40 "$RUNNER_TEMP/canary.log"; echo '```'; } > "$RUNNER_TEMP/canary.md"
+          fi
+          cat "$RUNNER_TEMP/canary.md" >> "$GITHUB_STEP_SUMMARY"
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+
+      - name: Report failure in a canary issue
+        if: >-
+          steps.validate.outputs.exit_code != '0' &&
+          steps.validate.outputs.exit_code != '2' &&
+          (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh label create canary --color B60205 --description "Live canary against alza.cz is failing" || true
+          body="$RUNNER_TEMP/issue.md"
+          { cat "$RUNNER_TEMP/canary.md"; echo; echo "Run: $RUN_URL"; } > "$body"
+          existing=$(gh issue list --label canary --state open --limit 1 --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body-file "$body"
+          else
+            gh issue create --title "Live canary failing: $(date -u +%Y-%m-%d)" --label canary --body-file "$body"
+          fi
+
+      - name: Set run status
+        env:
+          CODE: ${{ steps.validate.outputs.exit_code }}
+        run: |
+          if [ "$CODE" = "2" ]; then
+            echo "::warning title=Cloudflare blocked the runner::Alza's Cloudflare challenged this GitHub runner; selectors were not checked. No issue filed."
+          elif [ "$CODE" != "0" ]; then
+            echo "::error title=Live canary failed::validate:api exited $CODE — see the job summary."
+            exit 1
+          fi
