@@ -9,6 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Added
 - README **Contributors** section, thanking [@samuelseidel](https://github.com/samuelseidel).
 - Roadmap tracked as GitHub issues ([#8](https://github.com/lukabudik/alza-mcp/issues/8)–[#23](https://github.com/lukabudik/alza-mcp/issues/23)), plus feature-request and PR templates.
+- Daily live canary workflow (`.github/workflows/live-canary.yml`). It runs `validate:api` against alza.cz and opens (or comments on) a `canary` issue when checks fail. GitHub-hosted runners get Cloudflare's interactive challenge, so they only report the block. Set the `CANARY_RUNS_ON` variable to a self-hosted runner to get real results.
+- `validate:api` now covers price-sorted and brand-filtered search, product params, sub-level categories and category filters. It retries each failed check once, prints a markdown summary (`--markdown <file>`), and exits 2 (not 1) when Cloudflare challenges the machine.
 
 ### Changed
 - README: removed the stale note saying npm serves 0.2.0.
