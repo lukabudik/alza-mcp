@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.3.1] — 2026-10-05
+
 ### Added
 - README **Contributors** section, thanking [@samuelseidel](https://github.com/samuelseidel).
 - Roadmap tracked as GitHub issues ([#8](https://github.com/lukabudik/alza-mcp/issues/8)–[#23](https://github.com/lukabudik/alza-mcp/issues/23)), plus feature-request and PR templates.

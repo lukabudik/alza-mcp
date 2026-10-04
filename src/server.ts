@@ -22,7 +22,7 @@ import { MobileApi } from "./infra/mobile-api.js";
 import { ImpersonateTransport, cfFetch } from "./infra/impersonate-transport.js";
 import type { ToolResult } from "./tools/types.js";
 
-const VERSION = "0.3.0";
+const VERSION = "0.3.1";
 
 export interface BuildOptions {
   baseUrl?: string;
