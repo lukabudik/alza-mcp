@@ -11,6 +11,7 @@ labels: endpoint-broken
 - [ ] `get_product_reviews`
 - [ ] `find_pickup_points`
 - [ ] `list_categories`
+- [ ] Other (name it):
 
 **Output of `npm run validate:api`**
 
