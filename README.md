@@ -379,6 +379,19 @@ It might, and you should assume that's possible. The project has no commercial i
 
 MIT. See [LICENSE](LICENSE).
 
+## Contributors
+
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/lukabudik"><img src="https://github.com/lukabudik.png?size=100" width="80" alt=""><br><sub><b>Luka Budík</b></sub></a><br><sub>Creator, maintainer</sub></td>
+    <td align="center"><a href="https://github.com/samuelseidel"><img src="https://github.com/samuelseidel.png?size=100" width="80" alt=""><br><sub><b>Samuel Seidel</b></sub></a><br><sub>Maintainer</sub></td>
+  </tr>
+</table>
+
+A big thank you to **[Samuel Seidel](https://github.com/samuelseidel)**, the project's first outside contributor and now a co-maintainer. He built the account, cart, checkout and order tools, toolsets, typed output schemas, category filtering and the live-verified test harness, which together took alza-mcp from a 5-tool catalog browser to a full shopping agent ([#1](https://github.com/lukabudik/alza-mcp/pull/1), [#5](https://github.com/lukabudik/alza-mcp/pull/5)).
+
+Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) and the [open issues](https://github.com/lukabudik/alza-mcp/issues).
+
 ## Acknowledgements
 
 - [tomaspavlin/rohlik-mcp](https://github.com/tomaspavlin/rohlik-mcp) — direct inspiration; layout patterns we mirror.

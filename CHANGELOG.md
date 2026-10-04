@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+- README **Contributors** section, thanking [@samuelseidel](https://github.com/samuelseidel).
+
+### Changed
+- CHANGELOG: the 0.3.0 changes now sit under a dated 0.3.0 heading. They had been left under Unreleased, next to a stale 0.3.0 entry from the fork.
+
+## [0.3.0] — 2026-10-05
+
+The first release with outside contributions: account, cart, checkout, order and payment tools, toolsets, and typed output schemas, contributed by [@samuelseidel](https://github.com/samuelseidel) ([#1](https://github.com/lukabudik/alza-mcp/pull/1), [#5](https://github.com/lukabudik/alza-mcp/pull/5)). Also fixes `npx -y alza-mcp` installs, which were broken in 0.1.2 and 0.2.0.
+
 ### Integrated
 
 - Luka’s v0.2.0 catalog fixes: brands from the facets API, rejected filters detected after redirects, filter-preserving pagination, and real subcategory discovery.
@@ -68,9 +78,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Tool count 45 → 50 → **52**: task-5 added 4 (`order_search`/`gdpr_info`/`order_document`/`claim_detail`), the A14–A18 wrappers added 5 (`change_password`/`two_factor_set`/`phone_change`/`email_change`/`delete_account`), and this session adds 2 (`order_archive`, `product_by_ean`); annotation + outputSchema contract tests updated accordingly.
 - Operational note (2026-09-24): the standing E2E token is 401-gated on the www `/api/users/{id}/v1/*` user services (token-age re-auth window; the 1secmail inbox is sinkholed from this egress) — a fresh E2E login is required for authenticated OR1/K1/OR6/OR7 reads on the standing account; the disposable account 100000002 is the working authenticated identity for this batch.
 
-## [0.3.0] — 2026-09-13
+### Fork development history (2026-09-13)
 
-The repo version jumped from 0.1.2 (npm-published) straight to 0.3.0; npm still serves 0.1.2 — publishing is not part of this change. This entry documents everything on `main` since 0.1.2, grouped by theme.
+Everything below was developed on [@samuelseidel](https://github.com/samuelseidel)'s fork before it was merged, grouped by theme.
 
 ### Added
 
@@ -94,7 +104,7 @@ The repo version jumped from 0.1.2 (npm-published) straight to 0.3.0; npm still 
 - `find_pickup_points` no longer documents a non-existent AlzaBox surface; stale v0.2 pickup comments removed.
 - Deterministic tool registration order (catalog → account → advanced) and wire-level annotation-contract tests.
 
-## [0.2.1] — 2026-10-03
+## [0.2.1] — 2026-10-03 (not published; shipped in 0.3.0)
 
 ### Fixed
 - **`npx -y alza-mcp` failed to install.** `scripts/postinstall.cjs` was missing from the published package, so the postinstall hook crashed. CI now installs the packed tarball to catch this.
