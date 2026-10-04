@@ -1,35 +1,37 @@
 # Roadmap
 
-Things we'd like to build, in rough priority order. Open an issue or PR if you want to pick something up.
+Rough priority order. Every item is a GitHub issue — comment there before starting so work isn't duplicated. New to the project? Start with [`good first issue`](https://github.com/lukabudik/alza-mcp/labels/good%20first%20issue).
 
-## Near-term (v0.2)
+## Shipped
 
-- [ ] **AlzaBox locker discovery.** DOM-scrape `https://www.alza.cz/alzabox.htm` (the public locker map) and surface lockers in `find_pickup_points` alongside showrooms.
-- [ ] **Individual review bodies.** `get_product_reviews` currently returns the JSON-LD aggregate (`ratingValue`, `reviewCount`). The reviews tab loads bodies dynamically — wire up a click + scrape pass.
-- [ ] **Spec-param extraction.** Parse the per-product spec table on the detail page into the structured `params` array. Unblocks the v0.4 PC builder.
-- [ ] **Daily `validate-api` cron.** Hosted GitHub Action that runs the integration suite and opens an issue on drift.
+- **Catalog** — search with price/stock/screen-size filters and client-side sort, real pagination, product detail with spec params (DOM + JSON-LD), aggregate reviews, category tree, checkbox facet filters (`list_category_filters`), EAN lookup, showroom pickup points.
+- **Account & checkout** — OAuth PKCE sign-in, cart, delivery/AlzaBox selection, checkout preview, order placement (legacy web WCF path) and cancellation, after-order payments, order history/documents, claims, subscriptions, profile/addresses and credential changes — all high-impact mutations behind one-time confirmation tokens.
+- **Progressive disclosure** — tools grouped into toolsets; only `catalog` and `auth` are enabled by default.
+- **Distribution** — published on npm as `alza-mcp`, CI on Node 20/22, trusted publishing on tag push; `server.json` and `smithery.yaml` in the repo.
 
-## Medium-term (v0.3 — discovery features)
+## Near-term
 
-- [ ] **`compare_products`** — fetch N products in parallel, build a side-by-side spec table.
-- [ ] **`recommend_alternatives`** — same category + closest spec match, modes for `cheaper` / `better-specs` / `same-brand`.
-- [ ] **`get_deals`** — sale categories, min discount filter.
-- [ ] **`autocomplete`** — search-suggestion strings to help the agent refine queries before committing to a full search.
+- [#8](https://github.com/lukabudik/alza-mcp/issues/8) Standalone AlzaBox locker discovery in `find_pickup_points`
+- [#9](https://github.com/lukabudik/alza-mcp/issues/9) Individual review bodies in `get_product_reviews`
+- [#10](https://github.com/lukabudik/alza-mcp/issues/10) Slider-type (range) category filters
+- [#23](https://github.com/lukabudik/alza-mcp/issues/23) Re-test `select_pickup_point` against an authenticated session
+- [#19](https://github.com/lukabudik/alza-mcp/issues/19) Publish to the official MCP Registry from the release workflow
+- [#20](https://github.com/lukabudik/alza-mcp/issues/20) List in MCP directories (Smithery, Glama, PulseMCP, mcp.so)
+- [#21](https://github.com/lukabudik/alza-mcp/issues/21) Animated demo in the README
+- [#22](https://github.com/lukabudik/alza-mcp/issues/22) One-click install links (Cursor, VS Code, Claude Desktop)
 
-## Longer-term (v0.4+)
+## Medium-term — discovery tools
 
-- [ ] **PC builder** — Alza is the dominant Czech PC-parts retailer. A multi-step tool that picks CPU → enforces socket → filters mobos → checks RAM type → checks PSU wattage budget → checks case clearance for cooler. Pulls structured spec params from the detail pages. The headline power-user feature.
-- [ ] **Price watchlist** — durable subscriptions (Upstash Redis on a hosted instance), daily cron, webhook on threshold hit.
-- [ ] **Streamable HTTP transport** — same code on Vercel via `mcp-handler` so users without a local browser can use a hosted instance. Hosted version would need to defeat CF from a datacenter IP, likely via Browserbase or a residential-proxy lane.
-- [ ] **Compare via MCP `sampling`** — let the server ask the agent's LLM to summarize a comparison instead of just emitting a table.
+- [#11](https://github.com/lukabudik/alza-mcp/issues/11) `compare_products` — side-by-side spec table
+- [#12](https://github.com/lukabudik/alza-mcp/issues/12) `recommend_alternatives` — cheaper / better specs / same brand
+- [#13](https://github.com/lukabudik/alza-mcp/issues/13) `get_deals` — discounted products
+- [#14](https://github.com/lukabudik/alza-mcp/issues/14) `autocomplete` — search suggestions
+- [#17](https://github.com/lukabudik/alza-mcp/issues/17) Price watchlist via Alza's native watchdog
 
-## Conditional / bigger commitment
+## Long-term
 
-- [ ] **Write actions** (cart / order / login) via MCP URL-mode elicitation for BYO credentials. **Only if there's clear demand and we can do it safely.** Read-only-forever is a respectable end state too.
+- [#15](https://github.com/lukabudik/alza-mcp/issues/15) PC builder — socket / RAM / wattage / clearance compatibility engine
+- [#16](https://github.com/lukabudik/alza-mcp/issues/16) Streamable HTTP transport and a path to a hosted endpoint
+- [#18](https://github.com/lukabudik/alza-mcp/issues/18) Summarise comparisons with MCP sampling
 
-## Distribution
-
-- [ ] **npm publish** as `alza-mcp`.
-- [ ] **Registry submissions** — Smithery, mcp.so, PulseMCP, Glama, the official `modelcontextprotocol/servers` README.
-- [ ] **Demo video / GIFs** in the README.
-- [ ] **One-click "Add to Claude" deeplink** in the README.
+Known limitations and dead ends (with dated evidence) live in [docs/gap-analysis.md](docs/gap-analysis.md). Ideas not listed here: open a [feature request](https://github.com/lukabudik/alza-mcp/issues/new/choose).

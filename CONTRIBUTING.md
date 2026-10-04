@@ -1,6 +1,8 @@
 # Contributing to alza-mcp
 
-Thanks for considering a contribution. This is a small, focused project — read-only MCP wrapper for Alza.cz — and the bar for any change is "does it make agents better at helping people shop?".
+Thanks for considering a contribution. This is a small, focused project — an MCP server for Alza.cz covering the catalog plus token-guarded account/checkout tools — and the bar for any change is "does it make agents better at helping people shop?".
+
+Looking for something to work on? See [ROADMAP.md](ROADMAP.md) and the [`good first issue`](https://github.com/lukabudik/alza-mcp/labels/good%20first%20issue) label. Comment on an issue before starting so work isn't duplicated.
 
 ## Quick start
 

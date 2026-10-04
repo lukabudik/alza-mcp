@@ -305,16 +305,13 @@ node dist/index.js          # run the server (waits for stdio MCP messages)
 
 ## Roadmap
 
-Highlights of what's planned (the current `main` branch already covers catalog, filtering, cart, checkout, order placement/cancellation and account management — see [What it does](#what-it-does) and the known limitations in [docs/gap-analysis.md](docs/gap-analysis.md)):
+`main` already covers catalog, filtering, cart, checkout, order placement/cancellation and account management (see [What it does](#what-it-does) and the known limitations in [docs/gap-analysis.md](docs/gap-analysis.md)). Next up:
 
-- **Standalone AlzaBox locker discovery** — today lockers are only reachable through a live cart (`add_to_cart` → `delivery_options` → `web_pickup_places`), because Alza's pickup API is cart-scoped
-- **Slider-type attribute filters** (screen size, refresh rate, weight, …) — Alza exposes no discoverable filter API for these; `search_products` only has a name-based screen-size substitute
-- **Individual review bodies** — load the reviews tab and scrape per-review text, not just the aggregate
-- **Streamable HTTP transport** + hosted endpoint on Vercel
-- **Compare / recommend / deals** tools
-- **PC builder** — socket / RAM / wattage / clearance compatibility engine
+- **Standalone AlzaBox locker discovery** ([#8](https://github.com/lukabudik/alza-mcp/issues/8)), **review bodies** ([#9](https://github.com/lukabudik/alza-mcp/issues/9)), **slider-type filters** ([#10](https://github.com/lukabudik/alza-mcp/issues/10))
+- **Compare / recommend / deals / autocomplete** tools ([#11](https://github.com/lukabudik/alza-mcp/issues/11)–[#14](https://github.com/lukabudik/alza-mcp/issues/14))
+- **PC builder** ([#15](https://github.com/lukabudik/alza-mcp/issues/15)) and **Streamable HTTP transport** ([#16](https://github.com/lukabudik/alza-mcp/issues/16))
 
-Full list and priorities live in [ROADMAP.md](ROADMAP.md).
+Priorities live in [ROADMAP.md](ROADMAP.md); everything is tracked in [issues](https://github.com/lukabudik/alza-mcp/issues) — [`good first issue`](https://github.com/lukabudik/alza-mcp/labels/good%20first%20issue) is the place to start.
 
 ---
 
