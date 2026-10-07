@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed
+- `ensureChromiumInstalled`: redirect Playwright download output to stderr instead of inheriting stdout (`stdio: ['ignore', 2, 2]`), preventing non-JSON download progress from corrupting the MCP stdio JSON-RPC stream (#67).
+
 ### Added
 - Alza storefront links returned by the catalog tools (`search_products`, `get_product`, `compare_products`, `recommend_alternatives`, `get_deals`, `autocomplete`, `list_categories`, `pc_build_check`, `pc_build_suggest`, `watchdog_list` and the `alza://product/{code}` resource) now carry `utm_source=alza-mcp-community&utm_medium=mcp`, at Alza's request, so Alza can attribute visits from the MCP. The parameters are added at output time on copies, so cached and internally navigated URLs stay untagged. Only `www.alza.*` storefront hosts are tagged; OAuth, API, PDF, image and payment URLs and the account/checkout passthrough tools are not. Live-checked 2026-10-07: tagged search, detail and autocomplete links open the right product page (HTTP 200).
 - `report_issue`, an always-available tool that drafts a GitHub issue for this repository when a tool fails unexpectedly, returns clearly wrong data, or breaks because Alza changed something. It returns a redacted Markdown draft (version, Node, platform, storefront, transport, this session's last 5 tool errors), a `gh issue list` duplicate search, a ready-to-run `gh issue create` command, and a prefilled new-issue link. It files nothing itself; the agent asks the user first. The server instructions mention it, and unexpected tool errors (not invalid arguments or unknown products) end with a hint pointing to it. Credentials, OAuth redirect parameters, JWTs, e-mails, phone numbers, account ids in API paths, long opaque tokens and home-directory paths are redacted.

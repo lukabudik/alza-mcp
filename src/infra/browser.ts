@@ -213,7 +213,7 @@ export class AlzaBrowser {
   }
 }
 
-async function ensureChromiumInstalled(): Promise<void> {
+export async function ensureChromiumInstalled(): Promise<void> {
   let cliPath: string;
   try {
     const path = await import("node:path");
@@ -226,8 +226,10 @@ async function ensureChromiumInstalled(): Promise<void> {
     );
   }
   await new Promise<void>((resolve, reject) => {
+    // Stdout is reserved for the MCP JSON-RPC transport channel. Playwright install
+    // progress and logs must go to stderr (fd 2), never stdout.
     const child = spawn(process.execPath, [cliPath, "install", "chromium", "--only-shell"], {
-      stdio: "inherit",
+      stdio: ["ignore", 2, 2],
     });
     child.on("error", reject);
     child.on("exit", (code) => {
