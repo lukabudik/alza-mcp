@@ -35,7 +35,7 @@ async function main(): Promise<void> {
   const shutdown = async (signal: string) => {
     if (shuttingDown) return;
     shuttingDown = true;
-    log.info(`alza-mcp shutting down on ${signal}`);
+    log.info(`alza-mcp-community shutting down on ${signal}`);
     try {
       // Don't let a stuck browser/sidecar close keep an orphaned server alive.
       await Promise.race([close(), new Promise((r) => setTimeout(r, 5000).unref())]);
@@ -59,7 +59,7 @@ async function main(): Promise<void> {
   // this, the sidecar's piped stdio and Chromium keep the event loop alive forever.
   process.stdin.on("end", () => void shutdown("stdin end"));
   process.stdin.on("close", () => void shutdown("stdin close"));
-  log.info("alza-mcp ready", {
+  log.info("alza-mcp-community ready", {
     baseUrl: process.env.ALZA_BASE_URL?.trim() || "https://www.alza.cz",
     cdp: !!process.env.ALZA_CDP_URL,
   });
@@ -68,7 +68,7 @@ async function main(): Promise<void> {
 async function mainHttp(opts: Parameters<typeof startHttpServer>[0]): Promise<void> {
   const running = await startHttpServer(opts);
   const shutdown = async (signal: string) => {
-    log.info(`alza-mcp shutting down on ${signal}`);
+    log.info(`alza-mcp-community shutting down on ${signal}`);
     try {
       await running.close();
     } finally {
@@ -77,7 +77,7 @@ async function mainHttp(opts: Parameters<typeof startHttpServer>[0]): Promise<vo
   };
   process.on("SIGINT", () => void shutdown("SIGINT"));
   process.on("SIGTERM", () => void shutdown("SIGTERM"));
-  log.info("alza-mcp ready (Streamable HTTP)", {
+  log.info("alza-mcp-community ready (Streamable HTTP)", {
     url: running.url,
     baseUrl: process.env.ALZA_BASE_URL?.trim() || "https://www.alza.cz",
     account: opts?.allowAccount ?? false,
@@ -87,11 +87,11 @@ async function mainHttp(opts: Parameters<typeof startHttpServer>[0]): Promise<vo
 
 main().catch((err) => {
   if (err instanceof ConfigurationError) {
-    process.stderr.write(`alza-mcp: ${err.message}\n`);
+    process.stderr.write(`alza-mcp-community: ${err.message}\n`);
     process.exit(1);
   }
   const message = err instanceof Error ? err.message : String(err);
   if (process.env.ALZA_DEBUG) log.error("fatal", { error: message, stack: (err as Error)?.stack });
-  else process.stderr.write(`alza-mcp: ${message.split("\n")[0]}\n`);
+  else process.stderr.write(`alza-mcp-community: ${message.split("\n")[0]}\n`);
   process.exit(1);
 });

@@ -4,11 +4,11 @@ name: Publish to npm
 # via GitHub Actions OIDC — no NPM_TOKEN secret required.
 #
 # Setup (one-time, on the npm side):
-#   1. Go to https://www.npmjs.com/package/alza-mcp/access
+#   1. Go to https://www.npmjs.com/package/alza-mcp-community/access
 #   2. Under "Trusted publishers", click "Add trusted publisher"
 #   3. Choose "GitHub Actions" and enter:
 #        Repository owner: lukabudik
-#        Repository name:  alza-mcp
+#        Repository name:  alza-mcp-community
 #        Workflow file:    publish.yml
 #        Environment:      (leave blank)
 #   4. Save.
@@ -83,13 +83,13 @@ jobs:
         shell: bash  # pipefail, so a failed npm publish is not masked by tee
         run: |
           version=$(node -p "require('./package.json').version")
-          if npm view "alza-mcp@$version" version >/dev/null 2>&1; then
-            echo "alza-mcp@$version is already on npm; skipping npm publish."
+          if npm view "alza-mcp-community@$version" version >/dev/null 2>&1; then
+            echo "alza-mcp-community@$version is already on npm; skipping npm publish."
           elif ! npm publish --access public --provenance 2>&1 | tee npm-publish.log; then
             # A version npm accepted moments ago can be invisible to `npm view` but
             # still answer 409 "previously staged/published version": already done.
             grep -q "E409" npm-publish.log || exit 1
-            echo "alza-mcp@$version was already published (409); continuing."
+            echo "alza-mcp-community@$version was already published (409); continuing."
           fi
 
       # The registry validates that the npm version exists, and a fresh publish can
@@ -98,12 +98,12 @@ jobs:
         run: |
           version=$(node -p "require('./package.json').version")
           for i in $(seq 1 40); do
-            if [ "$(npm view "alza-mcp@$version" version 2>/dev/null)" = "$version" ]; then
-              echo "alza-mcp@$version is visible on npm."; exit 0
+            if [ "$(npm view "alza-mcp-community@$version" version 2>/dev/null)" = "$version" ]; then
+              echo "alza-mcp-community@$version is visible on npm."; exit 0
             fi
-            echo "Waiting for alza-mcp@$version on npm ($i/40)…"; sleep 15
+            echo "Waiting for alza-mcp-community@$version on npm ($i/40)…"; sleep 15
           done
-          echo "alza-mcp@$version did not appear on npm within 10 minutes" >&2; exit 1
+          echo "alza-mcp-community@$version did not appear on npm within 10 minutes" >&2; exit 1
 
       # Official MCP Registry listing (runs only after npm publish succeeded,
       # because the registry verifies the npm package + mcpName exist).

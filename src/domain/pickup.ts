@@ -221,7 +221,7 @@ export class Pickup {
       const res = await undiciFetch(url.toString(), {
         headers: {
           accept: "application/json",
-          "user-agent": "alza-mcp/0.1.0 (postal-code-geocoder; +https://github.com/lukabudik/alza-mcp)",
+          "user-agent": "alza-mcp-community/0.1.0 (postal-code-geocoder; +https://github.com/lukabudik/alza-mcp-community)",
         },
       });
       if (!res.ok) {

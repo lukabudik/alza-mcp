@@ -5,7 +5,7 @@
 //
 // For each badge it derives the URI the editor's OS-level URL handler would
 // receive and asserts that the encoded server config is exactly
-//   { command: "npx", args: ["-y", "alza-mcp"] }   (no env, no other keys)
+//   { command: "npx", args: ["-y", "alza-mcp-community"] }   (no env, no other keys)
 // and that the server name is "alza". With --online it also requests the https
 // redirect pages (VS Code's insiders.vscode.dev/redirect, cursor.com/install-mcp)
 // to confirm where they send the browser. Writes the decoded URIs to <out.json>
@@ -15,7 +15,7 @@ import { isDeepStrictEqual } from "node:util";
 
 const [readmePath, outPath, ...rest] = process.argv.slice(2);
 const online = rest.includes("--online");
-const EXPECTED = { command: "npx", args: ["-y", "alza-mcp"] };
+const EXPECTED = { command: "npx", args: ["-y", "alza-mcp-community"] };
 const EXPECTED_NAME = "alza";
 let failed = false;
 const check = (name, ok, detail) => {

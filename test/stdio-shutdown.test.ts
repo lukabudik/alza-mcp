@@ -25,7 +25,7 @@ const alive = (pid: number) => {
 
 describe("stdio server lifecycle", () => {
   it("exits with code 0 and stops the sidecar when the host closes stdin", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "alza-mcp-stdio-"));
+    const dir = mkdtempSync(join(tmpdir(), "alza-mcp-community-stdio-"));
     const pidFile = join(dir, "sidecar.pid");
     // Fake "python": passes the `-c "import curl_cffi"` probe, then behaves like a sidecar that
     // never answers (and, as a pipe-connected child, keeps the parent's event loop alive).

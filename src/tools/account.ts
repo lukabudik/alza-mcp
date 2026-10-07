@@ -251,7 +251,7 @@ export function createAccountTools(deps: ToolDeps): RegisterableTool[] {
             "Side effect: mutates the cart — the item stays there until removed or ordered (there is no basket-remove tool). " +
             "Do not use for the separate HATEOAS web checkout cart — that is `web_add_to_cart` (does not share state with this tool; see its description). " +
             "LIVE NOTE (2026-09-26): despite the usual auth prerequisite, this call also succeeds with no OAuth token loaded — it falls back to an anonymous, visitor-keyed (Balancer-Guid) WCF cart (`user_id: -1`). With a token loaded, an anonymous answer means the token is stale: it is refreshed before the call when expired, and an anonymous answer to a loaded token is reported as an error (not retried) so nothing lands in the visitor cart unnoticed. " +
-            "That anonymous cart is exactly what `delivery_options` + `web_place_order` need for the working (non-500) anonymous order pipeline — do NOT use `checkout_preview`/`place_order` for anonymous checkout, their `sendOrder3` step 500s unconditionally (https://github.com/lukabudik/alza-mcp/blob/main/docs/gap-analysis.md G1/G5). " +
+            "That anonymous cart is exactly what `delivery_options` + `web_place_order` need for the working (non-500) anonymous order pipeline — do NOT use `checkout_preview`/`place_order` for anonymous checkout, their `sendOrder3` step 500s unconditionally (https://github.com/lukabudik/alza-mcp-community/blob/main/docs/gap-analysis.md G1/G5). " +
             AUTH_PREREQ + " The response echoes the added line and the new basket count; verify with `cart` if in doubt. Example: `add_to_cart({code: \"RI054b1\", quantity: 1})`.",
           inputSchema: {
             code: z.string().min(1).describe("Alza product code, e.g. 'RI054b1' (the `code` field from `search_products`)."),
@@ -296,7 +296,7 @@ export function createAccountTools(deps: ToolDeps): RegisterableTool[] {
           title: "Delivery → payment associations (does NOT pick a pickup point)",
           description:
             "Despite the name, this tool does not select an AlzaBox or pickup point. It POSTs a delivery selection to the mobile `getDeliveryAssociations` route and returns the payment methods that work with that delivery, each with the resulting delivery price (`data[]`: payment `id` such as 103/143/144/203, `price`, `paymentPrice`, `isLowCredit`, `isHidden`). " +
-            "This was re-tested live on 2026-10-06 against an authenticated cart. All 127 entries in `delivery_options` (115 deliveries across 2 groups plus 12 payments) had null `beforeSelectAction`/`afterSelectAction`, so the server never provides a pickup-point association form. The authenticated response was the same payment-association list the anonymous run returned on 2026-09-26 (https://github.com/lukabudik/alza-mcp/blob/main/docs/gap-analysis.md, https://github.com/lukabudik/alza-mcp/blob/main/docs/live-evidence/select-pickup-point-auth-retest-2026-10-06.md). " +
+            "This was re-tested live on 2026-10-06 against an authenticated cart. All 127 entries in `delivery_options` (115 deliveries across 2 groups plus 12 payments) had null `beforeSelectAction`/`afterSelectAction`, so the server never provides a pickup-point association form. The authenticated response was the same payment-association list the anonymous run returned on 2026-09-26 (https://github.com/lukabudik/alza-mcp-community/blob/main/docs/gap-analysis.md, https://github.com/lukabudik/alza-mcp-community/blob/main/docs/live-evidence/select-pickup-point-auth-retest-2026-10-06.md). " +
             "To actually pick an AlzaBox or pickup point and order, use `add_to_cart`, then `delivery_options` (read `orderId`/`groupId` from the AlzaBox option's `deliveryOption.href`), then `web_pickup_places` (choose a place), then `web_place_order` with that place's `parcel_shop_id`. " +
             "Use this tool only to check which payment methods (and delivery fee) apply to a delivery you already know. The payload is `{cardId: 0, deliveryGroups: [{deliveryGroupId, deliveryId, parcelShopId, deliveryServicesIds: [], timeFrameId: 0, timeSlotId: 0}]}`, built from the `delivery_options`/`cart` ids. " +
             "No change to the cart, delivery, or payment selection was observed (2026-10-06), and the call never submits an order. " +
@@ -324,7 +324,7 @@ export function createAccountTools(deps: ToolDeps): RegisterableTool[] {
             "This never submits the order. " +
             "Not read-only: it runs Alza's first checkout step (`sendOrder1`, which starts the server-side checkout state that `place_order` continues) and replaces any earlier checkout token (valid 5 minutes). " +
             "Requires a non-empty cart. " +
-            AUTH_PREREQ + " Note: the mobile submission step (`sendOrder3`) currently returns HTTP 500 (https://github.com/lukabudik/alza-mcp/blob/main/docs/gap-analysis.md G1/G5) — the known-working submission path is `web_place_order`.",
+            AUTH_PREREQ + " Note: the mobile submission step (`sendOrder3`) currently returns HTTP 500 (https://github.com/lukabudik/alza-mcp-community/blob/main/docs/gap-analysis.md G1/G5) — the known-working submission path is `web_place_order`.",
           inputSchema: {
             selected_delivery_option_id: z.number().int().optional().describe("Delivery option id from `delivery_options` to preview that specific delivery method. Omit for the server default."),
           },
@@ -346,7 +346,7 @@ export function createAccountTools(deps: ToolDeps): RegisterableTool[] {
             "Submit an order through the mobile API's multi-step sequence using a checkout token from `checkout_preview` plus the three explicit payloads (`delivery_payment`, `user_info`, `complete_order`) copied from the preview/delivery responses. " +
             "Use only when the user has explicitly confirmed the purchase. " +
             "High-impact, money-relevant side effect: creates a real Alza order. " +
-            "Known issue: the mobile `sendOrder3` step currently returns HTTP 500 (https://github.com/lukabudik/alza-mcp/blob/main/docs/gap-analysis.md G1/G5) — for a known-working submission path prefer `web_place_order` (legacy web WCF). " +
+            "Known issue: the mobile `sendOrder3` step currently returns HTTP 500 (https://github.com/lukabudik/alza-mcp-community/blob/main/docs/gap-analysis.md G1/G5) — for a known-working submission path prefer `web_place_order` (legacy web WCF). " +
             AUTH_PREREQ,
           inputSchema: {
             confirmation_token: z.string().min(32).describe("Checkout token from `checkout_preview` (one-time)."),

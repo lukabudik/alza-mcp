@@ -6,8 +6,8 @@
 #     `code --open-url %U`).
 #  2. Screenshot the "MCP Server: alza" editor, click Install via the window's CDP port
 #     (the only human step), screenshot again.
-#  3. Assert <profile>/User/mcp.json == {servers:{alza:{type:stdio,command:npx,args:[-y,alza-mcp]}}}.
-#  4. Launch exactly that command/args (npx -y alza-mcp from the harness registry) and run
+#  3. Assert <profile>/User/mcp.json == {servers:{alza:{type:stdio,command:npx,args:[-y,alza-mcp-community]}}}.
+#  4. Launch exactly that command/args (npx -y alza-mcp-community from the harness registry) and run
 #     initialize + tools/list over stdio.
 #  5. Compare with `code --add-mcp` on a second fresh profile (reference for the same JSON).
 set -uo pipefail
@@ -54,7 +54,7 @@ if [ -f "$MCP_JSON" ]; then
     const j = JSON.parse(txt);
     const names = Object.keys(j.servers || {});
     const s = (j.servers || {}).alza;
-    const want = { type: "stdio", command: "npx", args: ["-y", "alza-mcp"] };
+    const want = { type: "stdio", command: "npx", args: ["-y", "alza-mcp-community"] };
     const ok = names.length === 1 && s && require("util").isDeepStrictEqual(s, want);
     console.log((ok ? "PASS " : "FAIL ") + "servers=" + JSON.stringify(names) + " alza=" + JSON.stringify(s) + (s && "env" in s ? " (has env!)" : " (no env)"));
   ' "$MCP_JSON")"

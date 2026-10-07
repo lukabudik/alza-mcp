@@ -1,6 +1,6 @@
 # Alza mobile endpoint coverage
 
-Source of truth for which Alza mobile-API operations `alza-mcp` exposes, how each is
+Source of truth for which Alza mobile-API operations `alza-mcp-community` exposes, how each is
 exposed, and how it was verified.
 
 - APK: `cz.alza.eshop` 2026.15.0 (decompiled with JADX, `/tmp/alza-decompile/jadx-2026-15/sources`).

@@ -1,14 +1,14 @@
-# Contributing to alza-mcp
+# Contributing to alza-mcp-community
 
 Thanks for considering a contribution. This is a small, focused project — an MCP server for Alza.cz covering the catalog plus token-guarded account/checkout tools — and the bar for any change is "does it make agents better at helping people shop?".
 
-Looking for something to work on? See [ROADMAP.md](ROADMAP.md) and the [`good first issue`](https://github.com/lukabudik/alza-mcp/labels/good%20first%20issue) label. Comment on an issue before starting so work isn't duplicated.
+Looking for something to work on? See [ROADMAP.md](ROADMAP.md) and the [`good first issue`](https://github.com/lukabudik/alza-mcp-community/labels/good%20first%20issue) label. Comment on an issue before starting so work isn't duplicated.
 
 ## Quick start
 
 ```bash
-git clone https://github.com/lukabudik/alza-mcp.git
-cd alza-mcp
+git clone https://github.com/lukabudik/alza-mcp-community.git
+cd alza-mcp-community
 npm install
 npm test          # unit tests
 npm run typecheck # TS strict
@@ -27,16 +27,16 @@ npm run test:docker -- --live install        # plus ONE live search_products cal
 bash scripts/docker-install-tests.sh --source ../alza-mcp-other-branch   # test another checkout with this harness
 ```
 
-It packs the tree (`npm pack`) and publishes the tarball to a local Verdaccio container, so `npx -y alza-mcp` in every container resolves to the code under test. Other packages are proxied from npmjs. Suites:
+It packs the tree (`npm pack`) and publishes the tarball to a local Verdaccio container, so `npx -y alza-mcp-community` in every container resolves to the code under test. Other packages are proxied from npmjs. Suites:
 
 | Suite | What it verifies |
 |---|---|
 | `install` | node 20/22/24 images with and without python3 (`npx -y` and `npm install <tgz>`): postinstall runs, `.venv-cf` with `curl_cffi` is created only when python3 + venv exist and is skipped cleanly otherwise, the sidecar files ship, and stdio `initialize` + `tools/list` work. |
-| `badges` | Decodes the README Cursor and VS Code badge links, checks the config is exactly `npx -y alza-mcp` with no env, and follows the https redirects. |
+| `badges` | Decodes the README Cursor and VS Code badge links, checks the config is exactly `npx -y alza-mcp-community` with no env, and follows the https redirects. |
 | `vscode` | Official VS Code `.deb` under Xvfb with a fresh profile: opens the badge's `vscode:mcp/install` URI with `code --open-url`, clicks Install over CDP, asserts the profile's `mcp.json`, launches the installed entry, and takes screenshots. |
 | `cursor` | Cursor AppImage, signed out with a fresh profile: opens the `cursor://` deeplink, reads and confirms the install dialog, asserts `~/.cursor/mcp.json`, and launches the entry. |
 | `mcpb` | Builds the Claude Desktop bundle with `scripts/build-mcpb.sh` and runs `mcpb validate`/`info`. It then unpacks the bundle in a container with no network and launches `manifest.server.mcp_config` with default and empty user settings. |
-| `http` | Runs `npx -y alza-mcp --http` in one container and the SDK Streamable HTTP client in another. Covers sessions, per-session toolset isolation, locked account toolsets, Host/Origin checks, DELETE, and the loopback-only default bind. |
+| `http` | Runs `npx -y alza-mcp-community --http` in one container and the SDK Streamable HTTP client in another. Covers sessions, per-session toolset isolation, locked account toolsets, Host/Origin checks, DELETE, and the loopback-only default bind. |
 | `smithery` | Evaluates `smithery.yaml`'s `commandFunction`, checks that every env var it emits is read by `dist/`, and launches the result. |
 
 Suites that do not apply to the tree (no badges, no `mcpb/`, no `--http`) report `BLOCKED`. Logs, decoded URIs, the resulting `mcp.json` files and screenshots go to `test/docker/.out/` (gitignored), with `summary.txt` listing every check. The run exits non-zero if any check fails, and removes every container, image and network it created unless you pass `--keep`.

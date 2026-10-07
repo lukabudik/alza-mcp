@@ -523,7 +523,7 @@ export class Catalog {
         resp = await responseP;
       } catch {
         throw new Error(
-          `Alza's category page did not issue its range-filter request within ${RANGE_FILTER_TIMEOUT_MS / 1000} s — the slider encoding may have changed (see https://github.com/lukabudik/alza-mcp/blob/main/docs/gap-analysis.md, "Search-time attribute/facet filtering")`
+          `Alza's category page did not issue its range-filter request within ${RANGE_FILTER_TIMEOUT_MS / 1000} s — the slider encoding may have changed (see https://github.com/lukabudik/alza-mcp-community/blob/main/docs/gap-analysis.md, "Search-time attribute/facet filtering")`
         );
       }
       if (!resp.ok()) throw new Error(`Alza range-filter request failed: HTTP ${resp.status()}`);

@@ -27,7 +27,7 @@ function harness(root: string, platform: NodeJS.Platform, handler: (cmd: string,
   return { calls, out, err, opts: { root, platform, env: {}, run, out: (l: string) => out.push(l), err: (l: string) => err.push(l) } };
 }
 
-describe("alza-mcp --setup-cf", () => {
+describe("alza-mcp-community --setup-cf", () => {
   it("is parsed and documented in --help", () => {
     expect(isSetupCf(["--setup-cf"])).toBe(true);
     expect(isSetupCf(["--stdio"])).toBe(false);

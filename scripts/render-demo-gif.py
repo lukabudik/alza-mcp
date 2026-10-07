@@ -81,7 +81,7 @@ def main(src, out):
         d.rectangle([0, 0, W, 32], fill=BAR)
         for i, col in enumerate([(255, 95, 87), (254, 188, 46), (40, 200, 64)]):
             d.ellipse([16 + i * 20, 11, 28 + i * 20, 23], fill=col)
-        d.text((W / 2, 16), "claude code — alza-mcp (catalog toolset)", font=FONT, fill=DIM, anchor="mm")
+        d.text((W / 2, 16), "claude code — alza-mcp-community (catalog toolset)", font=FONT, fill=DIM, anchor="mm")
         vis = lines[-MAX_LINES:]
         for i, (t, col, bold) in enumerate(vis):
             d.text((X0, Y0 + i * LH), t, font=BOLD if bold else FONT, fill=col)

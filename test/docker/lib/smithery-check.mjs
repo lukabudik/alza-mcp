@@ -2,9 +2,9 @@
 // Validate smithery.yaml the way Smithery uses it: parse YAML, sanity-check the
 // configSchema, evaluate startCommand.commandFunction for an empty config and a
 // full config, check every env var it emits is actually read by the server, and
-// launch the resulting command (npx -y alza-mcp, resolved via the harness registry)
+// launch the resulting command (npx -y alza-mcp-community, resolved via the harness registry)
 // with initialize + tools/list. Runs in a node container with `yaml` under /client.
-// Usage: node smithery-check.mjs <smithery.yaml> <installed alza-mcp dist dir>
+// Usage: node smithery-check.mjs <smithery.yaml> <installed alza-mcp-community dist dir>
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { spawnSync } from "node:child_process";
@@ -33,10 +33,10 @@ const fn = eval(sc.commandFunction); // eslint-disable-line no-eval — this is 
 const sample = { string: "https://www.alza.sk", number: 60000, integer: 60000, boolean: true };
 const full = Object.fromEntries(props.map((k) => [k, k === "alzaCdpUrl" ? "http://localhost:9222" : sample[schema.properties[k].type]]));
 const empty = fn({});
-check("smithery-cmd-empty", empty.command === "npx" && JSON.stringify(empty.args) === '["-y","alza-mcp"]' && Object.keys(empty.env ?? {}).length === 0,
+check("smithery-cmd-empty", empty.command === "npx" && JSON.stringify(empty.args) === '["-y","alza-mcp-community"]' && Object.keys(empty.env ?? {}).length === 0,
   `{} -> ${JSON.stringify(empty)}`);
 const all = fn(full);
-check("smithery-cmd-full", all.command === "npx" && JSON.stringify(all.args) === '["-y","alza-mcp"]', `${JSON.stringify(full)} -> env ${JSON.stringify(all.env)}`);
+check("smithery-cmd-full", all.command === "npx" && JSON.stringify(all.args) === '["-y","alza-mcp-community"]', `${JSON.stringify(full)} -> env ${JSON.stringify(all.env)}`);
 const mapped = Object.keys(all.env ?? {});
 check("smithery-every-prop-mapped", mapped.length === props.length, `${mapped.length}/${props.length} properties produce an env var`);
 const envStrings = Object.values(all.env ?? {}).every((v) => typeof v === "string");

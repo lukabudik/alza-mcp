@@ -252,7 +252,7 @@ async function run(): Promise<void> {
   const failed = scenarios.filter((s) => s.status === "failed");
   const evidence = {
     generatedAt: new Date().toISOString(),
-    package: "alza-mcp",
+    package: "alza-mcp-community",
     serverVersion: pkg.version as string,
     protocolVersion: session.protocolVersion,
     transport: "in-memory",

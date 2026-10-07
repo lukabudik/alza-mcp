@@ -1,17 +1,17 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.lukabudik/alza-mcp",
+  "name": "io.github.lukabudik/alza-mcp-community",
   "description": "Unofficial MCP server for Alza.cz: catalog search plus token-guarded account and checkout.",
   "repository": {
-    "url": "https://github.com/lukabudik/alza-mcp",
+    "url": "https://github.com/lukabudik/alza-mcp-community",
     "source": "github"
   },
-  "version": "0.5.0",
+  "version": "0.6.0",
   "packages": [
     {
       "registryType": "npm",
-      "identifier": "alza-mcp",
-      "version": "0.5.0",
+      "identifier": "alza-mcp-community",
+      "version": "0.6.0",
       "transport": {
         "type": "stdio"
       }

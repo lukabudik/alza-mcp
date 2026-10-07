@@ -7,7 +7,7 @@
 #     out), then hand Cursor the deeplink with `cursor --open-url` (what the OS URL
 #     handler does).
 #  3. Read the "Install MCP server?" dialog over CDP, click Install, screenshot.
-#  4. Assert ~/.cursor/mcp.json == {mcpServers:{alza:{command:npx,args:[-y,alza-mcp]}}} (env absent or {}).
+#  4. Assert ~/.cursor/mcp.json == {mcpServers:{alza:{command:npx,args:[-y,alza-mcp-community]}}} (env absent or {}).
 #  5. Launch exactly that command and run initialize + tools/list.
 set -uo pipefail
 fail=0
@@ -54,7 +54,7 @@ if [ $rc -eq 0 ]; then
     const [name, command, ...rest] = v;
     const args = rest.filter((x, i) => d.inputs[i + 2].placeholder === "Argument" && x);
     const secrets = d.inputs.filter((i) => /^(Key|Value)$/.test(i.placeholder) && i.value);
-    const ok = name === "alza" && command === "npx" && JSON.stringify(args) === JSON.stringify(["-y", "alza-mcp"]) && secrets.length === 0 && d.pressed.includes("Command");
+    const ok = name === "alza" && command === "npx" && JSON.stringify(args) === JSON.stringify(["-y", "alza-mcp-community"]) && secrets.length === 0 && d.pressed.includes("Command");
     (ok ? "PASS " : "FAIL ") + `name=${name} type=${d.pressed.join("/")} command=${command} args=${JSON.stringify(args)} secrets=${secrets.length}`
   ' "$djson" 2>/dev/null || echo "FAIL could not parse dialog")"
   check cursor-dialog-fields "${shown%% *}" "${shown#* }"
@@ -75,7 +75,7 @@ if [ -f "$MCP_JSON" ]; then
     const s = { ...(j.mcpServers || {}).alza };
     const emptyEnv = s.env !== undefined && Object.keys(s.env).length === 0;
     if (emptyEnv) delete s.env; // Cursor itself writes "env": {} for a config without env
-    const ok = names.length === 1 && require("util").isDeepStrictEqual(s, { command: "npx", args: ["-y", "alza-mcp"] });
+    const ok = names.length === 1 && require("util").isDeepStrictEqual(s, { command: "npx", args: ["-y", "alza-mcp-community"] });
     console.log((ok ? "PASS " : "FAIL ") + "servers=" + JSON.stringify(names) + " alza=" + JSON.stringify(j.mcpServers.alza) + (emptyEnv ? " (env {} is added by Cursor, no variables)" : ""));
   ' "$MCP_JSON")"
   check cursor-mcp.json "${verdict%% *}" "${verdict#* }"

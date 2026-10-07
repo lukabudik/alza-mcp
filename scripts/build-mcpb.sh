@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build the Claude Desktop extension bundle (alza-mcp-<version>.mcpb).
+# Build the Claude Desktop extension bundle (alza-mcp-community-<version>.mcpb).
 # Requires a prior `npm run build`. Output goes to ./build/.
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -22,5 +22,5 @@ done
 cp mcpb/manifest.json package.json package-lock.json "$stage/"
 (cd "$stage" && npm ci --omit=dev --ignore-scripts --no-audit --no-fund)
 npx --yes @anthropic-ai/mcpb validate "$stage/manifest.json"
-npx --yes @anthropic-ai/mcpb pack "$stage" "build/alza-mcp-$version.mcpb"
-echo "built build/alza-mcp-$version.mcpb"
+npx --yes @anthropic-ai/mcpb pack "$stage" "build/alza-mcp-community-$version.mcpb"
+echo "built build/alza-mcp-community-$version.mcpb"

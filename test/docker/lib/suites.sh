@@ -58,7 +58,7 @@ suite_mcpb() {
   record mcpb claude-desktop INFO "Claude Desktop has no Linux build: the bundle is validated, unpacked and launched the way the host app would, not installed into the app"
   registry_up || return
   local stage="$OUT/mcpb-src"
-  rm -rf "$stage" "$OUT/alza-mcp.mcpb" && mkdir -p "$stage/scripts"
+  rm -rf "$stage" "$OUT/alza-mcp-community.mcpb" && mkdir -p "$stage/scripts"
   # Stage what build-mcpb.sh reads: every package.json "files" entry, the manifest,
   # package*.json and the build script itself (no node_modules, no repo extras).
   local f
@@ -72,7 +72,7 @@ suite_mcpb() {
     -v "$stage:/src:ro" -v "$HD/lib:/harness/lib:ro" -v "$OUT:/out" \
     node:22-bookworm-slim bash /harness/lib/mcpb-check.sh >"$OUT/mcpb-build.log" 2>&1
   collect mcpb "$OUT/mcpb-build.log"
-  if [ ! -f "$OUT/alza-mcp.mcpb" ]; then record mcpb launch BLOCKED "no bundle built"; return; fi
+  if [ ! -f "$OUT/alza-mcp-community.mcpb" ]; then record mcpb launch BLOCKED "no bundle built"; return; fi
   docker run --rm "${LABEL[@]}" --name "$P-mcpb-launch" --network none --user node \
     -e PHASE=launch -e HOME=/home/node -v "$HD/lib:/harness/lib:ro" -v "$OUT:/out" \
     node:22-bookworm-slim bash /harness/lib/mcpb-check.sh >"$OUT/mcpb-launch.log" 2>&1
@@ -94,7 +94,7 @@ client_container() {
 
 # ---------------------------------------------------------------- Streamable HTTP
 suite_http() {
-  if ! tar xzOf "$OUT/alza-mcp.tgz" package/dist/http.js >/dev/null 2>&1; then
+  if ! tar xzOf "$OUT/alza-mcp-community.tgz" package/dist/http.js >/dev/null 2>&1; then
     record http transport BLOCKED "no dist/http.js in the packed build (issue #16 not in this source tree)"
     return
   fi
@@ -112,7 +112,7 @@ suite_http() {
   done
   docker logs "$P-http" >"$OUT/http-server.log" 2>&1
   if [ $ready = 0 ]; then record http server FAIL "servers did not come up (http-server.log)"; return; fi
-  record http server PASS "npx -y alza-mcp --http on :3000 (0.0.0.0), :3001 (default bind), :3002 (env-only, account mode)"
+  record http server PASS "npx -y alza-mcp-community --http on :3000 (0.0.0.0), :3001 (default bind), :3002 (env-only, account mode)"
   grep -q '^LOOPBACK_3001 {"ok":true' "$OUT/http-server.log" \
     && record http loopback-in-container PASS "default-bind server answers /healthz on 127.0.0.1 inside its container" \
     || record http loopback-in-container FAIL "default-bind server not reachable on 127.0.0.1"
@@ -128,7 +128,7 @@ suite_http() {
 suite_smithery() {
   if [ ! -f "$SOURCE/smithery.yaml" ]; then record smithery yaml BLOCKED "no smithery.yaml"; return; fi
   registry_up || return
-  mkdir -p "$OUT/dist-extract" && tar xzf "$OUT/alza-mcp.tgz" -C "$OUT/dist-extract"
+  mkdir -p "$OUT/dist-extract" && tar xzf "$OUT/alza-mcp-community.tgz" -C "$OUT/dist-extract"
   client_container yaml --name "$P-smithery" --user root \
     -v "$SOURCE/smithery.yaml:/src/smithery.yaml:ro" -v "$OUT/dist-extract/package/dist:/src/dist:ro" -- \
     node /harness/lib/smithery-check.mjs /src/smithery.yaml /src/dist >"$OUT/smithery.log" 2>&1

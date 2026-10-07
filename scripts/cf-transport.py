@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Chrome-fingerprint HTTP transport for alza-mcp (Cloudflare Bot Management bypass).
+"""Chrome-fingerprint HTTP transport for alza-mcp-community (Cloudflare Bot Management bypass).
 
 Alza's surfaces (www / webapi / identity) 403 plain Node fetches with a
 Cloudflare managed challenge, but accept a Chrome-like TLS/HTTP2/header

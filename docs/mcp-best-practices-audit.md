@@ -1,4 +1,4 @@
-# MCP best-practices audit — alza-mcp
+# MCP best-practices audit — alza-mcp-community
 
 Date: 2026-09-10. Scope: all 41 tools + product resource + find-product prompt + server
 instructions, audited against the MCP specification and Anthropic's tool-design guidance.
@@ -19,7 +19,7 @@ Every finding is cited to a source; priorities P0 (fix first) → P3 (nice-to-ha
 
 ### Deltas since the 2026-09-10 audit (S-refresh, 2026-09-13)
 
-1. **A new versioned revision exists: 2026-07-28.** The 2026-09-10 audit cited only 2025-06-18 + draft. The 2026-07-28 server/tools page is substantively the draft page (plus the same content), so the draft-era guidance is now normative-adjacent. Deltas relevant to alza-mcp: `icons` (display, optional), `x-mcp-header` (HTTP-transport-only; this server is stdio — MAY ignore), `InputRequiredResult` (multi-round-trip requests — a spec-native alternative to our bespoke confirmation-token flow, worth recording in §Follow-ups), tools/list `caching` utility, `$ref` resolution requirements, `structuredContent` widened to "any JSON value" (SEP-2106), `outputSchema` widened to any JSON Schema 2020-12.
+1. **A new versioned revision exists: 2026-07-28.** The 2026-09-10 audit cited only 2025-06-18 + draft. The 2026-07-28 server/tools page is substantively the draft page (plus the same content), so the draft-era guidance is now normative-adjacent. Deltas relevant to alza-mcp-community: `icons` (display, optional), `x-mcp-header` (HTTP-transport-only; this server is stdio — MAY ignore), `InputRequiredResult` (multi-round-trip requests — a spec-native alternative to our bespoke confirmation-token flow, worth recording in §Follow-ups), tools/list `caching` utility, `$ref` resolution requirements, `structuredContent` widened to "any JSON value" (SEP-2106), `outputSchema` widened to any JSON Schema 2020-12.
 2. **Tool-name guidance unchanged in substance** (1–128, allowed charset, unique per server); new clarification that the server's `name` is not reliable for disambiguation — supports the F-01 fix (drop the server-side `alza_` prefix; let clients prefix).
 3. **S3 strengthened:** the client best-practices doc now documents progressive discovery + programmatic tool calling, which generate typed APIs from `outputSchema` — makes the per-tool `outputSchema` follow-up (F-06c) more valuable than when recorded.
 4. **S5 unchanged in substance**; confirms `input_examples` remains a Claude-API field, not MCP.

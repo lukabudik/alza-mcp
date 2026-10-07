@@ -93,11 +93,11 @@ describe("buildIssueDraft", () => {
       DIAG,
       errors.list(),
     );
-    expect(draft.repo).toBe("lukabudik/alza-mcp");
+    expect(draft.repo).toBe("lukabudik/alza-mcp-community");
     expect(draft.labels).toEqual(["endpoint-broken"]);
     expect(draft.title).toBe("Endpoint broken: search_products returns HTTP 500 for 'monitor'");
     expect(draft.body).not.toContain("jan@example.cz");
-    expect(draft.body).toContain("- alza-mcp version: 9.9.9");
+    expect(draft.body).toContain("- alza-mcp-community version: 9.9.9");
     expect(draft.body).toContain("- Proxy (`ALZA_PROXY_URL`): not set");
     expect(draft.body).toContain("1. search_products({query: \"monitor\"})");
     // The ring buffer keeps the 3 most recent errors.
@@ -106,12 +106,12 @@ describe("buildIssueDraft", () => {
     expect(draft.body).not.toContain("boom 1");
     expect(draft.redactions).toBe(1);
 
-    expect(draft.gh_create_command).toContain("gh issue create --repo lukabudik/alza-mcp --title 'Endpoint broken: search_products returns HTTP 500 for '\\''monitor'\\''' --label 'endpoint-broken' --body-file - <<'ALZA_MCP_ISSUE_BODY'\n");
+    expect(draft.gh_create_command).toContain("gh issue create --repo lukabudik/alza-mcp-community --title 'Endpoint broken: search_products returns HTTP 500 for '\\''monitor'\\''' --label 'endpoint-broken' --body-file - <<'ALZA_MCP_ISSUE_BODY'\n");
     expect(draft.gh_create_command.endsWith("\nALZA_MCP_ISSUE_BODY")).toBe(true);
-    expect(draft.gh_search_command).toBe("gh issue list --repo lukabudik/alza-mcp --state all --search 'search_products returns HTTP 500 for monitor'");
+    expect(draft.gh_search_command).toBe("gh issue list --repo lukabudik/alza-mcp-community --state all --search 'search_products returns HTTP 500 for monitor'");
 
     const url = new URL(draft.new_issue_url);
-    expect(url.origin + url.pathname).toBe("https://github.com/lukabudik/alza-mcp/issues/new");
+    expect(url.origin + url.pathname).toBe("https://github.com/lukabudik/alza-mcp-community/issues/new");
     expect(url.searchParams.get("title")).toBe(draft.title);
     expect(url.searchParams.get("labels")).toBe("endpoint-broken");
     expect(url.searchParams.get("body")).toBe(draft.body);
@@ -181,8 +181,8 @@ describe("report_issue over MCP", () => {
       const sc = res.structuredContent as { title: string; gh_create_command: string; new_issue_url: string; labels: string[] };
       expect(sc.title).toBe("Example failure");
       expect(sc.labels).toEqual(["bug"]);
-      expect(sc.gh_create_command.startsWith("gh issue create --repo lukabudik/alza-mcp")).toBe(true);
-      expect(sc.new_issue_url.startsWith("https://github.com/lukabudik/alza-mcp/issues/new?")).toBe(true);
+      expect(sc.gh_create_command.startsWith("gh issue create --repo lukabudik/alza-mcp-community")).toBe(true);
+      expect(sc.new_issue_url.startsWith("https://github.com/lukabudik/alza-mcp-community/issues/new?")).toBe(true);
       const text = (res.content as Array<{ text: string }>)[0]!.text;
       expect(text).toContain("file it only with their consent");
     } finally {

@@ -31,7 +31,7 @@ startCommand:
   commandFunction: |-
     (config) => ({
       command: 'npx',
-      args: ['-y', 'alza-mcp'],
+      args: ['-y', 'alza-mcp-community'],
       env: {
         ...(config.alzaBaseUrl ? { ALZA_BASE_URL: config.alzaBaseUrl } : {}),
         ...(config.alzaCdpUrl ? { ALZA_CDP_URL: config.alzaCdpUrl } : {}),

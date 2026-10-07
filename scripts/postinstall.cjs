@@ -1,4 +1,4 @@
-// Triggered automatically when alza-mcp is installed (incl. via `npx -y`).
+// Triggered automatically when alza-mcp-community is installed (incl. via `npx -y`).
 // Sets up the two optional runtime helpers the MCP server uses:
 //   1. the Chrome-fingerprint transport venv (curl_cffi, scripts/ensure-cf-venv.sh)
 //   2. the Chromium headless-shell binary for the browser-driven fallback
@@ -34,7 +34,7 @@ const skipVenv = process.env.ALZA_MCP_SKIP_VENV === "1";
 const logFile = path.join(__dirname, "..", ".postinstall.log");
 
 function log(msg) {
-  process.stdout.write("[alza-mcp] " + msg + "\n");
+  process.stdout.write("[alza-mcp-community] " + msg + "\n");
   try { fs.appendFileSync(logFile, msg + "\n"); } catch { /* ignore */ }
 }
 
@@ -67,7 +67,7 @@ try {
   if (!fs.existsSync(cliPath)) throw new Error("cli.js missing");
 } catch {
   console.warn(
-    "[alza-mcp] postinstall: playwright not yet installed; skipping browser download. " +
+    "[alza-mcp-community] postinstall: playwright not yet installed; skipping browser download. " +
       "Run `npx playwright install chromium --only-shell` manually if the server fails to launch."
   );
   process.exit(0);
@@ -85,7 +85,7 @@ if (result.status === 0) {
   process.exit(0);
 }
 
-// Don't fail the parent npm install over this — alza-mcp will retry the install
+// Don't fail the parent npm install over this — alza-mcp-community will retry the install
 // at runtime with a clearer error message.
 log(
   "chromium install exited with code " +

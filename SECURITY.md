@@ -1,6 +1,6 @@
 # Security policy
 
-`alza-mcp` is an unofficial, reverse-engineered client that can act on real Alza accounts (cart, checkout, orders, payments, registration, credential changes, account deletion). Please read the [Disclaimer](README.md#disclaimer) first.
+`alza-mcp-community` is an unofficial, reverse-engineered client that can act on real Alza accounts (cart, checkout, orders, payments, registration, credential changes, account deletion). Please read the [Disclaimer](README.md#disclaimer) first.
 
 ## Reporting a vulnerability
 

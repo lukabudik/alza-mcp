@@ -1,9 +1,9 @@
 import { VERSION } from "./server.js";
 
-export const USAGE = `alza-mcp ${VERSION} - unofficial MCP server for Alza.cz
+export const USAGE = `alza-mcp-community ${VERSION} - unofficial MCP server for Alza.cz
 
-Usage: alza-mcp [--stdio | --http [--port N] [--host H]]
-       alza-mcp --setup-cf
+Usage: alza-mcp-community [--stdio | --http [--port N] [--host H]]
+       alza-mcp-community --setup-cf
 
   --stdio        Serve MCP over stdin/stdout (default)
   --http         Serve MCP over Streamable HTTP (default 127.0.0.1:3000/mcp)

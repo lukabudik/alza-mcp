@@ -1,6 +1,6 @@
 /**
  * UTM attribution on the Alza storefront links this server hands to agents, so
- * Alza can see traffic that came through alza-mcp. Requested by Alza; always on.
+ * Alza can see traffic that came through alza-mcp-community. Requested by Alza; always on.
  *
  * Applied only at output time, on copies: the same URLs are cached and navigated
  * internally (productUrlCache, getProduct, reviews), and those must stay untagged.

@@ -1,5 +1,5 @@
 /**
- * Drafting GitHub issues about alza-mcp itself (the `report_issue` tool).
+ * Drafting GitHub issues about alza-mcp-community itself (the `report_issue` tool).
  *
  * The server never files anything: it builds a redacted draft plus a ready-to-run
  * `gh issue create` command and a prefilled new-issue URL. The agent shows the draft
@@ -7,7 +7,7 @@
  * GitHub account, so that decision stays with them.
  */
 
-export const ISSUE_REPO = "lukabudik/alza-mcp";
+export const ISSUE_REPO = "lukabudik/alza-mcp-community";
 
 export type IssueCategory = "bug" | "alza_change" | "feature_request" | "docs";
 
@@ -212,7 +212,7 @@ export function buildIssueDraft(input: IssueInput, diag: Diagnostics, recent: Re
     "",
     "**Environment**",
     "",
-    `- alza-mcp version: ${diag.version}`,
+    `- alza-mcp-community version: ${diag.version}`,
     `- Node version: ${diag.node}`,
     `- Platform: ${diag.platform}`,
     `- Storefront (\`ALZA_BASE_URL\`): ${diag.storefront}`,
@@ -230,7 +230,7 @@ export function buildIssueDraft(input: IssueInput, diag: Diagnostics, recent: Re
       "```",
     );
   }
-  sections.push("", "_Drafted by the alza-mcp `report_issue` tool and reviewed by the user before filing. Personal data and credentials were redacted automatically._");
+  sections.push("", "_Drafted by the alza-mcp-community `report_issue` tool and reviewed by the user before filing. Personal data and credentials were redacted automatically._");
   let body = sections.join("\n");
   // The heredoc delimiter must not appear in the body itself.
   body = body.split(HEREDOC).join("ALZA_MCP_ISSUE_BODY_");

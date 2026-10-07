@@ -114,7 +114,7 @@ child.on("error", (err) => {
         {
           protocolVersion: "2025-06-18",
           capabilities: {},
-          clientInfo: { name: "alza-mcp-docker-smoke", version: "1.0.0" },
+          clientInfo: { name: "alza-mcp-community-docker-smoke", version: "1.0.0" },
         },
         timeoutMs - 5_000
       ),

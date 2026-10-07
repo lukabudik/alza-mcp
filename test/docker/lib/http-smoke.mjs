@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Streamable HTTP checks against an alza-mcp `--http` server in another container.
+// Streamable HTTP checks against an alza-mcp-community `--http` server in another container.
 // Runs in a client container with @modelcontextprotocol/sdk installed under /client.
 //
 // Env:
@@ -38,7 +38,7 @@ pass("http-healthz", health.ok === true && health.transport === "streamable-http
 
 const A = await connect(url, "A");
 const info = A.client.getServerVersion();
-pass("http-initialize", !!A.transport.sessionId && info?.name === "alza-mcp",
+pass("http-initialize", !!A.transport.sessionId && info?.name === "alza-mcp-community",
   `server ${info?.name}@${info?.version}, session ${A.transport.sessionId?.slice(0, 8)}…, protocol ${A.transport.protocolVersion ?? "?"}`);
 const toolsA0 = await toolNames(A.client);
 pass("http-tools/list", toolsA0.includes("search_products") && toolsA0.includes("set_toolset"), `${toolsA0.length} tools: ${toolsA0.join(", ")}`);

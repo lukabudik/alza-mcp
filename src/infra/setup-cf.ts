@@ -37,7 +37,7 @@ export function systemPythons(platform: NodeJS.Platform): string[][] {
 
 /**
  * Create (idempotently) the .venv-cf holding curl_cffi. Never runs implicitly:
- * only via `alza-mcp --setup-cf`. Returns the process exit code.
+ * only via `alza-mcp-community --setup-cf`. Returns the process exit code.
  */
 export async function runSetupCf(opts: SetupCfOptions = {}): Promise<number> {
   const root = opts.root ?? repoRoot;

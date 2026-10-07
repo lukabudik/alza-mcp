@@ -28,5 +28,5 @@ jobs:
           npm pack --pack-destination "$RUNNER_TEMP"
           mkdir "$RUNNER_TEMP/consumer" && cd "$RUNNER_TEMP/consumer"
           npm init -y > /dev/null
-          ALZA_MCP_SKIP_INSTALL= npm install "$RUNNER_TEMP"/alza-mcp-*.tgz
-          test -x node_modules/.bin/alza-mcp
+          ALZA_MCP_SKIP_INSTALL= npm install "$RUNNER_TEMP"/alza-mcp-community-*.tgz
+          test -x node_modules/.bin/alza-mcp-community

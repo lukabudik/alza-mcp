@@ -20,4 +20,4 @@ labels: enhancement
 
 <!-- URL, route, or how you found it (devtools, APK, …). Don't paste tokens, cookies or personal data. -->
 
-- [ ] I checked [ROADMAP.md](https://github.com/lukabudik/alza-mcp/blob/main/ROADMAP.md) and the [open issues](https://github.com/lukabudik/alza-mcp/issues) for duplicates.
+- [ ] I checked [ROADMAP.md](https://github.com/lukabudik/alza-mcp-community/blob/main/ROADMAP.md) and the [open issues](https://github.com/lukabudik/alza-mcp-community/issues) for duplicates.

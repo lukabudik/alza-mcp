@@ -140,7 +140,7 @@ export class ImpersonateTransport {
       }
       this.dead = true;
       log.warn("cf-transport: no interpreter with curl_cffi found (run scripts/ensure-cf-venv.sh)");
-      log.info("cf-transport: to create the curl_cffi venv without bash, run: npx -y alza-mcp --setup-cf");
+      log.info("cf-transport: to create the curl_cffi venv without bash, run: npx -y alza-mcp-community --setup-cf");
       return false;
     })();
     return this.spawnPromise;

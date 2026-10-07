@@ -29,9 +29,9 @@ describe("#69: invalid ALZA_PROXY_URL fails fast at startup", () => {
       expect(run.error).toBeUndefined();
       expect(run.status).toBe(1);
       const lines = run.stderr.trim().split("\n");
-      expect(lines.at(-1)).toMatch(/^alza-mcp: ALZA_PROXY_URL /);
+      expect(lines.at(-1)).toMatch(/^alza-mcp-community: ALZA_PROXY_URL /);
       expect(lines.at(-1)).toMatch(message);
-      expect(run.stderr).not.toMatch(/alza-mcp ready/);
+      expect(run.stderr).not.toMatch(/alza-mcp-community ready/);
     }, 30_000);
   }
 });

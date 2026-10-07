@@ -1209,7 +1209,7 @@ function displayTarget(url: string): string {
 
 function proxyBypassRefused(cause: unknown): ConfigurationError {
   return new ConfigurationError(
-    `ALZA_PROXY_URL is set, so alza-mcp does not fall back to an un-proxied connection, and the proxied Chrome-fingerprint transport failed: ${(cause instanceof Error ? cause.message : String(cause)).replace(/\.+\s*$/, "")}. ` +
+    `ALZA_PROXY_URL is set, so alza-mcp-community does not fall back to an un-proxied connection, and the proxied Chrome-fingerprint transport failed: ${(cause instanceof Error ? cause.message : String(cause)).replace(/\.+\s*$/, "")}. ` +
       "Check that the proxy is reachable and its credentials are right, and that the curl_cffi sidecar is installed (scripts/ensure-cf-venv.sh).",
     cause,
   );

@@ -1,8 +1,8 @@
 blank_issues_enabled: true
 contact_links:
   - name: Security vulnerability
-    url: https://github.com/lukabudik/alza-mcp/blob/main/SECURITY.md
+    url: https://github.com/lukabudik/alza-mcp-community/blob/main/SECURITY.md
     about: Please don't open a public issue for vulnerabilities — follow SECURITY.md to report privately.
   - name: Roadmap
-    url: https://github.com/lukabudik/alza-mcp/blob/main/ROADMAP.md
+    url: https://github.com/lukabudik/alza-mcp-community/blob/main/ROADMAP.md
     about: Check what's already planned before filing a feature request.

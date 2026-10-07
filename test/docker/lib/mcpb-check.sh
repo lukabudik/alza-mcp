@@ -2,7 +2,7 @@
 # Runs INSIDE clean node containers. Two phases (PHASE env):
 #   build   /src is a read-only copy of the source tree (with dist/ built). Copy it, run
 #           scripts/build-mcpb.sh exactly like the release workflow (npm ci --ignore-scripts
-#           first), then `mcpb validate` + `mcpb info`; leaves /out/alza-mcp.mcpb.
+#           first), then `mcpb validate` + `mcpb info`; leaves /out/alza-mcp-community.mcpb.
 #   launch  a DIFFERENT clean container started with --network none (Claude Desktop runs the
 #           bundle with its own Node and does no npm install): unzip the bundle, resolve
 #           manifest.server.mcp_config like the host app does (${__dirname}, ${user_config.*}
@@ -24,7 +24,7 @@ if [ "$PHASE" = build ]; then
     exit 1
   fi
   B="$(ls build/*.mcpb | head -1)"
-  cp "$B" /out/alza-mcp.mcpb
+  cp "$B" /out/alza-mcp-community.mcpb
   if npx --yes @anthropic-ai/mcpb validate mcpb/manifest.json >"$HOME/validate.log" 2>&1; then
     check mcpb-validate PASS "$(tail -1 "$HOME/validate.log")"
   else
@@ -42,7 +42,7 @@ mkdir -p "$HOME/ext" && cd "$HOME/ext" || exit 1
 node -e '
   // Minimal zip extraction with Node built-ins only (no unzip in the image, no network).
   const fs = require("fs"), path = require("path"), zlib = require("zlib");
-  const buf = fs.readFileSync("/out/alza-mcp.mcpb");
+  const buf = fs.readFileSync("/out/alza-mcp-community.mcpb");
   let eocd = buf.length - 22; while (buf.readUInt32LE(eocd) !== 0x06054b50) eocd--;
   let off = buf.readUInt32LE(eocd + 16); const n = buf.readUInt16LE(eocd + 10);
   for (let i = 0; i < n; i++) {

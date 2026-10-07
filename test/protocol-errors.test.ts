@@ -149,7 +149,7 @@ describe("tools/call robustness", () => {
 
 describe("CLI", () => {
   it("handles --help / --version / -v before parsing config", () => {
-    expect(informationalOutput(["--help"])).toMatch(/Usage: alza-mcp/);
+    expect(informationalOutput(["--help"])).toMatch(/Usage: alza-mcp-community/);
     expect(informationalOutput(["-h"])).toMatch(/Usage/);
     expect(informationalOutput(["--version"])).toMatch(/^\d+\.\d+\.\d+\n$/);
     expect(informationalOutput(["-v"])).toMatch(/^\d+\.\d+\.\d+\n$/);

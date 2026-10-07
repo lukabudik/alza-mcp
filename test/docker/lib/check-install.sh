@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Runs INSIDE a clean test container as the unprivileged `node` user.
-# Installs alza-mcp from the harness registry the way an MCP client does
-# (`npx -y alza-mcp`) or via `npm install <tarball>`, then asserts:
-#   - postinstall ran (its [alza-mcp] output / .postinstall.log),
+# Installs alza-mcp-community from the harness registry the way an MCP client does
+# (`npx -y alza-mcp-community`) or via `npm install <tarball>`, then asserts:
+#   - postinstall ran (its [alza-mcp-community] output / .postinstall.log),
 #   - .venv-cf with curl_cffi exists iff python3 + venv are available,
 #   - the CF sidecar files ship in the package,
 #   - the server answers initialize + tools/list over stdio,
@@ -34,28 +34,28 @@ cd "$HOME"
 INSTALL_LOG="$HOME/install.log"
 if [ "$MODE" = "tarball" ]; then
   mkdir -p app && cd app && npm init -y >/dev/null
-  echo "== npm install /pkg/alza-mcp.tgz"
-  npm install --no-audit --no-fund --foreground-scripts /pkg/alza-mcp.tgz >"$INSTALL_LOG" 2>&1
+  echo "== npm install /pkg/alza-mcp-community.tgz"
+  npm install --no-audit --no-fund --foreground-scripts /pkg/alza-mcp-community.tgz >"$INSTALL_LOG" 2>&1
   rc=$?
-  PKG_DIR="$HOME/app/node_modules/alza-mcp"
+  PKG_DIR="$HOME/app/node_modules/alza-mcp-community"
   RUN=(node "$PKG_DIR/dist/index.js")
 else
-  echo "== npm exec --yes --package=alza-mcp (same npx cache install an MCP client's 'npx -y alza-mcp' does)"
+  echo "== npm exec --yes --package=alza-mcp-community (same npx cache install an MCP client's 'npx -y alza-mcp-community' does)"
   # --foreground-scripts only makes postinstall output visible in the log.
-  npm exec --yes --foreground-scripts --package=alza-mcp -- node -e 'process.exit(0)' >"$INSTALL_LOG" 2>&1
+  npm exec --yes --foreground-scripts --package=alza-mcp-community -- node -e 'process.exit(0)' >"$INSTALL_LOG" 2>&1
   rc=$?
-  PKG_DIR="$(dirname "$(find "$HOME/.npm/_npx" -path '*/node_modules/alza-mcp/package.json' 2>/dev/null | head -1)")"
-  RUN=(npx -y alza-mcp)
+  PKG_DIR="$(dirname "$(find "$HOME/.npm/_npx" -path '*/node_modules/alza-mcp-community/package.json' 2>/dev/null | head -1)")"
+  RUN=(npx -y alza-mcp-community)
 fi
 grep -v -e '■' -e '^ *$' "$INSTALL_LOG" | sed 's/^/  | /' | tail -40
 if [ $rc -eq 0 ]; then check install PASS "exit 0 ($MODE)"; else check install FAIL "exit $rc ($MODE)"; fi
-if [ ! -f "$PKG_DIR/package.json" ]; then check package-dir FAIL "alza-mcp not found"; exit 1; fi
+if [ ! -f "$PKG_DIR/package.json" ]; then check package-dir FAIL "alza-mcp-community not found"; exit 1; fi
 echo "package dir: $PKG_DIR (version $(node -p "require('$PKG_DIR/package.json').version"))"
 
-if grep -q '\[alza-mcp\]' "$INSTALL_LOG" || [ -f "$PKG_DIR/.postinstall.log" ]; then
+if grep -q '\[alza-mcp-community\]' "$INSTALL_LOG" || [ -f "$PKG_DIR/.postinstall.log" ]; then
   check postinstall-ran PASS "$(head -c 200 "$PKG_DIR/.postinstall.log" 2>/dev/null | tr '\n' ';')"
 else
-  check postinstall-ran FAIL "no [alza-mcp] output and no .postinstall.log (lifecycle script skipped?)"
+  check postinstall-ran FAIL "no [alza-mcp-community] output and no .postinstall.log (lifecycle script skipped?)"
 fi
 
 if grep -q 'install-scripts' "$INSTALL_LOG"; then

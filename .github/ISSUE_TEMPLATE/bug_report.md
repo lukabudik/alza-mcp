@@ -20,7 +20,7 @@ labels: bug
 
 **Environment**
 
-- alza-mcp version:
+- alza-mcp-community version:
 - Node version:
 - MCP client (Claude Desktop / Claude Code / Cursor / other):
 - `ALZA_BASE_URL` (if not default):

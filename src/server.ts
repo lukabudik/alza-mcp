@@ -33,7 +33,7 @@ import { MobileApi } from "./infra/mobile-api.js";
 import { ImpersonateTransport, cfFetch } from "./infra/impersonate-transport.js";
 import type { ToolResult } from "./tools/types.js";
 
-export const VERSION = "0.5.0";
+export const VERSION = "0.6.0";
 
 export interface BuildOptions {
   baseUrl?: string;
@@ -86,7 +86,7 @@ export function buildServer(opts: BuildOptions = {}): BuildResult {
   const deps = { catalog, reviews, pickup, mobileAccount, alternatives, autocomplete };
 
   const server = new McpServer(
-    { name: "alza-mcp", title: "Alza (unofficial)", version: VERSION },
+    { name: "alza-mcp-community", title: "Alza (unofficial, community)", version: VERSION },
     {
       capabilities: {
         tools: {},
@@ -98,11 +98,11 @@ export function buildServer(opts: BuildOptions = {}): BuildResult {
         "Tools are grouped into toolsets and only `catalog` + `auth` are enabled by default to keep the visible tool list small — call `list_toolsets` to see every group, then `set_toolset({id, enabled: true})` to turn on the one a task needs (e.g. `basket_and_checkout` before placing an order) before calling its tools. " +
         "Catalog (always on): `autocomplete` (search-box suggestions to refine a query) → `search_products` (keyword + filters) → `get_product` (detail) → `get_product_reviews` (reviews); `compare_products` (2–6 codes side by side); `recommend_alternatives` for cheaper / better-rated / same-brand alternatives to a product; `get_deals` for discounted products; `list_categories` for category ids; `find_pickup_points` for AlzaBox lockers and AlzaShop showrooms near a postal code. " +
         "Account & checkout (enable `basket_and_checkout`; OAuth token auto-loads from ~/.alza-mcp/tokens.json; check `account_status`): `cart`, `add_to_cart`, `delivery_options`, `select_pickup_point`, `checkout_preview` → `place_order` (mobile API), or the legacy web WCF path `web_add_to_cart` → `web_cart` → `web_pickup_places` → `web_place_order`. " +
-        "Order submission currently works via the legacy web WCF path (`web_place_order`); the mobile `place_order` (sendOrder3) returns HTTP 500 (https://github.com/lukabudik/alza-mcp/blob/main/docs/gap-analysis.md G1/G5). Cancel with `cancel_order`. " +
+        "Order submission currently works via the legacy web WCF path (`web_place_order`); the mobile `place_order` (sendOrder3) returns HTTP 500 (https://github.com/lukabudik/alza-mcp-community/blob/main/docs/gap-analysis.md G1/G5). Cancel with `cancel_order`. " +
         "Credentials are never collected by the MCP. High-impact mutations (payment, registration, address, review, subscription, attachment, order) require a one-time token from `prepare_mutation` (in the always-on `auth` toolset) — confirm with the user before calling them. " +
         "PC building (enable `pc_builder`): `pc_build_suggest` proposes a compatibility-checked parts list within a CZK budget; `pc_build_check` checks any parts list (socket, RAM, PSU wattage, GPU/cooler clearance, form factor). " +
         "`mobile_read` (toolset `advanced_raw`) is the raw read-only escape hatch for mobile API operations without a dedicated tool. " +
-        "If a tool fails unexpectedly or returns clearly wrong data (not a user mistake such as invalid arguments or an unknown product), call `report_issue` (always available) to draft a GitHub issue for the alza-mcp maintainers, show the draft to the user, and file it with the returned `gh` command or link only if they agree." +
+        "If a tool fails unexpectedly or returns clearly wrong data (not a user mistake such as invalid arguments or an unknown product), call `report_issue` (always available) to draft a GitHub issue for the alza-mcp-community maintainers, show the draft to the user, and file it with the returned `gh` command or link only if they agree." +
         (opts.instructionsNote ? ` ${opts.instructionsNote}` : ""),
     }
   );
@@ -183,7 +183,7 @@ export function buildServer(opts: BuildOptions = {}): BuildResult {
 }
 
 const REPORT_HINT =
-  "If this looks like a bug in alza-mcp or a change on Alza's side rather than a problem with the request, you can call `report_issue` to draft a GitHub issue — ask the user before filing it.";
+  "If this looks like a bug in alza-mcp-community or a change on Alza's side rather than a problem with the request, you can call `report_issue` to draft a GitHub issue — ask the user before filing it.";
 
 /** Errors caused by the request itself: no point asking the maintainers about them. */
 function isUserError(err: unknown): boolean {

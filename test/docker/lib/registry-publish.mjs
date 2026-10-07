@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Runs inside a throwaway node container on the harness network: creates a
-// local user on the harness Verdaccio registry and publishes /pkg/alza-mcp.tgz
+// local user on the harness Verdaccio registry and publishes /pkg/alza-mcp-community.tgz
 // to it (no lifecycle scripts run for a tarball publish). Never talks to npmjs.
 import { execFileSync } from "node:child_process";
 import { writeFileSync } from "node:fs";
@@ -28,6 +28,6 @@ const body = await res.json();
 if (!body.token) throw new Error(`registry adduser failed: ${res.status} ${JSON.stringify(body)}`);
 const host = registry.replace(/^https?:/, "");
 writeFileSync(`${process.env.HOME}/.npmrc`, `registry=${registry}/\n${host}/:_authToken=${body.token}\n`);
-execFileSync("npm", ["publish", "/pkg/alza-mcp.tgz", "--registry", `${registry}/`, "--tag", "latest"], { stdio: "inherit" });
-const meta = await (await fetch(`${registry}/alza-mcp`)).json();
-console.log(`registry now serves alza-mcp dist-tags=${JSON.stringify(meta["dist-tags"])} versions=${Object.keys(meta.versions).join(",")}`);
+execFileSync("npm", ["publish", "/pkg/alza-mcp-community.tgz", "--registry", `${registry}/`, "--tag", "latest"], { stdio: "inherit" });
+const meta = await (await fetch(`${registry}/alza-mcp-community`)).json();
+console.log(`registry now serves alza-mcp-community dist-tags=${JSON.stringify(meta["dist-tags"])} versions=${Object.keys(meta.versions).join(",")}`);

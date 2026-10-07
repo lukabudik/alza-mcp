@@ -36,7 +36,7 @@ export class HandshakeError extends AlzaError {
 }
 
 /** Bad operator configuration (e.g. an invalid ALZA_PROXY_URL). Not a bug in
- * alza-mcp or a change on Alza's side, so no `report_issue` hint. */
+ * alza-mcp-community or a change on Alza's side, so no `report_issue` hint. */
 export class ConfigurationError extends AlzaError {
   override readonly name = "ConfigurationError";
 }
@@ -62,7 +62,7 @@ export class OutcomeUnknownError extends AlzaError {
 }
 
 /** Alza answered 2xx with an `err:1` envelope: it refused the request (e.g.
- * "order does not exist"). A user-facing validation, not an alza-mcp bug. */
+ * "order does not exist"). A user-facing validation, not an alza-mcp-community bug. */
 export class AlzaRejectedError extends AlzaError {
   override readonly name = "AlzaRejectedError";
   constructor(public readonly alzaMessage: string | undefined) {
@@ -78,7 +78,7 @@ export function assertNotRejected(value: unknown): void {
 }
 
 /** The request itself is wrong (bad input, invalid confirmation token, not signed in,
- * wrong user_id, unknown postal code). The caller can fix it; not a bug in alza-mcp
+ * wrong user_id, unknown postal code). The caller can fix it; not a bug in alza-mcp-community
  * or a change on Alza's side, so no `report_issue` hint. */
 export class UserError extends AlzaError {
   override readonly name = "UserError";

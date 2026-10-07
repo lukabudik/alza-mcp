@@ -10,10 +10,10 @@ import { candidatePythons } from "../src/infra/impersonate-transport.js";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const scripts = path.join(root, "scripts");
 
-/** A fake package: <tmp>/[node_modules/alza-mcp/]scripts with the real postinstall and a stub venv script. */
+/** A fake package: <tmp>/[node_modules/alza-mcp-community/]scripts with the real postinstall and a stub venv script. */
 function fakePackage(underNodeModules: boolean) {
   const base = mkdtempSync(path.join(tmpdir(), "alza-pkg-"));
-  const pkg = underNodeModules ? path.join(base, "node_modules", "alza-mcp") : path.join(base, "alza-mcp");
+  const pkg = underNodeModules ? path.join(base, "node_modules", "alza-mcp-community") : path.join(base, "alza-mcp-community");
   mkdirSync(path.join(pkg, "scripts"), { recursive: true });
   copyFileSync(path.join(scripts, "postinstall.cjs"), path.join(pkg, "scripts", "postinstall.cjs"));
   const marker = path.join(pkg, "venv-ran");

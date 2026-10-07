@@ -6,7 +6,7 @@
 #   scripts/docker-install-tests.sh --source ../alza-mcp-other-branch --live install
 #
 # Suites:
-#   install   npm pack -> local registry -> `npx -y alza-mcp` / `npm install <tgz>` in clean
+#   install   npm pack -> local registry -> `npx -y alza-mcp-community` / `npm install <tgz>` in clean
 #             node:20/22/24 images with and without python3: postinstall, .venv-cf, sidecar
 #             files, stdio initialize + tools/list (+ one live search_products with --live)
 #   badges    decode + validate the README "Quick install" Cursor / VS Code badge payloads
@@ -21,7 +21,7 @@
 #   smithery  evaluate smithery.yaml commandFunction in node, launch the resulting command
 #
 # Options:
-#   --source DIR   alza-mcp checkout to pack and test (default: this repo). The harness itself
+#   --source DIR   alza-mcp-community checkout to pack and test (default: this repo). The harness itself
 #                  always comes from this repo, so another branch can be tested unmodified.
 #   --live         allow ONE polite live search_products call from a clean container
 #   --keep         keep containers/images/network for debugging
@@ -55,7 +55,7 @@ chmod a+rwx "$OUT"   # containers run as uid 1000 (`node`) and write evidence he
 SUMMARY="$OUT/summary.txt"
 : >"$SUMMARY"
 
-P=alza-mcp-harness            # prefix for every container/image/network we create
+P=alza-mcp-community-harness            # prefix for every container/image/network we create
 NET="$P-net"
 REG="$P-registry"
 REGISTRY_URL="http://registry:4873"
@@ -86,11 +86,11 @@ pack() {
     cd "$SOURCE" || exit 1
     [ -d node_modules ] || ALZA_MCP_SKIP_INSTALL=1 npm ci --no-audit --no-fund >"$OUT/pack.log" 2>&1 || exit 1
     npm run build >>"$OUT/pack.log" 2>&1 || exit 1
-    rm -f "$OUT"/alza-mcp-*.tgz
+    rm -f "$OUT"/alza-mcp-community-*.tgz
     npm pack --pack-destination "$OUT" >>"$OUT/pack.log" 2>&1 || exit 1
   ) || { record setup pack FAIL "build/pack failed, see pack.log"; exit 1; }
-  TGZ="$(ls "$OUT"/alza-mcp-*.tgz | head -1)"
-  cp "$TGZ" "$OUT/alza-mcp.tgz"
+  TGZ="$(ls "$OUT"/alza-mcp-community-*.tgz | head -1)"
+  cp "$TGZ" "$OUT/alza-mcp-community.tgz"
   record setup pack PASS "$(basename "$TGZ") ($(du -k "$TGZ" | cut -f1) KB, $(tar tzf "$TGZ" | wc -l) files)"
 }
 
@@ -101,7 +101,7 @@ registry_up() {
   docker rm -f "$REG" >/dev/null 2>&1
   docker run -d "${LABEL[@]}" --name "$REG" --network "$NET" --network-alias registry \
     -v "$HD/verdaccio/config.yaml:/verdaccio/conf/config.yaml:ro" verdaccio/verdaccio:6 >/dev/null
-  if docker run --rm "${LABEL[@]}" --network "$NET" -v "$OUT/alza-mcp.tgz:/pkg/alza-mcp.tgz:ro" \
+  if docker run --rm "${LABEL[@]}" --network "$NET" -v "$OUT/alza-mcp-community.tgz:/pkg/alza-mcp-community.tgz:ro" \
       -v "$HD/lib:/harness/lib:ro" -e HARNESS_REGISTRY="$REGISTRY_URL" node:22-bookworm-slim \
       node /harness/lib/registry-publish.mjs >"$OUT/registry-publish.log" 2>&1; then
     record setup registry PASS "$(tail -1 "$OUT/registry-publish.log")"
@@ -143,7 +143,7 @@ suite_install() {
         --build-arg PYTHON="$py" --build-arg BROWSER_DEPS="$deps" || { echo "CHECK image FAIL docker build"; exit 1; }
       docker run --rm "${LABEL[@]}" --name "$P-install-$name" --network "$NET" \
         -e NPM_CONFIG_REGISTRY="$REGISTRY_URL/" -e MODE="$mode" -e EXPECT_VENV="$expect" -e LIVE="$live" \
-        -v "$OUT/alza-mcp.tgz:/pkg/alza-mcp.tgz:ro" -v "$HD/lib:/harness/lib:ro" \
+        -v "$OUT/alza-mcp-community.tgz:/pkg/alza-mcp-community.tgz:ro" -v "$HD/lib:/harness/lib:ro" \
         "$P/node:$name" bash /harness/lib/check-install.sh
     ) >"$OUT/install-$name.log" 2>&1 &
     pids+=($!)

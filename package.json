@@ -1,12 +1,12 @@
 {
-  "name": "alza-mcp",
-  "mcpName": "io.github.lukabudik/alza-mcp",
-  "version": "0.5.0",
+  "name": "alza-mcp-community",
+  "mcpName": "io.github.lukabudik/alza-mcp-community",
+  "version": "0.6.0",
   "description": "Unofficial Model Context Protocol server for Alza.cz — product search, details, reviews, and pickup points, plus the authenticated account, cart, checkout, order, and payment stack (mobile REST + legacy web WCF).",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "alza-mcp": "dist/index.js"
+    "alza-mcp-community": "dist/index.js"
   },
   "files": [
     "dist",
@@ -63,15 +63,15 @@
     "ai",
     "agent"
   ],
-  "author": "alza-mcp contributors",
+  "author": "alza-mcp-community contributors",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lukabudik/alza-mcp.git"
+    "url": "git+https://github.com/lukabudik/alza-mcp-community.git"
   },
-  "homepage": "https://github.com/lukabudik/alza-mcp#readme",
+  "homepage": "https://github.com/lukabudik/alza-mcp-community#readme",
   "bugs": {
-    "url": "https://github.com/lukabudik/alza-mcp/issues"
+    "url": "https://github.com/lukabudik/alza-mcp-community/issues"
   },
   "engines": {
     "node": ">=20"

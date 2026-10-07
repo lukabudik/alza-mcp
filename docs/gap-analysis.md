@@ -410,7 +410,7 @@ about *how* the working tools relate to each other:
 
 ### `compare_products` side-by-side comparison — added (2026-10-06)
 
-- **The gap ([#11](https://github.com/lukabudik/alza-mcp/issues/11)):** to compare
+- **The gap ([#11](https://github.com/lukabudik/alza-mcp-community/issues/11)):** to compare
   candidates, an agent had to call `get_product` N times and build the table
   itself, which filled its context with full product payloads.
 - **Fix:** `compare_products({codes: 2–6, summarize?})` (catalog toolset,
@@ -419,7 +419,7 @@ about *how* the working tools relate to each other:
   first, then every spec name found in any product, matched by exact name. A
   code that fails gets its own `ok: false` column instead of failing the call.
   The alignment is a pure function, `buildComparisonTable`, with unit tests.
-- **Sampling ([#18](https://github.com/lukabudik/alza-mcp/issues/18)):**
+- **Sampling ([#18](https://github.com/lukabudik/alza-mcp-community/issues/18)):**
   `summarize: true` calls `server.createMessage` only when the client advertises
   `sampling`. The request uses `includeContext: "none"` and `maxTokens: 400`,
   and the system prompt limits the model to the table. Without the capability,
@@ -632,7 +632,7 @@ Question: where can a read-only tool get discounted products with current price,
 - **Exposure** typed read-only `autocomplete` tool (catalog toolset). APK-side equivalent not separately mapped (`unresolved`); the response carries app-style `appLink` actions (`catalogSearch`, `catalogCategory`, `catalogProductDetail`, `webView`), so the mobile app evidently consumes the same route.
 - **Observed limits** ≤5 items per section; `phrases` is often empty for multi-word queries (categories/products still returned); the web UI sends no token for this call.
 
-### Standalone AlzaBox locker discovery — implemented (2026-10-06, [#8](https://github.com/lukabudik/alza-mcp/issues/8))
+### Standalone AlzaBox locker discovery — implemented (2026-10-06, [#8](https://github.com/lukabudik/alza-mcp-community/issues/8))
 
 - **The gap:** `find_pickup_points` returned showrooms only. AlzaBoxes were
   reachable only through a live cart (`add_to_cart` → `delivery_options` →
@@ -668,12 +668,12 @@ Question: where can a read-only tool get discounted products with current price,
   `unresolved`. Only alza.cz was live-verified; other locales use the same
   route on their own origin.
 
-### Streamable HTTP transport ([#16](https://github.com/lukabudik/alza-mcp/issues/16)): local mode shipped, hosting deferred (2026-10-06)
+### Streamable HTTP transport ([#16](https://github.com/lukabudik/alza-mcp-community/issues/16)): local mode shipped, hosting deferred (2026-10-06)
 
-- **Shipped:** `alza-mcp --http [--port N]` / `ALZA_TRANSPORT=http` (`src/http.ts`). There is one `McpServer` per MCP session, and only the `catalog` toolset is usable unless `ALZA_HTTP_ENABLE_ACCOUNT=1`. `ALZA_TOKEN_FILE` is loaded only with `ALZA_HTTP_ALLOW_TOKEN_FILE=1`. The local transport, catalog search over HTTP, the toolset lock, per-session toolset/OAuth isolation and per-session sidecars are **live-verified**: see [live-evidence/streamable-http-2026-10-06.md](live-evidence/streamable-http-2026-10-06.md).
+- **Shipped:** `alza-mcp-community --http [--port N]` / `ALZA_TRANSPORT=http` (`src/http.ts`). There is one `McpServer` per MCP session, and only the `catalog` toolset is usable unless `ALZA_HTTP_ENABLE_ACCOUNT=1`. `ALZA_TOKEN_FILE` is loaded only with `ALZA_HTTP_ALLOW_TOKEN_FILE=1`. The local transport, catalog search over HTTP, the toolset lock, per-session toolset/OAuth isolation and per-session sidecars are **live-verified**: see [live-evidence/streamable-http-2026-10-06.md](live-evidence/streamable-http-2026-10-06.md).
 - **Why the account toolsets are locked on HTTP:** they sign in to and act on a real Alza account (orders, payments, credential changes). A network endpoint can be reached by more than one client and has no built-in authentication, so these tools are opt-in on HTTP. The operations themselves are unchanged and stay documented: `list_toolsets` shows every locked group and why it is locked.
 - **Hosting (Vercel `mcp-handler`, Fly, Railway): unresolved, follow-up.** Alza's Cloudflare Bot Management lets the headless browser and the `curl_cffi` sidecar through from a residential IP. From datacenter IPs they are far more likely to be challenged, as the GitHub-hosted canary runs already show. A hosted instance probably needs a residential proxy or a browser-as-a-service (`ALZA_CDP_URL`), plus sticky sessions and authentication in front of the endpoint. None of this was attempted.
-- **Live canary from GitHub-hosted runners: blocked (re-tested 2026-10-07, [run 37578987022](https://github.com/lukabudik/alza-mcp/actions/runs/37578987022)).** Every probe got HTTP 403 with `cf-mitigated: challenge` ("Okamžik…" challenge page) for `www.alza.cz` home and search, the `webapi` whisper endpoint and `identity.alza.cz` discovery. That held for plain curl, the `curl_cffi` Chrome-fingerprint sidecar and headless Chromium from the runner's Azure IP, and for curl_cffi, headless and headed Chromium (Xvfb) routed through Cloudflare WARP. The same `curl_cffi` request gets 200 from a residential IP. The fix is the egress, not the client: a self-hosted runner on a residential or office IP (`CANARY_RUNS_ON`), or a residential proxy (`ALZA_PROXY_URL`).
+- **Live canary from GitHub-hosted runners: blocked (re-tested 2026-10-07, [run 37578987022](https://github.com/lukabudik/alza-mcp-community/actions/runs/37578987022)).** Every probe got HTTP 403 with `cf-mitigated: challenge` ("Okamžik…" challenge page) for `www.alza.cz` home and search, the `webapi` whisper endpoint and `identity.alza.cz` discovery. That held for plain curl, the `curl_cffi` Chrome-fingerprint sidecar and headless Chromium from the runner's Azure IP, and for curl_cffi, headless and headed Chromium (Xvfb) routed through Cloudflare WARP. The same `curl_cffi` request gets 200 from a residential IP. The fix is the egress, not the client: a self-hosted runner on a residential or office IP (`CANARY_RUNS_ON`), or a residential proxy (`ALZA_PROXY_URL`).
 
 ### PC builder (#15): implemented 2026-10-06, with three catalog findings
 

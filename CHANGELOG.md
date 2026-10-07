@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.6.0] — 2026-10-07
+
+### Changed
+- **Renamed to `alza-mcp-community`**, at Alza's request, so the name makes clear this is an unofficial project, not made or supported by Alza. The npm package, binary, GitHub repository and MCP Registry name (`io.github.lukabudik/alza-mcp-community`) all changed. Update your MCP config from `npx -y alza-mcp` to `npx -y alza-mcp-community`. The old `alza-mcp` npm package is deprecated and points here. Saved logins in `~/.alza-mcp/` and all `ALZA_*` environment variables are unchanged.
+- The server title shown in MCP clients is now "Alza (unofficial, community)".
+
+### Added
+- README: a notice under the title that the project is unofficial; @jankryh added to Contributors.
+
 ## [0.5.0] — 2026-10-07
 
 Security hardening of the account and checkout path, a QA pass over the whole server (about 60 findings fixed), link attribution, `report_issue`, proxy support and `--setup-cf`.

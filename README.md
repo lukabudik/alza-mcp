@@ -1,15 +1,17 @@
-# alza-mcp
+# alza-mcp-community
 
 > Let your AI agent shop on **[Alza.cz](https://www.alza.cz)** — Central Europe's largest e-commerce store.
 
-[![npm version](https://img.shields.io/npm/v/alza-mcp.svg)](https://www.npmjs.com/package/alza-mcp)
-[![CI](https://github.com/lukabudik/alza-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/lukabudik/alza-mcp/actions/workflows/ci.yml)
+**Unofficial, community-built project. Not made, endorsed or supported by Alza.cz a.s.**
+
+[![npm version](https://img.shields.io/npm/v/alza-mcp-community.svg)](https://www.npmjs.com/package/alza-mcp-community)
+[![CI](https://github.com/lukabudik/alza-mcp-community/actions/workflows/ci.yml/badge.svg)](https://github.com/lukabudik/alza-mcp-community/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Playwright](https://img.shields.io/badge/-Playwright-2EAD33?logo=playwright&logoColor=white)](https://playwright.dev/)
 [![MCP](https://img.shields.io/badge/-Model%20Context%20Protocol-7C3AED)](https://modelcontextprotocol.io)
 
-`alza-mcp` is an unofficial **Model Context Protocol** server that gives Claude (or any MCP-aware agent) an interface to Alza through browser-based catalog scraping and reverse-engineered mobile/web APIs: search products, pull full detail, read reviews, use anonymous/account data, manage a cart, select delivery/AlzaBox pickup, preview checkout, and submit an order only with an explicit one-time confirmation token.
+`alza-mcp-community` is an unofficial **Model Context Protocol** server that gives Claude (or any MCP-aware agent) an interface to Alza through browser-based catalog scraping and reverse-engineered mobile/web APIs: search products, pull full detail, read reviews, use anonymous/account data, manage a cart, select delivery/AlzaBox pickup, preview checkout, and submit an order only with an explicit one-time confirmation token.
 
 <p align="center"><img src="docs/demo.gif" alt="Animated recording of a real Claude Code session: search_products finds wheel cleaners under 600 Kč, get_product shows price and stock, find_pickup_points lists Prague showrooms" width="780"></p>
 
@@ -24,17 +26,20 @@ Ask: *"Find me the best pro-grade wheel cleaner under 600 Kč and tell me where 
 
 ## Quick install
 
+> [!NOTE]
+> **Renamed from `alza-mcp`.** At Alza's request, the project is now `alza-mcp-community`, so it's clear it isn't an official Alza product. If you installed the old package, replace `alza-mcp` with `alza-mcp-community` in your MCP config. Your saved login in `~/.alza-mcp/` keeps working.
+
 ### One-click install
 
-[![Install in Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=alza&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImFsemEtbWNwIl19)
-[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_alza--mcp-0098FF?logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=alza&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22alza-mcp%22%5D%7D)
+[![Install in Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=alza&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImFsemEtbWNwLWNvbW11bml0eSJdfQ==)
+[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_alza--mcp--community-0098FF?logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=alza&config=%7B%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22alza-mcp-community%22%5D%7D)
 
-Both buttons install the same thing as the manual config below: `npx -y alza-mcp`, no environment variables, no secrets. With `npx`/`npm`, install runs a postinstall step that downloads Playwright's headless Chromium (~92 MB) and sets up the optional `curl_cffi` venv, so the first install takes a while and later starts take a few seconds. The `.mcpb` bundle and `--ignore-scripts` installs skip postinstall: Chromium is then downloaded on the first browser-backed call (~30 s) and the venv is not created (see [Install paths](#install-paths-and-the-curl_cffi-venv)). For Claude Desktop, download the one-click `alza-mcp-<version>.mcpb` bundle from the [latest release](https://github.com/lukabudik/alza-mcp/releases/latest) and open it, or use the JSON config below.
+Both buttons install the same thing as the manual config below: `npx -y alza-mcp-community`, no environment variables, no secrets. With `npx`/`npm`, install runs a postinstall step that downloads Playwright's headless Chromium (~92 MB) and sets up the optional `curl_cffi` venv, so the first install takes a while and later starts take a few seconds. The `.mcpb` bundle and `--ignore-scripts` installs skip postinstall: Chromium is then downloaded on the first browser-backed call (~30 s) and the venv is not created (see [Install paths](#install-paths-and-the-curl_cffi-venv)). For Claude Desktop, download the one-click `alza-mcp-community-<version>.mcpb` bundle from the [latest release](https://github.com/lukabudik/alza-mcp-community/releases/latest) and open it, or use the JSON config below.
 
 ### Claude Code
 
 ```bash
-claude mcp add alza --scope user -- npx -y alza-mcp
+claude mcp add alza --scope user -- npx -y alza-mcp-community
 ```
 
 That's it. Restart Claude Code, type `/mcp` to confirm, and start asking. The install downloads Playwright's headless Chromium browser (~92 MB) via postinstall; if that was skipped, the first browser-backed call downloads it (~30 s).
@@ -48,7 +53,7 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
   "mcpServers": {
     "alza": {
       "command": "npx",
-      "args": ["-y", "alza-mcp"]
+      "args": ["-y", "alza-mcp-community"]
     }
   }
 }
@@ -58,7 +63,7 @@ Restart the app. Same install-time download.
 
 ### Cursor / Continue / any MCP client
 
-Same shape — `command: "npx"`, `args: ["-y", "alza-mcp"]`. Stdio transport, standard MCP everywhere.
+Same shape — `command: "npx"`, `args: ["-y", "alza-mcp-community"]`. Stdio transport, standard MCP everywhere.
 
 ---
 
@@ -103,7 +108,7 @@ With 63 domain tools (66 including `list_toolsets`, `set_toolset` and `report_is
 
 Call **`list_toolsets`** to see every group and **`set_toolset({id, enabled: true})`** to turn one on before using its tools — e.g. enable `basket_and_checkout` before adding something to a cart. This is standard MCP progressive disclosure (`RegisteredTool.enable()`/`.disable()`, which fires the normal `tools/list_changed` notification) — no functionality is removed, it's just not all visible at once.
 
-**Reporting problems.** `report_issue` is always available, whichever toolsets are on. When a tool fails unexpectedly, returns clearly wrong data, or breaks because Alza changed something, the server instructions and the error message itself point the agent to it. It returns a redacted draft (with version, Node, platform, storefront, transport and this session's recent tool errors), a `gh issue list` command to check for duplicates, a ready-to-run `gh issue create --repo lukabudik/alza-mcp …` command, and a prefilled new-issue link for agents without a shell. The server files nothing itself: the agent shows the draft to you and files it from your GitHub account only if you agree. Credentials (including cookies and API keys), e-mails, phone numbers, UUIDs, URL query values, account ids and home-directory paths are redacted automatically, and recent errors keep only route and status. Invalid arguments and unknown products don't trigger the hint.
+**Reporting problems.** `report_issue` is always available, whichever toolsets are on. When a tool fails unexpectedly, returns clearly wrong data, or breaks because Alza changed something, the server instructions and the error message itself point the agent to it. It returns a redacted draft (with version, Node, platform, storefront, transport and this session's recent tool errors), a `gh issue list` command to check for duplicates, a ready-to-run `gh issue create --repo lukabudik/alza-mcp-community …` command, and a prefilled new-issue link for agents without a shell. The server files nothing itself: the agent shows the draft to you and files it from your GitHub account only if you agree. Credentials (including cookies and API keys), e-mails, phone numbers, UUIDs, URL query values, account ids and home-directory paths are redacted automatically, and recent errors keep only route and status. Invalid arguments and unknown products don't trigger the hint.
 
 Catalog tools:
 
@@ -220,7 +225,7 @@ Plus:
 
 ## Configuration
 
-All optional — `alza-mcp` works out of the box.
+All optional — `alza-mcp-community` works out of the box.
 
 | Env var | Default | Purpose |
 |---|---|---|
@@ -240,13 +245,13 @@ The Chrome-fingerprint sidecar needs a Python venv with `curl_cffi` (pinned to `
 
 | Install path | Chromium headless-shell | `curl_cffi` venv |
 |---|---|---|
-| `npx -y alza-mcp` / `npm i alza-mcp` (Linux, macOS, WSL, MSYS bash) | downloaded by postinstall | created by postinstall if `bash` and `python3` (with `venv`) exist; a failed attempt removes the partial venv |
+| `npx -y alza-mcp-community` / `npm i alza-mcp-community` (Linux, macOS, WSL, MSYS bash) | downloaded by postinstall | created by postinstall if `bash` and `python3` (with `venv`) exist; a failed attempt removes the partial venv |
 | `ALZA_MCP_SKIP_INSTALL=1` or `PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1` | skipped (downloaded at runtime when needed) | still created |
 | `ALZA_MCP_SKIP_VENV=1` | downloaded | skipped |
-| `--ignore-scripts`, or the `.mcpb` bundle | downloaded at runtime when needed | **not created**. For `--ignore-scripts` run `npx -y alza-mcp --setup-cf` (cross-platform, no bash) or `bash scripts/ensure-cf-venv.sh` in the package directory; for the `.mcpb` bundle run `--setup-cf` once and point `ALZA_CF_PYTHON` at any interpreter that has `curl_cffi` |
+| `--ignore-scripts`, or the `.mcpb` bundle | downloaded at runtime when needed | **not created**. For `--ignore-scripts` run `npx -y alza-mcp-community --setup-cf` (cross-platform, no bash) or `bash scripts/ensure-cf-venv.sh` in the package directory; for the `.mcpb` bundle run `--setup-cf` once and point `ALZA_CF_PYTHON` at any interpreter that has `curl_cffi` |
 | This repository's own checkout (`npm ci`) | skipped | skipped; run `npm run setup:cf` and `npx playwright install chromium --only-shell` yourself |
 
-Without the venv the server still works: the account stack falls back to plain fetch and the browser, which Cloudflare challenges more often. Windows: the interpreter lookup also tries `.venv-cf\Scripts\python.exe`, `python` and `py`, and the bash script does not run on plain Windows. Use `npx -y alza-mcp --setup-cf` instead: it is implemented in Node, finds `py -3`/`python`/`python3`, runs `python -m venv .venv-cf` in the package directory, installs `curl_cffi>=0.16,<0.17`, verifies the import, prints success or failure and exits 0/1. It is idempotent, removes a venv it half-built if pip fails, honours `ALZA_MCP_SKIP_VENV=1`, and is never run automatically (the server never installs packages at runtime; when the sidecar is unavailable it only logs a one-line hint to run it). The venv is created inside the package copy that runs the command (for `npx`, its cache directory, which is replaced when a new version is fetched or the npm cache is cleared; re-run `--setup-cf` then), so the `.mcpb` bundle, which has its own directory, does not pick it up: after running it, set `ALZA_CF_PYTHON` to the interpreter it prints (or to any interpreter that has `curl_cffi`) in the bundle's environment. The Windows path (`Scripts\python.exe`, `py -3`) is unit-tested with mocked processes only and is `unresolved` on a real Windows machine (not tested live).
+Without the venv the server still works: the account stack falls back to plain fetch and the browser, which Cloudflare challenges more often. Windows: the interpreter lookup also tries `.venv-cf\Scripts\python.exe`, `python` and `py`, and the bash script does not run on plain Windows. Use `npx -y alza-mcp-community --setup-cf` instead: it is implemented in Node, finds `py -3`/`python`/`python3`, runs `python -m venv .venv-cf` in the package directory, installs `curl_cffi>=0.16,<0.17`, verifies the import, prints success or failure and exits 0/1. It is idempotent, removes a venv it half-built if pip fails, honours `ALZA_MCP_SKIP_VENV=1`, and is never run automatically (the server never installs packages at runtime; when the sidecar is unavailable it only logs a one-line hint to run it). The venv is created inside the package copy that runs the command (for `npx`, its cache directory, which is replaced when a new version is fetched or the npm cache is cleared; re-run `--setup-cf` then), so the `.mcpb` bundle, which has its own directory, does not pick it up: after running it, set `ALZA_CF_PYTHON` to the interpreter it prints (or to any interpreter that has `curl_cffi`) in the bundle's environment. The Windows path (`Scripts\python.exe`, `py -3`) is unit-tested with mocked processes only and is `unresolved` on a real Windows machine (not tested live).
 
 ---
 
@@ -255,7 +260,7 @@ Without the venv the server still works: the account stack falls back to plain f
 stdio is the default and what the install snippets above use. To serve the same server over [MCP Streamable HTTP](https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#streamable-http) instead, for example for a client that only takes a URL:
 
 ```bash
-npx -y alza-mcp --http --port 3000          # or: ALZA_TRANSPORT=http ALZA_HTTP_PORT=3000 npx -y alza-mcp
+npx -y alza-mcp-community --http --port 3000          # or: ALZA_TRANSPORT=http ALZA_HTTP_PORT=3000 npx -y alza-mcp-community
 # → MCP endpoint http://127.0.0.1:3000/mcp, health check http://127.0.0.1:3000/healthz
 
 claude mcp add --transport http alza http://127.0.0.1:3000/mcp
@@ -292,7 +297,7 @@ Register the local build in pi's global MCP config (`~/.pi/agent/mcp.json`):
 {
   "alza": {
     "command": "node",
-    "args": ["/absolute/path/to/alza-mcp/dist/index.js"]
+    "args": ["/absolute/path/to/alza-mcp-community/dist/index.js"]
   }
 }
 ```
@@ -329,7 +334,7 @@ Image, font, and analytics requests are blocked at the route level. Catalog page
 
 ```
 ┌────────────────────────────────────────────┐
-│ stdio transport (npx alza-mcp)             │
+│ stdio transport (npx alza-mcp-community)             │
 ├────────────────────────────────────────────┤
 │ MCP tools / resources / prompts            │
 │  grouped into toolsets (toolsets.ts)       │
@@ -355,8 +360,8 @@ For deeper architecture notes — including why we don't ship the HTTP/okhttp re
 ## Development
 
 ```bash
-git clone https://github.com/lukabudik/alza-mcp.git
-cd alza-mcp
+git clone https://github.com/lukabudik/alza-mcp-community.git
+cd alza-mcp-community
 npm install                 # dev checkout: postinstall is skipped on purpose
 npm run setup:cf            # optional curl_cffi venv (needs bash + python3)
 npx playwright install chromium --only-shell   # browser for live runs
@@ -394,9 +399,9 @@ node dist/index.js --http   # or serve MCP Streamable HTTP on http://127.0.0.1:3
 
 `main` already covers catalog, filtering, cart, checkout, order placement/cancellation and account management (see [What it does](#what-it-does) and the known limitations in [docs/gap-analysis.md](docs/gap-analysis.md)). Next up:
 
-- **PC builder** follow-ups ([#15](https://github.com/lukabudik/alza-mcp/issues/15); `pc_builder` toolset shipped) and a **hosted HTTP endpoint** (follow-up to [#16](https://github.com/lukabudik/alza-mcp/issues/16); local `--http` mode is shipped)
+- **PC builder** follow-ups ([#15](https://github.com/lukabudik/alza-mcp-community/issues/15); `pc_builder` toolset shipped) and a **hosted HTTP endpoint** (follow-up to [#16](https://github.com/lukabudik/alza-mcp-community/issues/16); local `--http` mode is shipped)
 
-Priorities live in [ROADMAP.md](ROADMAP.md); everything is tracked in [issues](https://github.com/lukabudik/alza-mcp/issues) — [`good first issue`](https://github.com/lukabudik/alza-mcp/labels/good%20first%20issue) is the place to start.
+Priorities live in [ROADMAP.md](ROADMAP.md); everything is tracked in [issues](https://github.com/lukabudik/alza-mcp-community/issues) — [`good first issue`](https://github.com/lukabudik/alza-mcp-community/labels/good%20first%20issue) is the place to start.
 
 ---
 
@@ -421,15 +426,15 @@ Yes. Set `ALZA_CDP_URL` to your existing Chrome's debug port:
 # launch Chrome with debugging
 /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
   --remote-debugging-port=9222
-# tell alza-mcp to attach
-ALZA_MCP_SKIP_INSTALL=1 ALZA_CDP_URL=http://localhost:9222 npx alza-mcp
+# tell alza-mcp-community to attach
+ALZA_MCP_SKIP_INSTALL=1 ALZA_CDP_URL=http://localhost:9222 npx alza-mcp-community
 ```
 
 The MCP will use *your* Chrome — no separate download, faster cold starts, and it inherits any Alza cookies you already have.
 
 ### Will Alza take this down?
 
-It might, and you should assume that's possible. The project has no commercial intent, caches to minimize traffic, and provides a takedown contact path via [issues](https://github.com/lukabudik/alza-mcp/issues) — if Alza requests removal, we'll comply. But it does get past Alza's bot protection (see [How it works](#how-it-works)), so it is not a polite scraper by Alza's standards, and Alza's terms of use may forbid it. Use it for personal automation, not at scale.
+It might, and you should assume that's possible. The project has no commercial intent, caches to minimize traffic, and provides a takedown contact path via [issues](https://github.com/lukabudik/alza-mcp-community/issues) — if Alza requests removal, we'll comply. But it does get past Alza's bot protection (see [How it works](#how-it-works)), so it is not a polite scraper by Alza's standards, and Alza's terms of use may forbid it. Use it for personal automation, not at scale.
 
 ### How does this compare to rohlik-mcp?
 
@@ -443,7 +448,7 @@ It might, and you should assume that's possible. The project has no commercial i
 
 ## Disclaimer
 
-`alza-mcp` is **not affiliated with, endorsed by, or sponsored by Alza.cz a.s.** "Alza", "Alza.cz", and "AlzaBox" are trademarks of their respective owners.
+`alza-mcp-community` is **not affiliated with, endorsed by, or sponsored by Alza.cz a.s.** "Alza", "Alza.cz", and "AlzaBox" are trademarks of their respective owners.
 
 **What this software does.** It is a reverse-engineered client. Its mobile-API routes and data shapes were recovered from the Alza Android application, and its catalog tools scrape alza.cz pages with a headless browser. To reach Alza's servers it circumvents Cloudflare Bot Management (headless Chromium plus a Chrome-fingerprint HTTP sidecar). The Android app's OAuth client credential, which is embedded in the public APK, is used as the default for the token exchange.
 
@@ -467,12 +472,15 @@ MIT. See [LICENSE](LICENSE).
   <tr>
     <td align="center"><a href="https://github.com/lukabudik"><img src="https://github.com/lukabudik.png?size=100" width="80" alt=""><br><sub><b>Luka Budík</b></sub></a><br><sub>Creator, maintainer</sub></td>
     <td align="center"><a href="https://github.com/samuelseidel"><img src="https://github.com/samuelseidel.png?size=100" width="80" alt=""><br><sub><b>Samuel Seidel</b></sub></a><br><sub>Maintainer</sub></td>
+    <td align="center"><a href="https://github.com/jankryh"><img src="https://github.com/jankryh.png?size=100" width="80" alt=""><br><sub><b>@jankryh</b></sub></a><br><sub>OAuth login fix</sub></td>
   </tr>
 </table>
 
-A big thank you to **[Samuel Seidel](https://github.com/samuelseidel)**, the project's first outside contributor and now a co-maintainer. He built the account, cart, checkout and order tools, toolsets, typed output schemas, category filtering and the live-verified test harness, which together took alza-mcp from a 5-tool catalog browser to a full shopping agent ([#1](https://github.com/lukabudik/alza-mcp/pull/1), [#5](https://github.com/lukabudik/alza-mcp/pull/5)).
+A big thank you to **[Samuel Seidel](https://github.com/samuelseidel)**, the project's first outside contributor and now a co-maintainer. He built the account, cart, checkout and order tools, toolsets, typed output schemas, category filtering and the live-verified test harness, which together took the project from a 5-tool catalog browser to a full shopping agent ([#1](https://github.com/lukabudik/alza-mcp-community/pull/1), [#5](https://github.com/lukabudik/alza-mcp-community/pull/5)).
 
-Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) and the [open issues](https://github.com/lukabudik/alza-mcp/issues).
+Thanks also to **[@jankryh](https://github.com/jankryh)**, who tracked down why OAuth login never worked from the npm package and fixed it ([#29](https://github.com/lukabudik/alza-mcp-community/issues/29), [#30](https://github.com/lukabudik/alza-mcp-community/pull/30)).
+
+Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) and the [open issues](https://github.com/lukabudik/alza-mcp-community/issues).
 
 ## Acknowledgements
 

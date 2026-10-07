@@ -16,7 +16,7 @@ import { TOOLSET_DEFS } from "../src/tools/toolsets.js";
 
 const CATALOG = TOOLSET_DEFS.find((d) => d.id === "catalog")!.tools;
 const PC_BUILDER = TOOLSET_DEFS.find((d) => d.id === "pc_builder")!.tools;
-const tokenDir = mkdtempSync(join(tmpdir(), "alza-mcp-http-test-"));
+const tokenDir = mkdtempSync(join(tmpdir(), "alza-mcp-community-http-test-"));
 const tokenFile = join(tokenDir, "tokens.json");
 writeFileSync(tokenFile, JSON.stringify({ access_token: "fake-access", refresh_token: "fake-refresh", visitor_id: "00000000-0000-4000-8000-000000000000" }));
 const savedTokenFile = process.env.ALZA_TOKEN_FILE;
