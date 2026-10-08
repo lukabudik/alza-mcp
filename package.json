@@ -22,8 +22,8 @@
     "LICENSE"
   ],
   "scripts": {
-    "prebuild": "rm -rf dist",
-    "build": "tsc && chmod +x dist/index.js",
+    "prebuild": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\"",
+    "build": "tsc && node -e \"if (process.platform !== 'win32') require('node:fs').chmodSync('dist/index.js', 0o755)\"",
     "dev": "tsc --watch",
     "start": "node dist/index.js",
     "test": "vitest run",
